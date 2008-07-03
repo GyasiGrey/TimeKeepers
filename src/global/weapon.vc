@@ -135,68 +135,6 @@ void FreeWeapons()
 //else only does it once
 //shooter and target are ENTITY indexes
 int LOSstop;
-void FireWeaponXY(int shooter, int x, int y)
-{
-	int eqweapon, i, enemyindex;
-	
-	Error("FireWeaponXY() Called shooter: " + str(shooter) + " x: " + str(x) + " y: " + str(y));
-	
-	//face your target when shooting
-	//EntityFace(shooter, target);
-	
-	if(shooter != nPlayerEnt)
-	{
-		error("FireWeaponXY() should only be called with shooter == nPlayerEnt");
-		return;
-	}
-	else
-	{
-		if(Weapons[nEquipedWeapon].nMaxAmmo > 0)
-			nAmmo[nEquipedWeapon]--;
-			
-		//only silent weapons can miss, and therfore sometimes won't play there sound
-		//non silent always play the sound
-		if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_SILENT)
-			PlaySound(Weapons[nEquipedWeapon].nSound, 100);
-			
-		eqweapon = nEquipedWeapon;
-		enemyindex = shooter;
-
-		if(entity.face[nPlayerEnt] == ENTITY_FACE_UP)
-		{
-			AnimatePlayer("Z29 W10 Z30 W10");
-		}
-		else if(entity.face[nPlayerEnt] == ENTITY_FACE_LEFT)
-		{
-			AnimatePlayer("Z27 W10 Z28 W10");
-		}
-		else if(entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
-		{
-			AnimatePlayer("Z25 W10 Z26 W10");
-		}
-		else if(entity.face[nPlayerEnt] == ENTITY_FACE_RIGHT)
-		{
-			AnimatePlayer("Z31 W10 Z32 W10");
-		}
-	}
-
-	if(Weapons[eqweapon].nType == WEAPON_TYPE_SPREAD)
-	{
-		for(i=0;i<Weapons[eqweapon].nSpreadShots;i++)
-		{
-			//say goodby to your FPS
-			LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), x+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), y+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
-			FireWeaponHelp(shooter, -1);
-		}
-	}
-	else
-	{
-		//draw a line from the player to the target
-		LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), x+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), y+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
-		FireWeaponHelp(shooter, -1);
-	}
-}
-
 void FireWeapon(int shooter, int target)
 {
 	int eqweapon, i, enemyindex;

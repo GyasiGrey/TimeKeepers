@@ -38,19 +38,6 @@ Priority 1
 
 Release 2.5
 ***********
-Mouse Control
-	-Mouse sensitivity
-	-Target lock for mouse
-	-*DONE* Switch weapon with mouse wheel
-	-Target loots
-	-Do animation for normal mouse pointer. Have a black pixel slide around the green area of the pointer.
-
-Work with menues (sigh)
-	-Make mouse anims non automatic
-	-Draw mouse anims on top of everything else
-	-Make mouse clickable areas of menues. On mouse over it sets the pointer to the correct ID.	
-
-
 Inet updates
 	-*DONE* Put a signature at the top of all responses to the client
 	-If the client does not see this signature, ignore the response. Count as a general could not connect error.

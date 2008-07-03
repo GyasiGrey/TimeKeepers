@@ -5,12 +5,12 @@ int nKeyButton[NUM_BUTTONS];
 int nJoyButton[NUM_BUTTONS];
 string sButtonNames[NUM_BUTTONS];	//human readable button names
 
-#define BUTTON_SHOOT key[nKeyButton[0]] || GetJoyButton(nJoyButton[0]) || mouse.l
+#define BUTTON_SHOOT key[nKeyButton[0]] || GetJoyButton(nJoyButton[0])
 #define BUTTON_MEDKIT key[nKeyButton[1]] || GetJoyButton(nJoyButton[1])
 #define BUTTON_AIM key[nKeyButton[2]] || GetJoyButton(nJoyButton[2])
 #define BUTTON_STEAL key[nKeyButton[3]] || GetJoyButton(nJoyButton[3])
-#define BUTTON_WEAPON_SWITCHUP key[nKeyButton[4]] || GetJoyButton(nJoyButton[4]) || mouse.w > 0
-#define BUTTON_WEAPON_SWITCHDOWN key[nKeyButton[5]] || GetJoyButton(nJoyButton[5]) || mouse.w < 0
+#define BUTTON_WEAPON_SWITCHUP key[nKeyButton[4]] || GetJoyButton(nJoyButton[4])
+#define BUTTON_WEAPON_SWITCHDOWN key[nKeyButton[5]] || GetJoyButton(nJoyButton[5])
 #define BUTTON_PAUSE key[nKeyButton[6]] || GetJoyButton(nJoyButton[6])
 #define BUTTON_PDA key[nKeyButton[7]] || GetJoyButton(nJoyButton[7])
 
@@ -73,9 +73,6 @@ void UnpressButtons()
 	nUnpress[nJoyButton[5]] = 1;
 	nUnpress[nJoyButton[6]] = 1;
 	nUnpress[nJoyButton[7]] = 1;
-	
-	mouse.l = 0;
-	mouse.w = 0;
 }
 
 void UnpressWeaponSwitchButtons()

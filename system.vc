@@ -70,8 +70,6 @@
 #include "src\modules\objectives.vc"
 #include "src\modules\dialogBox.vc"
 #include "src\modules\arena.vc"
-#include "src\modules\mouse.vc"
-#include "src\modules\walkButtons.vc"
 
 //menu stuff
 #include "src\menu\menu_system.vc"
@@ -175,9 +173,6 @@ void AddDefaultHooks()
 	//vcTimer
 	//AddHook("ProcessvcTimer", 1);
 	HookTimer("ProcessvcTimer");
-	
-	//WASD movement
-	AddHook("ProcessWASD", 5);
 	//autosave check
 	AddHook("CheckAutoSave", 5);
 	//ambient sounds
@@ -201,14 +196,11 @@ void AddDefaultHooks()
 	//lock pick notification
 	AddHook("BlitLockPick", 1505);
 
-	//mouse logic
-	AddHook("ProcessMouse", 2500);
-	
 	//the animations
 	AddHook("ProcessAnimations", 2501);
 	
 	AddHook("DrawToolTip", 2601);
-	
+
 	//the menues
 	AddHook("ProcessMenus",3001);
 	
@@ -317,8 +309,6 @@ void Init()
 	//load the target anim
 	nTargetPointerAnim = LoadAnimationEX("targetpointer.png", 16, 16, 0-16, 0-16, "T1 F0, W20, F1, W20, F2, W20, F3, W20, F2, W20, F1, W20, F0, R");
 
-	InitMouseAnims();
-	
 	InitAchievements();
 	InitWeapons();
 	InitTimers();
