@@ -1,0 +1,114 @@
+int nKeyConfigMenuPointer;
+
+void OpenKeyConfigMenu()
+{
+	nPointerPos = 0;
+
+	
+	nKeyConfigMenuPointer = LoadAnimationEX("cursor.png", 8, 8, 78, 100, ANIMATION_CURSOR_ANIM_STRING);
+	anims[nKeyConfigMenuPointer].automatic = 0;
+	
+	CreateMenu(70, 30, GetMenuTemplateIndex("MenuKeyConfig"));
+}
+
+
+void MenuKeyConfigDraw()
+{
+
+	int i;
+
+	int img = CreateWindow("Key Config", 200, 56+(NUM_BUTTONS*8), nTerminalFont);
+	
+	PrintString(130, 14, img, nTerminalFont, "Key");
+
+	PrintString(170, 14, img, nTerminalFont, "Joy");
+	
+	for(i=0;i<NUM_BUTTONS;i++)
+	{
+		PrintString(8, 22+(i*8), img, nTerminalFont, sButtonNames[i]);
+	}
+	
+	i++;
+	PrintString(16, 22+(i*8), img, nTerminalFont, "Keyboard Config");
+	PrintString(16, 22+((i+1)*8), img, nTerminalFont, "Joystick Config");
+	PrintString(16, 22+((i+2)*8), img, nTerminalFont, "Close");
+	
+	for(i=0;i<NUM_BUTTONS;i++)
+	{
+		PrintString(130, 22+(i*8), img, nTerminalFont, ScanToKeyName(nKeyButton[i]));
+		PrintString(170, 22+(i*8), img, nTerminalFont, str(nJoyButton[i]));
+	}
+
+	Blit(nMenuX, nMenuY, img, screen);	
+	
+	FreeImage(img);
+	
+	DrawAnimation(nKeyConfigMenuPointer);
+}
+
+void MenuKeyConfigLogic()
+{
+	anims[nKeyConfigMenuPointer].y = 52+((NUM_BUTTONS+1)*8)+(nPointerPos*8);
+	
+	if(up)
+	{
+		SoundKeyboardRand();
+		
+		nPointerPos--;
+		
+		if(nPointerPos < 0)
+			nPointerPos = 2;
+			
+		unpress(5);
+	}
+	
+	if(down)
+	{
+		SoundKeyboardRand();
+		
+		nPointerPos++;
+		
+		if(nPointerPos > 2)
+			nPointerPos = 0;
+			
+		unpress(6);
+	}
+	
+	if(BUTTON_SHOOT)
+	{
+		UnpressButtons();
+		if (nPointerPos == 0)
+		{
+			SoundKeyboardRand();
+			UnpressButtons();
+			OpenKeyboardConfigMenu();
+		}
+		else if(nPointerPos == 1)
+		{
+			SoundKeyboardRand();
+			UnpressButtons();
+			OpenJoyConfigMenu();
+		}
+		else if(nPointerPos == 2)
+		{
+			CloseTopMenu();
+			UnpressButtons();
+			SoundKeyboardRand();
+		}
+	}
+	
+	if(BUTTON_MEDKIT)
+	{
+		SoundKeyboardRand();
+		CloseTopMenu();
+		UnpressButtons();
+	}
+}
+
+void MenuKeyConfigClose()
+{
+	//close this menu
+	UnpressButtons();
+	FreeAnimation(nKeyConfigMenuPointer);
+}
+

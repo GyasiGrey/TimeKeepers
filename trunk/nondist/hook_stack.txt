@@ -1,0 +1,9 @@
+Defines what kind of functions get defined where.
+
+0001: Pause
+0002-0500: Logic - Functions that don't draw to the screen
+0501-1000: Things in the game world - Doors, Light, etc
+1001-1500: Screen effects - Static, Scanlines, Fades
+1501-2000: In game GUI
+2501-3000: Menues
+3001: Animations (Need to be on top of menues for menu cursors - re work logic?)

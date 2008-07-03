@@ -1,0 +1,36 @@
+int MakeWaitBar(int width, int height, int value, int maxvalue)
+{
+	int barimg = newimage(width, height);
+	int color = RGB(0, 0, 255);
+	//calculate the width of the fill once
+	int ratio = (value*width-2)/maxvalue;
+	
+	//blank out the img
+	RectFill(0, 0, width-1, 6, RGB(255, 0, 255), barimg);
+
+	//make the fill
+	if(value <= maxvalue/2)
+		color = RGB(255, 255, 0);
+	
+
+	if(value <= maxvalue/4)
+		color = RGB(255, 0, 0);
+
+	RectFill(0, 0, ratio, height, color, barimg);
+	
+	//draw the numbers over the bar
+	PrintCenter(width/2, 1, barimg, nTinyFont, str(value)+"/"+str(maxvalue));
+
+
+	//make the top and bottom lines for the border
+	Line(0, 0, width-1, 0, RGB(255, 255, 255), barimg);
+	Line(0, height-1, width-1, height-1, RGB(255, 255, 255), barimg);
+	
+
+	//make the lines for the edges
+	Line(0, height-1, 0, 0, RGB(255, 255, 255), barimg);
+	Line(width-1, height-1, width-1, 0, RGB(255, 255, 255), barimg);
+			
+	return barimg;
+	
+}

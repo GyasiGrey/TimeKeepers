@@ -1,0 +1,722 @@
+#define DEBUG 2		//==0 no debug output. ==1 log only. ==2 console, log. ==3 messagebox, console, log
+#define CHEATS_ENABLED 1
+
+#define SAVE_VERSION 1		//number that goes at the top of the save files, so that I can tell if someone is trying
+				//to load an out of data save file
+
+
+//#include "debug_imgtrack.vc"	//must be included at the top to defines to work
+
+#include "defines.vc"
+
+#include "splash.vc"		//Splash screen fufujuju
+
+//must be included first because of includes
+#include "src\modules\vcTimer.vc"
+
+//includes needed for the whole program
+#include "src\global\misc.vc"		//Funcs used all over the place (abs, strstr etc)
+#include "src\global\XMLParse.vc"	//My simple XML parser
+#include "src\global\leaderBoard.vc"	//leaderboard of AWSUM
+#include "src\global\trackedStats.vc"
+#include "src\global\achivements.vc"	//Achivement Unlocked: "Copyright Infringement" 30G
+#include "src\global\blur.vc"		//Rages blur lib
+#include "src\global\AStar.vh"		//Rages A*
+#include "src\global\hook.vc"		//watchout for the hook
+#include "src\global\sounds.vc"		//sounds functions (like sully simple)
+#include "src\global\flags.vc"		//where all the flags are defined
+#include "src\global\buttons.vc"	//my own input wrapper, for more then 4 "quick keys" (b1 b2 etc)
+#include "src\global\gui.vc"		//some porly organized gui functions
+#include "src\global\los.vc"		//Line of Sight code
+#include "src\global\weapon.vc"		//weapon struct and helper funcs
+#include "src\global\effect.vc"		//some little effects
+#include "src\global\warp.vc"		//funcs for moving the player around
+#include "src\global\medkit.vc"
+#include "src\global\camera.vc"
+#include "src\global\textAnims.vc"
+#include "src\global\toolTip.vc"
+#include "src\global\effectCameraScroll.vc"
+#include "src\global\tkSplash.vc"
+
+//Modules - all these hook to the renderer and can
+//basically work independently of the rest of the game
+#include "src\modules\enemy.vc"				//enemy struct and enemy AI
+#include "src\modules\enemyai\normal.vc"		//enemy AI polymorphism functions
+#include "src\modules\enemyai\civilian.vc"
+#include "src\modules\enemyai\bigguard.vc"
+#include "src\modules\enemyai\dummy.vc"
+#include "src\modules\enemyai\camera.vc"
+#include "src\modules\enemyai\cautiouscivilian.vc"
+
+#include "src\modules\musicswitch.vc"
+#include "src\modules\particle.vc"
+#include "src\modules\lowhealthalarm.vc"
+#include "src\modules\ambientsound.vc"
+#include "src\modules\light.vc"
+//#include "src\modules\lightzones.vc"
+#include "src\modules\animation.vc"
+#include "src\modules\loot.vc"
+#include "src\modules\door.vc"
+#include "src\modules\radar.vc"
+#include "src\modules\tveffect.vc"
+#include "src\modules\pause.vc"
+#include "src\modules\autosave.vc"
+#include "src\modules\delayedCallback.vc"
+#include "src\modules\effectShake.vc"
+#include "src\modules\effectFadeOut.vc"
+#include "src\modules\effectFadein.vc"
+#include "src\modules\notes.vc"
+#include "src\modules\commLog.vc"
+#include "src\modules\objectives.vc"
+#include "src\modules\dialogBox.vc"
+#include "src\modules\arena.vc"
+
+//menu stuff
+#include "src\menu\menu_system.vc"
+#include "src\menu\menu_main.vc"
+#include "src\menu\menu_clock.vc"
+#include "src\menu\menu_keyconfig.vc"
+#include "src\menu\menu_keyconfig_keyboard.vc"
+#include "src\menu\menu_keyconfig_joystick.vc"
+#include "src\menu\menu_ingame.vc"
+#include "src\menu\menu_options.vc"
+#include "src\menu\menu_choose.vc"
+#include "src\menu\menu_load.vc"
+#include "src\menu\menu_save.vc"
+#include "src\menu\titlescreen.vc"
+#include "src\menu\menu_gameover.vc"
+#include "src\menu\menu_digit_pad.vc"
+#include "src\menu\menu_message.vc"
+#include "src\menu\menu_pda.vc"
+#include "src\menu\menu_leaderboard.vc"
+#include "src\menu\menu_achivements.vc"
+#include "src\menu\menu_type.vc"
+#include "src\menu\menu_main_key.vc"
+#include "src\menu\menu_main_logo.vc"
+
+//must be included last to prevent undefined defines
+#include "src\global\saveload.vc"
+
+//the console
+//#include "sys-v3console.vc"
+
+/*THINGS TO BE REMOVED*/
+#include "cheat.vc"
+#include "debug_win.vc"
+
+int nHealth;
+int nMaxHealth = 100;
+
+int nAmmo[MAX_WEAPONS];	//ammo for players weapon
+int nHasWeapon[MAX_WEAPONS]; //if an index is true the player has that weapon. 
+//i can haz weapon? (I wrote this piece of code way before the lolcat revolution, but figured a comment like this was in order)
+
+int nEquipedWeapon;
+
+int nPlayerEnt;
+
+int nTargetIndex;
+
+int nTargetPointerAnim;
+
+string sEntitiesInRange; //space seperated ints of entities in the range of players weapon/skill
+string sLootInRange;	//same as above except for loot
+
+int bHasTargetList;
+
+int nFont = LoadFont("gfx\fonts\default_mod.png");//LoadFont("font0.png");
+int nDialogBoxFont = LoadFont("gfx\fonts\font1.png");	//lifted from Parallel 7
+int nTerminalFont = LoadFont("gfx\fonts\terminal_menu.png");
+int nTinyFont = LoadFont("gfx\fonts\tiny.png");
+int nHealthIcn = LoadImage("gfx\icons\health.png");
+
+int nShotAt;		//the timer value when the player shot his weapon. for recharging weapons
+
+int bLoadingGame = 0;	//True when loading a game before going to a map. This way maps know to push temp enemy data into the real array
+
+//for the player animation
+int nPlayerAnimating;
+int nPlayerAnimWakeUp;
+int nPlayerAnimWaiting;
+int nPlayerBeforeAnimSpeed;
+int nPlayerAnimFrame;
+string sPlayerAnimationString;
+
+void autoexec()
+{
+	int retval;
+
+	HookKey(SCAN_F7, "QuickSave");
+	HookKey(SCAN_F8, "QuickLoad");
+	
+	//from dos_splash.vpk
+	splash();
+	
+	//start the HookRetrace queue
+	HookSetup();
+
+	//init vars that can be used for new game or saved game
+	Init();
+	
+	//tk title screen effect thing
+	tkSplash();
+
+	//start the title screen
+	//note this will take us to intro.map 
+	TitleScreen();
+}
+
+void AddDefaultHooks()
+{
+	//pause check
+	AddHook("PauseHook", 1);
+	//vcTimer
+	//AddHook("ProcessvcTimer", 1);
+	HookTimer("ProcessvcTimer");
+	//autosave check
+	AddHook("CheckAutoSave", 5);
+	//ambient sounds
+	AddHook("ProcessAmbientSounds", 5);
+	//callbacks
+	AddPreHook("ProcessDelayedCallbacks", 5);
+	//doors
+	AddPreHook("DrawBottomDoors", 510);
+	AddHook("DrawTopDoors", 510);
+	//loot
+	AddPreHook("DrawBottomLoot", 505);
+	AddHook("DrawTopLoot", 505);
+	//lights
+	//AddHook("CalcLightZone", 178);
+	//AddHook("DrawLightRects", 179);
+	AddHook("ProcessLights", 1050);
+	//particles
+	AddHook("ProcessEmitters", 5);
+	AddHook("ProcessParticles", 1025);
+	AddHook("DrawRadar", 1520);
+	//lock pick notification
+	AddHook("BlitLockPick", 1505);
+
+	//the animations
+	AddHook("ProcessAnimations", 2501);
+	
+	AddHook("DrawToolTip", 2601);
+
+	//the menues
+	AddHook("ProcessMenus",3001);
+	
+	AddHook("ProcessEnemies", 10);
+	
+	AddPreHook("PlayerDeath", 5);
+	
+	//*DEBUG* - call the debug window initer
+	dbgwin_Init();
+}
+
+void NewGame()
+{
+	int i;
+	
+	if(!bLoadingGame)
+	{
+		nLoot = 0;
+		
+		nNumMedkits = 0;
+	
+		nHealth = nMaxHealth;
+	
+		for(i=0;i<MAX_WEAPONS;i++)
+		{
+			nAmmo[i] = Weapons[i].nMaxAmmo;
+		}
+	}
+	
+	bCanSave = 1;
+	
+	//clear the hooks
+	EmptyHookQueue();
+	
+	AddDefaultHooks();
+	
+	//low health alarm
+	if(!IsHooked("LowHealthAlarm"))
+		AddHook("LowHealthAlarm", 5);
+
+	//Render the gui and such. Above Particles, Doors, Lights
+	//Below Animations, Menus
+	if(!IsHooked("DrawGui"))
+		AddHook("DrawGui", 1510);
+	if(!isHooked("DrawCommText"))
+		AddHook("DrawCommText", 1515);
+		
+	if(!isHooked("ProcessEnemies"))
+		AddHook("ProcessEnemies", 10);
+		
+	if(!isHooked("ProcessInput"))
+		AddHook("ProcessInput", 5);
+		
+	EnableCameras();	//enable cameras if they were disabled
+	
+	//Clear the notes of the PDA
+	ClearNotes();
+	
+	//Clear the objectives of the PDA
+	ClearObjectives();
+	
+	ClearCommLog();
+	
+	ResetTrackedData();
+}
+
+void LoadConfig()
+{
+	//load the button config
+	LoadButtonConfig();
+	
+	//load profile config - leaderboard password, etc
+	LoadTrackedProfile();
+	
+	//load the options config
+	int hndl = FileOpen("config.sav", FILE_READ);
+	if(hndl)
+	{
+		bLightsEnabled = FileReadByte(hndl);
+		bParticlesEnabled = FileReadByte(hndl);
+		bAmbientSoundEnabled = FileReadByte(hndl);
+//		nCommLetterWait = FileReadByte(hndl);
+		FileClose(hndl);
+	}
+	else
+	{
+		bLightsEnabled = 1;
+		bParticlesEnabled = 1;
+		bAmbientSoundEnabled = 1;
+//		nCommLetterWait = 2;
+	}
+}
+
+//inits stuff
+void Init()
+{
+	LoadConfig();
+	
+	EnableVariableWidth(nFont);
+	EnableVariableWidth(nDialogBoxFont);
+	EnableVariableWidth(nTerminalFont);
+	EnableVariableWidth(nTinyFont);
+	
+	nEquipedWeapon = 0; //equip the punch
+	
+	//load the target anim
+	nTargetPointerAnim = LoadAnimationEX("targetpointer.png", 16, 16, 0-16, 0-16, "T1 F0, W20, F1, W20, F2, W20, F3, W20, F2, W20, F1, W20, F0, R");
+
+	InitAchievements();
+	InitWeapons();
+	InitTimers();
+	CreateEnemyTemplates(); //load the enemy templates
+	CreateMenuTemplates();	//menu templates
+	nMenuFocus = 0-1;	//no menu with the focus
+}
+
+//systemVC function called at the start of any map to make it
+//correctly clear and setup up doors, enemies, etc
+void InitMap()
+{
+	NewGame();
+
+	nRadarOn=1;
+	
+	//SystemVC Functions
+	ClearAmbientSounds();
+	DestroyEmitters();
+	DestroyParticles();
+	ClearDoors();
+	ClearEnemies();
+	ClearLights();
+	ClearAutoSave();
+	ClearLoot();
+
+	//Behold the magic of CallFunction! They are virtual functions!
+	//All these functions are defined in each map VC and called automatically
+	//when a map loads!
+	CallFunction("InitAmbientSounds");
+	CallFunction("InitEmitters");
+	CallFunction("InitDoors");
+	if(!bLoadingGame)			//don't create enemies if we are loading from a save game
+		CallFunction("InitEnemies");
+	CallFunction("InitLoot");
+	CallFunction("InitLights");
+	CallFunction("InitAutoSave");
+
+	StartDualRetraceMode();
+	MoveLoadedData();
+}
+
+//dec 2, 2007 - i'm so tired right now that this code will probably just bring about the end of existance if I try to compile it
+//either that or work perfectly
+//yup. end of existance.
+//Guess it would help if I assigned priorities to the enemies
+string GenerateTargetList()
+{
+	int i, d, tmpPriority, currentPriority;
+	
+	string retval = "";
+	string enemyList = "";
+	string priorities = "";
+	string distances = "";
+	string tmpStr = "";
+	
+	//get a list of enemies and their priorities
+	for(i=0;i<nNumEnemies;i++)
+	{
+		d = Distance(nPlayerEnt, Enemies[i].nEntity);
+		if(Enemies[i].nActive && d < Weapons[nEquipedWeapon].nRange)
+		{
+			enemyList = enemyList + str(i) + " ";
+			priorities = priorities + str(Enemies[i].nTargetPriority) + " ";
+		}
+	}
+	
+	//sort list by priority
+	enemyList = qsortByOther(enemyList, priorities, 0, TokenCount(enemyList, " ")-1);
+	priorities = qsortData;
+	
+	i=0;
+
+	while(i <= TokenCount(enemyList, " ")-1)
+	{
+		//get the next priority on the list
+		tmpPriority = val(GetToken(priorities, " ", i));
+		currentPriority = tmpPriority;
+
+		//get all the enemies in this priority and their distances
+		tmpStr = "";
+		distances = "";
+		while(currentPriority == tmpPriority && i <= TokenCount(enemyList, " ")-1)
+		{
+			tmpStr = tmpStr + GetToken(enemyList, " ", i) + " ";
+			distances = distances + str(Distance(nPlayerEnt, Enemies[i].nEntity)) + " ";
+			i++;
+			tmpPriority = val(GetToken(priorities, " ", i));
+		}
+
+		//sort this priority by distance
+		qsortByOther(tmpStr, distances, 0, TokenCount(tmpStr, " ")-1);
+
+		//add this priority to the retval
+		retval = retval + tmpStr;
+	}
+
+	//list of enemies sorted by distance
+	/*for(i=0;i<nNumEnemies;i++)
+	{
+		d = Distance(nPlayerEnt, Enemies[i].nEntity);
+		if(Enemies[i].nActive && d < Weapons[nEquipedWeapon].nRange)
+		{
+			retval = retval + str(i) + " ";
+			distances = distances + str(d) + " ";
+		}
+	}
+	
+	//send the enemy indexes and distance data to qsort
+	retval = qsortByOther(retval, distances, 0, TokenCount(retval, " ")-1);*/
+	
+	return retval;
+}
+
+void AimWeapon()
+{
+	int i;
+	
+	//don't let the player shoot if they are dead or they are in a forced conversation
+	if(nHealth <= 0 || nHoldCommText)
+	{
+		anims[nTargetPointerAnim].x = 0-16;
+		anims[nTargetPointerAnim].y = 0-16;
+		bHasTargetList = 0;
+		return;
+	}
+
+	if(!bHasTargetList)
+	{
+		sEntitiesInRange = GenerateTargetList();
+		bHasTargetList = 1;
+
+		//if there are entities to aim at
+		if(strcmp(sEntitiesInRange, "")!=0)
+		{
+			//get enemy index of first enemy in the list
+			nTargetIndex = val(GetToken(sEntitiesInRange, " ", 0));
+		}
+		else
+		{
+			anims[nTargetPointerAnim].x = 0-16;
+			anims[nTargetPointerAnim].y = 0-16;
+			bHasTargetList = 0;
+
+			return;
+		}
+	}	
+
+	//target is in range
+	if(Enemies[nTargetIndex].nActive && Distance(nPlayerEnt, Enemies[nTargetIndex].nEntity) < Weapons[nEquipedWeapon].nRange)
+	{
+		//put the pointer on one
+		anims[nTargetPointerAnim].x = entity.x[Enemies[nTargetIndex].nEntity];
+		anims[nTargetPointerAnim].y = entity.y[Enemies[nTargetIndex].nEntity];
+
+		//face the enemy
+		EntityFace(nPlayerEnt, Enemies[nTargetIndex].nEntity);
+	}
+	else
+	{
+		anims[nTargetPointerAnim].x = 0-16;
+		anims[nTargetPointerAnim].y = 0-16;
+		bHasTargetList = 0;
+
+		return;	//nothing to target? exit out
+	}
+	
+	//fire weapon
+	if(BUTTON_SHOOT)
+	{
+		if(nAmmo[nEquipedWeapon] == 0)
+		{
+			//no ammo, play the out of ammo sound
+			//guards can hear the click
+			MakeSound(nPlayerEnt, 50);
+			SoundNoAmmo();
+			UnpressButtons();
+		}
+		else
+		{
+			if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge && strcmp(sEntitiesInRange, "")!=0)
+			{
+				//let the player hold down the fire button on automatic weapons
+				if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_AUTO)
+					UnpressButtons();
+
+				FireWeapon(nPlayerEnt, Enemies[nTargetIndex].nEntity);
+			}
+		}
+	}
+	
+	//change targets
+	if(BUTTON_WEAPON_SWITCHUP)
+	{
+		sEntitiesInRange = GenerateTargetList();
+		//find the current target in the list
+		//no in_array() :(
+		for(i=0;i<TokenCount(sEntitiesInRange, " ");i++)
+		{
+			if(val(GetToken(sEntitiesInRange, " ", i)) == nTargetIndex)
+			{
+				if(i == TokenCount(sEntitiesInRange, " ")-1)
+				{
+					//if we are at the end of the list, change to the first in the list
+					nTargetIndex = val(GetToken(sEntitiesInRange, " ", 0));
+				}
+				else
+				{
+					//else go to the next in the list
+					nTargetIndex = val(GetToken(sEntitiesInRange, " ", i+1));
+				}
+				i = TokenCount(sEntitiesInRange, " "); //break;
+			}
+		}
+		UnpressWeaponSwitchButtons();
+	}
+
+	if(BUTTON_WEAPON_SWITCHDOWN)
+	{
+		sEntitiesInRange = GenerateTargetList();
+		
+		//find the current target in the list
+		//no in_array() :(
+		for(i=0;i<TokenCount(sEntitiesInRange, " ");i++)
+		{
+			if(val(GetToken(sEntitiesInRange, " ", i)) == nTargetIndex)
+			{
+				if(i == 0)
+				{
+					//if we are at the front of the list, change to the last in the list
+					nTargetIndex = val(GetToken(sEntitiesInRange, " ", TokenCount(sEntitiesInRange, " ")-1));
+				}
+				else
+				{
+					//else go to the previous in the list
+					nTargetIndex = val(GetToken(sEntitiesInRange, " ", i-1));
+				}
+				i = TokenCount(sEntitiesInRange, " "); //break; also MDK
+			}
+		}
+		UnpressWeaponSwitchButtons();
+	}
+}
+
+void ProcessInput()
+{
+	int doorindex;
+	
+	if(!nGamePaused)		//can't do this stuff when the game is paused
+	{
+		//aim weapon
+		if(BUTTON_AIM)
+		{
+			AimWeapon();
+		}
+		else
+		{
+			anims[nTargetPointerAnim].x = 0-16;
+			anims[nTargetPointerAnim].y = 0-16;
+			bHasTargetList = 0;
+		}
+
+		if(BUTTON_STEAL)
+		{
+			Steal();
+		}
+
+		if(BUTTON_SHOOT)
+		{
+			doorindex = TryDoor();	//try to open a door in the direction we are looking
+
+			if(doorindex >= 0)
+			{
+				OpenCloseDoor(doorindex);
+			}
+		}
+
+		//switch weapon up
+		if(BUTTON_WEAPON_SWITCHUP)
+		{
+			SwitchWeaponUp();
+			UnpressButtons();
+		}
+
+		if(BUTTON_WEAPON_SWITCHDOWN)
+		{
+			SwitchWeaponDown();
+			UnpressButtons();
+		}
+		
+		if(BUTTON_MEDKIT)
+		{
+			UseMedkit();
+			UnpressButtons();
+		}
+	
+		if(BUTTON_PAUSE)
+		{
+			OpenInGameMenu();
+		}
+		
+		if(BUTTON_PDA)
+		{
+			OpenPDAMenu();
+		}
+	}
+}
+
+void PlayerDeath()
+{
+	if(nHealth>0)
+		return;
+	
+	nHealth=0;
+		
+	//The player is dead, don't kill him again. That's not nice.
+	RemovePreHook("PlayerDeath");
+		
+	SoundPlayerDeath();
+	//player died - do the death anim
+	AnimatePlayer("Z20 W25 Z21 W25 Z22 W25 Z23 W25 Z24");
+	
+	WaitTimer(50);
+	
+	//Fade out the screen
+	FadeOut(250, RGB(0, 0, 0));
+	
+	WaitTimer(250);
+	
+	StopSong(nCurrentMusic);
+
+	RemoveGui();
+	//go to the gameover menu
+	OpenGameOverMenu();
+}
+
+void ExitGame()
+{
+	FreeImage(nHealthIcn);
+	
+	FreeImage(lightimg);
+	FreeImage(windowlightimg);
+	
+	FreeAnimation(nTargetPointerAnim);
+	
+	FreeWeapons();
+	
+	Exit("");
+}
+
+//removes the gui hook and all animations with it
+void RemoveGui()
+{
+//	RemoveHook("TopRender");
+	RemoveHook("DrawGui");
+	//RemoveHook("ProcessEnemies");
+//	RemoveHook("ProcessInput");
+	RemoveHook("LowHealthAlarm"); //don't chirp here
+
+	//unhook the buttons
+
+	HookButton(1, "");
+	HookButton(3, "");
+	HookButton(4, "");
+	
+	//empty the comm queue
+	EmptyCommQueue();
+	
+	sCommText = "";
+	nCommPos = 0;
+	nCommDone = 0;
+}
+
+//stupid little error handler
+//if DEBUG == 1 stuff gets send to the log
+//if 2 to the console (and log by extension)
+//if 3 messagebox, console (and log by extension)
+void Error(string err)
+{
+	if(DEBUG == 1)
+	{
+		log(err);
+	}
+	else if(DEBUG == 2)
+	{
+		log(err);
+		dbgwin_Output(err);
+	}
+	else if(DEBUG == 3)
+	{
+		messagebox(err);
+		log(err);
+		dbgwin_Output(err);
+	}
+}
+
+//An error where the game can not continue. Shows the error message in a messagebox then exits.
+void FatalError(string err)
+{
+	Error(err);
+	exit(err);
+}
+
+
+//changes the current maps RString. Needed because of DualRetrace
+void ChangeRString(string newr)
+{
+	curmap.rstring = newr;
+
+	StartDualRetraceMode();
+}

@@ -1,0 +1,59 @@
+I need an XML parser to read the data sent to me by the server for leaderboards. To that extent I will be using a simplefied XML format similar to the following.
+
+<scores>
+	<score>
+		<user>gyasi</user>
+		<mission>1</mission>
+		<mission_1_kills>5</mission_1_kills>
+		.
+		.
+		.
+	</score>
+
+	<score>
+		<user>gyasi</user>
+		<mission>2</mission>
+		<mission_2_kills>5</mission_2_kills>
+		.
+		.
+		.
+	</score>
+</scores>
+
+Note that the XML MUST be well formed, has no attributes, and does NOT use short tags.
+
+See http://www.perfectxml.com/articles/XML/XMLParser.asp
+
+One function takes a XML string and a node name string. It will look through the XML passed looking for the nodes that match the name passed, and place the results in an array called sXMLResult. For example if I requested node "mission" from the above XML it would return:
+
+sXMLResult[0] = "1"
+sXMLResult[1] = "2"
+
+
+almost psuedo code
+sXMLResult[200];
+
+simpleXMLGetNodes(string xml, string node)
+{
+	string start = "<" + node + ">";
+	string end = "<" + node "/>";
+
+	int arrayIndex = 0;
+
+	int startIndex;
+	int endIndex;
+
+	clear_array(sXMLResult);
+
+	while(we haven't reached the end of xml and there are more nodes to grab)
+	{
+		startIndex = find_substring_pos(start, xml);
+		endIndex = find_substring_pos(end, xml);
+
+		string node_value = get_substring(xml, startindex, endindex);
+
+		sXMLResult[arrayIndex] = node_value;
+
+		arrayIndex++;	//increment arrayIndex (weeeeee!!)
+	}
+}

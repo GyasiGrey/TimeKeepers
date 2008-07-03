@@ -1,0 +1,1104 @@
+#define DEBUG_MAKE_SOUND	0	//does the super funkorama effect to show where sounds are happening when set to 1
+#define MAX_ENEMIES 250
+#define WALK_SPEED_NORMAL 50
+#define WALK_SPEED_ALERT 75
+
+#define SOUND_TIME_OUT 1000	//how long an enemy will track a sound before giving up
+				//so they don't get hung up on obs. Take out if you fix pathfinding 
+				//so that they do go around obs
+				
+#define TRANQ_EFFECT_TIME 1000 //how long it takes for a tranq gun to take effect (10 seconds)
+#define TRANQ_SLEEP_TIME 60000  //how long it takes for an enemy to wake up (10 minutes)
+
+#define SEARCH_WAIT_TIME 200	//how long to stay startled before searching
+
+#define ASTAR_DELAY 50		//how long to wait between calling the pathfinding func when alert
+
+
+#define CIVILIAN_SOUND_TIME		250	//time between civilian barks
+#define CAMERA_SOUND_DELAY		250	//time between camera klaxons
+#define CAMERA_WARN_TIME		150	//camera warns for 1.5 seconds before going into alert mode
+#define CAMERA_WARN_SOUND_DELAY 	75	//time between camera warn sounds
+#define CIVILIAN_WARN_TIME		400
+#define CIVILIAN_WARN_SOUND_DELAY	200
+
+
+#define ENEMY_MIN_SHOOT_RANGE		32
+
+struct Enemy
+{
+	int nHp;
+	int nMaxHp;
+	int nWeapon;
+	//int nSightRange;
+	int nCoolDown;			//show long this enemy waits between shots
+/**/	int nCoolDownStart;		//timer when the enemy took it's last shot
+	int nSightRange;		//the radius they can see
+	int nSightAngle;		//the angle of the enemies field of view
+	
+/**/	int nAlertStart;		//timer when they saw player
+	int nAlertTime;			//how long they actively follow
+	
+	int nWarnStart;			//timer when they started warning
+	
+/**/	int nSearchStart;		//timer when they started searching
+	int nSearchTime;		//how long they search for player
+	
+	//for tranqing enemies
+/**/	int nTranqEnd;			//timer when they will go unconscious form a tranq dart (timer + WEAPON_TRANQ_EFFECT_TIME)
+	int nTranqHit;			//true if this enemy was hit by a tranq dart
+	int nTranqAt;			//timer when they went unconscious
+
+/**/	int nSoundStart;		//timer when they heard a noise
+
+	int nSoundX;			//position of the sound the enemy is investigating
+	int nSoundY;
+	
+	string sPath;			//the path of nodes this ent is walking
+	int nOriginalX;			//where to go after losing sight of the player
+	int nOriginalY;
+	int nOriginalFace;
+	string sOriginalMoveString;	//the original path the ent was following
+	
+	string sBottomText;
+	int nBottomTextStart;
+	int nBottomTextAnim;
+	
+	string sChrFile;
+	
+	int nMode;			//defines what the enemy is doing right now (normal, alert, etc)
+	
+	int nEntity;			//what entity is this enemy connected to
+	
+	int nActive;
+	
+	int nAStarStart;
+	
+	int nAnimating;			//true if enemy is animating
+	int nAnimationFrame;
+	int nBeforeAnimationSpeed;	//ents speed before shooting
+	string sAnimationString;
+	int nAnimationWakeup;		//timer when we should wake up from a W in the animstr
+	int nAnimationWaiting;
+	
+	int nAIType;			//see ENEMY_AI_TYPE_ defines above
+	
+	string sShootUpAnim;
+	string sShootDownAnim;
+	string sShootLeftAnim;
+	string sShootRightAnim;
+	
+	string sDeathAnim;		//string for this enemies death anim
+	int nDeadFrame;			//frame of the enemy being dead
+	
+	int nDeathSound;
+	
+	int nPassive;			//when true this player will ignore the player
+	
+	int nTemplate;
+	
+	/*Used for Save/Load see saveload.vc::LoadEnemy() and such*/
+	int nSaveX;
+	int nSaveY;
+	
+	int nOriginalLookDirection;
+	
+	int bCanBeTranqd;
+	int bCanSpeak;
+	int bCanHear;
+	
+	int nTargetPriority;		//priority this enemy has on the target list. Lower number is higher priority.
+	
+	string sAIFunc;
+}
+
+Enemy Enemies[MAX_ENEMIES];
+Enemy EnemyTemplates[MAX_ENEMIES];	//holds base stats like hp, weapon, search time etc so I can easily make carbon copy enemies
+Enemy LoadedEnemies[MAX_ENEMIES];	//temp array to hold enemy data untill the map is loaded. see saveload.vc::MoveLoadedEnemies()
+int nNumEnemies;
+int nNumLoadedEnemies;
+int nCurrentEnemy;			//for AI functions. holds the index of the current enemy.
+
+void CreateEnemyTemplates()
+{
+	//pistol guard
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nHp = 25;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nMaxHp = 25;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nWeapon = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSightRange = 200;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSightAngle = 65;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nWeapon].nRecharge*2;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAlertTime = 500;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSearchTime = 600;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAIType = ENEMY_AI_TYPE_NORMAL;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sShootUpAnim = "Z29 W10 Z30 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sShootLeftAnim = "Z27 W10 Z28 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sShootDownAnim = "Z25 W10 Z26 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sShootRightAnim = "Z31 W10 Z32 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nDeathSound = LoadSound("sounds\enemydeath.wav");
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nDeadFrame = 24;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].bCanBeTranqd = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].bCanSpeak = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].bCanHear = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nTargetPriority = 200;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sAIFunc = "EnemyAINormal";
+
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nHp = 35;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nMaxHp = 35;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nWeapon = 2;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nSightRange = 200;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nSightAngle = 65;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nWeapon].nRecharge*2;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nAlertTime = 500;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nSearchTime = 600;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nAIType = ENEMY_AI_TYPE_NORMAL;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sShootUpAnim = "Z29 W10 Z30 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sShootLeftAnim = "Z27 W10 Z28 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sShootDownAnim = "Z25 W10 Z26 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sShootRightAnim = "Z31 W10 Z32 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nDeathSound = LoadSound("sounds\enemydeath.wav");	
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nDeadFrame = 24;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].bCanBeTranqd = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].bCanSpeak = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].bCanHear = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nTargetPriority = 100;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sAIFunc = "EnemyAINormal";
+	
+	//training dummy
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nHp = 10000;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nMaxHp = 10000;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nWeapon = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nSightRange = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nSightAngle = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nCoolDown = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nAlertTime = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nSearchTime = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nAIType = ENEMY_AI_TYPE_DUMMY;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sShootUpAnim = "Z29 W10 Z30 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sShootLeftAnim = "Z27 W10 Z28 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sShootDownAnim = "Z25 W10 Z26 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sShootRightAnim = "Z31 W10 Z32 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nDeathSound = LoadSound("sounds\enemydeath.wav");		//shouldn't be able to kill a dummy, but for sanity sake	
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nDeadFrame = 24;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].bCanBeTranqd = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].bCanSpeak = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].bCanHear = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nTargetPriority = 500;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sAIFunc = "EnemyAIDummy";
+	
+	//civilian
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nHp = 15;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nMaxHp = 15;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nWeapon = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nSightRange = 200;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nSightAngle = 67;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nCoolDown = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nAlertTime = 1000;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nSearchTime = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nAIType = ENEMY_AI_TYPE_CIVILIAN;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sShootUpAnim = "Z29 W10 Z30 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sShootLeftAnim = "Z27 W10 Z28 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sShootDownAnim = "Z25 W10 Z26 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sShootRightAnim = "Z31 W10 Z32 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nDeathSound = LoadSound("sounds\civildeath.wav");
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nDeadFrame = 24;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].bCanBeTranqd = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].bCanSpeak = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].bCanHear = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nTargetPriority = 400;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sAIFunc = "EnemyAICivilian";
+	
+	//cautious civilian - acts like a camera untill they go alert. they then run around like a normal civilian
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nHp = 15;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nMaxHp = 15;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nWeapon = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nSightRange = 200;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nSightAngle = 67;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nCoolDown = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nAlertTime = 1000;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nSearchTime = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nAIType = ENEMY_AI_TYPE_CIVILIAN;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sShootUpAnim = "Z29 W10 Z30 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sShootLeftAnim = "Z27 W10 Z28 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sShootDownAnim = "Z25 W10 Z26 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sShootRightAnim = "Z31 W10 Z32 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nDeathSound = LoadSound("sounds\civildeath.wav");
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nDeadFrame = 24;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].bCanBeTranqd = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].bCanSpeak = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].bCanHear = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nTargetPriority = 400;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sAIFunc = "EnemyAICautiousCivilian";
+	
+	//big guard
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nHp = 300;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nMaxHp = 300;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nWeapon = 2;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nSightRange = 200;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nSightAngle = 65;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nWeapon].nRecharge*2;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nAlertTime = 1000;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nSearchTime = 600;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nAIType = ENEMY_AI_TYPE_BIGGUARD;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sShootUpAnim = "Z29 W10 Z30 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sShootLeftAnim = "Z27 W10 Z28 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sShootDownAnim = "Z25 W10 Z26 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sShootRightAnim = "Z31 W10 Z32 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nDeathSound = LoadSound("sounds\enemydeath.wav");
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nDeadFrame = 24;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].bCanBeTranqd = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].bCanSpeak = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].bCanHear = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nTargetPriority = 50;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sAIFunc = "EnemyAIBigGuard";	
+	
+	//camera
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nHp = 25;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nMaxHp = 25;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nWeapon =-1;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nSightRange = 150;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nSightAngle = 45;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nCoolDown = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nAlertTime = 1000;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nSearchTime = 600;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nAIType = ENEMY_AI_TYPE_CAMERA;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sShootUpAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sShootLeftAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sShootDownAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sShootRightAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sDeathAnim = "Z4 W15 Z5 W15 Z6 W15 Z7 W15 Z8";
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nDeathSound = LoadSound("sounds\cameradeath.wav");	
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nDeadFrame = 8;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].bCanBeTranqd = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].bCanSpeak = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].bCanHear = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nTargetPriority = 305;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sAIFunc = "EnemyAICamera";
+	
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nHp = 25;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nMaxHp = 25;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nWeapon = 3;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nSightRange = 150;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nSightAngle = 45;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nWeapon].nRecharge*2;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nAlertTime = 1000;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nSearchTime = 600;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nAIType = ENEMY_AI_TYPE_CAMERA;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sShootUpAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sShootLeftAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sShootDownAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sShootRightAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sDeathAnim = "Z4 W15 Z5 W15 Z6 W15 Z7 W15 Z8";
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nDeathSound = LoadSound("sounds\cameradeath.wav");		
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nDeadFrame = 8;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].bCanBeTranqd = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].bCanSpeak = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].bCanHear = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nTargetPriority = 300;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sAIFunc = "EnemyAICamera";
+}
+
+void ClearEnemies()
+{
+	int i;
+	
+	for(i=0;i<nNumEnemies;i++)
+	{
+		Enemies[i].nTranqHit = 0;
+		Enemies[i].nMode = MODE_NORMAL;
+		Enemies[i].sBottomText = "";
+		Enemies[i].nActive = 0;
+		Enemies[i].nEntity = 0-1;
+	}
+	
+	nNumEnemies = 0;
+}
+
+int CreateEnemy(int x, int y, int face, int template, string movestring, string chrfile)
+{
+	Enemies[nNumEnemies].nHp = EnemyTemplates[template].nHp;
+	Enemies[nNumEnemies].nMaxHp = EnemyTemplates[template].nMaxHp;
+	Enemies[nNumEnemies].nWeapon = EnemyTemplates[template].nWeapon;
+	Enemies[nNumEnemies].nSightRange = EnemyTemplates[template].nSightRange;
+	Enemies[nNumEnemies].nSightAngle = EnemyTemplates[template].nSightAngle;
+	Enemies[nNumEnemies].nCoolDown = EnemyTemplates[template].nCoolDown;
+	Enemies[nNumEnemies].nAlertTime = EnemyTemplates[template].nAlertTime;
+	Enemies[nNumEnemies].nSearchTime = EnemyTemplates[template].nSearchTime;
+	Enemies[nNumEnemies].nOriginalX = x*16;
+	Enemies[nNumEnemies].nOriginalY = y*16;
+	Enemies[nNumEnemies].nActive = 1;
+	Enemies[nNumEnemies].nAIType = EnemyTemplates[template].nAIType ;
+	Enemies[nNumEnemies].nOriginalFace = face;
+	Enemies[nNumEnemies].sOriginalMoveString = movestring;
+	
+	Enemies[nNumEnemies].sAIFunc = EnemyTemplates[template].sAIFunc;					//AI func
+	
+	Enemies[nNumEnemies].sShootUpAnim = EnemyTemplates[template].sShootUpAnim;
+	Enemies[nNumEnemies].sShootLeftAnim = EnemyTemplates[template].sShootLeftAnim;
+	Enemies[nNumEnemies].sShootDownAnim = EnemyTemplates[template].sShootDownAnim;
+	Enemies[nNumEnemies].sShootRightAnim = EnemyTemplates[template].sShootRightAnim;
+	
+	Enemies[nNumEnemies].sDeathAnim = EnemyTemplates[template].sDeathAnim;
+	Enemies[nNumEnemies].nDeadFrame = EnemyTemplates[template].nDeadFrame;
+	
+	Enemies[nNumEnemies].bCanBeTranqd = EnemyTemplates[template].bCanBeTranqd;
+	Enemies[nNumEnemies].bCanSpeak = EnemyTemplates[template].bCanSpeak;
+	Enemies[nNumEnemies].bCanHear = EnemyTemplates[template].bCanHear;
+	
+	Enemies[nNumEnemies].nBottomTextAnim = -1;
+	
+	Enemies[nNumEnemies].sChrFile = chrfile;
+	
+	Enemies[nNumEnemies].nTemplate = template;
+	Enemies[nNumEnemies].nOriginalLookDirection = face;
+	
+	Enemies[nNumEnemies].nTargetPriority = EnemyTemplates[template].nTargetPriority;
+	
+	Enemies[nNumEnemies].nDeathSound = EnemyTemplates[template].nDeathSound;
+	
+	Enemies[nNumEnemies].nEntity = EntitySpawn(x, y, chrfile);
+	entity.speed[Enemies[nNumEnemies].nEntity] = WALK_SPEED_NORMAL;
+	entity.obstruct[Enemies[nNumEnemies].nEntity] = 1;
+	entity.obstructable[Enemies[nNumEnemies].nEntity] = 1;
+	entity.face[Enemies[nNumEnemies].nEntity] = face;
+	HookEntityRender(Enemies[nNumEnemies].nEntity, "EnemyRender");
+	EntityMove(Enemies[nNumEnemies].nEntity, movestring);
+	
+	//zero out timer related vars for this ent
+	Enemies[nNumEnemies].nCoolDownStart = 0;
+	Enemies[nNumEnemies].nWarnStart = 0;
+	Enemies[nNumEnemies].nSearchStart = 0;
+	Enemies[nNumEnemies].nTranqEnd = 0;
+	Enemies[nNumEnemies].nTranqAt = 0;
+	Enemies[nNumEnemies].nSoundStart = 0;
+	Enemies[nNumEnemies].nAlertStart = 0;
+	Enemies[nNumEnemies].nBottomTextStart = 0;
+	Enemies[nNumEnemies].nAnimationWakeup = 0;
+	Enemies[nNumEnemies].nAStarStart = 0;
+
+	Error("CreateEnemy called x: " + str(x) +" y: " + str(y) + " enemyindex: " + str(nNumEnemies) + " hp: " + str(Enemies[nNumEnemies].nMaxHp) + " weapon: " + Weapons[Enemies[nNumEnemies].nWeapon].sName);
+
+	nNumEnemies++;
+	
+	return nNumEnemies-1;
+}
+
+//makes an enemy goto an X Y tile coord
+//e is an ENTITY index - but must reference to an enemy index
+//that means don't use this on an entity that isn't an enemy
+void Goto(int e, int x, int y)
+{
+	int result;
+	result = findPath(e, entity.x[e]/16, entity.y[e]/16, x/16, y/16);
+
+	//using A* instead of my superbly slow node pathing
+	if(result==0-1)
+	{
+		//if the A* timed out start searching
+		Search(GetEnemyIndex(e));
+	}
+}
+
+void MakeAlert(int ene)
+{
+	entity.speed[Enemies[ene].nEntity] = WALK_SPEED_ALERT;
+	Enemies[ene].nMode = MODE_ALERT;
+	Enemies[ene].nAlertStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+	
+	//crazy timer stuff for civilians - so ugly....
+	if(Enemies[ene].nAIType == ENEMY_AI_TYPE_CIVILIAN)
+	{
+		Enemies[ene].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+	}
+	else if(Enemies[ene].nAIType == ENEMY_AI_TYPE_CAMERA)
+	{
+		Enemies[ene].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick - CAMERA_SOUND_DELAY;
+	}
+}
+
+void MakeWarn(int ene)
+{
+	Enemies[ene].nMode = MODE_WARN;
+	Enemies[ene].nWarnStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+	Enemies[ene].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick - CAMERA_WARN_SOUND_DELAY;
+}
+
+//gets the enemy that is attached to the entity passed
+int GetEnemyIndex(int entityindex)
+{
+	int i;
+
+	
+	for(i=0;i<nNumEnemies;i++)
+	{
+		if(Enemies[i].nEntity == entityindex)
+			return i;
+	}
+	
+	Exit("Enemy.vc::GetEnemyIndex - Could not find an enemy index for entity " + str(entityindex));
+}
+
+//entityindex is an ENTITY index
+//a copy of DamageEnemy except for tranqing enemies
+void TranqEnemy(int damage, int entityindex)
+{
+	int enemyindex;
+	string damageText;
+	
+	Error("TranqEnemy() called damage: " + str(damage) + " entityindex: " + str(entityindex));
+	
+
+	if(entityindex == nPlayerEnt)
+		enemyindex = nPlayerEnt;
+	else
+		enemyindex = GetEnemyIndex(entityindex);
+		
+	if(!Enemies[enemyindex].bCanBeTranqd)
+		damageText = "Immune";
+	else
+		damageText = "tranq +"+str(damage);
+
+	//make the damage anim
+	scrollTextUp(entity.x[entityindex], entity.y[entityindex], damageText, nTinyFont, RGB(255, 0, 0));
+	
+	if(!Enemies[enemyindex].bCanBeTranqd)
+		return;
+
+	if(entityindex == nPlayerEnt)	//?? tranq the player?
+	{
+		nHealth -= damage;
+		
+/*		if(nHealth<=0)
+		{
+			PlayerDeath();
+		}*/
+	}
+	else
+	{
+		if(!Enemies[enemyindex].nTranqHit)
+		{
+			//start tranq timer
+			Enemies[enemyindex].nTranqEnd = vcTimer[TIMER_ENEMY_LOGIC].nTick + TRANQ_EFFECT_TIME;
+			Error("TranqEnemy() - Enemy will go down at " + str(Enemies[enemyindex].nTranqEnd) + " - current " + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
+			//start searching
+			Search(enemyindex);
+			//you got shot - say something!
+			if(Enemies[enemyindex].bCanSpeak)	//dummies can't talk, civilians talk a different way
+				BottomText(enemyindex, BOTTOM_TEXT_SHOT);
+			Enemies[enemyindex].nTranqHit = 1;
+		}
+		else
+		{
+			//already hit by dart, move nTranqEnd closer to timer (decrease it)
+			Enemies[enemyindex].nTranqEnd -= damage;
+			Error("TranqEnemy() - Enemy will go down at " + str(Enemies[enemyindex].nTranqEnd) + " - current " + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
+			//start searching
+			Search(enemyindex);
+		}
+	}
+}
+
+//entityindex is an ENTITY index
+void DamageEnemy(int damage, int entityindex)
+{
+	int enemyindex;
+	
+	Error("DamageEnemy() called damage: " + str(damage) + " entityindex:" + str(entityindex));
+	
+	if(entityindex == nPlayerEnt)
+		enemyindex = nPlayerEnt;
+	else
+		enemyindex = GetEnemyIndex(entityindex);
+
+	scrollTextUp(entity.x[entityindex], entity.y[entityindex], "-"+str(damage), nTinyFont, RGB(255, 0, 0));
+	
+	if(entityindex == nPlayerEnt)
+	{
+		nHealth -= damage;
+		
+		/*if(nHealth<=0)
+		{
+			PlayerDeath();
+		}*/
+	}
+	else
+	{
+		Enemies[enemyindex].nHp -= damage;
+		
+		if(Enemies[enemyindex].nHp <= 0)
+		{
+			Enemies[enemyindex].nActive = 0;
+			Enemies[enemyindex].nMode = MODE_NORMAL;
+			EntityMove(entityindex, ""); //STOP MOVING YOU FOOL
+			entity.obstruct[entityindex] = 0; //now i can walk through you
+			//death sound
+			//SoundEnemyDeath();
+			DistanceSound(Enemies[enemyindex].nDeathSound, entity.x[Enemies[enemyindex].nEntity], entity.y[Enemies[enemyindex].nEntity], 200);
+			//do enemy death anim
+			AnimateEnemy(enemyindex, Enemies[enemyindex].sDeathAnim);
+			//track the kill
+			nEnemiesKilled++;
+			
+			if(Weapons[nEquipedWeapon].nType == 0) //TODO: remove magic number. This check if the player has a silent weapon equiped
+			{
+				//track a silent kill
+				nSilentKills++;
+				AchivementUnlocked(ACHIVEMENT_1_SILENT_KILL);	//ACHIVEMENT
+			}
+			else
+			{
+				//not a silent kill, let guards hear it
+				MakeSound(entityindex, 100);
+			}
+		}
+		else if (Enemies[enemyindex].bCanSpeak)
+		{
+			//you got shot - say something!
+			BottomText(enemyindex, BOTTOM_TEXT_SHOT);
+		}
+
+		if(Enemies[enemyindex].nMode != MODE_ALERT && Enemies[enemyindex].nHp > 0)
+		{
+			//I just got shot, might think I would become alert
+			MakeAlert(enemyindex);
+		}
+	}
+}
+
+//do the enemies logic
+void ProcessEnemies()
+{
+	int i,j, ang, theta;
+	string move;
+	
+	//if enemies are paused, short circuit out
+	if(vcTimer[TIMER_ENEMY_LOGIC].nPause == 1)
+		return;
+		
+	//if the player is dead, stop killing him
+	if(nHealth<=0)
+		return;
+	
+	for(i=0;i<nNumEnemies;i++)
+	{
+		if(Enemies[i].nActive)
+		{
+			if(Enemies[i].bCanBeTranqd)
+			{
+				//check if the enemy is waiting to be knocked out
+				if(Enemies[i].nTranqHit)
+				{
+					if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= Enemies[i].nTranqEnd)
+					{
+						//the tranq dart took effect
+						Knockout(i);
+					}
+				}
+				else if(Enemies[i].nTranqHit)
+				{
+					//check if enemy is knocked out and should wake up
+					if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[i].nTranqAt + TRANQ_SLEEP_TIME)
+					{
+						WakeUp(i);
+					}
+				}
+			}
+
+			//callfunc this enemies AI func
+			if(functionexists(Enemies[i].sAIFunc))
+			{
+				nCurrentEnemy = i;
+				callfunction(Enemies[i].sAIFunc);
+			}
+			else
+			{
+				error("No AI func found for " + str(Enemies[i].nAIType));
+			}
+		}
+	}
+}
+
+//alerts all guards in the radius to the location of the sound
+//shooter is an ENTITY index
+void MakeSound(int shooter, int radius)
+{
+	int i;
+
+	Error("MakeSound() called - nPlayerEnt: " + str(nPlayerEnt) + " Shooter: " + str(shooter) + " Radius: " + str(radius));
+	
+	for(i=0;i<nNumEnemies;i++)
+	{
+		if(/*i != nPlayerEnt && */shooter != Enemies[i].nEntity && Enemies[i].nActive && Distance(shooter, Enemies[i].nEntity) < radius)
+		{
+			if(Enemies[i].bCanHear)
+			{
+				if(Enemies[i].nAIType == ENEMY_AI_TYPE_CIVILIAN)
+				{
+					//civilians go into alert mode when they hear something
+					MakeAlert(i);
+				}
+				else if(Enemies[i].nMode != MODE_ALERT)
+				{
+					if(Enemies[i].bCanSpeak && Enemies[i].nMode != MODE_SOUND)
+						BottomText(i, BOTTOM_TEXT_SOUND);
+
+					Enemies[i].nMode = MODE_SOUND;
+					Enemies[i].nSoundX = entity.x[shooter];
+					Enemies[i].nSoundY = entity.y[shooter];
+					Enemies[i].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+					
+					Goto(Enemies[i].nEntity, entity.x[shooter], entity.y[shooter]);
+				}
+			}
+		}
+	}
+
+	int t;
+	//debug code so I can see sound
+	if(DEBUG_MAKE_SOUND)
+	{
+		t = newimage(radius*2, radius*2);
+		rectfill(0, 0, radius*2, radius*2, RGB(255, 0, 255), t);
+		circleFill(radius, radius, radius, radius, RGB(random(100, 255), random(100, 255), random(100, 255)), t);
+		LoadAnimationImg(t, radius*2, radius*2, (entity.x[shooter]-radius)-xwin, (entity.y[shooter]-radius)-ywin, "T0 F0 W50 L0 W20 L10 W20 L20 W20 L30 W20 L40 W20 L50 W20 L60 W20 L70 W20 L80 W20 L90 W20 L100 D");
+	}
+}
+
+
+//wake up a knocked out enemy
+//ent is an ENEMY index
+void WakeUp(int ent)
+{
+	Error("WakeUp() called ent: " + str(ent));
+	Enemies[ent].nActive = 1;
+	Enemies[ent].nTranqHit = 0;
+	//do enemy death anim in reverse!
+	AnimateEnemy(ent, "Z24 W15 Z23 W15 Z22 W15 Z21 W15 Z20 W15");
+	//WaitForEntity(Enemies[ent].nEntity);
+	Search(ent); //start searching
+}
+
+//knock out an enemy from a tranq dart
+//ent is an ENEMY index
+void Knockout(int ent)
+{
+	Error("Knockout() called ent: " + str(ent));
+	Enemies[ent].nActive = 0;
+	Enemies[ent].nTranqAt = vcTimer[TIMER_ENEMY_LOGIC].nTick;	//stamp when they were knocked out
+	Enemies[ent].nMode = MODE_NORMAL;
+	EntityMove(Enemies[ent].nEntity, ""); //STOP MOVING YOU FOOL
+	entity.obstruct[Enemies[ent].nEntity] = 0; //now i can walk through you
+	//do enemy death anim
+	AnimateEnemy(ent, "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24");
+	//knockout sound
+	SoundKnockOut();
+	//track the tranq
+	nEnemiesTranqd++;
+}
+
+//make an enemy start searching the area
+//ent is an ENEMY index
+void Search(int ent)
+{
+	Error("Search() called ent: " + str(ent));
+	Enemies[ent].nMode = MODE_BEFORE_SEARCH;
+	Enemies[ent].nSearchStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+	EntityMove(Enemies[ent].nEntity, "");
+}
+
+//returns true if ent i has the player in it's semicircle of sight and has a LoS to the player
+int CanSeePlayer(int i)
+{
+	int ang;
+	
+	if(CHEATS_ENABLED)
+	{
+		//CHEAT CODE
+		if(nNinjaMode)
+			return 0;
+	}
+		
+	//if this enemy is passive ignore them
+	if(Enemies[i].nPassive)
+		return 0;
+		
+	//see if the enemy can see the player
+	if(Enemies[i].nActive && Distance(nPlayerEnt, Enemies[i].nEntity) < Enemies[i].nSightRange)
+	{
+		//up
+		if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_UP)
+			ang = 270;
+
+		//down
+		if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_DOWN)
+			ang = 90;
+
+		//left
+		if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_LEFT)
+			ang = 180;
+
+		//right
+		if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_RIGHT)
+			ang = 0;
+
+		//am I looking in your direction?
+		if(FoV(entity.x[Enemies[i].nEntity], entity.y[Enemies[i].nEntity], entity.x[nPlayerEnt], entity.y[nPlayerEnt], Enemies[i].nSightAngle, ang))
+		{
+			//can I get a line of sight to you? (no obs in the way)
+			if(LineOfSight(entity.x[Enemies[i].nEntity], entity.y[Enemies[i].nEntity], entity.x[nPlayerEnt], entity.y[nPlayerEnt], Enemies[i].nEntity) == nPlayerEnt)
+			{
+				return 1;
+			}
+		}
+	}
+	
+	return 0;
+}
+
+void ReturnToPosition(int i)
+{
+	Enemies[i].nMode = MODE_RETURN;
+	entity.speed[Enemies[i].nEntity] = WALK_SPEED_NORMAL;
+	Goto(Enemies[i].nEntity, Enemies[i].nOriginalX, Enemies[i].nOriginalY);
+}
+
+//makes the entity facer face the entity facee
+//facer and dacee are ENTITY indexes
+void EntityFace(int facer, int facee)
+{
+	int theta;
+
+	
+	theta = zatan2(entity.y[facee]-entity.y[facer], entity.x[facee]-entity.x[facer]);
+
+	//up
+	if(theta > 225 && theta < 315)
+		entity.face[facer] = 1;
+
+	//down
+	if(theta > 45 && theta < 135)
+		entity.face[facer] = 2;
+
+	//left
+	if(theta > 135 && theta < 225)
+		entity.face[facer] = 3;
+
+	//right
+	if(theta > 315 || theta < 45)
+		entity.face[facer] = 4;
+}
+
+//hooked to all enemies retrace functions
+//stolen from a post by Zip 
+//here: http://www.verge-rpg.com/boards/display_thread.php?id=22882
+//then I went and did things to make sence to me, but thanks for the idea Zip
+void EnemyRender()
+{
+	int enemyindex = GetEnemyIndex(event.entity);	//the enemy attached to this entity
+
+	// Work out the x,y coord of the current entity's hotspot on the screen
+	int par_xh = entity.x[event.entity] - xwin;
+	int par_yh = entity.y[event.entity] - ywin;
+	string op;
+
+
+	if(!Enemies[enemyindex].nAnimating && !Enemies[GetEnemyIndex(event.entity)].nActive)
+	{
+		//if enemy is dead or knocked out
+		//set the frame to the on the floor frame
+		Enemies[enemyindex].nAnimationFrame = Enemies[enemyindex].nDeadFrame;	//bad monkey! no magic number!
+	}
+	else if(!Enemies[enemyindex].nAnimating)
+	{
+		//ent is not animating, use the default frame
+		Enemies[enemyindex].nAnimationFrame = entity.frame[event.entity];
+	}
+	else
+	{
+		if(!Enemies[enemyindex].nAnimationWaiting)
+		{
+			//ent is doing a special animation, figure what do do by the animstr
+			op = GetToken(Enemies[enemyindex].sAnimationString, " ", 0);
+
+			if(!strcmp(left(op, 1), "Z")) //setting a frame
+			{
+				Enemies[enemyindex].nAnimationFrame = val(right(op, len(op)-1));
+				//take the op that we just processed off the string (take me offa list!)
+				if(len(Enemies[enemyindex].sAnimationString)-len(op)-1 >= 0)
+					Enemies[enemyindex].sAnimationString = Right(Enemies[enemyindex].sAnimationString, len(Enemies[enemyindex].sAnimationString)-len(op)-1);
+				else
+					Enemies[enemyindex].sAnimationString = "";
+			}
+			else if(!strcmp(left(op, 1), "W")) //wait
+			{
+				Enemies[enemyindex].nAnimationWakeup = vcTimer[TIMER_ENEMY_LOGIC].nTick+val(right(op, len(op)-1));
+				Enemies[enemyindex].nAnimationWaiting = 1;
+				//take the op that we just processed off the string (take me offa list!)
+				if(len(Enemies[enemyindex].sAnimationString)-len(op)-1 >= 0)
+					Enemies[enemyindex].sAnimationString = Right(Enemies[enemyindex].sAnimationString, len(Enemies[enemyindex].sAnimationString)-len(op)-1);
+				else
+					Enemies[enemyindex].sAnimationString = "";
+			}
+			else if(!strcmp(Enemies[enemyindex].sAnimationString, "")) //empty anim string. We done ere. Gimmie tha detanator.
+			{
+				Enemies[enemyindex].nAnimating = 0; //done shooting, let them walk
+				entity.speed[event.entity] = Enemies[enemyindex].nBeforeAnimationSpeed; //reset the speed
+			}
+		}
+		else
+		{
+			//check if we should stop waiting
+			if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[enemyindex].nAnimationWakeup)
+			{
+				Enemies[enemyindex].nAnimationWaiting = 0; //stop waiting
+			}
+		}
+	}
+	
+	// Chuck the player onto the screen!
+	BlitEntityFrame(par_xh, par_yh, event.entity, Enemies[enemyindex].nAnimationFrame, screen);
+
+	//DEBUG - Print the enemies index and priority
+	//PrintString(par_xh, par_yh, screen, 0, str(enemyindex) + " - " + str(Enemies[enemyindex].nTargetPriority));
+}
+
+//TODO: Why the hell did I make a copy of this for just the player? REMOVE ME. UNSUBSCRIBE.
+//a copy of EnemyRender but modified to work for the player ent
+void PlayerRender()
+{
+	int current_frame = entity.frame[event.entity];
+	// Work out the x,y coord of the current entity's hotspot on the screen
+	int par_xh = entity.x[event.entity] - xwin;
+	int par_yh = entity.y[event.entity] - ywin;
+	string op;
+	
+	if(event.entity != nPlayerEnt)
+	{
+		Exit("How in the world did PlayerRender() get hooked to an entity other then the player?");
+	}
+
+	if(nHealth <= 0 && !nPlayerAnimating)
+	{
+		//player is dead. show the dead frame
+		nPlayerAnimFrame = 24;
+	}
+	else if(!nPlayerAnimating)
+	{
+		//ent is not animating, use the default frame
+		nPlayerAnimFrame = entity.frame[event.entity];
+	}
+	else
+	{
+		if(!nPlayerAnimWaiting)
+		{
+			//ent is doing a special animation, figure what do do by the animstr
+			op = GetToken(sPlayerAnimationString, " ", 0);
+
+			if(!strcmp(left(op, 1), "Z")) //setting a frame
+			{
+				nPlayerAnimFrame = val(right(op, len(op)-1));
+				//take the op that we just processed off the string (take me offa list!)
+				if(len(sPlayerAnimationString)-len(op)-1 >= 0)
+					sPlayerAnimationString = Right(sPlayerAnimationString, len(sPlayerAnimationString)-len(op)-1);
+				else
+					sPlayerAnimationString = "";
+			}
+			else if(!strcmp(left(op, 1), "W")) //wait
+			{
+				nPlayerAnimWakeUp = vcTimer[TIMER_ENEMY_LOGIC].nTick+val(right(op, len(op)-1));
+				nPlayerAnimWaiting = 1;
+				//take the op that we just processed off the string (take me offa list!)
+				if(len(sPlayerAnimationString)-len(op)-1 >= 0)
+					sPlayerAnimationString = Right(sPlayerAnimationString, len(sPlayerAnimationString)-len(op)-1);
+				else
+					sPlayerAnimationString = "";
+			}
+			else if(!strcmp(sPlayerAnimationString , "")) //empty anim string. We done ere. Gimmie tha detanator.
+			{
+				nPlayerAnimating = 0; //there done shooting, let them walk
+				entity.speed[event.entity] = nPlayerBeforeAnimSpeed; //reset the speed
+			}
+		}
+		else
+		{
+			//check if we should stop waiting
+			if(vcTimer[TIMER_ENEMY_LOGIC].nTick > nPlayerAnimWakeUp)
+			{
+				nPlayerAnimWaiting = 0; //stop waiting
+			}
+		}
+	}
+	
+	// Chuck the player onto the screen!
+	BlitEntityFrame(par_xh, par_yh, event.entity, nPlayerAnimFrame, screen);
+}
+
+//enemyindex is a ENENY index
+void AnimateEnemy(int enemyindex, string animstr)
+{
+	if(Enemies[enemyindex].nAnimating)
+		return;
+		
+	Enemies[enemyindex].nBeforeAnimationSpeed = entity.speed[Enemies[enemyindex].nEntity];
+	entity.speed[Enemies[enemyindex].nEntity] = 0;
+	Enemies[enemyindex].nAnimating = 1;
+	Enemies[enemyindex].sAnimationString = animstr;
+}
+
+//TODO: More duplicate code
+void AnimatePlayer(string animstr)
+{
+	if(nPlayerAnimating)
+		return;
+		
+	nPlayerBeforeAnimSpeed = entity.speed[nPlayerEnt];
+	entity.speed[nPlayerEnt] = 0;
+	nPlayerAnimating = 1;
+	sPlayerAnimationString = animstr;
+}
+
+//makes text appear across the bottom for a set period of time
+//for things like guards talking
+//ent is an ENEMY index
+void BottomText(int ent, int state)
+{
+	int rndval;
+	
+	Error("BottomText called - enemy: " + str(ent) + " state: " + str(state));
+
+	if(state == BOTTOM_TEXT_SOUND)
+	{
+		rndval = Random(0, 2);
+		
+		if(rndval == 0)
+			Enemies[ent].sBottomText = "What was that noise?";
+		else if(rndval == 1)
+			Enemies[ent].sBottomText = "Quiet! I heard something!";
+		else if(rndVal == 2)
+			Enemies[ent].sBottomText = "Thought I heard something.";
+		//else if(rndval == 3)
+		//	Enemies[ent].sBottomText = ""; //guard heard you but is keeping quiet about it
+		
+		if(rndval != 3)
+			SoundWhaRand();
+	}
+	else if(state == BOTTOM_TEXT_SPOTED)
+	{
+		rndval = Random(0, 2);
+		
+		if(rndval == 0)
+			Enemies[ent].sBottomText = "Target acquired!";
+		else if(rndval == 1)
+			Enemies[ent].sBottomText = "I see him!";
+		else if(rndVal == 2)
+			Enemies[ent].sBottomText = "There he is!";
+		//else if(rndval == 3)
+		//	Enemies[ent].sBottomText = ""; //guard saw you but is keeping quiet about it
+
+		if(rndval != 3)
+			SoundWhaRand();
+	}
+	else if(state == BOTTOM_TEXT_LOST)
+	{
+		rndval = Random(0, 2);
+		
+		if(rndval == 0)
+			Enemies[ent].sBottomText = "Crap! Lost him.";
+		else if(rndval == 1)
+			Enemies[ent].sBottomText = "Where'd he go?!";
+		else if(rndVal == 2)
+			Enemies[ent].sBottomText = "He has to be here somewhere...";
+		//else if(rndval == 3)
+		//	Enemies[ent].sBottomText = ""; //guard lost you but is to embarased to say anything 
+		
+	}
+	else if(state == BOTTOM_TEXT_SHOT)
+	{
+		rndval = Random(0, 5);
+		
+		if(rndval == 0)
+			Enemies[ent].sBottomText = "I'm hit!";
+		else if(rndval == 1)
+			Enemies[ent].sBottomText = "I'm under heavy fire!";
+		else if(rndVal == 2)
+			Enemies[ent].sBottomText = "Take cover!";
+		else
+			Enemies[ent].sBottomText = "";	//don't say something EVERY time your shot, just every now and then
+			
+		if(rndval != 3)
+			SoundUghRand();
+		
+			
+		//sound of the enemy speaking
+		if(rndval < 3)
+			MakeSound(Enemies[ent].nEntity, 100);	//FOUND YOU STUPID BUG. ent != entity index
+
+	}
+	else if(state == BOTTOM_TEXT_CIVILIAN)
+	{
+		//text for civilians
+		rndval = Random(0, 3);
+		
+		if(rndval == 0)
+			Enemies[ent].sBottomText = "AHHHHHHHHHHHHHHH!!";
+		else if(rndval == 1)
+			Enemies[ent].sBottomText = "Help!!!";
+		else if(rndval == 2)
+			Enemies[ent].sBottomText = "Help me!!";
+		else if(rndval == 3)
+			Enemies[ent].sBottomText = "Get me out of here!";
+			
+		//civilian noise
+		MakeSound(Enemies[ent].nEntity, 100);	//same bug as MakeSound line above
+	}
+	else if(state == BOTTOM_TEXT_CAUTION_CIVILIAN)
+	{
+		//text for civilians
+		rndval = Random(0, 3);
+		
+		if(rndval == 0)
+			Enemies[ent].sBottomText = "Um..excuse me?";
+		else if(rndval == 1)
+			Enemies[ent].sBottomText = "Are you supposed to be here?";
+		else if(rndval == 2)
+			Enemies[ent].sBottomText = "What are you doing?";
+		else if(rndval == 3)
+			Enemies[ent].sBottomText = "Leave me alone!";
+			
+		if(rndval != 3)
+			SoundWhaRand();
+
+		//civilian noise
+		MakeSound(Enemies[ent].nEntity, 100);	//same bug as MakeSound line above
+	}
+	
+	Enemies[ent].nBottomTextStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+	
+	if(Enemies[ent].nBottomTextAnim >= 0 && anims[Enemies[ent].nBottomTextAnim].active)
+		FreeAnimation(Enemies[ent].nBottomTextAnim);
+	
+	Enemies[ent].nBottomTextAnim = lucentTextFade(entity.x[Enemies[ent].nEntity]+(entity.hotw[Enemies[ent].nEntity]/2)-(textwidth(nFont, Enemies[ent].sBottomText)/2), entity.y[Enemies[ent].nEntity]-16, Enemies[ent].sBottomText, nFont, RGB(255, 255, 255), 1);
+}
+
+int NumAliveEntities()
+{
+	int i, retval;
+	
+	retval = 0;
+	
+	for(i=0;i<nNumEnemies;i++)
+	{
+		if(Enemies[i].nActive && Enemies[i].nHp > 0)
+		{
+			retval++;
+		}
+	}
+	
+	return retval;
+}

@@ -1,0 +1,169 @@
+void EnemyAINormal()
+{
+	if(Enemies[nCurrentEnemy].nMode == MODE_NORMAL)
+	{
+		//see if the enemy can see the player
+		if(CanSeePlayer(nCurrentEnemy))
+		{
+			if(Enemies[nCurrentEnemy].bCanSpeak)
+				BottomText(nCurrentEnemy, BOTTOM_TEXT_SPOTED);
+
+			MakeAlert(nCurrentEnemy);
+		}
+	}
+	else if(Enemies[nCurrentEnemy].nMode == MODE_ALERT)
+	{
+		//see if the enemy can see the player
+		if(CanSeePlayer(nCurrentEnemy))
+		{
+			MakeAlert(nCurrentEnemy);
+		}
+
+		//shoot at the player
+		//if the player is in weapon range
+		//and is alerted
+		//and they waited for the cool down
+		//can't shoot while doing an animation
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nCoolDownStart+Enemies[nCurrentEnemy].nCoolDown && Distance(nPlayerEnt, Enemies[nCurrentEnemy].nEntity) <= Weapons[Enemies[nCurrentEnemy].nWeapon].nRange && CanSeePlayer(nCurrentEnemy) && nHealth > 0 && !Enemies[nCurrentEnemy].nAnimating)
+		{
+			EntityMove(Enemies[nCurrentEnemy].nEntity, "");
+			Enemies[nCurrentEnemy].nCoolDownStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+			FireWeapon(Enemies[nCurrentEnemy].nEntity, nPlayerEnt);
+		}
+
+		//you know where the player is, go after them
+		//only if they are not in weapon reange
+		//wait a short time before calling A* again
+		//if they're shooting, don't move
+		if(Distance(nPlayerEnt, Enemies[nCurrentEnemy].nEntity) > Weapons[Enemies[nCurrentEnemy].nWeapon].nRange-ENEMY_MIN_SHOOT_RANGE && vcTimer[TIMER_ENEMY_LOGIC].nTick-Enemies[nCurrentEnemy].nAStarStart > ASTAR_DELAY)
+		{
+			Goto(Enemies[nCurrentEnemy].nEntity, entity.x[nPlayerEnt], entity.y[nPlayerEnt]);
+			Enemies[nCurrentEnemy].nAStarStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+		}
+		else if(Distance(nPlayerEnt, Enemies[nCurrentEnemy].nEntity) <= Weapons[Enemies[nCurrentEnemy].nWeapon].nRange-ENEMY_MIN_SHOOT_RANGE && !CanSeePlayer(nCurrentEnemy)  && vcTimer[TIMER_ENEMY_LOGIC].nTick-Enemies[nCurrentEnemy].nAStarStart > ASTAR_DELAY)
+		{
+			Goto(Enemies[nCurrentEnemy].nEntity, entity.x[nPlayerEnt], entity.y[nPlayerEnt]);
+			Enemies[nCurrentEnemy].nAStarStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+		}
+		else if(Distance(nPlayerEnt, Enemies[nCurrentEnemy].nEntity) < Weapons[Enemies[nCurrentEnemy].nWeapon].nRange-ENEMY_MIN_SHOOT_RANGE && CanSeePlayer(nCurrentEnemy))
+		{
+			//stop moving if your in range
+			entitymove(Enemies[nCurrentEnemy].nEntity, "");
+			//face the player
+			EntityFace(Enemies[nCurrentEnemy].nEntity, nPlayerEnt);
+		}
+
+		//got bored looking for the player
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nAlertStart+Enemies[nCurrentEnemy].nAlertTime)
+		{
+			//stop moving
+			EntityMove(Enemies[nCurrentEnemy].nEntity, "");
+			//start searching
+			Search(nCurrentEnemy);
+
+			if(Enemies[nCurrentEnemy].bCanSpeak)
+				BottomText(nCurrentEnemy, BOTTOM_TEXT_LOST);
+		}
+
+
+	}
+	else if(Enemies[nCurrentEnemy].nMode == MODE_SOUND)
+	{
+		//see if the enemy can see the player
+		if(CanSeePlayer(nCurrentEnemy))
+		{
+			if(Enemies[nCurrentEnemy].bCanSpeak)
+				BottomText(nCurrentEnemy, BOTTOM_TEXT_SPOTED);
+
+			MakeAlert(nCurrentEnemy);
+		}
+
+		//were at the target, start searching
+		if(entity.x[nCurrentEnemy] == Enemies[nCurrentEnemy].nSoundX && entity.y[nCurrentEnemy] == Enemies[nCurrentEnemy].nSoundY)
+		{
+			Search(nCurrentEnemy);
+		}
+
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick - Enemies[nCurrentEnemy].nSoundStart > SOUND_TIME_OUT)
+		{
+			//took to long, I give up
+			ReturnToPosition(nCurrentEnemy);
+
+		}
+	}
+	else if(Enemies[nCurrentEnemy].nMode == MODE_SEARCH)
+	{
+		//see if the enemy can see the player
+		if(CanSeePlayer(nCurrentEnemy))
+		{
+			if(Enemies[nCurrentEnemy].bCanSpeak)
+				BottomText(nCurrentEnemy, BOTTOM_TEXT_SPOTED);
+
+			MakeAlert(nCurrentEnemy);
+		}
+
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick - Enemies[nCurrentEnemy].nSearchStart < Enemies[nCurrentEnemy].nSearchTime/4)
+		{
+			//face left
+			entity.face[Enemies[nCurrentEnemy].nEntity] = 3;
+		}
+		else if(vcTimer[TIMER_ENEMY_LOGIC].nTick - Enemies[nCurrentEnemy].nSearchStart < Enemies[nCurrentEnemy].nSearchTime/2)
+		{
+			//face right
+			entity.face[Enemies[nCurrentEnemy].nEntity] = 4;
+		}
+		else if(vcTimer[TIMER_ENEMY_LOGIC].nTick - Enemies[nCurrentEnemy].nSearchStart < (3*Enemies[nCurrentEnemy].nSearchTime)/4)
+		{
+			//face up
+			entity.face[Enemies[nCurrentEnemy].nEntity] = 1;
+		}
+		else if(vcTimer[TIMER_ENEMY_LOGIC].nTick - Enemies[nCurrentEnemy].nSearchStart < Enemies[nCurrentEnemy].nSearchTime)
+		{
+			//face down
+			entity.face[Enemies[nCurrentEnemy].nEntity] = 2;
+		}
+		else
+		{
+			//go to your original position
+			ReturnToPosition(nCurrentEnemy);
+		}
+
+	}
+	else if(Enemies[nCurrentEnemy].nMode == MODE_BEFORE_SEARCH)
+	{
+		//make enemies wait for a second before searching
+
+		//can I see you?
+		if(CanSeePlayer(nCurrentEnemy))
+		{
+			if(Enemies[nCurrentEnemy].bCanSpeak)
+				BottomText(nCurrentEnemy, BOTTOM_TEXT_SPOTED);
+
+			MakeAlert(nCurrentEnemy);
+		}
+
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nSearchStart + SEARCH_WAIT_TIME)
+		{
+			//done waiting, start searching
+			Enemies[nCurrentEnemy].nMode = MODE_SEARCH;
+			Enemies[nCurrentEnemy].nSearchStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+		}
+	}
+	else if(Enemies[nCurrentEnemy].nMode == MODE_RETURN)
+	{
+		if(CanSeePlayer(nCurrentEnemy))
+		{
+			if(Enemies[nCurrentEnemy].bCanSpeak)
+				BottomText(nCurrentEnemy, BOTTOM_TEXT_SPOTED);
+
+			MakeAlert(nCurrentEnemy);
+		}
+
+		//enemies entity is done moving
+		if(!entity.movecode[Enemies[nCurrentEnemy].nEntity])
+		{
+			entity.face[Enemies[nCurrentEnemy].nEntity] = Enemies[nCurrentEnemy].nOriginalFace;
+			EntityMove(Enemies[nCurrentEnemy].nEntity, Enemies[nCurrentEnemy].sOriginalMoveString);
+		}
+	}
+}

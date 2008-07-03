@@ -1,0 +1,193 @@
+#define SAVE_SCREEN_SHOT_WIDTH	32
+#define SAVE_SCREEN_SHOT_HEIGHT 24
+
+int nLoadMenuAnim;
+
+int iSaveImages[3];
+string sSaveDate[3];
+string sSaveTime[3];
+string sSaveArea[3];
+string sSaveFile[3];
+
+int nLoadMenuNumSaves;
+int nLoadMenuOffset;
+
+//loads the screen shot, date, time, etc from 3 save games. for use in the load menu
+void LoadMenu_LoadBasicData(int start)
+{
+	int i, j, x, y, hndl;
+	
+	//clear out the arrays just for the sake of it
+	for(i=0;i<3;i++)
+	{
+		sSaveDate[i] = "";
+		sSaveTime[i] = "";
+		sSaveArea[i] = "";
+		sSaveFile[i] = "";
+		if(ImageValid(iSaveImages[i]))
+			FreeImage(iSaveImages[i]);
+	}
+	
+	j = 0;
+	
+	//load files backwards so that we get the most recent save on top
+	for(i=start;i>start-3 && i>=0;i--)
+	{
+		hndl = FileOpen("save/save"+ThreeDigit(i)+".sav", FILE_READ);
+
+		if(hndl)
+		{
+			//read the screen shot
+			//if(ImageValid(iSaveImages[j]))
+			//	FreeImage(iSaveImages[j]);
+				
+			iSaveImages[j] = NewImage(SAVE_SCREEN_SHOT_WIDTH, SAVE_SCREEN_SHOT_HEIGHT);
+//messagebox(str(iSaveImages[j]));			
+			//read the save version. If it dosen't match what we want, ignore the file
+			x = FileReadWord(hndl);
+			
+			if(x == SAVE_VERSION)
+			{			
+				for(x=0;x<SAVE_SCREEN_SHOT_WIDTH;x++)
+					for(y=0;y<SAVE_SCREEN_SHOT_HEIGHT;y++)
+						SetPixel(x, y, FileReadQuad(hndl), iSaveImages[j]);
+				
+				sSaveDate[j] = FileReadLn(hndl);
+				sSaveTime[j] = FileReadLn(hndl);
+				sSaveArea[j] = FileReadLn(hndl);
+				sSaveFile[j] = "save"+ThreeDigit(i)+".sav";
+			}
+		
+			//will read more crap once I make this moar better
+			FileClose(hndl);
+			j++;
+		}
+	}
+}
+
+void OpenLoadMenu()
+{
+	SetEntitiesPaused(1);
+	nPointerPos = 0;
+	nLoadMenuOffset = 0;
+	
+	nLoadMenuAnim = LoadAnimationEX("cursor.png", 8, 8, 51, 49, ANIMATION_CURSOR_ANIM_STRING);
+	anims[nLoadMenuAnim].automatic = 0;
+	
+	CreateMenu(50, 20, GetMenuTemplateIndex("MenuLoad"));
+	
+	nLoadMenuNumSaves = CountSaveGames();
+	nLoadMenuOffset = nLoadMenuNumSaves;
+	
+	//load necessary data from save games, starting at the last save
+	LoadMenu_LoadBasicData(nLoadMenuNumSaves);
+}
+
+
+void MenuLoadDraw()
+{
+
+	int i;
+	int img = CreateWindow("Load", 150, 110, nTerminalFont);
+
+	//write out all the data for the save games shown in the menu
+	Blit(nMenuX, nMenuY, img, screen);
+	
+		
+	for(i=0;/*i<nLoadMenuOffset */i<3;i++)
+	{
+		if(ImageValid(iSaveImages[i]))
+		{
+			Blit(nMenuX+9, nMenuY+18+(i*30), iSaveImages[i], screen);
+		
+			PrintString(nMenuX+50, nMenuY+18+(i*30), screen, nTerminalFont, sSaveArea[i]);
+			PrintString(nMenuX+100, nMenuY+18+(i*30), screen, nTerminalFont, sSaveFile[i]);
+		
+			PrintString(nMenuX+50, nMenuY+26+(i*30), screen, nTerminalFont, sSaveDate[i]);
+			PrintString(nMenuX+100, nMenuY+26+(i*30), screen, nTerminalFont, sSaveTime[i]);
+		}
+	}
+	
+	FreeImage(img);
+	
+	DrawAnimation(nLoadMenuAnim);
+}
+
+void MenuLoadLogic()
+{
+	int loadidx;	//for holding the index of the game to be loaded. This way we can close the menus (and clear nPointerPos) before calling LoadGame()
+	anims[nLoadMenuAnim].y = 49 + (nPointerPos*30);
+	
+	if(up)
+	{
+		SoundKeyboardRand();
+		
+		if(nPointerPos > 0)
+			nPointerPos--;
+		else 
+		{
+			if(nLoadMenuOffset < nLoadMenuNumSaves)
+			{
+				nLoadMenuOffset++;
+				LoadMenu_LoadBasicData(nLoadMenuOffset);
+			}
+		}
+			
+		unpress(5);
+	}
+	else if(down)
+	{
+		SoundKeyboardRand();
+		
+		if(nPointerPos < 2)
+			nPointerPos++;
+		else
+		{
+			if(nLoadMenuOffset >= 3)
+			{
+				nLoadMenuOffset--;
+				LoadMenu_LoadBasicData(nLoadMenuOffset);
+			}
+		}
+			
+		unpress(6);
+	}
+	else if(BUTTON_SHOOT)
+	{
+		SoundKeyboardRand();
+		
+		loadidx = nLoadMenuOffset-nPointerPos;
+		
+		if(FileExists("save/save"+ThreeDigit(loadidx)+".sav"))
+		{
+			UnpressButtons();
+			
+			//ask the player to login
+			if(bSendTrackedStats == 0)
+			{
+				GetTrackedLogin();
+			}
+
+			CloseAllMenus();
+
+			SetEntitiesPaused(0);
+
+			LoadGame("save/save"+ThreeDigit(loadidx)+".sav");
+		}
+		else
+		{
+			SoundError();
+		}
+	}
+	else if(BUTTON_MEDKIT)
+	{
+		SoundKeyboardRand();
+		UnpressButtons();
+		CloseTopMenu();
+	}
+}
+
+void MenuLoadClose()
+{
+	FreeAnimation(nLoadMenuAnim);
+}

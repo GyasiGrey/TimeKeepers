@@ -1,0 +1,35 @@
+//notes.vc
+//a log of notes kept for the current mission.
+
+#define MAX_NOTES	500	//should be more then enough for a single mission
+
+string sNotes[MAX_NOTES];	//a blank entry in this list denotes the end of the notes list
+
+void AddNote(string text)
+{
+	//find the first index that equals ""
+	int i;
+	string floattext = "Note Added. Open the PDA to view your notes.";
+	
+	for(i=0;i<MAX_NOTES;i++)
+	{
+		if(strcmp(sNotes[i], "")==0)
+		{
+			sNotes[i] = text;
+			lucentTextFade(160-(TextWidth(nTinyFont, floattext)/2), 80-(FontHeight(nTinyFont)/2), floattext, nTinyFont, RGB(255, 255, 255), 0);
+			return;
+		}
+	}
+	
+	Error("AddNote() - Out of space to hold new notes! How did you manage to do that?");
+}
+
+void ClearNotes()
+{
+	int i;
+	
+	for(i=0;i<MAX_NOTES;i++)
+	{
+		sNotes[i] = "";
+	}
+}

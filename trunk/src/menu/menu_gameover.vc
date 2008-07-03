@@ -1,0 +1,126 @@
+int nGameOverMenuAnim;
+int nGameOverMenuStart;
+
+void OpenGameOverMenu()
+{
+	nPointerPos = 0;
+	nGameOverMenuAnim = LoadAnimationEX("cursor.png", 8, 8, 86, 129, ANIMATION_CURSOR_ANIM_STRING);
+	anims[nGameOverMenuAnim].automatic = 0;
+	
+	CreateMenu(85, 114, GetMenuTemplateIndex("MenuGameOver"));
+	
+	//imobilize the player
+	SetPlayer(-1);
+	
+	//turn off the radar
+	nRadarOn = 0;
+	
+	nGameOverMenuStart = timer;
+}
+
+void MenuGameOverDraw()
+{
+	int img = CreateMenuChoice("Continue?", "Load Last Save|Quit", nTerminalFont);
+	
+	int nEKGx, nEKGy;
+	int nEKGyIntercept = 90;
+	
+	RectFill(0, 0, 320, 240, RGB(0, 0, 0), screen);
+	
+	Blit(nMenuX, nMenuY, img, screen);
+	FreeImage(img);
+	
+	DrawAnimation(nGameOverMenuAnim);
+	
+	nEKGx = timer - nGameOverMenuStart;
+	
+	nEKGy = CalculateEKGy(nEKGx, nEKGyIntercept);
+	
+	if(nEKGx > 320)
+	{
+		nGameOverMenuStart = timer;
+		SoundLowHealth();
+	}
+		
+	//draw a red pixel to show the EKG thing
+	SetPixel(nEKGx, nEKGy, RGB(255, 0, 0), screen);
+}
+
+int CalculateEKGy(int nEKGx, int nEKGyIntercept)
+{
+	int nEKGy;
+	
+	if(nEKGx <= 100)
+		nEKGy = nEKGyIntercept;
+	else if(nEKGx > 100 && nEKGx < 150)
+		nEKGy = (-2*(nEKGx-100)) + nEKGyIntercept;
+	else if(nEKGx > 150 && nEKGx < 200)
+		nEKGy = (2*(nEKGx-150));
+	else if(nEKGx > 200 && nEKGx < 250)
+		nEKGy = (2*(nEKGx-200)) + nEKGyIntercept;
+	else if(nEKGx > 250 && nEKGx < 300)
+		nEKGy = (-2*(nEKGx-250)) + (nEKGyIntercept*2);
+	else
+		nEKGy = nEKGyIntercept;
+	
+	return nEKGy;
+}
+
+void MenuGameOverLogic()
+{
+	anims[nGameOverMenuAnim].y = 129+(nPointerPos*9);
+	//do the logic
+	if(up)
+	{
+		SoundKeyboardRand();
+		
+		nPointerPos--;
+		
+		if(nPointerPos<0)
+		{
+			nPointerPos = 1;
+		}
+		
+		unpress(5);
+	}
+	
+	if(down)
+	{
+		SoundKeyboardRand();
+		
+		nPointerPos++;
+		
+		if(nPointerPos>1)
+		{
+			nPointerPos = 0;
+		}
+		
+		unpress(6);
+	}
+	
+	if(BUTTON_SHOOT)
+	{
+		SoundKeyboardRand();
+		
+		UnpressButtons();
+
+		if(nPointerPos == 0)
+		{
+			//load the last save game
+			CloseAllMenus();
+			QuickLoad();
+		}
+		else if(nPointerPos == 1)
+		{
+			//go back to main menu
+			CloseAllMenus();
+			
+			TitleScreen();
+		}
+	}
+}
+
+void MenuGameOverClose()
+{
+	FreeAnimation(nGameOverMenuAnim);
+}

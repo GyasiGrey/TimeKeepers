@@ -1,0 +1,190 @@
+//so that I can have more then 4 buttons like b1 and so on
+//I had to do this in the weirdest way
+#define NUM_BUTTONS 8
+int nKeyButton[NUM_BUTTONS];
+int nJoyButton[NUM_BUTTONS];
+string sButtonNames[NUM_BUTTONS];	//human readable button names
+
+#define BUTTON_SHOOT key[nKeyButton[0]] || GetJoyButton(nJoyButton[0])
+#define BUTTON_MEDKIT key[nKeyButton[1]] || GetJoyButton(nJoyButton[1])
+#define BUTTON_AIM key[nKeyButton[2]] || GetJoyButton(nJoyButton[2])
+#define BUTTON_STEAL key[nKeyButton[3]] || GetJoyButton(nJoyButton[3])
+#define BUTTON_WEAPON_SWITCHUP key[nKeyButton[4]] || GetJoyButton(nJoyButton[4])
+#define BUTTON_WEAPON_SWITCHDOWN key[nKeyButton[5]] || GetJoyButton(nJoyButton[5])
+#define BUTTON_PAUSE key[nKeyButton[6]] || GetJoyButton(nJoyButton[6])
+#define BUTTON_PDA key[nKeyButton[7]] || GetJoyButton(nJoyButton[7])
+
+//to mark joy.button[i] as unpressed
+int nUnpress[32];
+
+void InitDefaultButtons()
+{
+	nKeyButton[0] = SCAN_SPACE;	//shoot
+	nKeyButton[1] = SCAN_LSHIFT;	//heal
+	nKeyButton[2] = SCAN_A;		//aim
+	nKeyButton[3] = SCAN_S;		//steal
+	nKeyButton[4] = SCAN_Z;		//weap switch up
+	nKeyButton[5] = SCAN_X;		//weap switch down
+	nKeyButton[6] = SCAN_ESC;	//pause
+	nKeyButton[7] = SCAN_TAB;
+	
+/*	nJoyButton[0] = 2;		//shoot
+	nJoyButton[1] = 3;		//heal
+	nJoyButton[2] = 7;		//aim
+	nJoyButton[3] = 5;		//steal
+	nJoyButton[4] = 6;		//weap switch up
+	nJoyButton[5] = 4;		//weap switch down
+	nJoyButton[6] = 9;		//pause
+*/	
+
+	//now setup for the 360 gamepad. 
+	nJoyButton[0] = 0;		//shoot
+	nJoyButton[1] = 1;		//heal
+	nJoyButton[2] = 5;		//aim
+	nJoyButton[3] = 4;		//steal
+	nJoyButton[4] = 3;		//weap switch up
+	nJoyButton[5] = 2;		//weap switch down
+	nJoyButton[6] = 2;		//pause
+	nJoyButton[7] = 7;		//PDA
+
+	sButtonNames[0] = "Weapon/Ok";
+	sButtonNames[1] = "Medkit/Cancel";
+	sButtonNames[2] = "Aim";
+	sButtonNames[3] = "Steal Target";
+	sButtonNames[4] = "Weapon Switch Up";
+	sButtonNames[5] = "Weapon Switch Down";
+	sButtonNames[6] = "Pause";
+	sButtonNames[7] = "PDA";
+}
+
+//unpress action buttons - not the aiming ones
+void UnpressButtons()
+{
+	key[nKeyButton[0]] = 0;
+	key[nKeyButton[1]] = 0;
+	key[nKeyButton[4]] = 0;
+	key[nKeyButton[5]] = 0;
+	key[nKeyButton[6]] = 0;
+	key[nKeyButton[7]] = 0;
+	
+	nUnpress[nJoyButton[0]] = 1;
+	nUnpress[nJoyButton[1]] = 1;
+	nUnpress[nJoyButton[4]] = 1;
+	nUnpress[nJoyButton[5]] = 1;
+	nUnpress[nJoyButton[6]] = 1;
+	nUnpress[nJoyButton[7]] = 1;
+}
+
+void UnpressWeaponSwitchButtons()
+{
+	key[nKeyButton[3]] = 0;
+	key[nKeyButton[4]] = 0;
+
+	nUnpress[nJoyButton[3]] = 1;
+	nUnpress[nJoyButton[4]] = 1;
+}
+
+void UnpressAllButtons()
+{
+	int i;
+	
+	for(i=0;i<NUM_BUTTONS;i++)
+	{
+		key[nKeyButton[i]] = 0;
+		nUnpress[nJoyButton[i]] = 1;
+	}
+}
+
+//wrapper for the joystick because joy.button[i] = 0; causes a HVAR1 error
+// idea from Omni
+int GetJoyButton(int btn)
+{
+	if(nUnpress[btn])
+	{
+		if(!joy.button[btn])
+		{
+			//messagebox("no more unpress for btn " + str(btn));
+			nUnpress[btn] = 0;
+		}
+		
+		return 0;
+	}
+	else
+	{
+		if(joy.button[btn])
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+}
+
+//opens buttons.sav and reads the joystick and keyboard bindings out of it
+//if there is no file it makes one with the default bindings
+void LoadButtonConfig()
+{
+	int i;
+	int hndl = FileOpen("buttons.sav", FILE_READ);	//my variable names keep getting more cryptic
+							
+	//init the default button values
+
+	InitDefaultButtons();
+	
+	if(!hndl)
+	{
+		hndl = FileOpen("buttons.sav", FILE_WRITE);
+		
+		//first the keyboard bindings
+		for(i=0;i<NUM_BUTTONS;i++)
+		{
+			FileWriteByte(hndl, nKeyButton[i]);
+		}
+		
+		//now the joystick
+		for(i=0;i<NUM_BUTTONS;i++)
+		{
+			FileWriteByte(hndl, nJoyButton[i]);
+		}
+		
+		FileClose(hndl);
+	}
+	else
+	{
+		//first the keyboard bindings
+		for(i=0;i<NUM_BUTTONS;i++)
+		{
+			nKeyButton[i] = FileReadByte(hndl);
+		}
+
+		//now the joystick
+		for(i=0;i<NUM_BUTTONS;i++)
+		{
+			nJoyButton[i] = FileReadByte(hndl);
+		}
+		
+		FileClose(hndl);
+	}
+}
+
+void SaveButtonConfig()
+{
+	int i;
+	int hndl = FileOpen("buttons.sav", FILE_WRITE);
+							
+	//first the keyboard bindings
+	for(i=0;i<NUM_BUTTONS;i++)
+	{
+		FileWriteByte(hndl, nKeyButton[i]);
+	}
+
+	//now the joystick
+	for(i=0;i<NUM_BUTTONS;i++)
+	{
+		FileWriteByte(hndl, nJoyButton[i]);
+	}
+		
+	FileClose(hndl);
+}

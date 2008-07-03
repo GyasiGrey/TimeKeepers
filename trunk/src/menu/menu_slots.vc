@@ -1,0 +1,25 @@
+//starts the slot machine minigame
+void MenuSlotMachineOpen()
+{
+}
+
+void MenuSlotMachineClose()
+{
+}
+
+void MenuSlotMachineDraw()
+{
+}
+
+void MenuSlotMachineLogic()
+{
+}
+
+//plays one game
+void PlaySlotMachine()
+{
+	//take away the players money
+	//generate the result for this play
+	//spin the reels
+	//if this is a winning spinn, give the player money
+}

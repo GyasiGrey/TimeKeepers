@@ -1,0 +1,16 @@
+//simple menu to show the default key bindings on the title screen
+void OpenMainKeys()
+{
+	CreateMenu(125, 175, GetMenuTemplateIndex("MenuMainKeys"));
+}
+
+void MenuMainKeysDraw()
+{
+	int img = CreateWindow("Key Bindings", 75, 54, nTerminalFont);
+	PrintString(8, 16, img, nTerminalFont, "^: Up");
+	PrintString(8, 24, img, nTerminalFont, "_: Down");
+	PrintString(8, 32, img, nTerminalFont, "Ok: " + ScanToKeyName(nKeyButton[0]));
+	PrintString(8, 40, img, nTerminalFont, "Cancel: " + ScanToKeyName(nKeyButton[1]));
+	Blit(nMenuX, nMenuY, img, screen);
+	FreeImage(img);
+}

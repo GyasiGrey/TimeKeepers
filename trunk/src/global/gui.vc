@@ -1,0 +1,93 @@
+//holy shit, this file is a ugly cow
+#define BOTTOM_TEXT_TIME 300	//text stays on the bottom for 3 seconds
+#define BOTTOM_TEXT_FADEOUT_TIME 245 //time it takes for a generic fade out anim to fade out. Minus a 5cs as timer work is a bit fuzzy.
+
+#define BOTTOM_TEXT_SOUND 0	//used for BottomText sound is when guard hears player
+#define BOTTOM_TEXT_SPOTED 1	//spoted is when guard sees player
+#define BOTTOM_TEXT_LOST 2	//lost is when guard gets bored chasing the player
+#define BOTTOM_TEXT_SHOT 3	//player just shot me
+#define BOTTOM_TEXT_CIVILIAN 4	//shot a civilian
+#define BOTTOM_TEXT_CAUTION_CIVILIAN 5
+
+void DrawGui()
+{
+	int healthmeter, ammometer;
+	int i, y, luc;
+	
+	//**************UPDATE AN ENEMIES BOTTOM TEXT ANIM TO MATCH THEIR XY COORD*************//
+	for(i=0;i<nNumEnemies;i++)	//what the hey-zus? i<entities?
+	{
+		if(Enemies[i].nActive && Enemies[i].nBottomTextAnim >= 0 && anims[Enemies[i].nBottomTextAnim].active)
+		{
+			anims[Enemies[i].nBottomTextAnim].x = entity.x[Enemies[i].nEntity]+(entity.hotw[Enemies[i].nEntity]/2)-(textwidth(nFont, Enemies[i].sBottomText)/2);
+			anims[Enemies[i].nBottomTextAnim].y = entity.y[Enemies[i].nEntity]-16;
+		}
+		
+		//if enough time has passed, release this enemies animation so they don't corupt others
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[i].nBottomTextStart+BOTTOM_TEXT_FADEOUT_TIME)
+		{
+			Enemies[i].nBottomTextAnim = -1;
+		}
+		
+		/*if(strcmp(Enemies[i].sBottomText, "") != 0)
+		{
+			//time to start fading lucently
+			if(timer > Enemies[i].nBottomTextStart+BOTTOM_TEXT_TIME-BOTTOM_TEXT_FADEOUT_TIME)
+			{
+				luc = ((timer-Enemies[i].nBottomTextStart)*100)/(BOTTOM_TEXT_TIME-BOTTOM_TEXT_FADEOUT_TIME);
+				SetLucent(luc-100);
+			}
+
+			PrintStringColCenter(entity.x[Enemies[i].nEntity]+(entity.hotw[Enemies[i].nEntity]/2)-xwin+1, entity.y[Enemies[i].nEntity]-16-ywin+1, screen, nFont, Enemies[i].sBottomText, RGB(0, 0, 0));
+			PrintCenter(entity.x[Enemies[i].nEntity]+(entity.hotw[Enemies[i].nEntity]/2)-xwin, entity.y[Enemies[i].nEntity]-16-ywin, screen, nFont, Enemies[i].sBottomText);
+			SetLucent(0);
+
+			//if the time is up, kill the text
+			if(timer > Enemies[i].nBottomTextStart+BOTTOM_TEXT_TIME)
+			{
+				Enemies[i].sBottomText = "";
+			}
+		}*/
+	}
+
+	//*********DRAW THE TEXT OF THE GUI************//
+	//draw the health stuff
+	healthmeter = MakeWaitBar(60, 7, nHealth, nMaxHealth);
+	TBlit(20, 225, healthmeter, screen);
+	PrintStringCol(3, 235, screen, nTinyFont, "Health: " + str(nHealth) + "/" + str(nMaxHealth), RGB(0, 0, 0));
+	PrintString(2, 234, screen, nTinyFont, "Health: " + str(nHealth) + "/" + str(nMaxHealth));
+	
+	//Num of medkits
+	PrintStringCol(65, 235, screen, nTinyFont, "Medkits: " + str(nNumMedkits), RGB(0, 0, 0));
+	PrintString(64, 234, screen, nTinyFont, "Medkits: " + str(nNumMedkits));
+
+	TBlit(2, 216, nHealthIcn, screen);
+	FreeImage(healthmeter);
+	
+	//draw the amount of loot stolen
+	PrintStringCol(281, 209, screen, nTinyFont, "Loot: ", RGB(0, 0, 0));
+	PrintString(280, 208, screen, nTinyFont, "Loot:");
+
+	PrintStringColRight(319, 209, screen, nTinyFont, str(nLoot), RGB(0, 0, 0));
+	PrintRight(318, 208, screen, nTinyFont, str(nLoot));
+
+	//draw the ammo stuff
+	if(Weapons[nEquipedWeapon].nMaxAmmo > 0)
+	{
+		PrintStringColRight(319, 235, screen, nTinyFont, str(nAmmo[nEquipedWeapon]) + "/" + str(Weapons[nEquipedWeapon].nMaxAmmo) + " " + Weapons[nEquipedWeapon].sName, RGB(0, 0, 0));
+		PrintRight(318, 234, screen, nTinyFont, str(nAmmo[nEquipedWeapon]) + "/" + str(Weapons[nEquipedWeapon].nMaxAmmo) + " " + Weapons[nEquipedWeapon].sName);
+	}
+	else
+	{
+		PrintStringColRight(319, 235, screen, nTinyFont, Weapons[nEquipedWeapon].sName, RGB(0, 0, 0));
+		PrintRight(318, 234, screen, nTinyFont, Weapons[nEquipedWeapon].sName);
+	}
+	TBlit(302, 216, Weapons[nEquipedWeapon].nIcon, screen);
+	
+	if(weapons[nEquipedWeapon].nMaxAmmo > 0)
+	{
+		ammometer = MakeWaitBar(60, 7, nAmmo[nEquipedWeapon], Weapons[nEquipedWeapon].nMaxAmmo);
+		TBlit(241, 225, ammometer, screen);
+		FreeImage(ammometer);
+	}
+}

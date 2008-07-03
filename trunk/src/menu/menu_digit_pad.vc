@@ -1,0 +1,178 @@
+int nDigitPadMenuAnim;
+string sDigitPadMenuRetVal;
+
+int nPointerPosX, nPointerPosY;
+
+//makes a 0-9 digit pad
+//numDigits is the number of digits it is expecting
+string MenuDigitPad(int numDigits)
+{
+	sDigitPadMenuRetVal = "";
+
+	MenuDigitPadOpen();
+
+	UnpressButtons();
+	
+	//since processloot is hooked to postRetrace nDualCounter will always be 1
+	//set it to 0 so the menu appears correctly
+	nDualCounter = 0;
+	
+	while(len(sDigitPadMenuRetVal) != numDigits)
+	{
+		Render();
+		ShowPage();
+	}
+	
+
+	//then back to 1 to get back on track
+	nDualCounter = 1;
+	
+	CloseTopMenu();
+	
+	//return the code entered
+	return sDigitPadMenuRetVal;
+}
+
+void MenuDigitPadOpen()
+{
+	int x = 100;
+	int y = 100;
+	
+	SwitchPause();
+	
+	nPointerPosX = 0;
+	nPointerPosY = 0;
+
+	nDigitPadMenuAnim = LoadAnimationEX("cursor.png", 8, 8, x+8, y+24, ANIMATION_CURSOR_ANIM_STRING);
+	anims[nDigitPadMenuAnim].automatic = 0;
+	
+	CreateMenu(x, y, GetMenuTemplateIndex("MenuDigitPad"));
+}
+
+void MenuDigitPadClose()
+{
+	FreeAnimation(nDigitPadMenuAnim);
+	
+	SwitchPause();
+}
+
+void MenuDigitPadLogic()
+{
+	anims[nDigitPadMenuAnim].x = nMenuX+8+(nPointerPosX*8);
+	anims[nDigitPadMenuAnim].y = nMenuY+24+(nPointerPosY*8);
+	
+	if(up)
+	{
+		nPointerPosY--;
+		
+		if(nPointerPosY<0)
+		{
+			if(nPointerPosX == 1)
+				nPointerPosY = 3;
+			else
+				nPointerPosY = 2;
+		}
+		
+		unpress(5);
+	}
+	
+	if(down)
+	{
+		nPointerPosY++;
+		
+		if(nPointerPosX == 1)
+		{
+			if(nPointerPosY>3)
+				nPointerPosY = 0;
+		}
+		else
+		{
+			if(nPointerPosY>2)
+				nPointerPosY = 0;
+		}
+		
+		unpress(6);
+	}
+	
+	if(right)
+	{
+		if(nPointerPosY != 3)
+		{
+			nPointerPosX++;
+			
+			if(nPointerPosX>2)
+			{
+				nPointerPosX = 0;
+			}
+		}
+		
+		unpress(8);
+	}
+	
+	if(left)
+	{
+		if(nPointerPosY != 3)
+		{
+			nPointerPosX--;
+		
+			if(nPointerPosX<0)
+			{
+				nPointerPosX = 2;
+			}
+		}
+		
+		unpress(7);
+	}
+	
+	if(BUTTON_SHOOT)
+	{
+		//calculate the digit the user has selected. Yay math.
+		if(nPointerPosX == 1 && nPointerPosY == 3)
+		{
+			//0 is a special case
+			sDigitPadMenuRetVal = sDigitPadMenuRetVal + "0";
+			
+			SoundDial(0);
+		}
+		else
+		{
+			sDigitPadMenuRetVal = sDigitPadMenuRetVal + str((nPointerPosY * 3) + (nPointerPosX + 1));
+			
+			SoundDial((nPointerPosY * 3) + (nPointerPosX + 1));
+		}
+
+		UnpressButtons();
+	}
+}
+
+void MenuDigitPadDraw()
+{
+	int x, y;
+	x=11;
+	y=24;
+	
+	int img = CreateWindow("Enter Code", 41, 60, nTerminalFont);
+	
+	//draw what the user punched in so far
+	PrintCenter(x+10, y-10, img, nTerminalFont, sDigitPadMenuRetVal);
+	
+	//draw the input digits
+	PrintString(x, y, img, nTerminalFont, "1");
+	PrintString(x+8, y, img, nTerminalFont, "2");
+	PrintString(x+16, y, img, nTerminalFont, "3");
+	
+	PrintString(x, y+8, img, nTerminalFont, "4");
+	PrintString(x+8, y+8, img, nTerminalFont, "5");
+	PrintString(x+16, y+8, img, nTerminalFont, "6");
+	
+	PrintString(x, y+16, img, nTerminalFont, "7");
+	PrintString(x+8, y+16, img, nTerminalFont, "8");
+	PrintString(x+16, y+16, img, nTerminalFont, "9");
+	
+	PrintString(x+8, y+24, img, nTerminalFont, "0");
+	
+	Blit(nMenuX, nMenuY, img, screen);	
+	FreeImage(img);
+	
+	DrawAnimation(nDigitPadMenuAnim);
+}

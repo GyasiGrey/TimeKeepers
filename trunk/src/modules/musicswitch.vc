@@ -1,0 +1,87 @@
+//code to do "active" music cross fading
+
+int nCurrentMusic;
+int nCurrentMusicVol;
+int nNextMusic;
+int nNextMusicVol;
+
+int nNextMusicSwitch;		//timer when we should change the volume
+int nMusicSwitchSpeed;
+
+void StartSong(string filename)
+{
+	StopSong(nCurrentMusic);
+	FreeSong(nCurrentMusic);
+	
+	nCurrentMusic = LoadSong("music/"+filename);
+	PlaySong(nCurrentMusic);
+}
+
+//does an active cross fade to the song passed
+void MusicSwitch(string filename, int speed)
+{
+//todo :((
+StartSong(filename);
+return;
+	string fullFilename = "music/"+filename;
+	
+	if(IsHooked("MusicSwitchHook"))
+	{
+		Error("Music switch already happening! Taking over using " + filename);
+		
+		//we already have a music switch going, so take over with this new file
+		//kill nNextMusic
+		FreeSong(nNextMusic);
+		//load the new file in its place
+		nNextMusic = LoadSong(fullFilename);
+		Error("nNextMusic: " + str(nNextMusic));
+		//set it's volume to match where it should be in the loop
+		SetSongVolume(nNextMusic, nNextMusicVol);
+		//play the song
+		PlaySong(nNextMusic);
+		//carry on like nothing ever happened
+	}
+	else
+	{
+		Error("Music switching to " + filename);
+		
+		nNextMusic = LoadSong(fullFilename);
+		Error("nNextMusic: " + str(nNextMusic));
+		SetSongVolume(nNextMusic, 0);
+
+		PlaySong(nNextMusic);
+
+		AddHook("MusicSwitchHook", 5);
+
+
+		nCurrentMusicVol = 100;
+		nNextMusicVol = 0;
+
+		nMusicSwitchSpeed = speed;
+
+		nNextMusicSwitch = timer + 10;
+	}
+}
+
+void MusicSwitchHook()
+{
+	if(timer >= nNextMusicSwitch)
+	{
+		nCurrentMusicVol-=nMusicSwitchSpeed;
+		nNextMusicVol+=nMusicSwitchSpeed;
+		
+		SetSongVolume(nCurrentMusic, nCurrentMusicVol);
+		SetSongVolume(nNextMusic, nNextMusicVol);
+		
+		nNextMusicSwitch = timer + 10;
+		
+		if(nNextMusicVol >= 100 || nCurrentMusicVol <= 0)
+		{
+			StopSong(nCurrentMusic);
+			FreeSong(nCurrentMusic);
+			nCurrentMusic = nNextMusic;
+			
+			RemoveHook("MusicSwitchHook");
+		}
+	}
+}

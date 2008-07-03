@@ -1,0 +1,150 @@
+/*******************
+* loot.vc - stuff you can steal
+* similar to enemies in that maps have there own InitLoot functions
+*******************/
+
+#define MAX_LOOT 200
+#define LOOT_RANGE 25
+
+struct Loot
+{
+	int nX;		//location of the item in pixel coords (tile coords *16)
+	int nY;
+	string sName;	//items name
+	int nAmt;	//amt of cash recieved when you pilfer the item
+	int nStolen;	//==1 when item has been taken
+	string sFunc;	//optional function run when the item is stolen
+	int nImage;	//the image of the loot, 0-1 means no image
+}
+
+int nNumLoot;
+
+int nLoot;			//the amount of loot stolen
+int nCurrentLoot;		//the loot currently being stolen. Usefull for loot with a function hooked to it
+
+Loot Loots[MAX_LOOT];
+Loot LoadedLoots[MAX_LOOT];
+
+//a helper func to create loot
+//x and y are PIXEL coords
+//if icn is "" the loot will have no image
+void CreateLoot(int x, int y, string name, int amt, string icn, string func)
+{
+	Loots[nNumLoot].nX = x;
+	Loots[nNumLoot].nY = y;
+	Loots[nNumLoot].sName = name;
+	Loots[nNumLoot].nAmt = amt;
+	Loots[nNumLoot].sFunc = func;
+	Loots[nNumLoot].nStolen = 0;
+	if(strcmp(icn, ""))
+		Loots[nNumLoot].nImage = LoadImage("gfx\loot\" + icn);
+	else
+		Loots[nNumLoot].nImage = 0-1;
+	
+	nNumLoot++;
+	
+	Error("CreateLoot() - x: " + str(x) + " y: " + str(Y) + " name: " + name + " amt: " + str(amt) + " function: " + func);
+}
+
+void ClearLoot()
+{
+	int i;
+	
+	for(i=0;i<MAX_LOOT;i++)
+	{
+		if(ImageValid(Loots[i].nImage))
+			FreeImage(Loots[i].nImage);
+	}
+	
+	nNumLoot = 0;
+}
+
+void Steal()
+{
+	int i;
+	
+	//don't let the player steal if they are dead
+	if(nHealth <= 0)
+		return;
+		
+	sLootInRange = "";
+	nTargetIndex = 0;
+	
+	//cycle through the ents and look for ones in range
+	for(i=0;i<nNumLoot;i++)
+	{
+		//if the item wasn't taken
+		//it's in range
+		if(Loots[i].nStolen==0 && DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], Loots[i].nX, Loots[i].nY) < LOOT_RANGE)// && LineOfSight(entity.x[nPlayerEnt], entity.y[nPlayerEnt], Loots[i].nX, Loots[i].nY, nPlayerEnt) == 0-2)
+		{
+			//be able to steal it
+			sLootInRange = sLootInRange + str(i) + " ";
+		}
+	}
+	
+	//if there is loot to aim at
+	if(strcmp(sLootInRange, "")!=0)
+	{
+		//put the pointer on one
+		anims[nTargetPointerAnim].x = Loots[val(GetToken(sLootInRange, " ", nTargetIndex))].nX;
+		anims[nTargetPointerAnim].y = Loots[val(GetToken(sLootInRange, " ", nTargetIndex))].nY;
+	}
+	else
+	{
+		anims[nTargetPointerAnim].x = 0-16;
+		anims[nTargetPointerAnim].y = 0-16;
+	}
+	
+	//try to take the item
+	if(BUTTON_SHOOT)
+	{
+		if(strcmp(sLootInRange, "")!=0)
+		{
+			//STEAL IT!
+			SoundLoot(); //play the loot sound
+			nCurrentLoot = val(GetToken(sLootInRange, " ", nTargetIndex));
+			
+			Loots[nCurrentLoot].nStolen = 1; //mark it as stolen
+			nLoot += Loots[nCurrentLoot].nAmt;
+			CallFunction(Loots[nCurrentLoot].sFunc); //call it's func
+			
+			UnpressButtons();
+			
+			//do the animation thingy to show that we stole it
+			
+			if(Loots[val(GetToken(sLootInRange, " ", nTargetIndex))].nAmt > 0)
+			{
+				lucentTextFade(Loots[nCurrentLoot].nX, Loots[nCurrentLoot].nY, Loots[nCurrentLoot].sName + ": " + str(Loots[nCurrentLoot].nAmt), nTinyFont, RGB(255, 255, 255), 1);
+			}
+			else	//don't print the amount of the loot it it's 0
+			{
+				lucentTextFade(Loots[nCurrentLoot].nX, Loots[nCurrentLoot].nY, Loots[nCurrentLoot].sName, nTinyFont, RGB(255, 255, 255), 1);
+			}
+				
+
+			nCurrentLoot = 0-1;
+		}
+	}
+}
+
+void DrawTopLoot()
+{
+	int i;
+	
+	for(i=0;i<nNumLoot;i++)
+	{
+		if(Loots[i].nImage >= 0 && !Loots[i].nStolen && Loots[i].nY >= entity.y[nPlayerEnt])
+			TBlit(Loots[i].nX-xwin, Loots[i].nY-ywin, Loots[i].nImage, screen);
+	}
+}
+
+void DrawBottomLoot()
+{
+	int i;
+	
+	for(i=0;i<nNumLoot;i++)
+	{
+		if(Loots[i].nImage >= 0 && !Loots[i].nStolen && Loots[i].nY <= entity.y[nPlayerEnt])
+			TBlit(Loots[i].nX-xwin, Loots[i].nY-ywin, Loots[i].nImage, screen);
+	}
+}

@@ -1,0 +1,204 @@
+//idea taken from sully simple type
+//store all the sounds (except weapon sounds) in ints here
+//and just use functions to call them
+
+//this is not the best use of ram...we shall see what comes of this
+
+int nSoundVolume = 100;
+
+int nSoundPlayerDeath = LoadSound("sounds\playerdeath.wav");
+int nSoundLoot = LoadSound("sounds\loot.wav");
+int nSoundNoAmmo = LoadSound("sounds\noammo.wav");
+int nSoundKnockOut = LoadSound("sounds\knockout.wav");
+int nSoundLowHealth = LoadSound("sounds\lowhealth.wav");
+int nSoundDoorOpen = LoadSound("sounds\dooropen.wav");
+int nSoundDoorClose = LoadSound("sounds\doorclose.wav");
+int nSoundPickLock = LoadSound("sounds\picklock.wav");
+int nSoundLocked = LoadSound("sounds\locked.wav");
+int nSoundError = LoadSound("sounds\error.wav");
+int nSoundTeleport = LoadSound("sounds\teleport.wav");
+int nSoundMedkit = LoadSound("sounds\medkit.wav");
+int nSoundKlaxon = LoadSound("sounds\klaxon.wav");
+int nSoundWarn = LoadSound("sounds\warn.wav");
+int nSoundElevatorCall = LoadSound("sounds\elevatorcall.wav");
+int nSoundElevatorHere = LoadSound("sounds\elevatorhere.wav");
+int nSoundGrenade = LoadSound("sounds\grenade.wav");
+int nSoundStaticIn = LoadSound("sounds\static_in.wav");
+int nSoundStaticOut = LoadSound("sounds\static_out.wav");
+int nSoundAchivement = LoadSound("sounds\achivement.wav");
+int nSoundBigMetalDoor = LoadSound("sounds\bigmetaldoor.wav");
+
+int nSoundTKSplashIn = LoadSound("sounds\tkSplashStaticIn.wav");
+int nSoundTKSplashOut = LoadSound("sounds\tkSplashStaticOut.wav");
+
+int nSoundWha1 = LoadSound("sounds\wha1.wav");
+int nSoundWha2 = LoadSound("sounds\wha2.wav");
+int nSoundUgh1 = LoadSound("sounds\ugh1.wav");
+int nSoundUgh2 = LoadSound("sounds\ugh2.wav");
+
+int nSoundDial0 = LoadSound("sounds\Dial0.wav");
+int nSoundDial1 = LoadSound("sounds\Dial1.wav");
+int nSoundDial2 = LoadSound("sounds\Dial2.wav");
+int nSoundDial3 = LoadSound("sounds\Dial3.wav");
+int nSoundDial4 = LoadSound("sounds\Dial4.wav");
+int nSoundDial5 = LoadSound("sounds\Dial5.wav");
+int nSoundDial6 = LoadSound("sounds\Dial6.wav");
+int nSoundDial7 = LoadSound("sounds\Dial7.wav");
+int nSoundDial8 = LoadSound("sounds\Dial8.wav");
+int nSoundDial9 = LoadSound("sounds\Dial9.wav");
+
+int nSoundKeyboard1 = LoadSound("sounds\keyboard1.wav");
+int nSoundKeyboard2 = LoadSound("sounds\keyboard2.wav");
+int nSoundKeyboard3 = LoadSound("sounds\keyboard3.wav");
+int nSoundKeyboard4 = LoadSound("sounds\keyboard4.wav");
+int nSoundKeyboard5 = LoadSound("sounds\keyboard5.wav");
+int nSoundKeyboard6 = LoadSound("sounds\keyboard6.wav");
+int nSoundKeyboard7 = LoadSound("sounds\keyboard7.wav");
+int nSoundKeyboard8 = LoadSound("sounds\keyboard8.wav");
+
+void SoundPlayerDeath()
+{
+	PlaySound(nSoundPlayerDeath, nSoundVolume);
+}
+
+void SoundLoot()
+{
+	PlaySound(nSoundLoot, nSoundVolume);
+}
+
+void SoundNoAmmo()
+{
+	PlaySound(nSoundNoAmmo, nSoundVolume);
+}
+
+void SoundKnockOut()
+{
+	PlaySound(nSoundKnockOut, nSoundVolume);
+}
+
+void SoundLowHealth()
+{
+	PlaySound(nSoundLowHealth, nSoundVolume);
+}
+
+void SoundDoorOpen()
+{
+	PlaySound(nSoundDoorOpen, nSoundVolume);
+}
+
+void SoundDoorClose()
+{
+	PlaySound(nSoundDoorClose, nSoundVolume);
+}
+
+void SoundPickLock()
+{
+	PlaySound(nSoundPickLock, nSoundVolume);
+}
+
+void SoundLocked()
+{
+	PlaySound(nSoundLocked, nSoundVolume);
+}
+
+void SoundError()
+{
+	PlaySound(nSoundError, nSoundVolume);
+}
+
+void SoundTeleport()
+{
+	PlaySound(nSoundTeleport, nSoundVolume);
+}
+
+void SoundMedkitUse()
+{
+	PlaySound(nSoundMedkit, nSoundVolume);
+}
+
+void SoundKlaxon(int x, int y, int range)
+{
+	DistanceSound(nSoundKlaxon, x, y, range);
+}
+
+void SoundWarn(int x, int y, int range)
+{
+	DistanceSound(nSoundWarn, x, y, range);
+}
+
+void SoundElevatorCall()
+{
+	PlaySound(nSoundElevatorCall, nSoundVolume);
+}
+
+void SoundElevatorHere()
+{
+	PlaySound(nSoundElevatorHere, nSoundVolume);
+}
+
+void SoundGrenade()
+{
+	PlaySound(nSoundGrenade, nSoundVolume);
+}
+
+void StaticIn()
+{
+	PlaySound(nSoundStaticIn, nSoundVolume);
+}
+
+void StaticOut()
+{
+	PlaySound(nSoundStaticOut, nSoundVolume);
+}
+
+void SoundAchivement()
+{
+	PlaySound(nSoundAchivement, nSoundVolume);
+}
+
+void SoundBigMetalDoor()
+{
+	PlaySound(nSoundBigMetalDoor, nSoundVolume);
+}
+
+void DistanceSound(int snd, int x, int y, int range)
+{
+	//this sound is played ambiently (softer at further ranges)
+	int dist = DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], x, y);
+	PlaySound(snd, 100-((dist*100)/range));
+}
+
+//weeee I used GetInt()!
+void SoundDial(int i)
+{
+	PlaySound(GetInt("nSoundDial" + str(i)), nSoundVolume);
+}
+
+//plays a random keyboard sound. Uses GetInt() again!
+void SoundKeyboardRand()
+{
+	int i = random(1, 8);
+	PlaySound(GetInt("nSoundKeyboard" + str(i)), nSoundVolume);
+}
+
+void SoundWhaRand()
+{
+	PlaySound(GetInt("nSoundWha" + str(random(1, 2))), nSoundVolume);
+
+}
+
+void SoundUghRand()
+{
+	PlaySound(GetInt("nSoundUgh" + str(random(1, 2))), nSoundVolume);
+
+}
+
+void SoundTKSplashOut()
+{
+	PlaySound(nSoundTKSplashOut, nSoundVolume);
+}
+
+void SoundTKSplashIn()
+{
+	PlaySound(nSoundTKSplashIn, nSoundVolume);
+}

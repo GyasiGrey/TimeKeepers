@@ -1,0 +1,139 @@
+int nInGameMenuAnim;
+
+int bCanOpenInGameMenu = 1;
+
+//returns true if the main menu can open
+int MenuCanOpen()
+{
+	if(!bCanOpenInGameMenu)
+		return 0;
+	else
+		return 1;
+}
+
+void OpenInGameMenu()
+{
+	if(!MenuCanOpen())
+		return;
+
+	SwitchPause();
+	
+	UnpressButtons();
+	
+	nPointerPos = 0;
+	nInGameMenuAnim = LoadAnimationEX("cursor.png", 8, 8, 113, 114, ANIMATION_CURSOR_ANIM_STRING);
+	anims[nInGameMenuAnim].automatic = 0;
+	
+	CreateMenu(110, 100, GetMenuTemplateIndex("MenuInGame"));
+}
+
+
+void MenuInGameDraw()
+{
+
+	int i;
+	int img = CreateWindow("Pause", 120, 60, nTerminalFont);
+	
+	PrintString(12, 14, img, nTerminalFont, "Resume Game");
+	PrintString(12, 22, img, nTerminalFont, "Save Game");
+	PrintString(12, 30, img, nTerminalFont, "Load Game");
+	PrintString(12, 38, img, nTerminalFont, "Options");
+	PrintString(12, 46, img, nTerminalFont, "Exit To Main Menu");
+	
+	Blit(nMenuX, nMenuY, img, screen);	
+	FreeImage(img);
+	
+	DrawAnimation(nInGameMenuAnim);
+}
+
+void MenuInGameLogic()
+{
+	anims[nInGameMenuAnim].y = 114 + (nPointerPos*8);
+
+	
+	if(up)
+	{
+		SoundKeyboardRand();
+		
+		if(nPointerPos > 0)
+			nPointerPos--;
+		else 
+			nPointerPos = 4;
+			
+		unpress(5);
+	}
+	else if(down)
+	{
+		SoundKeyboardRand();
+		
+		if(nPointerPos < 4)
+			nPointerPos++;
+		else
+			nPointerPos = 0;
+			
+		unpress(6);
+	}
+	else if(BUTTON_SHOOT)
+	{
+		if(nPointerPos == 0)
+		{
+			SoundKeyboardRand();
+			//resume game
+			CloseTopMenu();
+		}
+		else if(nPointerPos == 1)
+		{
+			SoundKeyboardRand();
+			//save game
+			UnpressButtons();
+			
+			//first check if we can save here
+			if(CanSave())
+			{
+				OpenSaveMenu();
+			}
+			else
+			{
+				//u no save!! error sound!
+				SoundError();
+			}
+		}
+		else if(nPointerPos == 2)
+		{
+			SoundKeyboardRand();
+			//load game
+			UnpressButtons();
+			OpenLoadMenu();
+		}
+		else if(nPointerPos == 3)
+		{
+			SoundKeyboardRand();
+			//options
+			UnpressButtons();
+			OpenOptionsMenu();
+		}
+		else if(nPointerPos == 4)
+		{
+			SoundKeyboardRand();
+			//exit to main menu
+			StopSong(nCurrentMusic);
+			CloseTopMenu();
+			RemoveGui();
+			UnpressButtons();
+			
+			TitleScreen();
+		}
+	}
+	else if(BUTTON_MEDKIT)
+	{
+		SoundKeyboardRand();
+		CloseTopMenu();
+		UnpressButtons();
+	}
+}
+
+void MenuInGameClose()
+{
+	FreeAnimation(nInGameMenuAnim);
+	SetPause(0);	//unpause the game
+}

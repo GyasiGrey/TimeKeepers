@@ -1,0 +1,94 @@
+//and now because no "modern" verge game is complete without an overly complex light system
+//and because it just looks cool
+
+//note this does not effect guards ability to see you. It ain't Thief you know.....
+
+#define MAX_LIGHTS 100
+
+#define LIGHT_TYPE_ROUND 0
+#define LIGHT_TYPE_WINDOW 1
+#define LIGHT_TYPE_WINDOW_DOWN 2
+
+struct Light
+{
+	int nX;			//pixel coords of the center of the light
+	int nY;
+	int nXRadius;		//radius of the light
+	int nYRadius;
+	int nType;
+}
+
+Light Lights[MAX_LIGHTS];
+
+int nLights;			//the current number of lights
+int nGlobalLight;		//the global ambient light, 0 is full light - 255 is full dark
+int lightimg = LoadImage("gfx\misc\light.png");
+int windowlightimg = LoadImage("gfx\misc\windowlight.png");
+int bLightsEnabled;
+
+void ClearLights()
+{
+	nLights = 0;
+}
+
+void AddLight(int x, int y, int xrad, int yrad, int type)
+{
+	Lights[nLights].nX = x;
+	Lights[nLights].nY = y;
+	Lights[nLights].nXRadius = xrad;
+	Lights[nLights].nYRadius = yrad;
+	Lights[nLights].nType = type;
+
+	nLights++;
+}
+
+//hook this on retrace before animations
+//that way it only does light on the actuall map not gui and stuff
+void ProcessLights()
+{
+	int i, imghndl;
+
+	if(!bLightsEnabled)
+		return; //short circuit out if disabled
+	
+	int screenimg = NewImage(ImageWidth(screen), ImageHeight(screen));
+	int screenmask = NewImage(ImageWidth(screen), ImageHeight(screen));
+	
+	//first plop the global light on things
+	RectFill(0, 0, 320,240, rgb(nGlobalLight,nGlobalLight,nGlobalLight), screenmask);
+	RectFill(0, 0, 320 , 240 , RGB(0, 0, 0), screenimg);
+	
+	//step through the lights and blit them!
+	for(i=0;i<nLights;i++)
+	{
+		if(Lights[i].nType == LIGHT_TYPE_ROUND)
+			imghndl = lightimg;
+		else if(Lights[i].nType == LIGHT_TYPE_WINDOW)
+			imghndl = windowlightimg;
+			
+		SubtractiveScaleBlit(Lights[i].nX-xwin-Lights[i].nXRadius, Lights[i].nY-ywin-Lights[i].nYRadius, Lights[i].nXRadius*2, Lights[i].nYRadius*2, imghndl, screenmask);
+	}
+	
+	//players light radius
+	SubtractiveScaleBlit(entity.x[nPlayerEnt]-xwin-50+(entity.hotw[nPlayerEnt]/2), entity.y[nPlayerEnt]-ywin-50+(entity.hotw[nPlayerEnt]/2), 100, 100, lightimg, screenmask);
+	//alpha blit to the screen to put all the lighting in effect
+
+	AlphaBlit(0, 0, screenimg, screenmask, screen);
+	
+	FreeImage(screenimg);
+	FreeImage(screenmask);
+}
+
+//does a scale blit to a temp image, then a SubtractiveBlit to the dest.
+//just to keep ProcessLights() clean
+void SubtractiveScaleBlit(int x, int y, int dx, int dy, int src, int dest)
+{
+	int tmp = NewImage(dx, dy);
+	
+	ScaleBlit(0, 0, dx, dy, src, tmp);
+	
+	SubtractiveBlit(x, y, tmp, dest);
+	
+	FreeImage(tmp);
+}
+

@@ -1,0 +1,26 @@
+void start()
+{
+	//do clean up and cll MapVC virtual functions
+	InitMap();
+		
+	//spawn player and Hook to the render
+	nPlayerEnt = EntitySpawn(172,149,"ghost.chr");
+	SetPlayer(nPlayerEnt);
+	HookEntityRender(nPlayerEnt, "PlayerRender");
+	
+	//Play the maps music
+	MusicSwitch("base.s3m", 15);
+
+	//***ANY FLAG LOGIC, FOR EXAMPLE FOR CUT SCENES, ETC***
+
+	bLoadingGame=0;
+}
+
+
+//Them implement the functions
+//InitAmbientSounds()
+//InitEmitters()
+//InitDoors()
+//InitEnemies()
+//InitLoot()
+//InitLights()

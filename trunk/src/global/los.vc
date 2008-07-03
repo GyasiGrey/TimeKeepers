@@ -1,0 +1,161 @@
+int LOSXstop, LOSYstop;
+//Uses code from (http://www.gamedev.net/reference/articles/article1275.asp)
+//for interger line drawing
+//returns ent index if it hit an ent
+//0-1 if it hit an obs
+//0-2 else
+//if it hit an obs or ent the x and y are put in LOSXstop and LOSYstop
+int LineOfSight(int x1, int y1, int x2, int y2, int ignoreent)
+{
+	int deltaX, deltaY, /*x1, y1, x2, y2,*/ x, y; //YOU ARE A STUPID!
+	int enthit;
+	int xinc1, xinc2, yinc1, yinc2, den, num, numadd, numpixels, curpixel;
+	int continue;
+	
+	//log("LoS() called x1: " + str(x1) + " x2: " + str(x2) + " y1: " + str(y1) + " y2: " + str(y2) + " ignoreent: " + str(ignoreent));
+	
+	//calculate deltaX and deltaY
+	deltaX = Abs(x2 - x1);
+	deltaY = Abs(y2 - y1);
+	
+	x = x1;
+
+	y = y1;
+
+	if (x2 >= x1)                 // The x-values are increasing
+	{
+		xinc1 = 1;
+		xinc2 = 1;
+	}
+	else                          // The x-values are decreasing
+	{
+		xinc1 = 0-1;
+		xinc2 = 0-1;
+	}
+
+	if (y2 >= y1)                 // The y-values are increasing
+	{
+		yinc1 = 1;
+		yinc2 = 1;
+	}
+	else                          // The y-values are decreasing
+	{
+		yinc1 = 0-1;
+		yinc2 = 0-1;
+	}
+
+	if (deltax >= deltay)         // There is at least one x-value for every y-value
+	{
+		xinc1 = 0;                  // Don't change the x when numerator >= denominator
+		yinc2 = 0;                  // Don't change the y for every iteration
+		den = deltax;
+		num = deltax / 2;
+		numadd = deltay;
+		numpixels = deltax;         // There are more x-values than y-values
+	}
+	else                          // There is at least one y-value for every x-value
+	{
+		xinc2 = 0;                  // Don't change the x for every iteration
+		yinc1 = 0;                  // Don't change the y when numerator >= denominator
+		den = deltay;
+		num = deltay / 2;
+		numadd = deltax;
+		numpixels = deltay;         // There are more y-values than x-values
+	}
+
+	continue = 1;
+
+	
+ 	curpixel = 0;
+
+ 	
+ 	while(continue && curpixel <= numpixels)
+	{
+		//hit an ent
+		enthit = EntityAt(x, y);
+		if(enthit >= 0 && ignoreent != enthit)
+		{
+			if(enthit != nPlayerEnt)
+			{
+				if(Enemies[GetEnemyIndex(enthit)].nActive)
+				{
+					LOSXstop = x;
+					LOSYstop = y;
+					return enthit;
+				}
+			}
+			else
+			{
+				LOSXstop = x;
+				LOSYstop = y;
+				return enthit;
+			}
+		}
+		
+
+		if(GetObsPixel(x, y))
+		{
+			LOSXstop = x;
+			LOSYstop = y;
+			return 0-1;
+		}
+			
+		num += numadd;              // Increase the numerator by the top of the fraction
+		if (num >= den)             // Check if numerator >= denominator
+		{
+			num -= den;               // Calculate the new numerator value
+			x += xinc1;               // Change the x as appropriate
+			y += yinc1;               // Change the y as appropriate
+		}
+		
+		x += xinc2;                 // Change the x as appropriate
+		y += yinc2;                 // Change the y as appropriate
+
+		curpixel++;
+
+		//debug to draw the LoS to the screen
+		/*setpixel(x-xwin, y-ywin, RGB(255, 0, 255), screen);
+		deltaY = timer;
+		while(timer < deltaY+1)
+		{
+			ShowPage();
+		}*/
+	}
+
+	return 0-2;
+}
+
+//Field of View. It will return true if x2y2 is in x1y1's Field of view.
+//Direction is the direction x1y1 is facing and sightwidth is the angle of x1y1's FoV
+//Note this does no distance or obstruction checks, that is handled in Enemy.vc::CanSeePlayer()
+int FoV(int x1, int y1, int x2, int y2, int sightwidth, int direction)
+{
+	//get the theta of the point (polar coords)
+	int theta = zatan2(y2-y1, x2-x1);
+	
+	int bot = direction-sightwidth;
+	int top = direction+sightwidth;
+	
+	//Log("SoS() called x1: " + str(x1) + " y1: " + str(y1) +" x2: " + str(x2) + " y2: " + str(y2) + " sightwidth: " + str(sightwidth) + " direction: " + str(direction));
+	
+	if(top > 360)
+		top -= 360;
+		
+	if(bot > 360)
+		bot -= 360;
+		
+	/*if(bot > top)
+	{
+		temp = bot;
+		bot = top;
+		top = temp;
+	}*/
+
+	//theta is inside the part were looking at
+	if(theta > bot && theta < top)
+	{
+		return 1;
+	}
+	
+	return 0;
+}

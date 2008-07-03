@@ -1,0 +1,12 @@
+void OpenMainClockMenu()
+{
+	CreateMenu(248, 218, GetMenuTemplateIndex("MainClock"));
+}
+
+void MainClockDraw()
+{
+	int img = CreateWindow("Time", 72, 22, nTerminalFont);
+	Blit(nMenuX, nMenuY, img, screen);
+	PrintString(nMenuX+3, nMenuY+12, screen, nTerminalFont, GetTime12String());
+	FreeImage(img);
+}
