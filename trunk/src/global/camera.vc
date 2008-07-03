@@ -1,0 +1,45 @@
+int nDisableCamerasStop;	//time stamp when cameras should be turned back on
+
+void DisableCameras(int disabletime)
+{
+	int i;
+	
+	for(i=0;i<nNumEnemies;i++)
+	{
+		if(Enemies[i].nAItype == ENEMY_AI_TYPE_CAMERA)
+			Enemies[i].nPassive = 1;
+	}
+	
+	if(!isHooked("DisabledCameraLogic"))
+		AddHook("DisabledCameraLogic", 1505);
+	
+	nDisableCamerasStop = timer + disabletime;
+}
+
+void EnableCameras()
+{
+	int i;
+	
+	for(i=0;i<nNumEnemies;i++)
+	{
+		if(Enemies[i].nAItype == ENEMY_AI_TYPE_CAMERA)
+			Enemies[i].nPassive = 0;
+	}
+	
+	RemoveHook("DisabledCameraLogic");
+}
+
+void DisabledCameraLogic()
+{
+	if(timer > nDisableCamerasStop)
+	{
+		EnableCameras();
+	}
+	
+	int holeNumbers = (nDisableCamerasStop-timer)/100;
+	int decimal = (nDisableCamerasStop-timer)%100;
+	
+	PrintRight(318, 120, screen, nTerminalFont, "Cameras");
+	PrintRight(318, 128, screen, nTerminalFont, "Disabled");
+	PrintRight(318, 136, screen, nTerminalFont, str(holeNumbers)+"."+TwoDigit(decimal));
+}

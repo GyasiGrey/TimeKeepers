@@ -1,0 +1,54 @@
+void EnemyAICamera()
+{
+	if(Enemies[nCurrentEnemy].nMode == MODE_NORMAL)
+	{
+		//see if the camera can see the player
+		if(CanSeePlayer(nCurrentEnemy))
+			MakeWarn(nCurrentEnemy);
+	}
+	else if(Enemies[nCurrentEnemy].nMode == MODE_WARN)
+	{
+		//if it's time to make the warn sound and the camera can still see the player
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nSoundStart + CAMERA_WARN_SOUND_DELAY && CanSeePlayer(nCurrentEnemy))
+		{
+			//make warning sound
+			SoundWarn(entity.x[Enemies[nCurrentEnemy].nEntity], entity.y[Enemies[nCurrentEnemy].nEntity], 200);
+
+			Enemies[nCurrentEnemy].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+		}
+
+		//if camera is done warning, and can see the player, go into full alert
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nWarnStart+CAMERA_WARN_TIME && CanSeePlayer(nCurrentEnemy))
+		{
+			MakeAlert(nCurrentEnemy);
+		}
+		else if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nWarnStart+CAMERA_WARN_TIME)
+		{
+			//camera is done warning, but can't see the player. Go back to normal
+			Enemies[nCurrentEnemy].nMode = MODE_NORMAL;
+		}
+	}
+	else if(Enemies[nCurrentEnemy].nMode == MODE_ALERT)
+	{
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nSoundStart + CAMERA_SOUND_DELAY)
+		{
+			SoundKlaxon(entity.x[Enemies[nCurrentEnemy].nEntity], entity.y[Enemies[nCurrentEnemy].nEntity], 200);
+			MakeSound(Enemies[nCurrentEnemy].nEntity, 200);
+
+			Enemies[nCurrentEnemy].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+		}
+
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nAlertStart+Enemies[nCurrentEnemy].nAlertTime && !CanSeePlayer(nCurrentEnemy))
+		{
+			Enemies[nCurrentEnemy].nMode = MODE_NORMAL;
+		}
+
+		//if we have a gun, shoot at the player
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nCoolDownStart+Enemies[nCurrentEnemy].nCoolDown && Distance(nPlayerEnt, Enemies[nCurrentEnemy].nEntity) <= Weapons[Enemies[nCurrentEnemy].nWeapon].nRange && CanSeePlayer(nCurrentEnemy) && nHealth > 0 && !Enemies[nCurrentEnemy].nAnimating && Enemies[nCurrentEnemy].nWeapon >= 0)
+		{
+			EntityMove(Enemies[nCurrentEnemy].nEntity, "");
+			Enemies[nCurrentEnemy].nCoolDownStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+			FireWeapon(Enemies[nCurrentEnemy].nEntity, nPlayerEnt);
+		}
+	}
+}

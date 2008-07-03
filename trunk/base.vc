@@ -1,0 +1,507 @@
+void start()
+{
+	int starttime;
+	
+	int e1,e2,e3,e4;
+	
+	nPlayerEnt = EntitySpawn(40,58,"ghost.chr");
+	SetPlayer(nPlayerEnt);
+	HookEntityRender(nPlayerEnt, "PlayerRender");
+	
+	sAreaName = "Home Base";
+
+	InitMap();
+	
+	MusicSwitch("base.s3m", 15);
+	
+	//do stuff only if we are not loading a game
+	if(!bLoadingGame)
+	{
+		//give the player weapons
+		nHasWeapon[0] = 1;
+		nHasWeapon[1] = 0;
+		nHasWeapon[2] = 0;
+		nHasWeapon[3] = 0;
+		nHasWeapon[4] = 0;
+		
+		//equip the players weapon
+		nEquipedWeapon = 0;
+	}
+
+	if(nFlags[FLAG_MISSION2_COMPLETE])
+	{
+		//back at base after run in with TK for the first time
+		entity.x[nPlayerEnt] = 29*16;
+		entity.y[nPlayerEnt] = 26*16;
+		
+		starttime = timer;
+
+		while(timer-starttime < 100)	//1 sec to remove blur effect
+		{
+			Render();
+			blurdist--;// = timer-starttime;
+			ShowPage();		
+		}
+	
+		RemoveHook("DoBlur");
+		
+		nHoldCommText = 1;
+		
+		CommText("Ghost: That was .... eventfull.");
+		CommText("Tech: They definitely weren't from the casino...");
+		CommText("Ghost: Amazing deduction watson.");
+		
+		SetEntitiesPaused(1);
+		WaitForCommText();
+		nHoldCommText = 0;
+		SetEntitiesPaused(0);
+		
+		WaitTimer(100);
+
+		QuickSave();
+		
+		MusicSwitch("boss.mod", 15);
+		
+		//a whole bunch of baness happens!
+		//spawn the TK! Weee!
+		StartShake(5, 300);
+
+		nHoldCommText = 1;		
+		CommText("Tech: What the hell was that?");
+		
+		//Start all kinds of alarms
+		
+		CommText("Tech: We're under attack! Get out there!");
+		
+		//Give the player a M4 (weeee!!!)
+		GetWeaponAmmoLoot(WEAPON_M4);
+		nEquipedWeapon = WEAPON_M4;
+		
+		SetEntitiesPaused(1);
+		WaitForCommText();
+		nHoldCommText = 0;
+		SetEntitiesPaused(0);
+		
+		//disable save
+		bCanSave = 0;
+		
+		RemovePreHook("PlayerDeath");	//ignore player death to allow the special hook to take over
+		AddPreHook("CheckInvasionOver", 5);
+	}
+	else if(nFlags[FLAG_MISSION2_NEWS_OVER] && !nFlags[FLAG_BASE_AFTER_NEWS_OVER])
+	{
+		cameratracking=1;
+		entity.x[0] = 57*16;
+		entity.y[0] = 45*16;
+		entity.x[nPlayerEnt] = 54*16;
+		entity.y[nPlayerEnt] = 45*16;
+		//sequence after the news broadcast, our heroes decide to knock over a casion.
+		PlayerMove("R0");
+		ManualOpenDoor(1);
+		
+		nHoldCommText = 1;
+		
+		CommText("Ghost: So they still don't know what happened?");
+		CommText("Tech: Not a clue. Time to up the anty. We're going for a much bigger heist.");
+		CommText("Ghost: How big we talking?");
+		CommText("Tech: I mean casino big.");
+		CommText("Ghost: Casino. As in 'huge multi story building with armed security guards and a direct line to a SWAT team'?");
+		CommText("Tech: Yup.");
+		CommText("Ghost: ....Well...good. I'm glad we cleared that up.");
+		CommText("Tech: You will shift in and out on the hotel level to alleviate any suspicion. It will be late so there won't be many people around.");
+		CommText("Tech: Your first objective will be to get a keycard to the security level. Some employes of the casino have rooms there as well.");
+		CommText("Tech: Once on the security level you must find the code to the vault elevator. It's stored in two parts on two seprate computers.");
+		CommText("Tech: You probably also will want to find some way of disabling the cameras.");
+		CommText("Tech: The last thing you want to do is get into trouble down there with only one way out.");
+		CommText("Tech: Then just figure out how to open the vault and your home free. Once you're done, go back to the shift point for extraction.");
+		CommText("Tech: Easy as cake right?");
+		CommText("Ghost: Yeah, 'easy'. You're not the one getting shot at.");
+		CommText("Tech: Hey, someone has to do all the hard work of actually sending a person through time.");
+		CommText("Ghost: Yeah....I should get going shouldn't I.");
+		CommText("Tech: You should. I'll meet you at the crono tube when your ready to go.");
+		entity.obstructable[0] = 0;
+		EntityMove(0, "X54 Y42 X49 Y44 X38 Y39 X30 Y29 X32 U0");
+		
+		SetEntitiesPaused(1);
+		WaitForCommText();
+		nHoldCommText = 0;
+		SetEntitiesPaused(0);
+		
+		nFlags[FLAG_BASE_AFTER_NEWS_OVER] = 1;
+	}
+	else if(nFlags[FLAG_MISSION2_START])
+	{
+		//sequence to start mission2
+		//move tech to his room
+		entity.x[0] = 57*16;
+		entity.y[0] = 45*16;
+		cameratracking=1;
+		SetEntitiesPaused(0);
+		FadeIn(100, RGB(0, 0, 0));
+	}
+	else if(nFlags[FLAG_MISSION1_COMPLETE])
+	{
+		bCanSave = 0;
+		bCanOpenInGameMenu = 0;
+		
+		entity.x[nPlayerEnt] = 29*16;
+		entity.y[nPlayerEnt] = 26*16;
+		//sequence when ghost comes back from the first mission
+		CrossFade(200);
+	
+		starttime = timer;
+
+		while(timer-starttime < 100)	//1 sec to remove blur effect
+		{
+			Render();
+			blurdist--;// = timer-starttime;
+			ShowPage();		
+		}
+	
+		RemoveHook("DoBlur");
+
+		EntityMove(0, "L0");
+		PlayerMove("Y29R0");
+		
+		nHoldCommText = 1;
+		CommText("Ghost: I'm back!");
+		CommText("Tech: Good. It worked.");
+		CommText("Ghost: What do you mean 'it worked'...");
+		CommText("Tech: And we got enough to cover our expenses.");
+		CommText("Ghost: You weren't sure if it would bring me back?");
+		
+		SetEntitiesPaused(1);
+		WaitForCommText();
+		nHoldCommText = 0;
+		
+		FadeOutExclusive(100, RGB(0, 0, 0));
+		//go back to mission1.map with FLAG_MISSION1_COMPLETE set
+		//to do the little 'chrono shift tag' thingy
+		map("mission1.map");
+	}
+	
+	//last thing we do, only care if we are loading a game untill the point the map is completly loaded
+	bLoadingGame=0;
+}
+
+void InitEnemies()
+{
+	//dummy
+	CreateEnemy(79, 66, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_DUMMY, "", "guard.chr");
+	
+	//end of tut area
+	CreateEnemy(101, 74, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_PISTOL, "U0W200R0W200D0W200L0W200B", "guard.chr");
+	CreateEnemy(104, 74, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "Y59W200L0W200R0W200Y74W200L0W200R0W200B", "guard.chr");
+	CreateEnemy(92, 62, ENTITY_FACE_UP, ENEMY_TEMPLATE_PISTOL, "", "guard.chr");
+}
+
+void InitAmbientSounds()
+{
+	//make the machine ambient sound (chrono tube)
+	CreateAmbientSound(456, 24*16, "sounds\ambient\fan.ogg", 10, 0-1, 200);
+	//chrono room computer
+
+	CreateAmbientSound(520, 27*16, "sounds\ambient\computer.ogg", 10, 0-1, 50);
+
+	//ghost's room computer
+	CreateAmbientSound(427, 47*16, "sounds\ambient\computer.ogg", 10, 0-1, 50);
+	
+	//drips in the tutorial area
+
+	CreateAmbientSound(61*16, 62*16, "sounds\ambient\drip.ogg", 400, 80, 150);
+	CreateAmbientSound(83*16, 59*16, "sounds\ambient\drip.ogg", 700, 80, 150);
+	CreateAmbientSound(75*16, 59*16, "sounds\ambient\drip.ogg", 200, 80, 150);
+	CreateAmbientSound(63*16, 70*16, "sounds\ambient\drip.ogg", 300, 80, 150);
+}
+
+void InitEmitters()
+{
+	//make the particle emitter for the smoke on the chrono tube
+	CreateEmitter(456, 24*16, "gfx\misc\smoke.png", 0-1, 5, 2, 180, 90, 2, 90, 60, 80);
+	//x=(161*16)-8
+}
+
+void InitDoors()
+{
+	//door to ghosts room
+	CreateDoor(33, 50, LoadImage("gfx\misc\door.png"), 0-1);
+	
+	//door to tech's room
+	CreateDoor(49, 43, LoadImage("gfx\misc\door.png"), 0-1);
+	
+	//door at the end of tutorial area
+	CreateDoor(98, 73, LoadImage("gfx\misc\door.png"), 200);
+	
+	//locker doors in tutorial area
+	CreateDoor(58, 63, LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(60, 63, LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(62, 63, LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(64, 63, LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(66, 63, LoadImage("gfx\misc\locker_door.png"), -1);
+}
+
+void InitLoot()
+{
+	CreateLoot(98*16, 66*16, "Gold", 50, "gold.png", "GotGold");
+	CreateLoot(58*16, (63*16)-2, "Pistol", 0, "pistol.png", "GotPistol");
+	CreateLoot(60*16, (63*16)-2, "Shotgun", 0, "shotgun.png", "GotShotgun");
+	CreateLoot(62*16, (63*16)-2, "M4", 0, "m4.png", "GotM4");
+	CreateLoot(64*16, (63*16)-2, "Tranq", 0, "tranq.png", "GotTranq");
+	CreateLoot(66*16, (63*16)-2, "Medkit", 0, "medkit.png", "GetMedkitBase");
+}
+
+void InitLights()
+{
+	ClearLights();
+	nGlobalLight = 50;
+	AddLight(157*16, 141*16, 32, 16, LIGHT_TYPE_WINDOW);
+}
+
+void InitAutoSave()
+{
+	CreateAutoSave(9);
+}
+
+
+//***START MAP SPECIFIC FUNCTIONS***
+void EnterShootingRange()
+{
+	if(!nFlags[FLAG_COMM_TECH_GHOST_SHOOTINGRANGE])
+	{
+		CommText("Tech: Ghost, this is the shooting range. It's a quick run through of things you will need during a mission.");
+		nFlags[FLAG_COMM_TECH_GHOST_SHOOTINGRANGE] = 1;
+	}
+}
+
+void EnterFirstTutorialRoom()
+{
+	if(!nFlags[FLAG_COMM_TECH_GHOST_FIRSTTUTROOM])
+	{
+		CreateToolTip("[" + ScanToKeyName(nKeyButton[0]) + "] Interact|[" + ScanToKeyName(nKeyButton[3]) + "] Target item|[" + ScanToKeyName(nKeyButton[3]) + "+" + ScanToKeyName(nKeyButton[0]) + "] Steal");
+		
+		CommText("Tech: Go over to those lockers, you should find some weapons inside.");
+		CommText("Tech: Hold the STEAL TARGET button to target what you want to pickup. Then press the WEAPON button to grab it.");
+		CommText("Tech: If you're really in need of a hiding spot you can go inside a locker and close the door.");
+		nFlags[FLAG_COMM_TECH_GHOST_FIRSTTUTROOM] = 1;
+	}
+}
+
+void GotPistol()
+{
+	CommText("Tech: That's a pistol. It has good range and rate of fire, but lacks in the 'killing stuff' department. Don't trust your life to it.");
+	nHasWeapon[1] = 1;
+}
+
+void GotShotgun()
+{
+	CommText("Tech: That's a shotgun. It's a very powerfull weapon at close range, but it's slow to reload and has a wide spread when used at range.");
+	CommText("Tech: It's also very loud, so if you use it expect company.");
+	nHasWeapon[2] = 1;
+}
+
+void GotM4()
+{
+	CommText("Tech: Ahh the M4. High rate of fire, good range. It's only real downfall is a limited ammo supply.");
+	nHasWeapon[3] = 1;
+}
+
+void GotTranq()
+{
+	CommText("Tech: And the Tranq Gun. This gun is fitted with a silencer so your target won't hear it.");
+	CommText("Tech: It also has the added bonus of not killing said target, just giving them enough tranqualizers to be out for a while.");
+	nHasWeapon[4] = 1;
+}
+
+void GetMedkitBase()
+{
+	CreateToolTip("[" + ScanToKeyName(nKeyButton[1]) + "] Medkit");
+	CommText("Tech: That's a medkit. It keeps The Grim Reaper away. But you're good enough to not need them right?");
+	GetMedkitLoot();
+}
+
+
+void EnterDummyRoom()
+{
+	if(!nFlags[FLAG_COMM_TECH_GHOST_DUMMYROOM])
+	{
+		CreateToolTip("[" + ScanToKeyName(nKeyButton[2]) + "] Aim|[" + ScanToKeyName(nKeyButton[2]) + "+" + ScanToKeyName(nKeyButton[0]) + "] Shoot|" + "[" + ScanToKeyName(nKeyButton[4]) + "] Weapon Up|[" + ScanToKeyName(nKeyButton[5]) +"] Weapon Down");
+	
+		CommText("Tech: Now you get to shoot things. Exciting. Hold the AIM button while in range of the dummy, then press the WEAPON button to shoot.");
+		CommText("Tech: Press the WEAPON SWITCH UP and WEAPON SWITCH DOWN buttons to switch weapons.");
+		CommText("Tech: You can go to the next area when ever you feel like it.");
+		nFlags[FLAG_COMM_TECH_GHOST_DUMMYROOM] = 1;
+	}
+}
+
+void EnterLastTutorialRoom()
+{
+	if(!nFlags[FLAG_COMM_TECH_GHOST_LASTTUTROOM])
+	{
+		createObjective("getloot", "Find the loot at the end of the training area.");
+		CreateToolTip("[" + ScanToKeyName(nKeyButton[7]) + "] Open PDA");
+		
+		CommText("Tech: All you have to do here is get around the guards, unlock the door at the end and get the stuff stashed inside.");
+		CommText("Tech: Oh and the guards might be robots, but they have real guns. Try not to get shot why don't you?");
+		nFlags[FLAG_COMM_TECH_GHOST_LASTTUTROOM] = 1;
+	}
+}
+
+void GotGold()
+{
+	completeObjective("getloot");
+	CommText("Tech: I see you got to the end. I guess congratulations are in order. Then again this is your job.");
+}
+
+void EnterTechRoom()
+{
+	if(nFlags[FLAG_MISSION2_NEWS_OVER])
+		return;
+		
+	if(nFlags[FLAG_MISSION2_START])
+	{
+		//do the TV segment to start mission 2
+		PlayerMove("Y42X55Y45R0");
+		SetEntitiesPaused(1);
+		//fade out, turn on scan lines, turn on static, go to mission1.map
+		//fade in, do stuff
+		FadeOutExclusive(100, RGB(0, 0, 0));	//RAWR - I won't know what this comment means tomorrow, but I know what it means now
+		StartScanLine();
+		StartStatic();
+		map ("mission1.map");
+		//after this line code execution goes to the start() function of base.map
+	}
+	/*This sucked - REMOV'D
+	else if(!nFlags[FLAG_COMM_TECH_GHOST_TECHROOM])
+	{
+		//else just yell at the player
+		CommText("Tech: GET OUT OF MY ROOM");
+		nFlags[FLAG_COMM_TECH_GHOST_TECHROOM] = 1;
+	}*/
+}
+
+void EnterChronoRoom()
+{
+	if(!nFlags[FLAG_COMM_TECH_GHOST_CHRONO])
+	{
+		PlayerMove("X29Y29R0"); //move to and face ghost
+		EntityMove(0, "L0");
+		WaitForEntity(nPlayerEnt);
+		WaitForEntity(0);
+		
+		SetEntitiesPaused(1);	//hold the player where they are
+		nHoldCommText = 1;
+		CommText("Ghost: Ok time man, what's our next mission");
+		CommText("Tech: We need some quick cash without making to much of a disturbance.");
+		CommText("Tech: We will make a jump 2 months back to a mansion about 80 miles away.");
+		CommText("Ghost: Why go through all that effort just to rob some place so close?");
+		CommText("Tech: For a few reasons. Backtracking in time will effectively set the cops 2 months behind us.");
+		CommText("Tech: Second, we're only going that far because the equipment is still new.");
+		CommText("Tech: I wouldn't want to send my only source of income halfway around the world and not be able to get him back.");
+		CommText("Ghost: Guess I should be thankful.");
+		CommText("Tech: You should.");
+		CommText("Ghost: So anyway how much do we need?");
+		CommText("Tech: All of it.");
+		CommText("Ghost: All of it?");
+		CommText("Tech: Well no, only $1500.");
+		CommText("Ghost: Right, I should get a move on.");
+		CommText("Tech: Step into the chrono tube and we'll leave when your ready. We have all the time in the world.");
+		SetEntitiesPaused(0);
+		WaitForCommText();
+		nHoldCommText = 0;
+		
+		EntityMove(0, "U0"); //make tech look at his computer again
+		nFlags[FLAG_COMM_TECH_GHOST_CHRONO] = 1;
+	}
+}
+
+void EnterBase()
+{
+	if(!nFlags[FLAG_COMM_TECH_GHOST_TRAINING])
+	{
+		CommText("Tech: I still have some things to finish up before the mission. Why don't you go to the training area to the right untill I'm ready?");
+		nFlags[FLAG_COMM_TECH_GHOST_TRAINING] = 1;
+	}
+	
+	if(nFlags[FLAG_MISSION1_COMPLETE] && !nFlags[FLAG_BASE_NEWS_INTRO])
+	{
+		CommText("Tech: Hey Ghost, come over here, something I taped while you were gone.");
+		CommText("Ghost: What is it?");
+		CommText("Tech: It's the news report from our heist.");
+		
+		nFlags[FLAG_BASE_NEWS_INTRO] = 1;
+	}
+}
+
+void EnterChronoTube()
+{
+	if(nFlags[FLAG_MISSION2_COMPLETE])
+	{
+		CommText("Tech: Wrong answer. Try again. You go back out there and who's ever is after us will kill you.");
+		CommText("Tech: On second thought, yeah. Go back out there.");
+	}
+	else if(nFlags[FLAG_MISSION2_NEWS_OVER])
+	{
+		//start mission two
+		PlayerMove("Y25X29D0");
+		entity.x[nPlayerEnt]+=8;
+		TimeWarp("0|1|4", "mission2.map");
+	}
+	else if(!nFlags[FLAG_MISSION1_COMPLETE])
+	{
+		//start mission one 
+		PlayerMove("Y25X29D0");
+		entity.x[nPlayerEnt]+=8;
+		TimeWarp("0|1|4", "mission1.map");
+	}
+}
+
+void SpawnTKAfterMission2()
+{
+	if(nFlags[FLAG_MISSION2_COMPLETE] && !nFlags[FLAG_BASE_SPAWN_TK_AFTER_MISSION_2])
+	{
+		//spawn enemies
+		nFlags[FLAG_BASE_TK_BOSS_1] = CreateEnemy(36, 47, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_SHOTGUN, "", "tk.chr");
+		nFlags[FLAG_BASE_TK_BOSS_2] = CreateEnemy(45, 47, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_SHOTGUN, "", "tk.chr");
+		nFlags[FLAG_BASE_TK_BOSS_3] = CreateEnemy(45, 51, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_SHOTGUN, "", "tk.chr");
+		nFlags[FLAG_BASE_TK_BOSS_4] = CreateEnemy(36, 51, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_SHOTGUN, "", "tk.chr");
+		
+		MakeAlert(nFlags[FLAG_BASE_TK_BOSS_1]);
+		MakeAlert(nFlags[FLAG_BASE_TK_BOSS_2]);
+		MakeAlert(nFlags[FLAG_BASE_TK_BOSS_3]);
+		MakeAlert(nFlags[FLAG_BASE_TK_BOSS_4]);
+
+		nFlags[FLAG_BASE_SPAWN_TK_AFTER_MISSION_2] = 1;
+	}
+}
+
+void CheckInvasionOver()
+{
+	//checks to see if the player died, or all the enemies died. Either way the player is captured
+	int bTKDead = 0;
+	
+	if(Enemies[nFlags[FLAG_BASE_TK_BOSS_1]].nHp <= 0 && Enemies[nFlags[FLAG_BASE_TK_BOSS_2]].nHp <= 0 && Enemies[nFlags[FLAG_BASE_TK_BOSS_3]].nHp <= 0 && Enemies[nFlags[FLAG_BASE_TK_BOSS_4]].nHp <= 0)
+		bTKDead = 1;
+		
+	if(nHealth <= 0 || bTKDead == 1)
+	{
+		RemovePreHook("CheckInvasionOver");
+	
+		SoundGrenade();
+		FadeInExclusive(100, RGB(255, 255, 255));
+
+		nHoldCommText = 1;
+		
+		CommText("Time Keeper: Target acquired. Prep for extraction.");
+		
+		SetEntitiesPaused(1);
+		WaitForCommText();
+		nHoldCommText = 0;
+		SetEntitiesPaused(0);
+
+		FadeOutExclusive(100, RGB(0, 0, 0));
+		
+		CloseAllMenus();
+			
+		TitleScreen();
+	}
+}

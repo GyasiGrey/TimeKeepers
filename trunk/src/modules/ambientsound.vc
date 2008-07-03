@@ -1,0 +1,100 @@
+// ambientsound.vc - holds the structures for ambient sound
+
+#define MAX_AMBIENTSOUNDS 100
+
+struct AmbientSound
+{
+	int nX;
+	int nY;
+	int nSound;
+	int nDelay;
+	int nLastSoundAt;
+	int nRange;
+	int nLength;
+	int nActive;
+}
+
+AmbientSound ASounds[MAX_AMBIENTSOUNDS];
+int bAmbientSoundEnabled;
+
+int CreateAmbientSound(int x, int y, string sound, int delay, int length, int range)
+{
+	int i;
+	
+	for(i=0;i<MAX_AMBIENTSOUNDS;i++)
+	{
+		if(!ASounds[i].nActive)
+		{
+			ASounds[i].nX = x;
+			ASounds[i].nY = y;
+			ASounds[i].nSound = LoadSong(sound);
+			ASounds[i].nDelay = delay;
+			ASounds[i].nRange = range;
+			ASounds[i].nLength = length;
+			ASounds[i].nActive = 1;
+			return i;
+		}
+	}
+	
+	Exit("ambientsound.vc::CreateAmbientSound - Not enough Ambient Sounds - Increase MAX_AMBIENTSOUNDS");
+}
+
+void ProcessAmbientSounds()
+{
+	int i, dist;
+	
+	if(!bAmbientSoundEnabled)
+		return;
+	
+	for(i=0;i<MAX_AMBIENTSOUNDS;i++)
+	{
+		dist = DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], ASounds[i].nX, ASounds[i].nY);
+
+		if(ASounds[i].nActive && dist <= ASounds[i].nRange && timer-ASounds[i].nLastSoundAt > ASounds[i].nDelay)
+		{
+			//play the sound
+			PlaySong(ASounds[i].nSound);
+			ASounds[i].nLastSoundAt = timer;
+		}
+		else if(ASounds[i].nActive)
+		{
+			//set the volume
+			//volume = 100-((distance/range)*100) so it gets louder as you get closer
+			SetSongVolume(ASounds[i].nSound, 100-((dist*100)/ASounds[i].nRange));
+			
+			//keep the sound from repeating by stoping it when length has passed
+			//since the last time it played
+			if(ASounds[i].nLength != 0-1 && timer - ASounds[i].nLastSoundAt >= ASounds[i].nLength)
+			{
+				StopSong(ASounds[i].nSound);
+			}
+		}
+		
+		//Debugging code
+		/*if(ASounds[i].nActive)
+		{
+			PrintString(ASounds[i].nX-xwin, ASounds[i].nY-ywin, screen, nTinyFont, str(timer - (ASounds[i].nLastSoundAt+ASounds[i].nLength)));
+		}*/
+	}
+}
+
+void FreeAmbientSound(int i)
+{
+	ASounds[i].nActive = 0;
+	FreeSong(ASounds[i].nSound);
+}
+
+void ClearAmbientSounds()
+{
+	int i;
+
+	
+	for(i=0;i<MAX_AMBIENTSOUNDS;i++)
+	{
+		if(ASounds[i].nActive)
+		{
+			FreeSong(ASounds[i].nSound);
+			ASounds[i].nActive = 0;
+		}
+	}
+}

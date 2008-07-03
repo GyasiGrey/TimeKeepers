@@ -1,0 +1,93 @@
+//delayedCallback.vc
+//waits for a set amount of time before calling a function
+#define DELAYED_CALLBACK_MAX	10
+
+struct delayedCallback
+{
+	int nTimeStamp;		//time stamp when the function should be run
+	string sFunction;	//function to be called
+	int nActive;
+}
+
+delayedCallback delayedCallbacks[DELAYED_CALLBACK_MAX];
+
+void FreeAllDelayedCallbacks()
+{
+	int i;
+	
+	for(i=0;i<DELAYED_CALLBACK_MAX;i++)
+	{
+		FreeDelayedCallback(i);
+	}
+}
+
+void FreeDelayedCallback(int i)
+{
+	delayedCallbacks[i].nActive = 0;
+}
+
+void FreeDelayedCallbackByFunction(string func)
+{
+	int i;
+	
+	for(i=0;i<DELAYED_CALLBACK_MAX;i++)
+	{
+		if(delayedCallbacks[i].nActive && strcmp(delayedCallbacks[i].sFunction, func) == 0)
+			FreeDelayedCallback(i);
+	}
+}
+
+int IsDelayedCallbackActive(string func)
+{
+	//returns 1 if a callback exists for this function
+	int i;
+	
+	for(i=0;i<DELAYED_CALLBACK_MAX;i++)
+	{
+		if(delayedCallbacks[i].nActive && strcmp(delayedCallbacks[i].sFunction, func) == 0)
+			return 1;
+	}
+	
+	return 0;
+}
+
+int CreateDelayedCallback(int delayAmt, string func)
+{
+	//find an open spot
+	int i, retval;
+	
+	retval = -1;
+	
+	for(i=0;i<DELAYED_CALLBACK_MAX && retval<0;i++)
+	{
+		if(!delayedCallbacks[i].nActive)
+		{
+			retval = i;
+		}
+	}
+	
+	delayedCallbacks[retval].nTimeStamp = timer + delayAmt;
+	delayedCallbacks[retval].sFunction = func;
+	delayedCallbacks[retval].nActive = 1;
+	
+	error("Delayed callback created. i:" + str(retval) + " function:" + func + " stamp:" + str(timer + delayAmt) + " timer:" + str(timer));
+}
+
+void ProcessDelayedCallbacks()
+{
+	int i;
+
+	for(i=0;i<DELAYED_CALLBACK_MAX;i++)
+	{
+		if(delayedCallbacks[i].nActive && timer >= delayedCallbacks[i].nTimeStamp)
+		{
+			Error("Running callback: " + str(i) + " func: " + delayedCallbacks[i].sFunction);
+
+			//free this call back
+			FreeDelayedCallback(i);
+
+			//call the callback's function
+			CallFunction(delayedCallbacks[i].sFunction);
+		}
+	}
+}

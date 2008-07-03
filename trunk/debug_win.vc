@@ -1,0 +1,79 @@
+//Simple debug window. A holding place for text output
+//may be expanded in the future for watch variables and such
+//all functions and vars are prefixed with dbgwin_
+#define dbgwin_TEXTSIZE 40	//total lines stored
+#define dbgwin_FONT	0		//font to use
+#define dbgwin_WIDTH	600
+#define dbgwin_HEIGHT	475
+
+int dbgwin_Initd=0;	//==1 if dbgwin_Init() has been called
+int dbgwin_MainWindow;	//hndl for the debug window
+int dbgwin_MainImage;	//hndl for the debug window image
+
+
+string dbgwin_Text[dbgwin_TEXTSIZE];	//text of debug window
+
+//inits the debug window
+void dbgwin_Init()
+{
+	int i;
+	
+	//I'm using a custom HookRetrace, normally this would be a normal HookRetrace()
+	if(!isHooked("dbgwin_Draw"))
+		AddHook("dbgwin_Draw", 9999);
+		
+	if(dbgwin_Initd)
+		return;
+		
+	dbgwin_MainWindow = WindowCreate(0, 0, dbgwin_WIDTH, dbgwin_HEIGHT, "Debug");
+	dbgwin_MainImage = WindowGetImage(dbgwin_MainWindow);
+	
+	//null out dbgwin_Text
+	for(i=0;i<dbgwin_TEXTSIZE;i++)
+	{
+		dbgwin_Text[i] = "";
+	}
+	
+
+	dbgwin_Initd=1;
+}
+
+//writes to the debug window
+void dbgwin_Output(string out)
+{
+	int i;
+	
+	//step through dbgwin_Text for the first blank item
+	for(i=0;i<dbgwin_TEXTSIZE;i++)
+	{
+		if(strcmp(dbgwin_Text[i], "") == 0)
+		{
+			dbgwin_Text[i] = out;
+			return;
+		}
+	}
+	
+	//if we got here we ran out of space
+	//move all the items in the list up (x = x+1)
+	for(i=0;i<dbgwin_TEXTSIZE-1;i++)
+	{
+		dbgwin_Text[i] = dbgwin_Text[i+1];
+	}
+	//put the new item at dbgwin_TEXTSIZE
+	dbgwin_Text[dbgwin_TEXTSIZE-1] = out;
+}
+
+//draws the debug window, hook to the retrace
+void dbgwin_Draw()
+{
+	int i, j;
+	
+	RectFill(0, 0, dbgwin_WIDTH, dbgwin_HEIGHT, RGB(0, 0, 0), dbgwin_MainImage);
+	
+	j=0;
+	for(i=0;i<dbgwin_TEXTSIZE;i++)
+	{
+		PrintString(8, j*(4+fontheight(dbgwin_FONT)), dbgwin_MainImage, dbgwin_FONT, dbgwin_Text[i]);
+		j++;
+	}
+}

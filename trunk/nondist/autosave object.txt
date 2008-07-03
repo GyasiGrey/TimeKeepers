@@ -1,0 +1,23 @@
+autosave points are loaded on a per map basis similar to doors
+
+has the following struct
+
+struct autosavePoint
+{
+	int nX;			//tile x coord
+	int nY;			//tile x coord
+	int nActive;		//==1 if this autosave is used on this map
+}
+
+Needs a retrace hook to check if the player stepped on a save point
+
+void CheckAutoSave(int i)
+{
+	if autosave[i].nActive AND autosave[i] X coord == player X/16 AND autosave[i] Y coord == player Y/16
+	{
+		Quicksave();
+		autosave[i].nActive = 0;	//set it's active to 0, therby killing it
+	}
+}
+
+add autosave array to savegames

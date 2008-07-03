@@ -1,0 +1,56 @@
+int nCameraScrollStart;
+int nCameraScrollStop;
+int nCameraScrollDuration;
+int nCameraScrollXStart;
+int nCameraScrollYStart;
+int nCameraScrollXDest;
+int nCameraScrollYDest;
+
+void CameraScrollExclusive(int x, int y, int duration)
+{
+	CameraScroll(x, y, duration);
+	
+	SwitchPause();
+	
+	while(IsHooked("ProcessCameraScroll"))
+	{
+		Render();
+		ShowPage();
+	}
+	
+	SwitchPause();
+}
+
+void CameraScroll(int x, int y, int duration)
+{
+	if(!IsHooked("ProcessCameraScroll"))	//functn iz hookd?
+		AddHook("ProcessCameraScroll", 1500);	//after everything but the menues and logic
+
+	nCameraScrollStart = vcTimer[TIMER_MISSION_TIME_SPENT].nTick;
+	nCameraScrollStop = vcTimer[TIMER_MISSION_TIME_SPENT].nTick + duration;
+	nCameraScrollDuration = duration;
+	nCameraScrollXDest = x;
+	nCameraScrollYDest = y;
+	nCameraScrollXStart = xwin;
+	nCameraScrollYStart = ywin;
+}
+
+void ProcessCameraScroll()
+{
+	xwin = nCameraScrollXStart - (((vcTimer[TIMER_MISSION_TIME_SPENT].nTick-nCameraScrollStart)*(nCameraScrollXStart-nCameraScrollXDest))/nCameraScrollDuration);
+	ywin = nCameraScrollYStart - (((vcTimer[TIMER_MISSION_TIME_SPENT].nTick-nCameraScrollStart)*(nCameraScrollYStart-nCameraScrollYDest))/nCameraScrollDuration);
+	
+	if(vcTimer[TIMER_MISSION_TIME_SPENT].nTick > nCameraScrollStop)
+	{
+		RemoveHook("ProcessCameraScroll");
+	}
+}
+
+void WaitForCameraScroll()
+{
+	while(IsHooked("ProcessCameraScroll"))
+	{
+		Render();
+		ShowPage();
+	}
+}

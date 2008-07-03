@@ -1,0 +1,69 @@
+#define MAX_OBJECTIVES	10
+
+struct objective
+{
+	int bActive;
+	string sTitle;
+	string sName;	//a way to identify this objective
+	int bComplete;
+}
+
+objective objectives[MAX_OBJECTIVES];
+
+void clearObjectives()
+{
+	int i;
+	
+	for(i=0;i<MAX_OBJECTIVES;i++)
+	{
+		objectives[i].sTitle = "";
+		objectives[i].sName = "";
+		objectives[i].bActive = 0;
+		objectives[i].bComplete = 0;
+	}
+}
+
+int findObjective(string name)
+{
+	int i;
+	
+	for(i=0;i<MAX_OBJECTIVES;i++)
+	{
+		if(strcmp(objectives[i].sName, name) == 0)
+			return i;
+	}
+}
+
+int createObjective(string name, string title)
+{
+	int i;
+	string floattext = "New Objective. Open the PDA to view your objectives.";
+	
+	for(i=0;i<MAX_OBJECTIVES;i++)
+	{
+		if(!objectives[i].bActive)
+		{
+			objectives[i].sTitle = title;
+			objectives[i].bActive = 1;
+			objectives[i].sName = name;
+			objectives[i].bComplete = 0;
+			
+			lucentTextFade(160-(TextWidth(nTinyFont, floattext)/2), 60-(FontHeight(nTinyFont)/2), floattext, nTinyFont, RGB(255, 255, 255), 0);
+			
+			return i;
+		}
+	}
+}
+
+void completeObjective(string name)
+{
+	string floattext = "Objective complete!";
+	int i = findObjective(name);
+	
+	if(!objectives[i].bComplete)
+	{
+		objectives[i].bComplete = 1;
+	
+		lucentTextFade(160-(TextWidth(nTinyFont, floattext)/2), 60-(FontHeight(nTinyFont)/2), floattext, nTinyFont, RGB(255, 255, 255), 0);
+	}
+}

@@ -1,0 +1,366 @@
+void start()
+{
+	int starttime;
+	
+	if(!nFlags[FLAG_MISSION1_COMPLETE] || nFlags[FLAG_MISSION2_START])
+	{
+		nPlayerEnt = EntitySpawn(20,185,"ghost.chr");
+		SetPlayer(nPlayerEnt);
+		HookEntityRender(nPlayerEnt, "PlayerRender");
+	}
+	
+	sAreaName = "Mission 1";	
+
+	//do clean up and call MapVC virtual functions
+	InitMap();
+
+	//add the hook to check if the player screwed up and killed someone
+	//this sucked - removed
+	//AddHook("CheckMissionFail", 5);
+	
+	MusicSwitch("mission1.mod", 15);
+	
+	LoadAnimationEX("blink.png", 16, 16, 18*16, 184*16, "T1 F0 W50 F2 W50 F1 W50 F2 W50 R");
+	
+	if(!nFlags[FLAG_MISSION1_COMPLETE])
+	{
+		//if we are loading the game don't do a cross fade
+		if(!bLoadingGame)
+		{
+			CrossFade(200);
+
+			starttime = timer;
+
+			while(timer-starttime < 100)	//1 sec to remove blur effect
+			{
+				Render();
+				blurdist--;// = timer-starttime;
+				ShowPage();		
+			}
+
+
+			RemoveHook("DoBlur");
+			
+			createObjective("getmissionloot", "Collect $1500 in loot.");
+			
+			QuickSave();
+		}
+		
+		if(nLoot < 1500)
+			AddHook("CheckLootObjective", 1);
+	}
+	else if(nFlags[FLAG_MISSION2_START])
+	{
+		bCanSave = 0;
+		bCanOpenInGameMenu = 0;
+		nHoldCommText = 1;
+		
+		//move the player off the screen so they don't do anything
+		Entity.x[nPlayerEnt] = 0;
+		Entity.y[nPlayerEnt] = 0;
+		
+		nRadarOn = 0;
+		RemoveGui();
+		cameratracking = 0;
+		xwin = (34-8)*16;
+		ywin = (136-8)*16;
+	
+		SetEntitiesPaused(0);
+		
+		StartScanLine();
+		nStaticLuc = 0;
+		StartStatic();
+		StaticIn();
+		FadeInExclusive(100, RGB(0, 0, 0));
+
+		//wait 2 seconds
+		WaitTimer(200);
+		
+		AddHook("DrawCommText", 220);
+		//remove the static
+		RemoveStatic();
+		
+		//put the pause thingie up
+		nVCRMode = 0;
+		StartVCR();
+		
+		//wait 2 seconds
+		WaitTimer(200);
+
+		//put the play thingie up
+		nVCRMode = 1;
+		
+		//wait 1 sec
+		WaitTimer(100);
+
+		CommText("Reporter: We come to you now live from the crime scene where police are still investigating a large burglary.");
+		WaitForCommText();
+		FadeOutExclusive(100, RGB(0, 0, 0));
+
+		xwin = (19-8)*16;
+		ywin = (43-8)*16;
+
+		FadeInExclusive(100, RGB(0, 0, 0));
+		CommText("Reporter: Reports are that the whole house was ransacked with over $1000 stolen.");
+		WaitForCommText();
+		FadeOutExclusive(100, RGB(0, 0, 0));
+
+		xwin = (23-8)*16;
+		ywin = (202-8)*16;
+
+		FadeInExclusive(100, RGB(0, 0, 0));
+		CommText("Cop: What really baffels us is that there was no point of entry or exit. Almost as if the thief vanished into thin air.");
+		WaitForCommText();
+		FadeOutExclusive(100, RGB(0, 0, 0));
+
+		xwin = (34-8)*16;
+		ywin = (136-8)*16;
+
+		FadeInExclusive(100, RGB(0, 0, 0));
+		CommText("Reporter: We will continue to keep you posted on this breaking story. This is Lindsay Wagner...Channel 6 news.");
+		WaitForCommText();
+
+		//wait 1 sec
+		WaitTimer(100);
+
+		nVCRMode = 0;
+		//wait 2 seconds
+		WaitTimer(200);
+
+		
+		//turn on the static
+		StaticOut();
+		StartStatic();
+
+		//wait 1 seconds
+		WaitTimer(100);
+
+		//fade out, turn off the scan lines, turn off the static go back to base.map
+		FadeOutExclusive(100, RGB(0, 0, 0));
+		RemoveScanLine();
+		RemoveStatic();
+		nFlags[FLAG_MISSION2_NEWS_OVER] = 1;
+
+		//get rid of the VCR thingie
+		RemoveVCR();
+		
+		bCanSave = 1;
+		bCanOpenInGameMenu = 1;
+		nHoldCommText = 0;
+
+		map("base.map");
+	}
+	else
+	{
+		bCanSave = 0;
+		bCanOpenInGameMenu = 0;
+		
+		//move the player off the screen so they don't do anything
+		Entity.x[nPlayerEnt] = 0;
+		Entity.y[nPlayerEnt] = 0;
+
+		nRadarOn = 0;
+		//do the silly little hole in time thingy
+		RemoveGui();
+		cameratracking = 0;
+		xwin = 160;
+		ywin = 2840;
+		
+		FadeInExclusive(100, RGB(0, 0, 0));
+		
+		WaitTimer(400);
+
+		FadeOutExclusive(100, RGB(0, 0, 0));
+		nFlags[FLAG_MISSION2_START] = 1;
+		
+		bCanSave = 1;
+		bCanOpenInGameMenu = 1;
+
+		//warp back to base.map
+		map("base.map");
+	}
+	
+	bLoadingGame=0;
+}
+
+void CheckLootObjective()
+{
+	if(nLoot >= 1500)
+	{
+		completeObjective("getmissionloot");
+		RemoveHook("CheckLootObjective");
+		
+		CommText("Tech: That should be enough. Make your way back to the insertion point.");
+	}
+}
+
+void InitEnemies()
+{
+	CreateEnemy(44, 201, ENTITY_FACE_LEFT, 0, "", "guard.chr");
+	CreateEnemy(38, 201, ENTITY_FACE_RIGHT, 0, "", "guard.chr");
+	CreateEnemy(35, 135, ENTITY_FACE_DOWN, 0, "", "guard.chr");
+	CreateEnemy(23, 132, ENTITY_FACE_DOWN, 0, "Y122W200Y132W200B", "guard.chr");
+	CreateEnemy(50, 120, ENTITY_FACE_DOWN, 0, "U0W300L0W300D0W300R0W300Y133U0W300L0W300D0W300R0W300Y120B", "guard.chr");
+	CreateEnemy(48, 29, ENTITY_FACE_UP, 0, "", "guard.chr");
+	CreateEnemy(21, 32, ENTITY_FACE_RIGHT, 0, "X29W300Y38W300X48W300X29W300Y32X29W300B", "guard.chr");
+	CreateEnemy(15, 50, ENTITY_FACE_RIGHT, 0, "X34W300U0W300D0W300X15W300U0W300D0W300B", "guard.chr");
+}
+
+void InitLoot()
+{
+	//1st floor
+	CreateLoot(19*16, (190*16)-4, "Gold", 100, "gold.png", "");
+	CreateLoot(20*16, (190*16)-4, "Gold", 100, "gold.png", "");
+	CreateLoot(20*16, 205*16, "Gems", 100, "", "");
+	CreateLoot(26*16, 201*16, "Silver", 100, "", "");
+	CreateLoot(41*16, (202*16)-2, "Gold", 100, "gold.png", "");	
+
+
+	//2nd floor
+	CreateLoot(20*16, (138*16)-2, "Silver", 50, "silver.png", "");
+	CreateLoot(22*16, (138*16)-2, "Silver", 50, "silver.png", "");
+	CreateLoot(20*16, 1896, "Silverware", 150, "", "");	//invis
+	CreateLoot(35*16, (133*16)-4, "Electronics", 125, "electronics.png", "");
+	CreateLoot(57*16, 125*16, "Vase", 50, "vase.png", "");
+	CreateLoot(57*16, 131*16, "Vase", 50, "vase.png", "");
+	
+	//3rd floor
+	CreateLoot(312, 43*16, "Jewels", 200, "", "");		//invis
+	CreateLoot(59*16, 46*16, "Cash", 150, "cash.png", "");
+	CreateLoot(16*16, 39*16, "Ring", 300, "", "");		//invis
+	CreateLoot(25*16, 23*16, "Coins", 50, "", "");		//invis
+	CreateLoot(52*16, (26*16)-8, "Candle Holder", 100, "candle.png", "");
+	
+}
+
+void InitDoors()
+{
+	//north bed room door - 5 seconds to unlock
+	CreateDoor(48, 34, LoadImage("gfx\misc\door.png"), 500);
+	//south bed room door - 5 seconds to unlock
+	CreateDoor(52, 44, LoadImage("gfx\misc\door.png"), 500);
+	//bathroom  - unlocked
+	CreateDoor(43, 44, LoadImage("gfx\misc\door.png"), 0-1);
+	//master bathroom door
+
+	CreateDoor(19, 29, LoadImage("gfx\misc\door.png"), 0-1);
+	//master closet door
+
+	CreateDoor(30, 29, LoadImage("gfx\misc\door.png"), 0-1);
+	//master bed room proper door
+
+	CreateDoor(32, 45, LoadImage("gfx\misc\door.png"), 500);
+}
+
+void InitLights()
+{
+	nGlobalLight = 150;
+
+	//the light at players start
+	AddLight(20*16, 186*16, 100, 100, LIGHT_TYPE_ROUND);
+	
+	//the light at store room/guard hangout
+	AddLight(43*16, 202*16, 100, 100, LIGHT_TYPE_ROUND);
+	
+	AddLight(360, 38*16, 70, 70, LIGHT_TYPE_ROUND);
+	AddLight(264, 38*16, 70, 70, LIGHT_TYPE_ROUND);
+	
+	AddLight(504, 392, 80, 60, LIGHT_TYPE_ROUND);
+}
+
+void InitAmbientSounds()
+{
+	//fridge ambient sound
+	CreateAmbientSound(360, 119*16, "sounds\ambient\fan.ogg", 10, 0-1, 100);
+	//tv static
+	CreateAmbientSound(35*16, 129*16, "sounds\ambient\static.ogg", 1000, 0-1, 150);
+}
+
+void InitAutoSave()
+{
+	CreateAutoSave(6);	//End of basement
+	//CreateAutoSave(7);	//Enter
+	CreateAutoSave(8);	//End of floor1
+}
+
+/*void CheckMissionFail()
+{
+	int i;
+
+	for(i=0;i<nNumEnemies;i++)
+	{
+		if(Enemies[i].nHp <= 0)
+		{
+			//killed a guard, end the mission
+			//GameOver();
+		}
+	}
+}*/
+
+void CheckMissionPass()
+{
+	if(nLoot >= 1500)
+	{
+		if(vcTimer[TIMER_MISSION_TIME_SPENT].nTick <= 9000)
+			AchivementUnlocked(ACHIVEMENT_SPEED_RUN1);
+		
+		nFlags[FLAG_MISSION1_COMPLETE] = 1;
+		
+		//send tracked stats to the server
+		SendMissionData(1);
+
+		TimeWarp("0|", "base.map");
+	}
+	else
+	{
+		if(nFlags[FLAG_COMM_TECH_GHOST_NOTENOUGH] == 0)
+		{
+			CommText("Tech: I told you we need at least $1500, go steal some gold or something");
+			nFlags[FLAG_COMM_TECH_GHOST_NOTENOUGH]++;
+		}
+		else if(nFlags[FLAG_COMM_TECH_GHOST_NOTENOUGH] == 1)
+		{
+			CommText("Tech: Still not enough, go get some more");
+			nFlags[FLAG_COMM_TECH_GHOST_NOTENOUGH]++;
+		}
+		else if(nFlags[FLAG_COMM_TECH_GHOST_NOTENOUGH] == 2)
+		{
+			CommText("Tech: Stop trying to get off easy, get back out there and get what we need!");
+			nFlags[FLAG_COMM_TECH_GHOST_NOTENOUGH]++;
+		}
+		
+		//past 3 times tech will stop yelling at you
+	}
+}
+
+void WarpToBottomLevel()
+{
+	FadeOutExclusive(50, RGB(0, 0, 0));
+	nGlobalLight = 150;	
+	Warp(47, 184);
+	FadeInExclusive(50, RGB(0, 0, 0));
+}
+
+void WarpToMidLevel()
+{
+	FadeOutExclusive(50, RGB(0, 0, 0));
+	nGlobalLight = 100;	
+	Warp(20, 142);
+	FadeInExclusive(50, RGB(0, 0, 0));
+}
+
+void WarpToTopLevel()
+{
+	FadeOutExclusive(50, RGB(0, 0, 0));
+	nGlobalLight = 175;
+	Warp(59, 40);
+	FadeInExclusive(50, RGB(0, 0, 0));
+}
+
+void WarpToMidLevelFromTop()
+{
+	FadeOutExclusive(50, RGB(0, 0, 0));
+	nGlobalLight = 100;
+	Warp(55, 119);
+	FadeInExclusive(50, RGB(0, 0, 0));
+}

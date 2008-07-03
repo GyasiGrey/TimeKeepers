@@ -1,0 +1,55 @@
+//Checkpoint! </crusin_usa>
+
+#define MAX_AUTOSAVE 100
+
+struct autosavePoint
+{
+	int nZone;		//zone for this savepoint
+	int nActive;		//==1 if this autosave is used on this map
+}
+
+autosavePoint autosave[MAX_AUTOSAVE];
+autosavePoint LoadedAutoSave[MAX_AUTOSAVE];
+
+
+void CreateAutoSave(int zone)
+{
+	int i;
+	
+	//find the first unused autosave point
+	for(i=0;i<MAX_AUTOSAVE;i++)
+	{
+		if(!autosave[i].nActive)
+		{
+			//use it!
+			autosave[i].nZone = zone;
+			autosave[i].nActive = 1;
+			return;	//i r liek teh failuer!
+		}
+	}
+}
+
+//clears all autosave points
+void ClearAutoSave()
+{
+	int i;
+	
+	for(i=0;i<MAX_AUTOSAVE;i++)
+		autosave[i].nActive = 0;
+}
+
+//hook to the retrace. Checks if the player is standing on a autosave point.
+void CheckAutoSave()
+{
+	int i;
+	
+	for(i=0;i<MAX_AUTOSAVE;i++)
+	{
+		if(autosave[i].nActive && GetZone(entity.x[nPlayerEnt]/16, entity.y[nPlayerEnt]/16) == autosave[i].nZone)
+		{
+			autosave[i].nActive = 0;	//set it's active to 0, therby killing it
+			//might want to set that before saving the game...just a thought
+			QuickSave();
+		}
+	}
+}
