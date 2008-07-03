@@ -1,0 +1,16 @@
+void TitleScreen()
+{
+	//moved all this junk to into.vc::startup()	
+	map("intro.map");
+}
+
+//the functions to hook to the renderer
+void TitleBkgRender()
+{
+	int nTitleImg;
+	nTitleImg = loadImage("gfx\ui\title.png");
+	//draw the background on the gui layer
+	Blit(0, 0, nTitleImg, screen);
+	FreeImage(nTitleImg);
+	DrawAnimation(nTitlecursorone);
+}

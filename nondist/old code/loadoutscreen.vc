@@ -1,0 +1,157 @@
+int nLoadCursor, nLoadCursorPos;
+int nLoadLeftMenuImg, nLoadRightMenuImg, nLoadBotMenuImg;
+int nLoadMenuWeaponsCount;
+int nLoadMenuChoice;
+string sLoadMenuList;
+int nLoadMenuWeap;
+int nLoadMenuDone;
+string sLoadMenuMissionObjective;
+string sLoadMenuNextMap;
+
+//starts a new mission with the loadout screen
+//weap is the available weapons for this mission ints seperated by |
+//nextmap is the map for the mission
+void LoadOutScreen(string weap, string nextmap, string objective)
+{
+	int i;
+
+	nLoadMenuDone = 0;
+	nLoadMenuChoice = 0-1;
+	nLoadMenuWeap = 0-1;
+	sLoadMenuNextMap = nextmap;
+	
+	sLoadMenuList = weap;
+	nLoadCursorPos = 0;
+	
+	sLoadMenuMissionObjective = WrapText(nFont, objective, 170);
+	
+	//make the left menu
+	nLoadLeftMenuImg = GenerateWindow(60, 240);
+	
+	nLoadMenuWeaponsCount = TokenCount(weap, "|");
+
+	//put the weapon names in it
+	for(i=0;i<nLoadMenuWeaponsCount;i++)
+	{
+		PrintString(16, 16+(i*(FontHeight(nFont)+3)), nLoadLeftMenuImg, nFont, Weapons[val(GetToken(weap, "|", i))].sName);
+	}
+	
+	//put the start mission text
+	PrintMultiLineString(16, 200, WrapText(nFont, "Press ESC to start", 40), nFont, nLoadLeftMenuImg);
+	
+	//make the bottom menu
+	nLoadBotMenuImg = GenerateWindow(260, 60);
+	
+	//make the right menu
+	nLoadRightMenuImg = GenerateWindow(260, 180);
+	
+	//put the cursor animation in
+	nLoadCursor = LoadAnimationEX("cursor.png", 8, 8, 8, 16, "F0 W40 F1 W40 R");
+	
+	//remove the gui
+	RemoveGui();
+
+	
+	//hook the render func - right before the anims
+	AddHook("RenderLoadMenus", 190);
+	
+	map("loadout.map");
+}
+
+void RenderLoadMenus()
+{
+	int weaponindex = val(GetToken(sLoadMenuList, "|", nLoadCursorPos));
+
+	
+	//move the cursor to where the user put it
+
+	anims[nLoadCursor].y = 16+(nLoadCursorPos*(FontHeight(nFont)+3));
+
+	
+	//blit the left menu in all it's glory
+	Blit(0, 0, nLoadLeftMenuImg, screen);
+	
+	//blit the right menu
+	Blit(60, 0, nLoadRightMenuImg, screen);
+		
+	//blit the bot menu
+	Blit(60, 180, nLoadBotMenuImg, screen);
+	
+	//blit the big weapon image on the right menu
+	Blit(75, 25, Weapons[weaponindex].nImage, screen);
+	
+	//put in the stats of the weapon
+	PrintString(75, 17, screen, nFont, Weapons[weaponindex].sName);
+
+	PrintString(190, 30, screen, nFont, "Range:");
+	PrintString(250, 30, screen, nFont, str(Weapons[weaponindex].nRange));
+	
+	PrintString(190, 41, screen, nFont, "Damage:");
+	PrintString(250, 41, screen, nFont, str(Weapons[weaponindex].nDamageMin) + "-" + str(Weapons[weaponindex].nDamageMax));
+
+	PrintString(190, 52, screen, nFont, "Sound Radius:");
+	PrintString(250, 52, screen, nFont, str(Weapons[weaponindex].nSoundRadius));
+	
+	if(Weapons[weaponindex].nType == WEAPON_TYPE_SPREAD)
+	{
+		PrintString(190, 63, screen, nFont, "Spread Weapon");
+	}
+	else if(Weapons[weaponindex].nType == WEAPON_TYPE_SINGLE)
+	{
+		PrintString(190, 63, screen, nFont, "Single Shot Weapon");
+	}
+
+	//put in the desc of the weapon
+	PrintMultiLineString(75, 115, WrapText(nFont, Weapons[weaponindex].sDesc, 200), nFont, screen); //yay for complex statements
+	
+	//print the weapon that the player choose
+	PrintString(68, 188, screen, nFont, "Weapon:");
+	if(nLoadMenuWeap >= 0)
+		PrintString(68, 196, screen, nFont, Weapons[nLoadMenuWeap].sName);
+		
+	//print the mission objective
+	PrintMultiLineString(140, 188, sLoadMenuMissionObjective, nFont, screen);
+	
+	//do the menu logic
+	if(up)
+	{
+		nLoadCursorPos--;
+		
+		if(nLoadCursorPos < 0)
+			nLoadCursorPos = nLoadMenuWeaponsCount-1;
+			
+		unpress(5);
+	}
+	
+	if(down)
+	{
+		nLoadCursorPos++;
+		
+		if(nLoadCursorPos > nLoadMenuWeaponsCount-1)
+			nLoadCursorPos = 0;
+			
+		unpress(6);
+	}
+	
+	if(BUTTON_SHOOT)
+	{
+		nLoadMenuChoice = weaponindex;
+		UnpressButtons();
+	}
+	
+	if(BUTTON_WEAPON_SWITCHUP)
+	{
+		//start the mission
+		FreeAnimation(nLoadCursor);
+		FreeImage(nLoadLeftMenuImg);
+		FreeImage(nLoadRightMenuImg);
+		FreeImage(nLoadBotMenuImg);
+		
+		RemoveHook("RenderLoadMenus");
+		
+		//remove all the players weapons
+		//give them the weapon they chose
+
+		nLoadMenuDone = 1;
+	}
+}

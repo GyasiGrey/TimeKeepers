@@ -1,0 +1,49 @@
+/***************************
+pause.vc - For pasuing the game.
+This is accomplished by setting timer to the same value every retrace.
+Probably kinda hacky, but really the only I could think of doing it since
+pausing wasn't originally going in the game.
+****************************/
+
+int nGamePaused;	//==1 if game is paused
+int nTimerPause;	//timer when game was paused
+
+void SwitchPause()
+{
+	if(nGamePaused)
+	{
+		SetPause(0);	//game is paused, unpause
+	}
+	else
+	{
+		SetPause(1);	//game is unpaused, pause
+	}
+}
+
+void SetPause(int i)
+{
+	nGamePaused = i;
+	if(i)
+	{
+		Error("Pausing game");
+		nTimerPause = timer;	//stores the timer if we want to pause the game
+		PauseVCTimers();
+		SetEntitiesPaused(1);
+	}
+	else
+	{
+		Error("UnPausing game");
+		UnPauseVCTimers();
+		SetEntitiesPaused(0);
+	}
+}
+
+void PauseHook()
+{
+	//checks if the game is paused
+	if(nGamePaused)
+	{
+		//set timer to the timer when we paused
+		timer = nTimerPause;
+	}
+}

@@ -1,0 +1,17 @@
+get a list of all enemies in range store their priority
+sort this priority list
+
+priority = first item in sorted priority list
+
+while(there are still enemies on the sorted priority list)
+{
+
+	while(current_priority == priority)
+	{
+		tmpStr += next ent on sorted priority list
+		current_priority = next priority on sorted priority list
+	}
+	sort tmpStr by distance
+	enemyList += tmpStr
+	tmpStr = ""
+}

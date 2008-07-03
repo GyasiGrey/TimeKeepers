@@ -1,0 +1,23 @@
+//worlds most boring map
+//do nothing!
+void startup()
+{
+	//clean up after the last map
+	InitMap();
+
+	ClearFlags();
+	
+	RemoveHook("TopRender");
+	RemoveHook("DrawCommText");
+	RemoveHook("ProcessInput");
+	
+	nRadarOn = 0;
+
+	StartSong("title.mod");
+	//hook the bkg - before anims
+	AddHook("TitleBkgRender", 2500);
+	OpenMainLogo();
+	OpenMainClockMenu();
+	OpenMainKeys();
+	OpenMainMenu();
+}

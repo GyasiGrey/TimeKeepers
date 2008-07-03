@@ -1,0 +1,111 @@
+int nMenuJoyConfigState;	//what key are we about to config
+				//0 == shoot
+				//1 == aim
+				//2 == steal
+				//3 == next weapon
+				//4 == prev weapon
+
+void OpenJoyConfigMenu()
+{
+	int i;
+	
+	CreateMenu(60, 40, GetMenuTemplateIndex("MenuKeyConfigJoy"));
+	nMenuJoyConfigState = 0;
+	
+	//unpress all the binded keys
+/*	for(i=0;i<NUM_BUTTONS;i++)
+	{
+		nUnpress[i] = 1;
+		//remove all Joy bindings
+		nJoyButton[i] = 0-1;
+	}*/
+	
+	UnpressAllButtons();
+}
+
+
+void MenuJoyConfigDraw()
+{
+	string keytext;
+
+	int img = CreateWindow("Joystick Config", 200, 60, nTerminalFont);
+	
+	PrintString(8, 14, img, nTerminalFont, "Press Joystick button for:");
+	PrintString(16, 22, img, nTerminalFont, sButtonNames[nMenuJoyConfigState]);
+	
+	PrintString(8, 38, img, nTerminalFont, "Backspace go back a key");
+	PrintString(8, 46, img, nTerminalFont, "Delete to cancel");
+
+	Blit(nMenuX, nMenuY, img, screen);	
+	
+	FreeImage(img);
+}
+
+void MenuJoyConfigLogic()
+{
+	int i, j;//, alreadybound;
+	
+	//check for Del or backspace
+	if(key[SCAN_DEL] || key[211]) //forgot all about that key[211] delete thing
+	{
+		//cancel does not save changes so far, so load the buttons again
+		SoundKeyboardRand();
+		
+		LoadButtonConfig();
+		CloseTopMenu();
+	}	
+	else if(key[SCAN_BACKSP])
+	{
+		if(nMenuJoyConfigState > 0)
+		{
+			nMenuJoyConfigState--;
+			SoundKeyboardRand();
+		}
+		else
+		{
+			SoundError();
+		}
+		key[SCAN_BACKSP] = 0;
+	}
+	else
+	{
+		//joystick
+		for(i=0;i<=31;i++)
+		{
+			if(GetJoyButton(i))
+			{
+			//	alreadybound = 0;
+			/*	for(j=0;j<NUM_BUTTONS;j++)
+				{
+					//if the key we chose is bound to another func
+					//don't let us choose it
+					if(nJoyButton[j] == i && nJoyButton[nMenuJoyConfigState] != i)
+					{
+						alreadybound = 1;
+					}
+				}
+
+				if(!alreadybound)
+				{*/
+					SoundKeyboardRand();
+					
+					nJoyButton[nMenuJoyConfigState] = i;
+					i = 31;
+					nMenuJoyConfigState++;
+
+					if(nMenuJoyConfigState >= NUM_BUTTONS)
+					{
+						CloseTopMenu();
+					}
+				//}
+				
+				UnpressAllButtons();
+			}
+		}
+	}
+}
+
+void MenuJoyConfigClose()
+{
+	SaveButtonConfig();
+}

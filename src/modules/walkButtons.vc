@@ -1,0 +1,39 @@
+void ProcessWASD()
+{
+	//check for W and move up
+	if(key[SCAN_W])
+	{
+		key[SCAN_UP] = 1;
+	}
+	else
+	{
+		key[SCAN_UP] = 0;
+	}
+
+	if(key[SCAN_A])
+	{
+		key[SCAN_LEFT] = 1;
+	}
+	else
+	{
+		key[SCAN_LEFT] = 0;
+	}
+
+	if(key[SCAN_S])
+	{
+		key[SCAN_DOWN] = 1;
+	}
+	else
+	{
+		key[SCAN_DOWN] = 0;
+	}
+
+	if(key[SCAN_D])
+	{
+		key[SCAN_RIGHT] = 1;
+	}
+	else
+	{
+		key[SCAN_RIGHT] = 0;
+	}
+}

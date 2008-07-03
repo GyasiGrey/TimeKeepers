@@ -1,0 +1,27 @@
+screen shot
+word
+ln
+word*num_flags
+word
+byte*max_weapons
+quad*max_weapons
+word
+word
+word
+word
+enemy*max_enemies
+	word
+	word
+	word
+	quad
+	word
+	word
+	word
+	word
+	word
+	word
+	word
+byte*max_doors
+quad*max_doors
+byte*max_loot
+byte*max_autosave

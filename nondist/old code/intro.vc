@@ -1,0 +1,22 @@
+//worlds most boring map
+//but the most intersting by the fact that this handles the titlescreen logic (english typing fun yay)
+void startup()
+{
+	StartDualRetraceMode();
+	
+	while(nTitleMenuChoice < 0)
+	{
+		Render();
+		ShowPage();
+		
+		if(nTitleMenuChoice == 0)
+		{
+			map("base.map");
+		}
+		
+		if(nTitleMenuChoice == 3)
+		{
+			ExitGame();
+		}
+	}
+}

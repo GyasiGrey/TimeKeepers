@@ -1,0 +1,244 @@
+//int nPDAMenuAnim;
+#define PDA_SCREEN_OBJECTIVES	0
+#define PDA_SCREEN_NOTES	1
+#define PDA_SCREEN_CONVERSATION	2
+#define PDA_SCREEN_STATS	3
+
+#define PDA_STRING_MAX_LEN	350
+
+int nPDAScreen;			//3 way toggle - shows Objectives, Notes or Conversations
+int nPDAScreenPosition;		//vertical position of PDA text
+
+void OpenPDAMenu()
+{
+	if(!MenuCanOpen())	//borrowed from menu_ingame.vc
+		return;
+		
+	SwitchPause();
+	
+	nPDAScreen = PDA_SCREEN_OBJECTIVES;
+	
+//	nPointerPos = 0;
+//	nPDAMenuAnim = LoadAnimationEX("cursor.png", 8, 8, 86, 129, "F0 W40 F1 W40 R");
+
+	CreateMenu(92, 45, GetMenuTemplateIndex("MenuPDA"));
+}
+
+void MenuPDADraw()
+{
+	int img = CreateWindow("PDA", 125, 150, nTerminalFont);
+	int i;
+	string allNotes="";	//the text of all the notes we are going to display cat'd together
+	int imgChkBoxOn = LoadImage("gfx/misc/chkbox_on.png");
+	int imgChkBoxOff = LoadImage("gfx/misc/chkbox_off.png");
+	
+	int imgButtonObjectives = LoadImage("gfx/misc/pda_objectives.png");
+	int imgButtonNotes = LoadImage("gfx/misc/pda_notes.png");
+	int imgButtonConversations = LoadImage("gfx/misc/pda_conversations.png");
+	int imgButtonStats = LoadImage("gfx/misc/pda_stats.png");
+	
+	int numbreaks = 0;
+	
+	//image to act as a clipping area for the conversastion text
+	int nTextArea = NewImage(110, 85);
+	RectFill(0, 0, 110, 85, RGB(255, 0, 255), nTextArea);
+	
+	switch(nPDAScreen)
+	{
+		case PDA_SCREEN_OBJECTIVES:
+			PrintString(8, 16, img, nTerminalFont, "Objectives");
+			
+			for(i=0;i<MAX_OBJECTIVES;i++)
+			{
+				if(objectives[i].bActive)
+				{
+					if(i != 0)
+						numbreaks += strstr(chr(10), WrapText(nTerminalFont, objectives[i-1].sTitle, 100)) + 2;
+					else
+						numbreaks = 0;
+						
+					PrintString(16, 32 + (numbreaks * FontHeight(nTerminalFont)), img, nTerminalFont, WrapText(nTerminalFont, objectives[i].sTitle, 100));
+					
+					if(objectives[i].bComplete)
+						TBlit(8, 32 + (numbreaks * FontHeight(nTerminalFont)), imgChkBoxOn, img);
+					else
+						TBlit(8, 32 + (numbreaks * FontHeight(nTerminalFont)), imgChkBoxOff, img);
+				}
+			}
+			
+		case PDA_SCREEN_NOTES:
+			PrintString(8, 16, img, nTerminalFont, "Notes");
+			
+			for(i=nPDAScreenPosition;i<MAX_NOTES;i++)
+			{
+				//CAT ME UP!
+				if(strcmp(sNotes[i], "") != 0 && (len(allNotes) + len(sNotes[i]) < PDA_STRING_MAX_LEN))
+				{
+					allNotes += WrapText(nTerminalFont, sNotes[i], 100) + chr(10) + chr(10);
+				}
+				else
+					i = MAX_NOTES;	//break
+			}
+			
+			PrintString(8, 32, img, nTerminalFont, allNotes);
+		
+		case PDA_SCREEN_CONVERSATION:
+			PrintString(8, 16, img, nTerminalFont, "Conversations");
+
+			for(i=nPDAScreenPosition;i<MAX_COMM_LOGS;i++)
+			{
+				//CAT ME UP!
+				if(strcmp(sCommLogs[i], "") != 0 && (len(allNotes) + len(sCommLogs[i]) < PDA_STRING_MAX_LEN))
+				{
+					allNotes += WrapText(nTerminalFont, sCommLogs[i], 100) + chr(10) + chr(10);
+				}
+				else
+					i = MAX_COMM_LOGS;	//break
+			}
+
+			PrintString(0, 0, nTextArea, nTerminalFont, allNotes);
+			TBlit(8, 32, nTextArea, img);
+			FreeImage(nTextArea);
+
+		case PDA_SCREEN_STATS:
+			PrintString(8, 16, img, nTerminalFont, "Mission Stats");
+			
+			allNotes += "Enemies Killed: " + str(nEnemiesKilled) + chr(10) + chr(10);
+			allNotes += "Enemies Tranq'd: " + str(nEnemiesTranqd) + chr(10) + chr(10);
+			allNotes += "Silent Kills: " + str(nSilentKills) + chr(10) + chr(10);
+			allNotes += "Medkits Used: " + str(nMedkitsUsed) + chr(10) + chr(10);
+			allNotes += "Time Spent: " + TicksToHMSC(vcTimer[TIMER_MISSION_TIME_SPENT].nTick) + chr(10) + chr(10);
+
+			PrintString(8, 32, img, nTerminalFont, allNotes);
+	}
+	
+	//no (bool)?(int):(int) :((
+	if(nPDAScreen == PDA_SCREEN_OBJECTIVES)
+		SetLucent(0);
+	else
+		SetLucent(50);
+	TBlit(10, 120, imgButtonObjectives, img);
+
+	if(nPDAScreen == PDA_SCREEN_NOTES)
+		SetLucent(0);
+	else
+		SetLucent(50);
+	TBlit(40, 120, imgButtonNotes, img);
+
+	if(nPDAScreen == PDA_SCREEN_CONVERSATION)
+		SetLucent(0);
+	else
+		SetLucent(50);
+	TBlit(70, 120, imgButtonConversations, img);
+
+	if(nPDAScreen == PDA_SCREEN_STATS)
+		SetLucent(0);
+	else
+		SetLucent(50);
+	TBlit(100, 120, imgButtonStats, img);
+	SetLucent(0);
+	
+	Blit(nMenuX, nMenuY, img, screen);
+	FreeImage(img);
+	
+	FreeImage(imgChkBoxOn);
+	FreeImage(imgChkBoxOff);
+	FreeImage(imgButtonObjectives);
+	FreeImage(imgButtonNotes);
+	FreeImage(imgButtonConversations);
+	FreeImage(imgButtonStats);
+}
+
+void MenuPDALogic()
+{
+//	anims[nPDAMenuAnim].y = 129+(nPointerPos*9);
+	//do the logic
+	if(up)
+	{
+		SoundKeyboardRand();
+		nPDAScreenPosition--;
+		
+		if(nPDAScreenPosition < 0)
+			nPDAScreenPosition = 0;
+		
+		unpress(5);
+	}
+	
+	if(down)
+	{
+		SoundKeyboardRand();
+		
+		nPDAScreenPosition++;
+		
+		switch(nPDAScreen)
+		{
+			case PDA_SCREEN_OBJECTIVES:
+				nPDAScreenPosition = 0;
+			case PDA_SCREEN_STATS:
+				nPDAScreenPosition = 0;
+			case PDA_SCREEN_NOTES:
+				if(nPDAScreenPosition > MAX_NOTES)
+					nPDAScreenPosition = MAX_NOTES;
+			case PDA_SCREEN_CONVERSATION:
+				if(nPDAScreenPosition > MAX_COMM_LOGS)
+					nPDAScreenPosition = MAX_COMM_LOGS;
+		}
+		
+		unpress(6);
+	}
+	//PDA_SCREEN_STATS
+	if(left)
+	{
+		SoundKeyboardRand();
+		
+		switch(nPDAScreen)
+		{
+			case PDA_SCREEN_OBJECTIVES:
+				nPDAScreen = PDA_SCREEN_STATS;
+			case PDA_SCREEN_NOTES:
+				nPDAScreen = PDA_SCREEN_OBJECTIVES;
+			case PDA_SCREEN_CONVERSATION:
+				nPDAScreen = PDA_SCREEN_NOTES;
+			case PDA_SCREEN_STATS:
+				nPDAScreen = PDA_SCREEN_CONVERSATION;
+		}
+		
+		nPDAScreenPosition = 0;
+		
+		unpress(7);
+	}
+
+	if(right)
+	{
+		SoundKeyboardRand();
+		
+		switch(nPDAScreen)
+		{
+			case PDA_SCREEN_OBJECTIVES:
+				nPDAScreen = PDA_SCREEN_NOTES;
+			case PDA_SCREEN_NOTES:
+				nPDAScreen = PDA_SCREEN_CONVERSATION;
+			case PDA_SCREEN_CONVERSATION:
+				nPDAScreen = PDA_SCREEN_STATS;
+			case PDA_SCREEN_STATS:
+				nPDAScreen = PDA_SCREEN_OBJECTIVES;
+		}
+		
+		nPDAScreenPosition = 0;
+		
+		unpress(8);
+	}
+	
+	if(BUTTON_MEDKIT)
+	{
+		SoundKeyboardRand();
+		CloseTopMenu();
+		UnpressButtons();
+	}
+}
+
+void MenuPDAClose()
+{
+//	FreeAnimation(nPDAMenuAnim);
+	SwitchPause();
+}

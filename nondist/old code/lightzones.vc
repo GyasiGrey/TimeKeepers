@@ -1,0 +1,120 @@
+/*
+LightZones.vc
+Light zones are rectangles grouped by a zone number. If the player is inside a Light Zone
+the game will light up all rectangles sharing that zone number
+*/
+
+int nLightZoneDebug=0;	//set to 1 to show light zones in red
+
+#define MAX_LIGHT_RECTS 100
+int nCurrentLightZone = 0-1;
+
+struct LightRect
+{
+	int nX1, nX2;
+	int nY1, nY2;
+	int nZone;
+	int nActive;
+}
+
+LightRect pLightRects[MAX_LIGHT_RECTS];
+
+void ClearLightRects()
+{
+	int i;
+	
+	for(i=0;i<MAX_LIGHT_RECTS;i++)
+	{
+		pLightRects[i].nX1 = 0;
+		pLightRects[i].nX2 = 0;
+		pLightRects[i].nY1 = 0;
+		pLightRects[i].nY2 = 0;
+		pLightRects[i].nZone = 0;
+		pLightRects[i].nActive = 0;
+	}
+	
+
+	nCurrentLightZone = 0-1;
+}
+
+void CreateLightZone(int _x1, int _y1, int _x2, int _y2, int _zone)
+{
+	int i;
+	
+	for(i=0;i<MAX_LIGHT_RECTS;i++)
+	{
+		if(!pLightRects[i].nActive)
+		{
+			pLightRects[i].nX1 = _x1;
+			pLightRects[i].nX2 = _x2;
+			pLightRects[i].ny1 = _y1;
+			pLightRects[i].ny2 = _y2;
+			pLightRects[i].nZone = _zone;
+			pLightRects[i].nActive = 1;
+			return;
+		}
+	}
+}
+
+void CalcLightZone()
+{
+	int i;
+	
+	for(i=0;i<MAX_LIGHT_RECTS;i++)
+	{
+		if(pLightRects[i].nActive)
+		{
+			if(entity.x[nPlayerEnt] >= pLightRects[i].nX1 
+			&& entity.x[nPlayerEnt] <= pLightRects[i].nX2)
+			{
+				if(entity.y[nPlayerEnt] >= pLightRects[i].nY1 
+				&& entity.y[nPlayerEnt] <= pLightRects[i].nY2)
+				{
+					nCurrentLightZone = pLightRects[i].nZone;
+					return;
+				}
+			}
+		}
+	}
+	
+	nCurrentLightZone=0-1;
+}
+
+void DrawLightRects()
+{
+	int screenw = ImageWidth(screen);
+	int screenh = ImageHeight(screen);
+
+	int scrndup = NewImage(screenw, screenh);
+	int scrnmask = NewImage(screenw, screenh);
+	int lightmask = NewImage(screenw, screenh);
+
+	int i;
+
+	RectFill(0, 0, screenw, screenh, RGB(0, 0, 0), lightmask);
+	RectFill(0, 0, screenw, screenh, RGB(0, 0, 0), scrndup);
+	RectFill(0, 0, screenw, screenh, RGB(175, 175, 175), scrnmask);
+
+	for(i=0;i<MAX_LIGHT_RECTS;i++)
+	{
+		if(pLightRects[i].nActive && pLightRects[i].nZone == nCurrentLightZone)
+		{
+			if(nLightZoneDebug)
+			{
+				setlucent(50);
+				RectFill(pLightRects[i].nX1-xwin, pLightRects[i].nY1-ywin, pLightRects[i].nX2-xwin, pLightRects[i].nY2-ywin, RGB(255, 0, 0), screen);
+				setlucent(0);
+			}
+			
+			RectFill(pLightRects[i].nX1-xwin, pLightRects[i].nY1-ywin, pLightRects[i].nX2-xwin, pLightRects[i].nY2-ywin, RGB(255, 255, 255), lightmask);
+		}
+	}
+
+	subtractiveblit(0, 0, lightmask, scrnmask);
+	alphablit(0, 0, scrndup, scrnmask, screen);
+	
+	//STOP LEAKING IMAGES
+	FreeImage(scrndup);
+	FreeImage(scrnmask);
+	FreeImage(lightmask);
+}

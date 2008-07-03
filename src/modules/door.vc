@@ -1,0 +1,295 @@
+//door.vc - holds code for doors! (duh)
+
+/*How to make a door:
+1) Put the door frame in the map (in maped) - the top part of the door gets drawn after the player
+	bottom of the door gets drawn before
+2) Put the door in the init door func of the map
+*/
+
+#define MAX_DOORS 100	//you mean you can only have 100 doors per map?
+
+#define DOOR_LOCKPICK_DELAY 1			//time between decreasing lock sterength
+#define DOOR_LOCKPICK_SOUND_DELAY 120		//time between playing lock pick sounds
+#define DOOR_LOCKPICK_FADEOUT_DELAY 50		//time untill lockpick notice starts to fade out
+#define DOOR_LOCKPICK_FADEOUT_TIME 200		//time it takes lockpick notice to fade out
+
+#define PICK_LOCK_COLOR RGB(255, 255, 255)
+
+struct Door
+{
+	int nX;			//x y tile coords (this will be the tile that acts as an obstruction
+	int nY;			//so the bottom of the door image will be drawn 16 pixels below this point
+	int nImage;		//the index of the door image
+	int nOpen;		//==1 if the door is open ==0 if closed
+	int nLockStr;		//how long in centiseconds it would take to unlock the door. 0-1 if unlocked
+	int nLockStrStart;	//where the lock str of the door started
+	int nLastPick;		//timer when nLockStr was last decreased
+	int nLastSound;		//timer when a sound was last triggered
+	int nActive;
+}
+
+Door Doors[MAX_DOORS];
+Door LoadedDoors[MAX_DOORS];
+
+void ClearDoors()
+{
+	int i;
+	
+	for(i=0;i<MAX_DOORS;i++)
+	{
+		if(Doors[i].nActive)
+		{
+			FreeImage(Doors[i].nImage);
+			Doors[i].nActive = 0;
+		}
+	}
+}
+
+//x and y are tile coords
+int CreateDoor(int x, int y, int image, int lockstr)
+{
+	int i;
+	
+	for(i=0;i<MAX_DOORS;i++)
+	{
+		if(!Doors[i].nActive)
+		{
+			Doors[i].nX = x;
+			Doors[i].nY = y;
+			Doors[i].nImage = image;
+			Doors[i].nOpen = 0;
+			Doors[i].nLockStr = lockstr;
+			Doors[i].nLockStrStart = lockstr;
+			Doors[i].nActive = 1;
+			SetObs(x, y, 1);
+			return i;
+		}
+	}
+}
+
+//returns 1 if there is a closed active door at this x, y coord
+//the part of the door that acts as an obstruction is always
+//16 * 16
+//x and y are pixel coords
+int DoorAt(int x, int y)
+{
+	int i;
+	
+
+	for(i=0;i<MAX_DOORS;i++)
+	{
+		if(x > Doors[i].nX*16 && x < (Doors[i].nX*16) + 16)
+			if(y > Doors[i].nY*16 && y < (Doors[i].nY*16) +16)
+				if(Doors[i].nActive && !Doors[i].nOpen)
+					return 1;
+	}
+	
+	return 0;
+}
+
+//blit the 'Locked: num' message and wait bar - do a lucent fade when inactive
+void BlitLockPick()
+{
+	int i, barimg, lockstr;
+	
+	for(i=0;i<MAX_DOORS;i++)
+	{
+		if(Doors[i].nActive)
+		{
+			lockstr = Doors[i].nLockStr;
+			if(lockstr < 0)
+				lockstr = 0;
+				
+			if(timer-Doors[i].nLastPick < DOOR_LOCKPICK_FADEOUT_DELAY)
+			{
+				//lock pick text
+				PrintStringCol((Doors[i].nX*16)-xwin+17, (Doors[i].nY*16)-ywin-15, screen, nTinyFont, "Locked: " + str(lockstr), RGB(0, 0, 0));
+				PrintStringCol((Doors[i].nX*16)-xwin+16, (Doors[i].nY*16)-ywin-16, screen, nTinyFont, "Locked: " + str(lockstr), PICK_LOCK_COLOR);
+			
+				barimg = MakeThinWaitBar(16, Doors[i].nLockStr, Doors[i].nLockStrStart);
+				TBlit((Doors[i].nX*16)-xwin+16, (Doors[i].nY*16)-ywin-8, barimg, screen);
+				FreeImage(barimg);
+			}
+			else
+			{
+				//TODO: Implement code to do a fade out for the locked message
+				//lucentTextFade((Doors[i].nX*16)-16, (Doors[i].nY*16)-16, "Locked", nTinyFont, RGB(255, 255, 255), 1);
+			}
+		}
+	}
+}
+
+void ManualUnlockDoor(int i)
+{
+	if(Doors[i].nActive)
+	{
+		Doors[i].nLockStr = -1;
+	}
+}
+
+//opens a door and sets it obs to off, NOT to be used in response to player input
+//this does not check if a door is marked as open or not, it only checks if the door is active (valid)
+void ManualOpenDoor(int i)
+{
+	if(Doors[i].nActive)
+	{
+		Doors[i].nOpen = 1;
+		SetObs(Doors[i].nX, Doors[i].nY, 0);
+	}
+}
+
+void ManualCloseDoor(int i)
+{
+	if(Doors[i].nActive)
+	{
+		Doors[i].nOpen = 0;
+		SetObs(Doors[i].nX, Doors[i].nY, 1);
+	}
+}
+
+void OpenCloseDoor(int i)
+{
+	if(Doors[i].nLockStr > 0-1)
+	{
+		//pick the lock
+		if(timer-Doors[i].nLastPick > DOOR_LOCKPICK_DELAY)
+		{
+			if(timer-Doors[i].nLastPick > 100) //if we havn't picked this door in a while, pick it and set it's timer
+			{
+				Doors[i].nLockStr--;
+				Doors[i].nLastPick = timer;
+			}
+			else
+			{
+				Doors[i].nLockStr-= timer-Doors[i].nLastPick; //decrease the lock str dependet on the timer
+				Doors[i].nLastPick = timer;
+
+				//prevent a picked lock from going to a locked state
+				if(Doors[i].nLockStr <= -2)
+					Doors[i].nLockStr = -1;
+					
+				//the lock on this door has been picked
+				if(Doors[i].nLockStr == -1)
+				{
+					nLocksPicked++;
+					
+					if(nLocksPicked == 5)
+					{
+						AchivementUnlocked(ACHIVEMENT_5_PICKED_LOCKS);
+					}
+				}
+			}
+		}
+		
+		//play the lock pick sound
+		if(timer-Doors[i].nLastSound > DOOR_LOCKPICK_SOUND_DELAY)
+		{
+			SoundPickLock();
+			MakeSound(nPlayerEnt, 50);
+			Doors[i].nLastSound = timer;
+		}
+	}
+	else if(Doors[i].nLockStr > 0-2)
+	{
+		//door is closed, but the lock can be picked
+		if(!Doors[i].nOpen)
+		{
+			//open it
+			Doors[i].nOpen = 1;
+			SetObs(Doors[i].nX, Doors[i].nY, 0);
+			SoundDoorOpen();
+		}
+		else
+		{
+			//close it
+			Doors[i].nOpen = 0;
+			SetObs(Doors[i].nX, Doors[i].nY, 1);
+			SoundDoorClose();
+		}
+		UnpressButtons();
+	}
+	else
+	{
+		//can't pick this lock
+		//make the fadeout text saying "Locked"
+		lucentTextFade((Doors[i].nX*16)-16, (Doors[i].nY*16)-16, "Locked", nTinyFont, RGB(255, 255, 255), 1);
+		SoundLocked();
+		UnpressButtons();
+	}
+}
+
+//draws doors that are above the player (door.y > player.y)
+void DrawTopDoors()
+{
+	int i;
+	
+	for(i=0;i<MAX_DOORS;i++)
+	{
+		if(Doors[i].nActive && !Doors[i].nOpen && Doors[i].nY*16 >= entity.y[nPlayerEnt])
+		{
+			TBlit((Doors[i].nX*16)-xwin, (Doors[i].nY*16)-16-ywin, Doors[i].nImage, screen);
+		}
+	}
+}
+
+//draws doors that are below the player (door.y < player.y)
+void DrawBottomDoors()
+{
+	int i;
+	
+	for(i=0;i<MAX_DOORS;i++)
+	{
+		if(Doors[i].nActive && !Doors[i].nOpen && Doors[i].nY*16 <= entity.y[nPlayerEnt])
+		{
+			TBlit((Doors[i].nX*16)-xwin, (Doors[i].nY*16)-16-ywin, Doors[i].nImage, screen);
+		}
+	}
+}
+
+//if there is a door 16 pixels (in the direction the player is looking)
+//from the middle of the players hotspot return its index
+//else return -1
+int TryDoor()
+{
+	int i;
+	int targetx, targety;
+	
+	if(entity.face[nPlayerEnt] == 1)		//up
+	{
+		targetx = entity.x[nPlayerEnt]+(entity.hotw[nPlayerEnt]/2);
+		targety = entity.y[nPlayerEnt]-16;
+	}
+	else if(entity.face[nPlayerEnt] == 2)		//down
+	{
+		targetx = entity.x[nPlayerEnt]+(entity.hotw[nPlayerEnt]/2);
+		targety = entity.y[nPlayerEnt]+16;
+	}
+	else if(entity.face[nPlayerEnt] == 3)		//left
+	{
+		return -1;
+		//targetx = entity.x[nPlayerEnt]-16;
+		//targety = entity.y[nPlayerEnt]+(entity.hoth[nPlayerEnt]/2);
+	}
+	else if(entity.face[nPlayerEnt] == 4)		//right
+	{
+		return -1;
+		//targetx = entity.x[nPlayerEnt]+16;
+		//targety = entity.y[nPlayerEnt]+(entity.hoth[nPlayerEnt]/2);
+	}
+
+	for(i=0;i<MAX_DOORS;i++)
+	{
+		if(Doors[i].nActive)
+		{
+			if(targetx >= Doors[i].nX*16 && targetx <= (Doors[i].nX*16)+16)
+			{
+				if(targety >= Doors[i].nY*16 && targety <= (Doors[i].nY*16)+16)
+				{
+					return i;
+				}
+			}
+		}
+	}
+	
+	return 0-1;
+}

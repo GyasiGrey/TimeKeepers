@@ -1,0 +1,48 @@
+//effectFadeOut.vc
+//Fades the screen to a color. Only one fade can be active at a time. If a new one starts while one is active the new one takes over.
+
+int nFadeOutDuration;
+int nFadeOutStart;
+int nFadeOutStop;
+int nFadeOutColor;
+
+void FadeOutExclusive(int duration, int color)	//fades out but blocks at the same time
+{
+	FadeOut(duration, color);
+	
+	SwitchPause();
+	
+	while(IsHooked("ProcessFadeOut"))	//oh busy loop, why are you so mean to me?
+	{
+		Render();
+		ShowPage();
+	}
+	
+	SwitchPause();
+}
+
+void FadeOut(int duration, int color)
+{
+	if(!IsHooked("ProcessFadeOut"))	//functn iz hookd?
+		AddHook("ProcessFadeOut", 1500);	//after everything but the menues and logic
+
+	//SwitchPause();	//pause the game to block untill the fade is done
+	
+	nFadeOutStart = systemtime;
+	nFadeOutStop = systemtime + duration;
+	nFadeOutDuration = duration;
+	nFadeOutColor = color;
+}
+
+void ProcessFadeOut()
+{
+	SetLucent(100 - ((systemtime-nFadeOutStart)*100/nFadeOutDuration));
+	RectFill(0, 0, 320, 240, nFadeOutColor, screen);
+	SetLucent(0);
+	
+	if(systemtime > nFadeOutStop)
+	{
+		RemoveHook("ProcessFadeOut");
+		//SwitchPause();	//remove the block
+	}
+}

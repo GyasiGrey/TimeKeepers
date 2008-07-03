@@ -1,0 +1,106 @@
+int nMenuKeyboardConfigState;	//what key are we about to config
+				//0 == shoot
+				//1 == aim
+				//2 == steal
+				//3 == next weapon
+				//4 == prev weapon
+
+void OpenKeyboardConfigMenu()
+{
+	int i;
+	
+	CreateMenu(60, 40, GetMenuTemplateIndex("MenuKeyConfigKey"));
+	nMenuKeyboardConfigState = 0;
+	
+	//unpress all the binded keys
+	UnpressAllButtons();
+}
+
+
+void MenuKeyboardConfigDraw()
+{
+	string keytext;
+
+	int img = CreateWindow("Keyboard Config", 200, 60, nTerminalFont);
+	
+	PrintString(8, 14, img, nTerminalFont, "Press Keyboard button for:");
+	PrintString(16, 22, img, nTerminalFont, sButtonNames[nMenuKeyboardConfigState]);
+	
+	PrintString(8, 38, img, nTerminalFont, "Backspace go back a key");
+	PrintString(8, 46, img, nTerminalFont, "Delete to cancel");
+
+	Blit(nMenuX, nMenuY, img, screen);	
+	
+	FreeImage(img);
+}
+
+void MenuKeyboardConfigLogic()
+{
+	int i, j;//, alreadybound;
+	
+	//check for Del or backspace
+	if(key[SCAN_DEL] || key[211])
+	{
+		//cancel does not save changes so far, so load the buttons again
+		SoundKeyboardRand();
+		LoadButtonConfig();
+		CloseTopMenu();
+	}	
+	else if(key[SCAN_BACKSP])
+	{
+		if(nMenuKeyboardConfigState > 0)
+		{
+			SoundKeyboardRand();
+			nMenuKeyboardConfigState--;
+		}
+		else
+		{
+			SoundError();
+		}
+		key[SCAN_BACKSP] = 0;
+	}
+	else
+	{
+		//doing keyboard stuff
+		for(i=0;i<=88;i++)
+		{
+			//only cycle through the 88 bindings listed in v3vergec.txt
+			//the others are weird anyway
+
+			if(key[i])
+			{
+				//alreadybound = 0;
+				for(j=0;j<NUM_BUTTONS;j++)
+				{
+					//if the key we chose is bound to another func
+					//don't let us choose it
+					if(nKeyButton[j] == i && nKeyButton[nMenuKeyboardConfigState] != i)
+					{
+						//alreadybound = 1;
+					}
+				}
+				
+				//if(!alreadybound)
+				//{
+					SoundKeyboardRand();
+					
+					nKeyButton[nMenuKeyboardConfigState] = i;
+					i = 88;
+					nMenuKeyboardConfigState++;
+
+					if(nMenuKeyboardConfigState >= NUM_BUTTONS)
+					{
+						CloseTopMenu();
+					}
+				//}
+				
+				UnpressAllButtons();
+			}
+		}
+	}
+}
+
+void MenuKeyboardConfigClose()
+{
+	SaveButtonConfig();
+}

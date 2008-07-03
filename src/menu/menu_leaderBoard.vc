@@ -1,0 +1,310 @@
+/*
+ * menu_leaderBoard.vc
+ *
+ * Holds code 
+ *
+ * Actually no, this holds the menu that shows the leaderboards
+ * 
+ * But for serious now. Stop looking up stupid comments on xkcd and write these damn functions.
+ */
+ 
+#define LEADERBOARD_NUM_MISSIONS	2
+#define LEADERBOARD_NUM_ARENAS		1
+#define LEADERBOARD_NUM_PER_WINDOW	10
+#define LEADERBOARD_NUM_SCORES		6
+
+string sLeaderboardData;
+int nLeaderboardDirty;	//if ==1 we need to request data from the server again, otherwise party like it's 2k7
+
+int nConnectedToServer;	//if ==0 we are not connected. Write an error message to menu
+
+int nLeaderboardMission = 1;	//which mission are we looking at. This defines the primary key sent to the leaderboard server
+
+int UserDictLen;
+
+int nLeaderboardStartPos;
+int bLeaderboardArenaMode = 0;
+
+int nLeaderboardWidths[7];	//LEADERBOARD_NUM_SCORES+1
+
+//temp data pulled from XML
+//string sLeaderboardXMLUserData[XML_PARSE_MAX_RESULTS];
+
+//leaderboard data - pulled from teh internots, and parsed out of the XML
+struct LeaderboardData
+{
+	string sUsername;
+	int iId;
+	string sScores[LEADERBOARD_NUM_SCORES];
+	string sFinalScore;
+}
+
+LeaderboardData sLeaderboardUsers[LEADERBOARD_NUM_PER_WINDOW];
+
+string sLeadarboardScores[LEADERBOARD_NUM_SCORES];
+
+void OpenLeaderboardMenu()
+{
+	nLeaderboardWidths[0] = 8;
+	nLeaderboardWidths[1] = 36;
+	nLeaderboardWidths[2] = 64;
+	nLeaderboardWidths[3] = 102;
+	nLeaderboardWidths[4] = 140;
+	nLeaderboardWidths[5] = 178;
+	nLeaderboardWidths[6] = 226;
+	
+	nLeaderboardDirty=1;
+	nConnectedToServer=0;
+	nLeaderboardStartPos=0;
+	CreateMenu(1, 50, GetMenuTemplateIndex("MenuLeaderboard"));
+}
+
+void MenuLeaderboardDraw()
+{
+	int img = CreateWindow("Leaderboard", 318, 150, nTerminalFont);
+	int i, j;
+	
+	i=0;
+	
+	if(nConnectedToServer)
+	{
+		if(!bLeaderboardArenaMode)
+			PrintString(8, 16, img, nTerminalFont, "Leaderboards for Mission " + str(nLeaderboardMission));
+		else
+			PrintString(8, 16, img, nTerminalFont, "Leaderboards for Arena " + str(nLeaderboardMission - LEADERBOARD_NUM_MISSIONS));
+		
+		//print the final score
+		PrintString(48+nLeaderboardWidths[0], 28, img, nTerminalFont, WrapText(nTerminalFont, "Final Score", 30));
+		
+		//print the score names
+		for(i=0;i<LEADERBOARD_NUM_SCORES;i++)
+		{
+			PrintString(48+nLeaderboardWidths[i+1], 28, img, nTerminalFont, WrapText(nTerminalFont, sLeadarboardScores[i], 30));
+		}
+		
+		for(i=0;i<LEADERBOARD_NUM_PER_WINDOW;i++)
+		{
+			PrintString(8, 48+(i*8), img, nTerminalFont, sLeaderboardUsers[i].sUsername);
+			
+			PrintString(48+nLeaderboardWidths[0], 48+(i*8), img, nTerminalFont, sLeaderboardUsers[i].sFinalScore);
+			
+			//print the scores
+			for(j=0;j<LEADERBOARD_NUM_SCORES;j++)
+			{
+				PrintString(48+nLeaderboardWidths[j+1], 48+(i*8), img, nTerminalFont, sLeaderboardUsers[i].sScores[j]);
+			}
+		}
+	}
+	else
+	{
+		PrintString(8, 16, img, nTerminalFont, "Could not connect to leaderboard server!");
+	}
+	
+	Blit(nMenuX, nMenuY, img, screen);
+}
+
+void MenuLeaderboardLogic()
+{
+	int i, j;
+	int UserDict, scoreDict, scoreDefDict, finalScoreDict;
+	int tmpDict, tmpDict2;
+	
+	//get the list of players for this game
+	if(nLeaderboardDirty)
+	{
+		OpenMessageMenu("Connecting to leaderboard server...");
+		nMenuX = ActiveMenus[TopMenuStack()].nX;
+		nMenuY = ActiveMenus[TopMenuStack()].nY;
+		MenuMessageDraw();
+		ShowPage();
+		
+		if(nLeaderboardMission > LEADERBOARD_NUM_MISSIONS)
+			bLeaderboardArenaMode = 1;
+		else
+			bLeaderboardArenaMode = 0;
+	
+		//oh...you're a dirty string...aintcha...
+		if(!bLeaderboardArenaMode)
+			sLeaderboardData = GetUrlText(LEADERBOARD_URL + "gameList.php?game=1&pkey=" + str(nLeaderboardMission) + "&xml");
+		else
+			sLeaderboardData = GetUrlText(LEADERBOARD_URL + "gameList.php?game=1&pkey=" + str((nLeaderboardMission - LEADERBOARD_NUM_MISSIONS) + 9) + "&xml");
+			
+		nLeaderboardDirty = 0;
+
+		//Weirdest error code ever. Guess it's better then the "verge crashes" error code.
+		if(strcmp(sLeaderboardData, "couldn't open url") == 0)
+		{
+			nConnectedToServer = 0;
+		}
+		else
+		{
+			nConnectedToServer = 1;
+		
+			ClearLearderboardData();
+			
+			//parse the XML!
+			UserDict = XMLParseGetNodes(sLeaderboardData, "user");
+
+			//copy the data to a temp array so we don't overwrite it
+//			for(i=0;i<XML_PARSE_MAX_RESULTS;i++)
+//			{
+//				sLeaderboardXMLUserData[i] = sXMLParseResult[i];
+//			}
+
+			//get the usernames
+			i=0;
+			
+			UserDictLen = DictSize(UserDict);
+			while(i < UserDictLen && i < LEADERBOARD_NUM_PER_WINDOW)
+			{
+				//get username
+				tmpDict = XMLParseGetNodes(DictGetString(UserDict, str(nLeaderboardStartPos + i)), "name");
+				sLeaderboardUsers[i].sUsername = DictGetString(tmpDict, "0");
+				DictFree(tmpDict);
+				
+				//get id
+				tmpDict = XMLParseGetNodes(DictGetString(UserDict, str(nLeaderboardStartPos + i)), "id");
+				sLeaderboardUsers[i].iId = val(DictGetString(tmpDict, "0"));
+				DictFree(tmpDict);
+
+				i++;
+			}
+
+			DictFree(UserDict);
+			
+			//we have all the user data, now look for scores associated with those users
+			for(i=0;i<LEADERBOARD_NUM_PER_WINDOW;i++)
+			{
+				//ask the server for score data for this user
+				if(!bLeaderboardArenaMode)
+					sLeaderboardData = GetUrlText(LEADERBOARD_URL + "getScore.php?uid=" + str(sLeaderboardUsers[i].iId) + "&gid=1&pkey=" + str(nLeaderboardMission) + "&xml");
+				else
+					sLeaderboardData = GetUrlText(LEADERBOARD_URL + "getScore.php?uid=" + str(sLeaderboardUsers[i].iId) + "&gid=1&pkey=" + str((nLeaderboardMission - LEADERBOARD_NUM_MISSIONS) + 9) + "&xml");
+				
+				scoreDict = XMLParseGetNodes(sLeaderboardData, "score");
+				
+				//we now have all the seprate scores in a dictionary, now get the individual for each score
+				for(j=0;j<DictSize(scoreDict) && j<LEADERBOARD_NUM_SCORES;j++)
+				{
+					tmpDict = XMLParseGetNodes(DictGetString(scoreDict, str(j)), "data");
+					tmpDict2 = XMLParseGetNodes(DictGetString(scoreDict, str(j)), "id");
+
+					sLeaderboardUsers[i].sScores[val(DictGetString(tmpDict2, "0"))-1] = DictGetString(tmpDict, "0");
+				
+					DictFree(tmpDict);
+					DictFree(tmpDict2);
+				}
+				
+				DictFree(scoreDict);
+
+				finalScoreDict = XMLParseGetNodes(sLeaderboardData, "finalScore");
+				sLeaderboardUsers[i].sFinalScore = DictGetString(finalScoreDict, "0");
+				DictFree(finalScoreDict);
+			}
+
+			//get the score names
+			sLeaderboardData = GetUrlText(LEADERBOARD_URL + "getScoreDef.php?gid=1&xml");
+			
+			scoreDefDict = XMLParseGetNodes(sLeaderboardData, "scoreDef");
+			
+			for(i=0;i<LEADERBOARD_NUM_SCORES;i++)
+			{
+				tmpDict = XMLParseGetNodes(DictGetString(scoreDefDict, str(i)), "name");
+				tmpDict2 = XMLParseGetNodes(DictGetString(scoreDefDict, str(i)), "id");
+
+				sLeadarboardScores[val(DictGetString(tmpDict2, "0"))-1] = DictGetString(tmpDict, "0");
+				DictFree(tmpDict);
+				DictFree(tmpDict2);
+			}
+			
+			DictFree(scoreDefDict);
+		}
+
+		CloseTopMenu();
+	}
+	
+	if(BUTTON_MEDKIT)
+	{
+		SoundKeyboardRand();
+		
+		CloseTopMenu();
+	}
+	
+	if(up)
+	{
+		SoundKeyboardRand();
+		
+		nLeaderboardStartPos--;
+		
+		if(nLeaderboardStartPos < 0)
+			nLeaderboardStartPos=0;
+		else
+			nLeaderboardDirty = 1;
+			
+		unpress(5);
+	}
+	
+	if(down)
+	{
+		SoundKeyboardRand();
+		
+		nLeaderboardStartPos++;
+		
+		if(nLeaderboardStartPos + LEADERBOARD_NUM_PER_WINDOW > UserDictLen)
+			nLeaderboardStartPos--;
+		else
+			nLeaderboardDirty = 1;
+		
+		unpress(6);
+	}
+	
+	if(right)
+	{
+		SoundKeyboardRand();
+		
+		nLeaderboardMission++;
+		nLeaderboardStartPos=0;
+		
+		if(nLeaderboardMission > LEADERBOARD_NUM_MISSIONS + LEADERBOARD_NUM_ARENAS)
+			nLeaderboardMission = 1;
+			
+		//make the data <i>dirty</i>
+		nLeaderboardDirty = 1;
+		
+		unpress(8);
+	}
+	
+	if(left)
+	{
+		SoundKeyboardRand();
+		
+		nLeaderboardMission--;
+		nLeaderboardStartPos=0;
+		
+		if(nLeaderboardMission < 1)
+			nLeaderboardMission = LEADERBOARD_NUM_MISSIONS + LEADERBOARD_NUM_ARENAS;
+
+		//make the data <i>dirty</i>
+		nLeaderboardDirty = 1;
+
+		unpress(7);
+	}
+}
+
+void MenuLeaderboardClose()
+{
+}
+
+void ClearLearderboardData()
+{
+	int i,j;
+	
+	for(i=0;i<LEADERBOARD_NUM_PER_WINDOW;i++)
+	{
+		sLeaderboardUsers[i].sUsername = "";
+		sLeaderboardUsers[i].iId = 0;
+		
+		for(j=0;j<LEADERBOARD_NUM_SCORES;j++)
+			sLeaderboardUsers[i].sScores[j] = "";
+	}
+}
