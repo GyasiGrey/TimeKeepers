@@ -1,7 +1,0 @@
-void EnemyAIDummy()
-{
-	//stay in normal mode
-	Enemies[nCurrentEnemy].nMode = MODE_NORMAL;
-	//regenerate your health
-	Enemies[nCurrentEnemy].nHp = Enemies[nCurrentEnemy].nMaxHp;
-}

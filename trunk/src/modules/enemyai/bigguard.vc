@@ -1,9 +1,0 @@
-void EnemyAIBigGuard()
-{
-	//player got my attention, go after him!
-	if(Enemies[nCurrentEnemy].nMode != MODE_NORMAL)
-	{
-		Enemies[nCurrentEnemy].nAIType = ENEMY_AI_TYPE_NORMAL;
-		Enemies[nCurrentEnemy].sAIFunc = "EnemyAINormal";
-	}	
-}

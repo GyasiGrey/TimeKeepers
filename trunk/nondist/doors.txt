@@ -1,4 +1,0 @@
-Setting a doors nLockStr to:
-	-1 means it is unlocked
-	<-2 means this door is forever locked
-	>0 Amount of time it will take to unlock in centi seconds

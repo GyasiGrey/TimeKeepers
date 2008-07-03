@@ -1,9 +1,0 @@
-All menus have a close virtual function
-
-A specific menus Create function is the only menu function to be called directly
-
-The create fuction adds the menu to the stack
-
-CloseTopMenu() can be called directly to close the menu at the top of the stack, also it calls the menus close virtual function
-
-CloseAllMenus() closes all the menus and calls their close functions
