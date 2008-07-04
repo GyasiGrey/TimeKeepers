@@ -48,6 +48,9 @@
 	
 	int retVal = DictNew();
 	
+	if(numNodes == 0)
+		return -1;
+	
 	//first clear results
 	//XMLParseClearResults();
 

@@ -101,13 +101,13 @@ void MenuAchivementDraw()
 
 void MenuAchivementGetServerData()
 {
-	sAchivementData = GetUrlText(LEADERBOARD_URL + "achivementsUsersGame.php?game=" + str(LEADERBOARD_GAME_ID) + "&xml");
+	sAchivementData = getInetData(LEADERBOARD_URL + "achivementsUsersGame.php?game=" + str(LEADERBOARD_GAME_ID) + "&xml");
 
 	//Weirdest error code ever. Guess it's better then the "verge crashes" error code.
-	if(strcmp(sAchivementData, "couldn't open url") == 0)
-		nAchievementConnectedToServer = 0;
-	else
+	if(CheckLeaderboardResponse(sAchivementData))
 		nAchievementConnectedToServer = 1;
+	else
+		nAchievementConnectedToServer = 0;
 }
 
 
@@ -117,7 +117,7 @@ void MenuAchivementLogic()
 	int UserDict, achDict;
 	int tmpDict;
 	string userAchData;
-	
+
 	//parse the XML data into the scructs as needed
 	if(nAchivementDirty)
 	{
@@ -152,9 +152,9 @@ void MenuAchivementLogic()
 				DictFree(tmpDict);
 				
 				//get this users achivements
-				userAchData = GetUrlText(LEADERBOARD_URL + "achivementsUser.php?user=" + str(sAchivementUsers[k].iId) + "&game=" + str(LEADERBOARD_GAME_ID) + "&xml");
+				userAchData = getInetData(LEADERBOARD_URL + "achivementsUser.php?user=" + str(sAchivementUsers[k].iId) + "&game=" + str(LEADERBOARD_GAME_ID) + "&xml");
 
-				if(strcmp(userAchData, "couldn't open url") == 0)
+				if(!CheckLeaderboardResponse(sAchivementData))
 				{
 					nAchievementConnectedToServer = 0;
 					return;

@@ -3,6 +3,7 @@
 
 #define ERROR_INTERNAL_NO_INTERNET "NO_INTERNET"
 #define ERROR_INTERNAL_NO_PAGE "NO_PAGE"
+#define ERROR_INTERNAL_BAD_VERSION "BAD_VERSION"
 
 string LEADERBOARD_URL  = "http://localhost/vrgInet/";
 
@@ -39,6 +40,7 @@ int sendScore(string username, string password, int gid, string data, string pKe
 string getInetData(string sURL)
 {
 	string retval;
+	int nDict;
 	
 	retval = GetUrlText(sURL);
 	
@@ -47,4 +49,21 @@ string getInetData(string sURL)
 		
 	if(strcmp(retval, ERROR_NO_PAGE)== 0)
 		return ERROR_INTERNAL_NO_PAGE;
+		
+	nDict = XMLParseGetNodes(retval, "version");
+	
+	if(nDict == -1)
+		return ERROR_INTERNAL_NO_PAGE;
+	else
+		return retval;
+}
+
+int CheckLeaderboardResponse(string res)
+{
+	if(strcmp(res, ERROR_INTERNAL_NO_INTERNET) == 0
+	|| strcmp(res, ERROR_INTERNAL_NO_PAGE) == 0
+	|| strcmp(res, ERROR_INTERNAL_BAD_VERSION) == 0)
+		return 0;
+	else
+		return 1;
 }

@@ -125,24 +125,25 @@ void MenuLeaderboardLogic()
 	
 		//oh...you're a dirty string...aintcha...
 		if(!bLeaderboardArenaMode)
-			sLeaderboardData = GetUrlText(LEADERBOARD_URL + "gameList.php?game=1&pkey=" + str(nLeaderboardMission) + "&xml");
+			sLeaderboardData = getInetData(LEADERBOARD_URL + "gameList.php?game=1&pkey=" + str(nLeaderboardMission) + "&xml");
 		else
-			sLeaderboardData = GetUrlText(LEADERBOARD_URL + "gameList.php?game=1&pkey=" + str((nLeaderboardMission - LEADERBOARD_NUM_MISSIONS) + 9) + "&xml");
+			sLeaderboardData = getInetData(LEADERBOARD_URL + "gameList.php?game=1&pkey=" + str((nLeaderboardMission - LEADERBOARD_NUM_MISSIONS) + 9) + "&xml");
 			
 		nLeaderboardDirty = 0;
 
 		//Weirdest error code ever. Guess it's better then the "verge crashes" error code.
-		if(strcmp(sLeaderboardData, "couldn't open url") == 0)
+		if(!CheckLeaderboardResponse(sLeaderboardData))
 		{
 			nConnectedToServer = 0;
 		}
 		else
 		{
 			nConnectedToServer = 1;
-		
+
 			ClearLearderboardData();
 			
 			//parse the XML!
+
 			UserDict = XMLParseGetNodes(sLeaderboardData, "user");
 
 			//copy the data to a temp array so we don't overwrite it
@@ -161,7 +162,7 @@ void MenuLeaderboardLogic()
 				tmpDict = XMLParseGetNodes(DictGetString(UserDict, str(nLeaderboardStartPos + i)), "name");
 				sLeaderboardUsers[i].sUsername = DictGetString(tmpDict, "0");
 				DictFree(tmpDict);
-				
+
 				//get id
 				tmpDict = XMLParseGetNodes(DictGetString(UserDict, str(nLeaderboardStartPos + i)), "id");
 				sLeaderboardUsers[i].iId = val(DictGetString(tmpDict, "0"));
@@ -177,12 +178,12 @@ void MenuLeaderboardLogic()
 			{
 				//ask the server for score data for this user
 				if(!bLeaderboardArenaMode)
-					sLeaderboardData = GetUrlText(LEADERBOARD_URL + "getScore.php?uid=" + str(sLeaderboardUsers[i].iId) + "&gid=1&pkey=" + str(nLeaderboardMission) + "&xml");
+					sLeaderboardData = getInetData(LEADERBOARD_URL + "getScore.php?uid=" + str(sLeaderboardUsers[i].iId) + "&gid=1&pkey=" + str(nLeaderboardMission) + "&xml");
 				else
-					sLeaderboardData = GetUrlText(LEADERBOARD_URL + "getScore.php?uid=" + str(sLeaderboardUsers[i].iId) + "&gid=1&pkey=" + str((nLeaderboardMission - LEADERBOARD_NUM_MISSIONS) + 9) + "&xml");
-				
+					sLeaderboardData = getInetData(LEADERBOARD_URL + "getScore.php?uid=" + str(sLeaderboardUsers[i].iId) + "&gid=1&pkey=" + str((nLeaderboardMission - LEADERBOARD_NUM_MISSIONS) + 9) + "&xml");
+
 				scoreDict = XMLParseGetNodes(sLeaderboardData, "score");
-				
+
 				//we now have all the seprate scores in a dictionary, now get the individual for each score
 				for(j=0;j<DictSize(scoreDict) && j<LEADERBOARD_NUM_SCORES;j++)
 				{
@@ -203,7 +204,7 @@ void MenuLeaderboardLogic()
 			}
 
 			//get the score names
-			sLeaderboardData = GetUrlText(LEADERBOARD_URL + "getScoreDef.php?gid=1&xml");
+			sLeaderboardData = getInetData(LEADERBOARD_URL + "getScoreDef.php?gid=1&xml");
 			
 			scoreDefDict = XMLParseGetNodes(sLeaderboardData, "scoreDef");
 			
