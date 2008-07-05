@@ -29,6 +29,10 @@ void ArenaStart(int spawnDelay, int numEnemies)
 	bArenaRewards[4] = 0;
 	
 	nArenaScore = 0;
+	
+	nNumMedkits = 2;
+	
+	SetPause(0);
 
 	//override the normal death check sequence
 	RemovePreHook("PlayerDeath");
