@@ -30,7 +30,9 @@ There is a bug with music crossfades that makes fmod return -1 on LoadSong. This
 
 Fixed Bugs needing testing
 *************
-
+*DONE* Inet updates
+	-*DONE* Put a signature at the top of all responses to the client
+	-*DONE* If the client does not see this signature, ignore the response. Count as a general could not connect error.
 
 **********
 Priority 1
@@ -38,10 +40,6 @@ Priority 1
 
 Release 2.5
 ***********
-Inet updates
-	-*DONE* Put a signature at the top of all responses to the client
-	-If the client does not see this signature, ignore the response. Count as a general could not connect error.
-
 Arena Mode
 	Add more maps
 	Add menu that allows the user to select a map
