@@ -143,7 +143,6 @@ void MenuLeaderboardLogic()
 			ClearLearderboardData();
 			
 			//parse the XML!
-
 			UserDict = XMLParseGetNodes(sLeaderboardData, "user");
 
 			//copy the data to a temp array so we don't overwrite it
@@ -184,20 +183,23 @@ void MenuLeaderboardLogic()
 
 				scoreDict = XMLParseGetNodes(sLeaderboardData, "score");
 
-				//we now have all the seprate scores in a dictionary, now get the individual for each score
-				for(j=0;j<DictSize(scoreDict) && j<LEADERBOARD_NUM_SCORES;j++)
+				if(scoreDict != -1)
 				{
-					tmpDict = XMLParseGetNodes(DictGetString(scoreDict, str(j)), "data");
-					tmpDict2 = XMLParseGetNodes(DictGetString(scoreDict, str(j)), "id");
+					//we now have all the seprate scores in a dictionary, now get the individual for each score
+					for(j=0;j<DictSize(scoreDict) && j<LEADERBOARD_NUM_SCORES;j++)
+					{
+						tmpDict = XMLParseGetNodes(DictGetString(scoreDict, str(j)), "data");
+						tmpDict2 = XMLParseGetNodes(DictGetString(scoreDict, str(j)), "id");
 
-					sLeaderboardUsers[i].sScores[val(DictGetString(tmpDict2, "0"))-1] = DictGetString(tmpDict, "0");
-				
-					DictFree(tmpDict);
-					DictFree(tmpDict2);
+						sLeaderboardUsers[i].sScores[val(DictGetString(tmpDict2, "0"))-1] = DictGetString(tmpDict, "0");
+
+						DictFree(tmpDict);
+						DictFree(tmpDict2);
+					}
+
+					DictFree(scoreDict);
 				}
 				
-				DictFree(scoreDict);
-
 				finalScoreDict = XMLParseGetNodes(sLeaderboardData, "finalScore");
 				sLeaderboardUsers[i].sFinalScore = DictGetString(finalScoreDict, "0");
 				DictFree(finalScoreDict);
