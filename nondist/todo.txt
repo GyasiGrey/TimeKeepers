@@ -15,10 +15,6 @@ Game will sometimes crash on exit to main menu with "trying to free a free'd ima
 	-Error is with invalid frames || buffered frames || images in the "Quick Save" animation that shows when entering the base
 	-*SOLUTION* Anims need a rewrite. There is some screwey code in there that that is crashing
 
-
-Arena mode entities will sometimes be paused when starting
-
-
 Gameplay Bugs
 *************
 
@@ -30,6 +26,8 @@ There is a bug with music crossfades that makes fmod return -1 on LoadSong. This
 
 Fixed Bugs needing testing
 *************
+*DONE* Arena mode entities will sometimes be paused when starting
+
 *DONE* Inet updates
 	-*DONE* Put a signature at the top of all responses to the client
 	-*DONE* If the client does not see this signature, ignore the response. Count as a general could not connect error.
