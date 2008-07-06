@@ -35,6 +35,11 @@ Fixed Bugs needing testing
 **********
 Priority 1
 **********
+Allow some obstructions to be low. Meaning LoS can pass overtop of them.
+	-Add a second obs layer that will flag an obs as low
+	-Alter LineOfSight()
+		-If it reaches a pixel that is a system obstruction, check the low obs layer. If the low obs layer is true, let the LoS continue 
+		-else, stop it here. It has hit a high obs.
 
 Release 2.5
 ***********
