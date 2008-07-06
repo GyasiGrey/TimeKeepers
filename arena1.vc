@@ -8,6 +8,8 @@ void start()
 
 	//do clean up and call MapVC virtual functions
 	InitMap();
+	
+	SetLowObsZone(1);
 
 	MusicSwitch("boss.mod", 15);
 	

@@ -10,6 +10,8 @@ void start()
 
 	InitMap();
 	
+	SetLowObsZone(16);
+	
 	MusicSwitch("mission2.mod", 15);
 	
 	LoadAnimationEX("blink.png", 16, 16, 204*16, 15*16, "T1 F0 W50 F2 W50 F1 W50 F2 W50 R");

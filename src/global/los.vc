@@ -95,9 +95,12 @@ int LineOfSight(int x1, int y1, int x2, int y2, int ignoreent)
 
 		if(GetObsPixel(x, y))
 		{
-			LOSXstop = x;
-			LOSYstop = y;
-			return 0-1;
+			if(!CheckLowObs(x/16, y/16))
+			{
+				LOSXstop = x;
+				LOSYstop = y;
+				return 0-1;
+			}
 		}
 			
 		num += numadd;              // Increase the numerator by the top of the fraction

@@ -13,6 +13,8 @@ void start()
 
 	//do clean up and call MapVC virtual functions
 	InitMap();
+	
+	SetLowObsZone(9);
 
 	//add the hook to check if the player screwed up and killed someone
 	//this sucked - removed

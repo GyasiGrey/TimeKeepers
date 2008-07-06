@@ -12,6 +12,8 @@ void start()
 
 	InitMap();
 	
+	SetLowObsZone(-1);
+	
 	MusicSwitch("base.s3m", 15);
 	
 	//do stuff only if we are not loading a game
