@@ -1,0 +1,14 @@
+int nLowObsZone = -1;
+
+void SetLowObsZone(int nZone)
+{
+	nLowObsZone = nZone;
+}
+
+int CheckLowObs(int nX, int nY)
+{
+	if(GetZone(nX, nY) == nLowObsZone)
+		return 1;
+	else
+		return 0;
+}
