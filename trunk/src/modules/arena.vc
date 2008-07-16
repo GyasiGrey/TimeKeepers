@@ -7,7 +7,9 @@ int nArenaScore;
 
 int bArenaRewards[5];
 
-void ArenaStart(int spawnDelay, int numEnemies)
+int nArenaLevel;
+
+void ArenaStart(int spawnDelay, int numEnemies, int arenaLevel)
 {
 	string sArenaStartText = "Arena mode begin. Kill or be killed.";
 	
@@ -32,6 +34,8 @@ void ArenaStart(int spawnDelay, int numEnemies)
 	
 	nNumMedkits = 2;
 	
+	arenaLevel = nArenaLevel;
+	
 	SetPause(0);
 
 	//override the normal death check sequence
@@ -55,7 +59,7 @@ void ArenaDeath()
 		RemoveHook("ArenaGUI");
 		
 		//upload arena score
-		SendMissionData(10);
+		SendMissionData(9+nArenaLevel);
 
 		//go to normal death sequence
 		PlayerDeath();
