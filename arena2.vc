@@ -1,10 +1,10 @@
 void start()
 {
-	nPlayerEnt = EntitySpawn(30,26,"ghost.chr");
+	nPlayerEnt = EntitySpawn(35,30,"ghost.chr");
 	SetPlayer(nPlayerEnt);
 	HookEntityRender(nPlayerEnt, "PlayerRender");
 	
-	sAreaName = "Arena 1";	
+	sAreaName = "Arena 2";	
 
 	//do clean up and call MapVC virtual functions
 	InitMap();
@@ -19,12 +19,12 @@ void start()
 
 	bLoadingGame=0;
 	
-	ArenaStart(500, 5, 1);
+	ArenaStart(500, 5, 2);
 	
-	ArenaAddSpawnPoint(42, 18);
-	ArenaAddSpawnPoint(42, 34);
-	ArenaAddSpawnPoint(19, 34);
-	ArenaAddSpawnPoint(18, 18);
+	ArenaAddSpawnPoint(17, 13);
+	ArenaAddSpawnPoint(52, 13);
+	ArenaAddSpawnPoint(17, 45);
+	ArenaAddSpawnPoint(52, 45);
 }
 
 void InitEnemies()
