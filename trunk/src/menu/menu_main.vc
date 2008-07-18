@@ -89,14 +89,7 @@ void MainMenuLogic()
 		else if(nPointerPos == 2)
 		{
 			UnpressButtons();
-
-			if(bSendTrackedStats == 0)
-			{
-				GetTrackedLogin();
-			}
-			
-			CloseAllMenus();
-			TimeWarpNoTrans("0|1|2|3|4", "arena1.map");
+			OpenArenaMenu();
 		}
 		else if(nPointerPos == 3)
 		{

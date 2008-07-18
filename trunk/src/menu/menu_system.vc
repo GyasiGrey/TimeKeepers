@@ -53,6 +53,7 @@ void CreateMenuTemplates()
 	CreateMenuTemplate("MenuType", "MenuTypeDraw", "MenuTypeLogic", "MenuTypeClose");
 	CreateMenuTemplate("MenuMainKeys", "MenuMainKeysDraw", "", "");
 	CreateMenuTemplate("MenuMainLogo", "MenuMainLogoDraw", "", "");
+	CreateMenuTemplate("MenuArena", "MenuArenaDraw", "MenuArenaLogic", "MenuArenaClose");
 	
 	//init the menu stack here because I can
 	for(i=0;i<MAX_MENUS;i++)
