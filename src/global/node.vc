@@ -1,0 +1,218 @@
+#define QUEUE_LEN 256
+#define NUM_NODES 128
+
+int numnodes;
+
+struct Node
+{
+	int nX;
+	int nY;
+	int nChildNodes[NUM_NODES]; //list of nodes that this node is connected to
+}
+
+Node Nodes[NUM_NODES];
+
+/*
+Create a queue P
+ add the start node S, to P giving it one element
+ Until first path of P ends with G, or P is empty
+	extract the first path from P
+	extend the path one step to all neighbors creating X new paths
+	reject all paths with loops
+	add each remaining new path to the BACK of P
+ If G found -> success. Else -> failure.	
+ */
+ 
+//Create a queue P
+string queue[QUEUE_LEN];
+
+string GetPath(int startnode, int destnode)
+{
+	string ltemp, lastnode;
+	int i;
+ 	
+	EmptyQueue();
+	//add the start node S, to P giving it one element
+	Enqueue(str(startnode) + " ");
+ 	
+	//Until first path of P ends with G, or P is empty
+	while(strcmp(GetToken(queue[0], " ", TokenCount(queue[0], " ")-1), str(destnode)) == 0 || strcmp(queue[0], "") != 0)
+	{
+		//extract the first path from P
+		ltemp = Dequeue();
+ 		
+		//extend the path one step to all neighbors creating X new paths
+		//get the last node from the string
+		lastnode = GetToken(ltemp, " ", TokenCount(ltemp, " ")-1);
+ 		
+ 		
+		//if the last node is the dest, we found a path. return it.
+		if(strcmp(lastnode, str(destnode))==0)
+			return ltemp;
+ 			
+		//cycle through all the child nodes of that node
+		for(i=0;i<NUM_NODES;i++)
+		{
+			//if the child node is nowhere in the path
+			if(Nodes[val(lastnode)].nChildNodes[i] >= 0 && strstr(str(Nodes[val(lastnode)].nChildNodes[i]), ltemp) <= 0)
+			{
+				//tack it onto the end of the list, and enqueue
+				Enqueue(ltemp + str(Nodes[val(lastnode)].nChildNodes[i]) + " ");
+			}
+		}
+	}
+	
+	return "";
+}
+ 
+//finds the node closest to xy
+int ClosestNode(int x, int y)
+{
+	int i, closenode, closedist;
+	
+	closenode = 0;
+
+	closedist = sqrt(pow(Nodes[0].nX - x, 2) + pow(Nodes[0].nY - y, 2)) ;
+	
+
+	for(i=0;i<numnodes;i++)
+	{
+		if(sqrt(pow(Nodes[i].nX - x, 2) + pow(Nodes[i].nY - y, 2)) < closedist)
+		{
+			closenode = i;
+			closedist = sqrt(pow(Nodes[i].nX - x, 2) + pow(Nodes[i].nY - y, 2));
+		}
+	}
+	
+	return closenode;
+}
+
+void Goto(int e, int x, int y)
+{
+	int start, end, j;
+	string move, sPath;
+
+	//find the node closest to you
+	start = ClosestNode(entity.x[e], entity.y[e]);
+	//find the node closest the target
+	end = ClosestNode(x, y);
+	
+	sPath = GetPath(start, end);
+	
+
+	move = "";
+
+	for(j=0;j<TokenCount(sPath, " ");j++)
+	{
+		//move = move + "x" + str(Nodes[val(GetToken(path, " ", j))].nX/16) + "y" + str(Nodes[val(GetToken(path, " ", j))].nY/16);
+//messagebox("I'm going to node " + GetToken(sPath, " ", j) + "!");
+		findPath(0, entity.x[0]/16, entity.y[0]/16, Nodes[val(GetToken(sPath, " ", j))].nX/16, Nodes[val(GetToken(sPath, " ", j))].nY/16);
+
+		while (entity.movecode[0])
+		{
+			Render();
+			ShowPage();
+		}
+	}
+			
+/*	Log("**PATHFINDING START");
+
+	log("Enemy " + str(e) + " is going to x: " + str(x) + " y: " + str(y));
+	log("Found start node " + str(start) + " and end node " + str(end));
+	log("Taking path " + Enemies[e].sPath);
+	Log("Move script is " + move);
+	Log("**PATHFINDING END");
+	Log("");*/
+
+	//EntityMove(e, move);
+}
+
+void EmptyQueue()
+{
+	int i;
+	
+	for(i=0;i<QUEUE_LEN;i++)
+	{
+		queue[i] = "";
+	}
+}
+
+void Enqueue(string s)
+{
+	int i;
+	
+	//look for the first blank item in the list
+	for(i=0;i<QUEUE_LEN;i++)
+	{
+		if(strcmp(queue[i], "") == 0)
+		{
+			queue[i] = s;
+			return;
+		}
+	}
+	
+	exit("node.vc: Queue to small - Increase QUEUE_LEN");
+}
+
+string Dequeue()
+{
+	string retval;
+	int i;
+	
+	//grab the first item off the list
+	//then cycle everything up one
+	retval = queue[0];
+	
+	for(i=0;i<QUEUE_LEN-1;i++)
+	{
+		queue[i] = queue[i+1];
+	}
+	
+	
+	return retval;
+}
+
+
+void LoadGraph(string file)
+{
+	int hnd = FileOpen(file, FILE_READ);
+	int i,j;
+	
+	numnodes = FileReadQuad(hnd);
+	
+	for(i=0;i<numnodes;i++)
+	{
+		Nodes[i].nX = FileReadQuad(hnd);
+		Nodes[i].nY = FileReadQuad(hnd);
+		
+		for(j=0;j<NUM_NODES;j++)
+		{
+			Nodes[i].nChildNodes[j] = FileReadQuad(hnd);
+		}
+	}
+	
+	FileClose(hnd);
+}
+
+void SaveGraph(string filename)
+{
+	int hnd = FileOpen(filename, FILE_WRITE);
+	int i,j;
+	
+	FileWriteQuad(hnd, numnodes);
+
+	
+	for(i=0;i<numnodes;i++)
+
+	{
+		FileWriteQuad(hnd, Nodes[i].nX);
+		FileWriteQuad(hnd, Nodes[i].nY);
+		
+		for(j=0;j<NUM_NODES;j++)
+		{
+			FileWriteQuad(hnd, Nodes[i].nChildNodes[j]);
+		}
+	}
+	
+	FileClose(hnd);
+}
