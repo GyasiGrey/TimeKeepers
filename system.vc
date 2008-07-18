@@ -94,6 +94,7 @@
 #include "src\menu\menu_type.vc"
 #include "src\menu\menu_main_key.vc"
 #include "src\menu\menu_main_logo.vc"
+#include "src\menu\menu_arena.vc"
 
 //must be included last to prevent undefined defines
 #include "src\global\saveload.vc"

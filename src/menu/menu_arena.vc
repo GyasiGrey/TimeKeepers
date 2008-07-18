@@ -1,0 +1,96 @@
+int nArenaMenuAnim;
+
+void OpenArenaMenu()
+{
+	SetEntitiesPaused(1);
+	nPointerPos = 0;
+	nArenaMenuAnim = LoadAnimationEX("cursor.png", 8, 8, 134, 154, ANIMATION_CURSOR_ANIM_STRING);
+	anims[nArenaMenuAnim].automatic = 0;
+	
+	CreateMenu(130, 140, GetMenuTemplateIndex("MenuArena"));
+}
+
+
+void MenuArenaDraw()
+{
+
+	int img = CreateWindow("Arena", 120, 56, nTerminalFont);
+
+	//draw the arena map names
+	PrintString(12, 16, img, nTerminalFont, "Arena 1");
+	PrintString(12, 24, img, nTerminalFont, "Arena 2");
+
+	Blit(nMenuX, nMenuY, img, screen);
+	FreeImage(img);
+	
+	DrawAnimation(nArenaMenuAnim);
+}
+
+void MenuArenaLogic()
+{
+	anims[nArenaMenuAnim].y = nMenuY + 16 + (nPointerPos*8);
+	
+	if(up)
+	{
+		SoundKeyboardRand();
+		
+		if(nPointerPos > 0)
+			nPointerPos--;
+		else 
+			nPointerPos = 1;
+			
+		unpress(5);
+	}
+	else if(down)
+	{
+		SoundKeyboardRand();
+		
+		if(nPointerPos < 1)
+			nPointerPos++;
+		else
+			nPointerPos = 0;
+			
+		unpress(6);
+	}
+	else if(BUTTON_SHOOT)
+	{
+		UnpressButtons();
+		
+		if(nPointerPos == 0)
+		{
+			SoundKeyboardRand();
+			
+			if(bSendTrackedStats == 0)
+			{
+				GetTrackedLogin();
+			}
+
+			CloseAllMenus();
+			TimeWarpNoTrans("0|1|2|3|4", "arena1.map");
+		}
+		else if(nPointerPos == 1)
+		{
+			SoundKeyboardRand();
+
+			if(bSendTrackedStats == 0)
+			{
+				GetTrackedLogin();
+			}
+
+			CloseAllMenus();
+			TimeWarpNoTrans("0|1|2|3|4", "arena2.map");
+		}
+	}
+	else if(BUTTON_MEDKIT)
+	{
+		SoundKeyboardRand();
+		
+		CloseTopMenu();
+		UnpressButtons();
+	}
+}
+
+void MenuArenaClose()
+{
+	FreeAnimation(nArenaMenuAnim);
+}
