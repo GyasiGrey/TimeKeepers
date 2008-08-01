@@ -16,7 +16,7 @@
 //----A* Algorithm specific Variables
 
 //width and height in tiles +1
-#define TIMEOUT 1000
+#define TIMEOUT 100
 #define MAP_WIDTH 1001
 #define MAP_HEIGHT 1001
 #define MAX_OPEN 9999
