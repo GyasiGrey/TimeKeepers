@@ -45,13 +45,13 @@ string sLeadarboardScores[LEADERBOARD_NUM_SCORES];
 
 void OpenLeaderboardMenu()
 {
-	nLeaderboardWidths[0] = 8;
-	nLeaderboardWidths[1] = 36;
-	nLeaderboardWidths[2] = 64;
-	nLeaderboardWidths[3] = 102;
-	nLeaderboardWidths[4] = 140;
-	nLeaderboardWidths[5] = 178;
-	nLeaderboardWidths[6] = 226;
+	nLeaderboardWidths[0] = 30;
+	nLeaderboardWidths[1] = 70;
+	nLeaderboardWidths[2] = 100;
+	nLeaderboardWidths[3] = 125;
+	nLeaderboardWidths[4] = 155;
+	nLeaderboardWidths[5] = 188;
+	nLeaderboardWidths[6] = 236;
 	
 	nLeaderboardDirty=1;
 	nConnectedToServer=0;
