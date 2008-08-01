@@ -42,20 +42,36 @@ string getInetData(string sURL)
 	string retval;
 	int nDict;
 	
+	Error("Querying server: " + sURL);
+	
 	retval = GetUrlText(sURL);
 	
+	Error("Server returned: " + retval);
+
 	if(strcmp(retval, ERROR_NO_INTERNET) ==0)
+	{
+		Error("Server error: No internet connect.");
 		return ERROR_INTERNAL_NO_INTERNET;
+	}
 		
 	if(strcmp(retval, ERROR_NO_PAGE)== 0)
+	{
+		Error("Server error: No page found.");
 		return ERROR_INTERNAL_NO_PAGE;
+	}
 		
 	nDict = XMLParseGetNodes(retval, "version");
 	
 	if(nDict == -1)
+	{
+		Error("Server error: XML parse error.");
 		return ERROR_INTERNAL_NO_PAGE;
+	}
 	else
+	{
+		Error("Server success.");
 		return retval;
+	}
 }
 
 int CheckLeaderboardResponse(string res)
