@@ -134,7 +134,7 @@ void GetTrackedLogin()
 			case 0:	//yes
 				bSendTrackedStats = 1;
 				//get the username and password
-				sTrackedStatsUsername = MenuType("Enter Username:", 25);
+				sTrackedStatsUsername = MenuType("Enter Username:", 15);
 				sTrackedStatsPassword = MenuType("Enter Password:", 25);
 				
 				sres = GetUrlText(LEADERBOARD_URL + "userLog.php?user=" + sTrackedStatsUsername + "&pass=" + sTrackedStatsPassword);
@@ -228,7 +228,7 @@ void RegisterNewUsername()
 	int errMode;
 	
 	//get the username and password - initial run
-	sTrackedStatsUsername = MenuType("Enter Username:", 25);
+	sTrackedStatsUsername = MenuType("Enter Username:", 15);
 	sTrackedStatsPassword = MenuType("Enter Password:", 25);
 
 	errMode = RegisterNewUsernameHelp();
@@ -250,7 +250,7 @@ void RegisterNewUsername()
 		if(again == 0)
 		{
 			//get the username and password
-			sTrackedStatsUsername = MenuType("Enter Username:", 25);
+			sTrackedStatsUsername = MenuType("Enter Username:", 15);
 			sTrackedStatsPassword = MenuType("Enter Password:", 25);
 	
 			errMode = RegisterNewUsernameHelp();
