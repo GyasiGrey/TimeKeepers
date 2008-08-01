@@ -19,7 +19,7 @@ void OpenMainMenu()
 
 void MainMenuDraw()
 {
-	int img = CreateMenuChoice("Menu", "New Game|Load Game|Arena Mode|Leaderboards|Achivements|Options|Exit", nTerminalFont);
+	int img = CreateMenuChoice("Menu", "New Game|Load Game|Arena Mode|Leaderboards|Achievements|Options|Exit", nTerminalFont);
 	Blit(nMenuX, nMenuY, img, screen);
 	FreeImage(img);
 	
