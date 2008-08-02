@@ -9,6 +9,8 @@ void start()
 	//do clean up and call MapVC virtual functions
 	InitMap();
 	
+	LoadGraph("arena1.pth");	
+	
 	SetLowObsZone(1);
 
 	MusicSwitch("boss.mod", 15);

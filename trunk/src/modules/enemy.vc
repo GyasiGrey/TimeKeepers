@@ -55,6 +55,8 @@ struct Enemy
 	int nSoundY;
 	
 	string sPath;			//the path of nodes this ent is walking
+	string sNodePath;
+	int sNodeIndex;
 	int nOriginalX;			//where to go after losing sight of the player
 	int nOriginalY;
 	int nOriginalFace;
@@ -392,7 +394,7 @@ int CreateEnemy(int x, int y, int face, int template, string movestring, string 
 //makes an enemy goto an X Y tile coord
 //e is an ENTITY index - but must reference to an enemy index
 //that means don't use this on an entity that isn't an enemy
-void Goto(int e, int x, int y)
+/*void Goto(int e, int x, int y)
 {
 	int result;
 	result = findPath(e, entity.x[e]/16, entity.y[e]/16, x/16, y/16);
@@ -403,7 +405,7 @@ void Goto(int e, int x, int y)
 		//if the A* timed out start searching
 		Search(GetEnemyIndex(e));
 	}
-}
+}*/
 
 void MakeAlert(int ene)
 {
@@ -619,6 +621,18 @@ void ProcessEnemies()
 			else
 			{
 				error("No AI func found for " + str(Enemies[i].nAIType));
+			}
+			
+			if(strcmp(Enemies[i].sNodePath, "") != 0 && strcmp(entity.script[Enemies[i].nEntity], "") != 0)
+			{
+				findPath(Enemies[i].nEntity, entity.x[Enemies[i].nEntity]/16, entity.y[Enemies[i].nEntity]/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nX/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nY/16);
+				Enemies[i].sNodeIndex++;
+			}
+			
+			if(strcmp(Enemies[i].sNodePath, "") != 0 && Enemies[i].sNodeIndex > TokenCount(Enemies[i].sNodePath, " "))
+			{
+				Enemies[i].sNodeIndex = 0;
+				Enemies[i].sNodePath = "";
 			}
 		}
 	}
