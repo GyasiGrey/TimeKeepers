@@ -381,7 +381,7 @@ void MoveLoadedData()
 			//prevent dead enemies from moving or obstructing
 			if(!Enemies[e].nActive)
 			{
-				EntityMove(Enemies[e].nEntity, "");
+				StopEnemy(e);
 				entity.obstruct[Enemies[e].nEntity] = 0;
 			}
 		}
