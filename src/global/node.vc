@@ -328,3 +328,19 @@ void DrawGraphNodes()
 		}
 	}
 }
+
+void ClearGraph()
+{
+	int i,j;
+	
+	for(i=0;i<NUM_NODES;i++)
+	{
+		Nodes[i].nX = -1;
+		Nodes[i].nY = -1;
+		
+		for(j=0;j<NUM_NODES;j++)
+		{
+			Nodes[i].nChildNodes[j] = -1;
+		}
+	}
+}
