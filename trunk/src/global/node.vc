@@ -19,6 +19,8 @@ int nPrevious[NUM_NODES];
 //Create a queue P
 string queue[QUEUE_LEN];
 
+int bGraphNodesShown = 0;
+int bGraphLinesShown = 0;
 
 /*
 From Wikipedia
@@ -298,4 +300,31 @@ void SaveGraph(string filename)
 	}
 	
 	FileClose(hnd);
+}
+
+void DrawGraphNodes()
+{
+	int i, j;
+	
+	for(i=0;i<numGraphNodes;i++)
+	{
+		if(bGraphLinesShown)
+		{
+			for(j=0;j<NUM_NODES;j++)
+			{
+				if(Nodes[i].nChildNodes[j] > 0)
+				{
+					//blit the rays between the nodes
+					Line(Nodes[i].nX-xwin+5, Nodes[i].nY-ywin+4, Nodes[Nodes[i].nChildNodes[j]].nX-xwin+5, Nodes[Nodes[i].nChildNodes[j]].nY-ywin+4, RGB(0, 0, 255), screen);
+				}
+			}
+		}
+
+		if(bGraphNodesShown)
+		{
+			circleFill(Nodes[i].nX-xwin+5, Nodes[i].nY-ywin+4, 5, 4, RGB(0, 0, 0), screen);
+			circle(Nodes[i].nX-xwin+5, Nodes[i].nY-ywin+4, 5, 4, RGB(255, 0, 0), screen);
+			PrintString(Nodes[i].nX-xwin, Nodes[i].nY-ywin, screen, 0, str(i));
+		}
+	}
 }
