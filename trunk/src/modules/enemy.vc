@@ -130,7 +130,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSightRange = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSightAngle = 65;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nWeapon].nRecharge*2;
-	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAlertTime = 500;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAlertTime = 1000;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSearchTime = 600;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAIType = ENEMY_AI_TYPE_NORMAL;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sShootUpAnim = "Z29 W10 Z30 W10";
@@ -537,7 +537,7 @@ void DamageEnemy(int damage, int entityindex)
 		{
 			Enemies[enemyindex].nActive = 0;
 			Enemies[enemyindex].nMode = MODE_NORMAL;
-			EntityMove(entityindex, ""); //STOP MOVING YOU FOOL
+			StopEnemy(enemyindex);
 			entity.obstruct[entityindex] = 0; //now i can walk through you
 			//death sound
 			//SoundEnemyDeath();
@@ -625,7 +625,7 @@ void ProcessEnemies()
 			
 			if(strcmp(Enemies[i].sNodePath, "") != 0 && entity.movecode[Enemies[i].nEntity] == 0)
 			{
-				Error("Enemy " + str(i) + " pathing to node " + str(Enemies[i].sNodeIndex));
+				Error("Enemy " + str(i) + " pathing to node " + GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex));
 				findPath(Enemies[i].nEntity, entity.x[Enemies[i].nEntity]/16, entity.y[Enemies[i].nEntity]/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nX/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nY/16);
 				Enemies[i].sNodeIndex++;
 			}
@@ -708,7 +708,7 @@ void Knockout(int ent)
 	Enemies[ent].nActive = 0;
 	Enemies[ent].nTranqAt = vcTimer[TIMER_ENEMY_LOGIC].nTick;	//stamp when they were knocked out
 	Enemies[ent].nMode = MODE_NORMAL;
-	EntityMove(Enemies[ent].nEntity, ""); //STOP MOVING YOU FOOL
+	StopEnemy(ent);
 	entity.obstruct[Enemies[ent].nEntity] = 0; //now i can walk through you
 	//do enemy death anim
 	AnimateEnemy(ent, "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24");
@@ -725,7 +725,7 @@ void Search(int ent)
 	Error("Search() called ent: " + str(ent));
 	Enemies[ent].nMode = MODE_BEFORE_SEARCH;
 	Enemies[ent].nSearchStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
-	EntityMove(Enemies[ent].nEntity, "");
+	StopEnemy(ent);
 }
 
 //returns true if ent i has the player in it's semicircle of sight and has a LoS to the player
@@ -1117,4 +1117,13 @@ int NumAliveEntities()
 	}
 	
 	return retval;
+}
+
+void StopEnemy(int i)
+{
+	//makes an enemy stop moving, and cancels whatever pathfinding they may have stored
+	entitymove(Enemies[i].nEntity, "");
+	Enemies[i].sNodeIndex = 0;
+	Enemies[i].sNodePath = "";
+
 }

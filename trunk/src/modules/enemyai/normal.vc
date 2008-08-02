@@ -26,7 +26,7 @@ void EnemyAINormal()
 		//can't shoot while doing an animation
 		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nCoolDownStart+Enemies[nCurrentEnemy].nCoolDown && Distance(nPlayerEnt, Enemies[nCurrentEnemy].nEntity) <= Weapons[Enemies[nCurrentEnemy].nWeapon].nRange && CanSeePlayer(nCurrentEnemy) && nHealth > 0 && !Enemies[nCurrentEnemy].nAnimating)
 		{
-			EntityMove(Enemies[nCurrentEnemy].nEntity, "");
+			StopEnemy(nCurrentEnemy);
 			Enemies[nCurrentEnemy].nCoolDownStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
 			FireWeapon(Enemies[nCurrentEnemy].nEntity, nPlayerEnt);
 		}
@@ -48,7 +48,7 @@ void EnemyAINormal()
 		else if(Distance(nPlayerEnt, Enemies[nCurrentEnemy].nEntity) < Weapons[Enemies[nCurrentEnemy].nWeapon].nRange-ENEMY_MIN_SHOOT_RANGE && CanSeePlayer(nCurrentEnemy))
 		{
 			//stop moving if your in range
-			entitymove(Enemies[nCurrentEnemy].nEntity, "");
+			StopEnemy(nCurrentEnemy);
 			//face the player
 			EntityFace(Enemies[nCurrentEnemy].nEntity, nPlayerEnt);
 		}
@@ -57,7 +57,7 @@ void EnemyAINormal()
 		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nAlertStart+Enemies[nCurrentEnemy].nAlertTime)
 		{
 			//stop moving
-			EntityMove(Enemies[nCurrentEnemy].nEntity, "");
+			StopEnemy(nCurrentEnemy);
 			//start searching
 			Search(nCurrentEnemy);
 
