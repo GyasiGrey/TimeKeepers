@@ -162,6 +162,8 @@ void Goto(int e, int x, int y)
 	
 	Enemies[enemyIndex].sNodePath = Dijkstra(start, end);
 	Enemies[enemyIndex].sNodeIndex = 0;
+	
+	Error("Enemy " + str(enemyIndex) + " now has node path " + Enemies[enemyIndex].sNodePath);
 }
 
 int IsQueueEmpty()
