@@ -38,6 +38,8 @@ Priority 1
 
 Release 2.5
 ***********
+Make graphs for all maps
+
 Arena Mode
 	Add more maps
 	Add menu that allows the user to select a map
