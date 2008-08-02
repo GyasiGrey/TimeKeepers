@@ -270,6 +270,7 @@ void LoadGraph(string file)
 	}
 	else
 	{
+		numGraphNodes = 0;
 		Error("Could not find pathfinding graph file - " + file);
 	}
 }
