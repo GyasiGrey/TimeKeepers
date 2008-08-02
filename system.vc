@@ -352,6 +352,9 @@ void InitMap()
 
 	StartDualRetraceMode();
 	MoveLoadedData();
+
+	//load pathfinding
+	LoadGraph(left(curmap.path, len(curmap.path)-4) + ".pth");
 }
 
 //dec 2, 2007 - i'm so tired right now that this code will probably just bring about the end of existance if I try to compile it

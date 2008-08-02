@@ -244,23 +244,34 @@ string DequeueValue(string value)
 
 void LoadGraph(string file)
 {
-	int hnd = FileOpen(file, FILE_READ);
+	int hnd;
 	int i,j;
 	
-	numGraphNodes = FileReadQuad(hnd);
+	Error("Loading pathfinding graph - " + file);
 	
-	for(i=0;i<numGraphNodes;i++)
+	if(FileExists(file))
 	{
-		Nodes[i].nX = FileReadQuad(hnd);
-		Nodes[i].nY = FileReadQuad(hnd);
-		
-		for(j=0;j<NUM_NODES;j++)
+		hnd = FileOpen(file, FILE_READ);
+
+		numGraphNodes = FileReadQuad(hnd);
+
+		for(i=0;i<numGraphNodes;i++)
 		{
-			Nodes[i].nChildNodes[j] = FileReadQuad(hnd);
+			Nodes[i].nX = FileReadQuad(hnd);
+			Nodes[i].nY = FileReadQuad(hnd);
+
+			for(j=0;j<NUM_NODES;j++)
+			{
+				Nodes[i].nChildNodes[j] = FileReadQuad(hnd);
+			}
 		}
+
+		FileClose(hnd);
 	}
-	
-	FileClose(hnd);
+	else
+	{
+		Error("Could not find pathfinding graph file - " + file);
+	}
 }
 
 void SaveGraph(string filename)
