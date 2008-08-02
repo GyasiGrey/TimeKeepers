@@ -1,7 +1,8 @@
 #define QUEUE_LEN 256
 #define NUM_NODES 128
+#define INFINITY 65534
 
-int numnodes;
+int numGraphNodes;
 
 struct Node
 {
@@ -11,6 +12,39 @@ struct Node
 }
 
 Node Nodes[NUM_NODES];
+
+int nDistances[NUM_NODES];
+int nPrevious[NUM_NODES];
+
+//Create a queue P
+string queue[QUEUE_LEN];
+
+
+/*
+From Wikipedia
+ 1  function Dijkstra(Graph, source):
+ 2      for each vertex v in Graph:           // Initializations
+ 3          dist[v] := infinity               // Unknown distance function from source to v
+ 4          previous[v] := undefined          // Previous node in optimal path from source
+ 5      dist[source] := 0                     // Distance from source to source
+ 6      Q := the set of all nodes in Graph    // All nodes in the graph are unoptimized - thus are in Q
+ 7      while Q is not empty:                 // The main loop
+ 8          u := node in Q with smallest dist[]
+ 9          remove u from Q
+10          for each neighbor v of u:         // where v has not yet been removed from Q.
+11              alt := dist[u] + dist_between(u, v)
+12              if alt < dist[v]              // Relax (u,v)
+13                  dist[v] := alt
+14                  previous[v] := u
+15      return previous[]
+
+Path from start to end
+1  S := empty sequence
+2  u := target
+3  while defined previous[u]
+4      insert u at the beginning of S
+5      u := previous[u]
+*/
 
 /*
 Create a queue P
@@ -22,49 +56,76 @@ Create a queue P
 	add each remaining new path to the BACK of P
  If G found -> success. Else -> failure.	
  */
- 
-//Create a queue P
-string queue[QUEUE_LEN];
-
-string GetPath(int startnode, int destnode)
+string Dijkstra(int startNode, int destNode)
 {
-	string ltemp, lastnode;
-	int i;
- 	
-	EmptyQueue();
-	//add the start node S, to P giving it one element
-	Enqueue(str(startnode) + " ");
- 	
-	//Until first path of P ends with G, or P is empty
-	while(strcmp(GetToken(queue[0], " ", TokenCount(queue[0], " ")-1), str(destnode)) == 0 || strcmp(queue[0], "") != 0)
+	int i, u, v, alt;
+	string retval;
+	
+	for(i=0;i<NUM_NODES;i++)
 	{
-		//extract the first path from P
-		ltemp = Dequeue();
- 		
-		//extend the path one step to all neighbors creating X new paths
-		//get the last node from the string
-		lastnode = GetToken(ltemp, " ", TokenCount(ltemp, " ")-1);
- 		
- 		
-		//if the last node is the dest, we found a path. return it.
-		if(strcmp(lastnode, str(destnode))==0)
-			return ltemp;
- 			
-		//cycle through all the child nodes of that node
-		for(i=0;i<NUM_NODES;i++)
+		nDistances[i] = INFINITY;	//infinity
+		nPrevious[i] = -1;
+	}
+	
+	nDistances[startNode] = 0;
+	
+	EmptyQueue();
+	
+	//enqueue all nodes
+	for(i=0;i<numGraphNodes;i++)
+	{
+		Enqueue(str(i));
+	}
+
+	while(!IsQueueEmpty())
+	{
+		u = NodeWithShortestDistance();
+		DequeueValue(str(u));
+		
+		for(v=0;v<NUM_NODES && Nodes[u].nChildNodes[v] != -1;v++)
 		{
-			//if the child node is nowhere in the path
-			if(Nodes[val(lastnode)].nChildNodes[i] >= 0 && strstr(str(Nodes[val(lastnode)].nChildNodes[i]), ltemp) <= 0)
+			alt = nDistances[u] + DistanceXY(Nodes[u].nX, Nodes[u].nY, Nodes[Nodes[u].nChildNodes[v]].nX, Nodes[Nodes[u].nChildNodes[v]].nY);
+			
+			if(alt < nDistances[Nodes[u].nChildNodes[v]])
 			{
-				//tack it onto the end of the list, and enqueue
-				Enqueue(ltemp + str(Nodes[val(lastnode)].nChildNodes[i]) + " ");
+				nDistances[Nodes[u].nChildNodes[v]] = alt;
+				nPrevious[Nodes[u].nChildNodes[v]] = u;
 			}
 		}
 	}
 	
-	return "";
+	retval = "";
+	u = destNode;
+	
+	while(nPrevious[u] >= 0)
+	{
+		retval = str(u) + " " + retval;
+		u = nPrevious[u];
+	}
+	
+	return retval;
 }
- 
+
+int NodeWithShortestDistance()
+{
+	//linear search...implement as sort if necessary
+	int i, shortestNode, shortestDistance;
+	
+	shortestNode = -1;
+	shortestDistance = INFINITY+1;
+	
+	for(i=0;i<QUEUE_LEN && strcmp(queue[i], "") != 0 ;i++)
+	{
+		if(nDistances[val(queue[i])] < shortestDistance)
+		{
+			shortestNode = val(queue[i]);
+			shortestDistance = nDistances[val(queue[i])];
+		}
+	}
+	
+	return shortestNode;
+}
+
 //finds the node closest to xy
 int ClosestNode(int x, int y)
 {
@@ -72,15 +133,15 @@ int ClosestNode(int x, int y)
 	
 	closenode = 0;
 
-	closedist = sqrt(pow(Nodes[0].nX - x, 2) + pow(Nodes[0].nY - y, 2)) ;
+	closedist = DistanceXY(Nodes[0].nX, Nodes[0].nY, x, y);
 	
 
-	for(i=0;i<numnodes;i++)
+	for(i=0;i<numGraphNodes;i++)
 	{
-		if(sqrt(pow(Nodes[i].nX - x, 2) + pow(Nodes[i].nY - y, 2)) < closedist)
+		if(DistanceXY(Nodes[i].nX, Nodes[i].nY, x, y) < closedist)
 		{
 			closenode = i;
-			closedist = sqrt(pow(Nodes[i].nX - x, 2) + pow(Nodes[i].nY - y, 2));
+			closedist = DistanceXY(Nodes[i].nX, Nodes[i].nY, x, y);
 		}
 	}
 	
@@ -90,41 +151,25 @@ int ClosestNode(int x, int y)
 void Goto(int e, int x, int y)
 {
 	int start, end, j;
-	string move, sPath;
+	int enemyIndex;
 
 	//find the node closest to you
 	start = ClosestNode(entity.x[e], entity.y[e]);
 	//find the node closest the target
 	end = ClosestNode(x, y);
 	
-	sPath = GetPath(start, end);
+	enemyIndex = GetEnemyIndex(e);
 	
+	Enemies[enemyIndex].sNodePath = Dijkstra(start, end);
+	Enemies[enemyIndex].sNodeIndex = 0;
+}
 
-	move = "";
-
-	for(j=0;j<TokenCount(sPath, " ");j++)
-	{
-		//move = move + "x" + str(Nodes[val(GetToken(path, " ", j))].nX/16) + "y" + str(Nodes[val(GetToken(path, " ", j))].nY/16);
-//messagebox("I'm going to node " + GetToken(sPath, " ", j) + "!");
-		findPath(0, entity.x[0]/16, entity.y[0]/16, Nodes[val(GetToken(sPath, " ", j))].nX/16, Nodes[val(GetToken(sPath, " ", j))].nY/16);
-
-		while (entity.movecode[0])
-		{
-			Render();
-			ShowPage();
-		}
-	}
-			
-/*	Log("**PATHFINDING START");
-
-	log("Enemy " + str(e) + " is going to x: " + str(x) + " y: " + str(y));
-	log("Found start node " + str(start) + " and end node " + str(end));
-	log("Taking path " + Enemies[e].sPath);
-	Log("Move script is " + move);
-	Log("**PATHFINDING END");
-	Log("");*/
-
-	//EntityMove(e, move);
+int IsQueueEmpty()
+{
+	if(strcmp(queue[0], "") == 0)
+		return 1;
+	else
+		return 0;
 }
 
 void EmptyQueue()
@@ -172,15 +217,39 @@ string Dequeue()
 	return retval;
 }
 
+string DequeueValue(string value)
+{
+	string retval;
+	int i, j;
+	//find item where value = value
+	//then cycle everything up one to remove it
+
+	for(j=0;j<QUEUE_LEN;j++)
+	{
+		if(strcmp(queue[j], value) == 0)
+		{
+			retval = queue[j];
+
+			for(i=j;i<QUEUE_LEN-1;i++)
+			{
+				queue[i] = queue[i+1];
+			}
+
+			return retval;
+		}
+	}
+	
+	return "";
+}
 
 void LoadGraph(string file)
 {
 	int hnd = FileOpen(file, FILE_READ);
 	int i,j;
 	
-	numnodes = FileReadQuad(hnd);
+	numGraphNodes = FileReadQuad(hnd);
 	
-	for(i=0;i<numnodes;i++)
+	for(i=0;i<numGraphNodes;i++)
 	{
 		Nodes[i].nX = FileReadQuad(hnd);
 		Nodes[i].nY = FileReadQuad(hnd);
@@ -199,10 +268,10 @@ void SaveGraph(string filename)
 	int hnd = FileOpen(filename, FILE_WRITE);
 	int i,j;
 	
-	FileWriteQuad(hnd, numnodes);
+	FileWriteQuad(hnd, numGraphNodes);
 
 	
-	for(i=0;i<numnodes;i++)
+	for(i=0;i<numGraphNodes;i++)
 
 	{
 		FileWriteQuad(hnd, Nodes[i].nX);
