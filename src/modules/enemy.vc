@@ -628,13 +628,12 @@ void ProcessEnemies()
 				Error("Enemy " + str(i) + " pathing to node " + GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex));
 				findPath(Enemies[i].nEntity, entity.x[Enemies[i].nEntity]/16, entity.y[Enemies[i].nEntity]/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nX/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nY/16);
 				Enemies[i].sNodeIndex++;
-			}
-			
-			if(strcmp(Enemies[i].sNodePath, "") != 0 && Enemies[i].sNodeIndex > TokenCount(Enemies[i].sNodePath, " "))
-			{
-				Error("Enemy " + str(i) + " done pathing.");
-				Enemies[i].sNodeIndex = 0;
-				Enemies[i].sNodePath = "";
+				
+				if(Enemies[i].sNodeIndex > TokenCount(Enemies[i].sNodePath, " "))
+				{
+					Error("Enemy " + str(i) + " done pathing.");
+					StopEnemy(i);
+				}
 			}
 		}
 	}
