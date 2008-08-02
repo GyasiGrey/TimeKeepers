@@ -213,6 +213,8 @@ void AddDefaultHooks()
 	
 	//*DEBUG* - call the debug window initer
 	dbgwin_Init();
+	//*DEBUG* - stuff to draw pathfinding nodes
+	AddHook("DrawGraphNodes", 2000);
 }
 
 void NewGame()
