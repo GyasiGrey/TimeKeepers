@@ -250,12 +250,12 @@ void LoadGraph(string file)
 {
 	int hnd;
 	int i,j;
+	int numChildren;
 	
-	Error("Loading pathfinding graph - " + file);
+	hnd = FileOpen(file, FILE_READ);
 	
-	if(FileExists(file))
+	if(hnd)
 	{
-		hnd = FileOpen(file, FILE_READ);
 
 		numGraphNodes = FileReadQuad(hnd);
 
@@ -264,7 +264,9 @@ void LoadGraph(string file)
 			Nodes[i].nX = FileReadQuad(hnd);
 			Nodes[i].nY = FileReadQuad(hnd);
 
-			for(j=0;j<NUM_NODES;j++)
+			numChildren = FileReadQuad(hnd);
+
+			for(j=0;j<numChildren;j++)
 			{
 				Nodes[i].nChildNodes[j] = FileReadQuad(hnd);
 			}
@@ -283,17 +285,33 @@ void SaveGraph(string filename)
 {
 	int hnd = FileOpen(filename, FILE_WRITE);
 	int i,j;
+	int numChildren;
 	
 	FileWriteQuad(hnd, numGraphNodes);
 
 	
 	for(i=0;i<numGraphNodes;i++)
-
 	{
 		FileWriteQuad(hnd, Nodes[i].nX);
 		FileWriteQuad(hnd, Nodes[i].nY);
 		
-		for(j=0;j<NUM_NODES;j++)
+		//get the number of child nodes
+		j=0;
+		while(j<NUM_NODES)
+		{
+			if(Nodes[i].nChildNodes[j] == -1)
+			{
+				numChildren = j-1;
+				
+				if(numChildren < 0)
+					numChildren = 0;
+			}
+			j++;
+		}
+		
+		FileWriteQuad(hnd, numChildren);
+		
+		for(j=0;j<numChildren;j++)
 		{
 			FileWriteQuad(hnd, Nodes[i].nChildNodes[j]);
 		}
