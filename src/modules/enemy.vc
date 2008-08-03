@@ -370,6 +370,7 @@ int CreateEnemy(int x, int y, int face, int template, string movestring, string 
 	entity.obstructable[Enemies[nNumEnemies].nEntity] = 1;
 	entity.face[Enemies[nNumEnemies].nEntity] = face;
 	HookEntityRender(Enemies[nNumEnemies].nEntity, "EnemyRender");
+	StopEnemy(nNumEnemies);
 	EntityMove(Enemies[nNumEnemies].nEntity, movestring);
 	
 	//zero out timer related vars for this ent
