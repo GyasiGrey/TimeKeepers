@@ -40,6 +40,8 @@ Release 2.5
 ***********
 Make graphs for all maps
 
+Update pathing code to A* directly to target XY if that XY is closer then the closest start node
+
 Arena Mode
 	Add more maps
 	Add menu that allows the user to select a map
