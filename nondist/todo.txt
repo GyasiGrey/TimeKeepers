@@ -39,16 +39,19 @@ Priority 1
 Release 2.5
 ***********
 Make graphs for all maps
+	-Decrease number of nodes on mission 2. Current number is causing a performance hit.
 
 Update pathing code to A* directly to target XY if that XY is closer then the closest start node
 
 Arena Mode
 	Add more maps
-	Add menu that allows the user to select a map
+	*DONE* Add menu that allows the user to select a map
 
 
 Release 3
 ***********
+Implement a challenge mode. Like VR missions in MGS integral / substance / whatever MGS 3 and 4 have
+
 
 Mission 3
 	*DONE* Plan flow of map
