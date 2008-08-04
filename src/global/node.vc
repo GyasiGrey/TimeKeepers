@@ -258,6 +258,9 @@ void LoadGraph(string file)
 	{
 
 		numGraphNodes = FileReadQuad(hnd);
+		
+		if(numGraphNodes > NUM_NODES)
+			FatialError("NUM_NODES too small. Expecting < " + str(NUM_NODES) + ". Got " + str(numGraphNodes) + ".");
 
 		for(i=0;i<numGraphNodes;i++)
 		{
