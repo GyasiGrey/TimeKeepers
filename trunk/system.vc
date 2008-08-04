@@ -713,6 +713,12 @@ void Error(string err)
 	}
 }
 
+void FatialError(string err)
+{
+	Error(err);
+	exit("Fatial Error: " + str);
+}
+
 //An error where the game can not continue. Shows the error message in a messagebox then exits.
 void FatalError(string err)
 {
