@@ -1,5 +1,5 @@
-#define QUEUE_LEN 256
-#define NUM_NODES 256
+#define QUEUE_LEN 384
+#define NUM_NODES 384
 #define INFINITY 65534
 
 int numGraphNodes;
