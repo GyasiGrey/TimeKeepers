@@ -17,7 +17,7 @@ int nDistances[NUM_NODES];
 int nPrevious[NUM_NODES];
 
 //Create a queue P
-string queue[QUEUE_LEN];
+int queue[QUEUE_LEN];
 
 int bGraphNodesShown = 0;
 int bGraphLinesShown = 0;
@@ -76,13 +76,13 @@ string Dijkstra(int startNode, int destNode)
 	//enqueue all nodes
 	for(i=0;i<numGraphNodes;i++)
 	{
-		Enqueue(str(i));
+		Enqueue(i);
 	}
 
 	while(!IsQueueEmpty())
 	{
 		u = NodeWithShortestDistance();
-		DequeueValue(str(u));
+		DequeueValue(u);
 		
 		for(v=0;v<NUM_NODES && Nodes[u].nChildNodes[v] != -1;v++)
 		{
@@ -116,12 +116,12 @@ int NodeWithShortestDistance()
 	shortestNode = -1;
 	shortestDistance = INFINITY+1;
 	
-	for(i=0;i<QUEUE_LEN && strcmp(queue[i], "") != 0 ;i++)
+	for(i=0;i<QUEUE_LEN && queue[i] != -1 ;i++)
 	{
-		if(nDistances[val(queue[i])] < shortestDistance)
+		if(nDistances[queue[i]] < shortestDistance)
 		{
-			shortestNode = val(queue[i]);
-			shortestDistance = nDistances[val(queue[i])];
+			shortestNode = queue[i];
+			shortestDistance = nDistances[queue[i]];
 		}
 	}
 	
@@ -170,7 +170,7 @@ void Goto(int e, int x, int y)
 
 int IsQueueEmpty()
 {
-	if(strcmp(queue[0], "") == 0)
+	if(queue[0] == -1)
 		return 1;
 	else
 		return 0;
@@ -182,18 +182,18 @@ void EmptyQueue()
 	
 	for(i=0;i<QUEUE_LEN;i++)
 	{
-		queue[i] = "";
+		queue[i] = -1;
 	}
 }
 
-void Enqueue(string s)
+void Enqueue(int s)
 {
 	int i;
 	
 	//look for the first blank item in the list
 	for(i=0;i<QUEUE_LEN;i++)
 	{
-		if(strcmp(queue[i], "") == 0)
+		if(queue[i] == -1)
 		{
 			queue[i] = s;
 			return;
@@ -203,9 +203,9 @@ void Enqueue(string s)
 	exit("node.vc: Queue to small - Increase QUEUE_LEN");
 }
 
-string Dequeue()
+int Dequeue()
 {
-	string retval;
+	int retval;
 	int i;
 	
 	//grab the first item off the list
@@ -221,16 +221,16 @@ string Dequeue()
 	return retval;
 }
 
-string DequeueValue(string value)
+int DequeueValue(int value)
 {
-	string retval;
+	int retval;
 	int i, j;
 	//find item where value = value
 	//then cycle everything up one to remove it
 
 	for(j=0;j<QUEUE_LEN;j++)
 	{
-		if(strcmp(queue[j], value) == 0)
+		if(queue[j] == value)
 		{
 			retval = queue[j];
 
@@ -243,7 +243,7 @@ string DequeueValue(string value)
 		}
 	}
 	
-	return "";
+	return -1;
 }
 
 void LoadGraph(string file)
