@@ -1,0 +1,23 @@
+void test_NodeWithShortestDistance()
+{
+	//setup some distances
+	EmptyQueue();
+	
+	queue[0] = 0;
+	queue[1] = 1;
+	queue[2] = 2;
+	
+	nDistances[0] = 10;
+	nDistances[1] = 5;
+	nDistances[2] = 15;
+	
+	Error("Returned " + str(NodeWithShortestDistance()));
+	assertTrue(NodeWithShortestDistance() == 1);
+	
+	//clean up after your self
+	nDistances[0] = 0;
+	nDistances[1] = 0;
+	nDistances[2] = 0;
+	
+	EmptyQueue();
+}
