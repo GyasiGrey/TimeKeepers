@@ -7,6 +7,9 @@
 
 //#include "debug_imgtrack.vc"	//must be included at the top to defines to work
 
+#include "vctest.vc"
+#include "testCases.vc"
+
 #include "defines.vc"
 
 #include "splash.vc"		//Splash screen fufujuju
@@ -160,6 +163,9 @@ void autoexec()
 
 	//init vars that can be used for new game or saved game
 	Init();
+	
+	//run test casses
+	runTests();
 	
 	//tk title screen effect thing
 	tkSplash();
