@@ -111,7 +111,7 @@ string Dijkstra(int startNode, int destNode)
 int NodeWithShortestDistance()
 {
 	//linear search...implement as sort if necessary
-	int i, shortestNode, shortestDistance;
+	/*int i, shortestNode, shortestDistance;
 	
 	shortestNode = -1;
 	shortestDistance = INFINITY+1;
@@ -123,9 +123,20 @@ int NodeWithShortestDistance()
 			shortestNode = queue[i];
 			shortestDistance = nDistances[queue[i]];
 		}
-	}
+	}*/
+	string nodesSort = "";
+	string nodesSortDistances = "";
+	int i=0;
 	
-	return shortestNode;
+	for(i=0;i<QUEUE_LEN && queue[i] != -1 ;i++)
+	{
+		nodesSort += str(queue[i]) + " ";
+		nodesSortDistances += str(nDistances[queue[i]]) + " ";
+	}
+
+	nodesSort = qsortbyother(nodesSort, nodesSortDistances, 0, i-1);
+
+	return val(GetToken(nodesSort, " ", 0));
 }
 
 //finds the node closest to xy
@@ -157,6 +168,7 @@ void Goto(int e, int x, int y)
 
 	//find the node closest to you
 	start = ClosestNode(entity.x[e], entity.y[e]);
+	
 	//find the node closest the target
 	end = ClosestNode(x, y);
 	
