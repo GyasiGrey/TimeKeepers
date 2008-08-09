@@ -1,5 +1,7 @@
 void test_NodeWithShortestDistance()
 {
+	int result;
+	
 	//setup some distances
 	EmptyQueue();
 	
@@ -11,8 +13,8 @@ void test_NodeWithShortestDistance()
 	nDistances[1] = 5;
 	nDistances[2] = 15;
 	
-	Error("Returned " + str(NodeWithShortestDistance()));
-	assertTrue(NodeWithShortestDistance() == 1);
+	result = NodeWithShortestDistance();
+	assertTrue(result == 1);
 	
 	//clean up after your self
 	nDistances[0] = 0;
