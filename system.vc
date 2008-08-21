@@ -415,7 +415,7 @@ string GenerateTargetList()
 		}
 
 		//sort this priority by distance
-		qsortByOther(tmpStr, distances, 0, TokenCount(tmpStr, " ")-1);
+		tmpStr = qsortByOther(tmpStr, distances, 0, TokenCount(tmpStr, " ")-1);
 
 		//add this priority to the retval
 		retval = retval + tmpStr;
