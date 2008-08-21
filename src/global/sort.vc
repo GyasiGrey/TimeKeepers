@@ -1,0 +1,136 @@
+/*
+Stolen from Wikipedia [http://en.wikipedia.org/wiki/Quicksort]
+
+ function quicksort(array, left, right)
+     if right > left
+         select a pivot index (e.g. pivotIndex := left)
+         pivotNewIndex := partition(array, left, right, pivotIndex)
+         quicksort(array, left, pivotNewIndex-1)
+         quicksort(array, pivotNewIndex+1, right)
+         
+  function partition(array, left, right, pivotIndex)
+     pivotValue := array[pivotIndex]
+     swap array[pivotIndex] and array[right] // Move pivot to end
+     storeIndex := left
+     for i  from  left to right // left = i < right
+         if array[i] = pivotValue 
+             swap array[i] and array[storeIndex]
+             storeIndex := storeIndex + 1
+     swap array[storeIndex] and array[right] // Move pivot to its final place
+     return storeIndex
+*/
+
+string qsortData;
+string qsortOtherData;
+
+//uses quick sort to sort [data] using [by] as the keys to sort by
+string qsortByOther(string data, string by, int _left, int _right)
+{
+	qsortOtherData = data;
+	qsort(by, _left, _right);
+	return qsortOtherData;
+}
+
+string qsort(string data, int _left, int _right)
+{
+	qsortData = data;
+	qsortReal(_left, _right);
+	return qsortData;
+}
+
+void qsortReal(int _left, int _right)
+{
+	int pivotIndex;
+	int pivotNewIndex;
+	
+	if(_right > _left)
+	{
+		pivotIndex = _left;
+		pivotNewIndex = qsortPartition(_left, _right, pivotIndex);
+		qsortReal(_left, pivotNewIndex-1);
+		qsortReal(pivotNewIndex+1, _right);
+	}
+}
+
+int qsortPartition(int _left, int _right, int pivotIndex)
+{
+	string pivotValue;
+	int storeIndex;
+	int i;
+	
+	pivotValue = GetToken(qsortData, " ", pivotIndex);
+	qsortSwap(pivotIndex, _right); // Move pivot to end
+	qsortSwapOther(pivotIndex, _right);
+	storeIndex = _left;
+	
+	for(i=_left;i<_right;i++) // left = i < right
+	{
+		if(val(GetToken(qsortData, " ", i)) <= val(pivotValue))
+		{
+			qsortSwap(i, storeIndex);
+			qsortSwapOther(i, storeIndex);
+			storeIndex++;
+		}
+	}
+	
+	qsortSwap(storeIndex, _right); // Move pivot to its final place
+	qsortSwapOther(storeIndex, _right);
+	
+	return storeIndex;
+}
+
+void qsortSwap(int one, int two)
+{
+	//return the string [data] with the tokens at idx [one] and [two] swapped
+	int length = TokenCount(qsortData, " ");
+	int i;
+	string out = "";
+	
+	for(i=0;i<length;i++)
+	{
+		if(i == one)
+		{
+			//at the idx for one, put the data for two
+			out = out + GetToken(qsortData, " ", two) + " ";
+		}
+		else if(i == two)
+		{
+			//at the idx for two, put the data for one
+			out = out + GetToken(qsortData, " ", one) + " ";
+		}
+		else
+		{
+			out = out + GetToken(qsortData, " ", i) + " ";
+		}
+	}
+	
+	qsortData = out;
+}
+
+void qsortSwapOther(int one, int two)
+{
+	//return the string [data] with the tokens at idx [one] and [two] swapped
+	int length = TokenCount(qsortOtherData, " ");
+	int i;
+	string out = "";
+	
+	for(i=0;i<length;i++)
+	{
+		if(i == one)
+		{
+			//at the idx for one, put the data for two
+			out = out + GetToken(qsortOtherData, " ", two) + " ";
+		}
+		else if(i == two)
+		{
+			//at the idx for two, put the data for one
+			out = out + GetToken(qsortOtherData, " ", one) + " ";
+		}
+		else
+		{
+			out = out + GetToken(qsortOtherData, " ", i) + " ";
+		}
+	}
+	
+	qsortOtherData = out;
+}
