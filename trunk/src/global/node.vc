@@ -127,7 +127,7 @@ int NodeWithShortestDistance()
 	
 	return shortestNode;
 
-/*	string nodesSort = "";
+	/*string nodesSort = "";
 	string nodesSortDistances = "";
 	int i=0;
 	
@@ -137,7 +137,7 @@ int NodeWithShortestDistance()
 		nodesSortDistances += str(nDistances[queue[i]]) + " ";
 	}
 
-	nodesSort = qsortbyother(nodesSort, nodesSortDistances, 0, i-1);
+	nodesSort = qsortbyother(nodesSort, nodesSortDistances, 0, TokenCount(nodesSort, " ")-1);
 
 	return val(GetToken(nodesSort, " ", 0));*/
 }
