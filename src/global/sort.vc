@@ -13,29 +13,97 @@ Stolen from Wikipedia [http://en.wikipedia.org/wiki/Quicksort]
      swap array[pivotIndex] and array[right] // Move pivot to end
      storeIndex := left
      for i  from  left to right // left = i < right
-         if array[i] = pivotValue 
+         if array[i] <= pivotValue 
              swap array[i] and array[storeIndex]
              storeIndex := storeIndex + 1
      swap array[storeIndex] and array[right] // Move pivot to its final place
      return storeIndex
 */
+#define SORT_ARRAY_SIZE	300
 
 string qsortData;
 string qsortOtherData;
 
+int nSortArray[SORT_ARRAY_SIZE];
+int nSortOtherArray[SORT_ARRAY_SIZE];
+
+//takes a space delineated string of intsand converts it to nSortArray
+void explode(string sData)
+{
+	int count = TokenCount(sData, " " );
+	int i;
+	
+	for(i=0;i<count;i++)
+	{
+		nSortArray[i] = val(GetToken(sData, " ", i));
+	}
+	
+	//fill the rest with -1
+	for(i=count;i<SORT_ARRAY_SIZE;i++)
+	{
+		nSortArray[i] = -1;
+	}
+}
+
+void explodeOther(string sData)
+{
+	int count = TokenCount(sData, " " );
+	int i;
+	
+	for(i=0;i<count;i++)
+	{
+		nSortOtherArray[i] = val(GetToken(sData, " ", i));
+	}
+	
+	//fill the rest with -1
+	for(i=count;i<SORT_ARRAY_SIZE;i++)
+	{
+		nSortOtherArray[i] = -1;
+	}
+}
+
+string implode()
+{
+	int i = 0;
+	string retval = "";
+	
+	while(nSortArray[i] > -1)
+	{
+		retval += str(nSortArray[i]) + " ";
+		i++;
+	}
+	
+	return retval;
+}
+
+string implodeOther()
+{
+	int i = 0;
+	string retval = "";
+	
+	while(nSortOtherArray[i] > -1)
+	{
+		retval += str(nSortOtherArray[i]) + " ";
+		i++;
+	}
+	
+	return retval;
+}
 //uses quick sort to sort [data] using [by] as the keys to sort by
 string qsortByOther(string data, string by, int _left, int _right)
 {
+	explodeOther(data);
 	qsortOtherData = data;
 	qsort(by, _left, _right);
-	return qsortOtherData;
+	return implodeOther();
 }
 
 string qsort(string data, int _left, int _right)
 {
+	explode(data);
 	qsortData = data;
 	qsortReal(_left, _right);
-	return qsortData;
+	return implode();
 }
 
 void qsortReal(int _left, int _right)
@@ -54,18 +122,18 @@ void qsortReal(int _left, int _right)
 
 int qsortPartition(int _left, int _right, int pivotIndex)
 {
-	string pivotValue;
+	int pivotValue;
 	int storeIndex;
 	int i;
 	
-	pivotValue = GetToken(qsortData, " ", pivotIndex);
+	pivotValue = nSortArray[pivotIndex];	//GetToken(qsortData, " ", pivotIndex);
 	qsortSwap(pivotIndex, _right); // Move pivot to end
 	qsortSwapOther(pivotIndex, _right);
 	storeIndex = _left;
 	
 	for(i=_left;i<_right;i++) // left = i < right
 	{
-		if(val(GetToken(qsortData, " ", i)) <= val(pivotValue))
+		if(nSortArray[i] <= pivotValue)
 		{
 			qsortSwap(i, storeIndex);
 			qsortSwapOther(i, storeIndex);
@@ -81,56 +149,14 @@ int qsortPartition(int _left, int _right, int pivotIndex)
 
 void qsortSwap(int one, int two)
 {
-	//return the string [data] with the tokens at idx [one] and [two] swapped
-	int length = TokenCount(qsortData, " ");
-	int i;
-	string out = "";
-	
-	for(i=0;i<length;i++)
-	{
-		if(i == one)
-		{
-			//at the idx for one, put the data for two
-			out = out + GetToken(qsortData, " ", two) + " ";
-		}
-		else if(i == two)
-		{
-			//at the idx for two, put the data for one
-			out = out + GetToken(qsortData, " ", one) + " ";
-		}
-		else
-		{
-			out = out + GetToken(qsortData, " ", i) + " ";
-		}
-	}
-	
-	qsortData = out;
+	int swapTemp = nSortArray[one];
+	nSortArray[one] = nSortArray[two];
+	nSortArray[two] = swapTemp;
 }
 
 void qsortSwapOther(int one, int two)
 {
-	//return the string [data] with the tokens at idx [one] and [two] swapped
-	int length = TokenCount(qsortOtherData, " ");
-	int i;
-	string out = "";
-	
-	for(i=0;i<length;i++)
-	{
-		if(i == one)
-		{
-			//at the idx for one, put the data for two
-			out = out + GetToken(qsortOtherData, " ", two) + " ";
-		}
-		else if(i == two)
-		{
-			//at the idx for two, put the data for one
-			out = out + GetToken(qsortOtherData, " ", one) + " ";
-		}
-		else
-		{
-			out = out + GetToken(qsortOtherData, " ", i) + " ";
-		}
-	}
-	
-	qsortOtherData = out;
+	int swapTemp = nSortOtherArray[one];
+	nSortOtherArray[one] = nSortOtherArray[two];
+	nSortOtherArray[two] = swapTemp;
 }

@@ -1,3 +1,38 @@
+void test_qsortSwap()
+{
+	nSortArray[0] = 10;
+	nSortArray[1] = 15;
+	
+	qsortSwap(0, 1);
+	
+	assertTrue(nSortArray[0] == 15);
+	assertTrue(nSortArray[1] == 10);
+}
+
+void test_implode()
+{
+	nSortArray[0] = 10;
+	nSortArray[1] = 15;
+	nSortArray[2] = -1;
+
+	assertTrue(strcmp(implode(), "10 15 ") == 0);
+}
+
+void test_qsort()
+{
+	string sData = "2 1 3 4 ";
+
+	assertTrue(strcmp(qsort(sData, 0, TokenCount(sData, " ")-1), "1 2 3 4 ") == 0);
+}
+
+void test_qsortByOther()
+{
+	string sData = "2 1 3 5 ";
+	string sKeys = "4 3 2 1 ";
+
+	assertTrue(strcmp(qsortbyother(sData, sKeys, 0, TokenCount(sData, " ")-1), "5 3 1 2 ") == 0);
+}
+
 void test_NodeWithShortestDistance()
 {
 	int result;
@@ -14,6 +49,7 @@ void test_NodeWithShortestDistance()
 	nDistances[2] = 15;
 	
 	result = NodeWithShortestDistance();
+
 	assertTrue(result == 1);
 	
 	//clean up after your self
@@ -22,20 +58,4 @@ void test_NodeWithShortestDistance()
 	nDistances[2] = 0;
 	
 	EmptyQueue();
-}
-
-
-void test_qsort()
-{
-	string sData = "2 1 3 4 ";
-
-	assertTrue(strcmp(qsort(sData, 0, TokenCount(sData, " ")-1), "1 2 3 4 ") == 0);
-}
-
-void test_qsortByOther()
-{
-	string sData = "2 1 3";
-	string sKeys = "2 1 3";
-
-	assertTrue(strcmp(qsortbyother(sData, sKeys, 0, TokenCount(sData, " ")-1), "1 2 3 ") == 0);
 }
