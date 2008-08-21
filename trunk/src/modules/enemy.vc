@@ -410,7 +410,6 @@ int CreateEnemy(int x, int y, int face, int template, string movestring, string 
 
 void MakeAlert(int ene)
 {
-	Error("Enemy " + str(ene) + " is now in alert mode.");
 	entity.speed[Enemies[ene].nEntity] = WALK_SPEED_ALERT;
 	Enemies[ene].nMode = MODE_ALERT;
 	Enemies[ene].nAlertStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
