@@ -783,6 +783,7 @@ int CanSeePlayer(int i)
 
 void ReturnToPosition(int i)
 {
+	StopEnemy(i);
 	Enemies[i].nMode = MODE_RETURN;
 	entity.speed[Enemies[i].nEntity] = WALK_SPEED_NORMAL;
 	Goto(Enemies[i].nEntity, Enemies[i].nOriginalX, Enemies[i].nOriginalY);
