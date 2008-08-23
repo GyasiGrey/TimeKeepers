@@ -628,11 +628,7 @@ void ProcessEnemies()
 			
 			if(strcmp(Enemies[i].sNodePath, "") != 0 && entity.movecode[Enemies[i].nEntity] == 0)
 			{
-				Error("Enemy " + str(i) + " pathing to node " + GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex));
-				findPath(Enemies[i].nEntity, entity.x[Enemies[i].nEntity]/16, entity.y[Enemies[i].nEntity]/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nX/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nY/16);
-				Enemies[i].sNodeIndex++;
-				
-				if(Enemies[i].sNodeIndex > TokenCount(Enemies[i].sNodePath, " "))
+				if(Enemies[i].sNodeIndex >= TokenCount(Enemies[i].sNodePath, " "))
 				{
 					Error("Enemy " + str(i) + " done pathing.");
 					StopEnemy(i);
@@ -640,6 +636,12 @@ void ProcessEnemies()
 					Error("Enemy " + str(i) + " A*'ing to final coord: " + str(Enemies[i].nTargetX/16) + "*" + str(Enemies[i].nTargetY/16) + ".");
 					//A* the enemy to their final destination
 					findPath(Enemies[i].nEntity, entity.x[Enemies[i].nEntity]/16, entity.y[Enemies[i].nEntity]/16, Enemies[i].nTargetX/16, Enemies[i].nTargetY/16);
+				}
+				else
+				{
+					Error("Enemy " + str(i) + " pathing to node " + str(val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))));
+					findPath(Enemies[i].nEntity, entity.x[Enemies[i].nEntity]/16, entity.y[Enemies[i].nEntity]/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nX/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nY/16);
+					Enemies[i].sNodeIndex++;
 				}
 			}
 		}
