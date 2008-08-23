@@ -27,7 +27,12 @@ void EnemyAICivilian()
 	}
 	else if(Enemies[nCurrentEnemy].nMode == MODE_RETURN)
 	{
-		//follow same logic as normal enemy AI on return
-		EnemyAINormal();
-	}
-}
+		//enemies entity is done moving
+		if(!entity.movecode[Enemies[nCurrentEnemy].nEntity] && entity.x[Enemies[nCurrentEnemy].nEntity] == Enemies[nCurrentEnemy].nOriginalX && entity.y[Enemies[nCurrentEnemy].nEntity] == Enemies[nCurrentEnemy].nOriginalY)
+		{
+			StopEnemy(nCurrentEnemy);
+			Enemies[nCurrentEnemy].nMode = MODE_NORMAL;
+			entity.face[Enemies[nCurrentEnemy].nEntity] = Enemies[nCurrentEnemy].nOriginalFace;
+			EntityMove(Enemies[nCurrentEnemy].nEntity, Enemies[nCurrentEnemy].sOriginalMoveString);
+		}
+	}}
