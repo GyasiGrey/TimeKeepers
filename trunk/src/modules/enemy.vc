@@ -664,11 +664,15 @@ void MakeSound(int shooter, int radius)
 					if(Enemies[i].bCanSpeak && Enemies[i].nMode != MODE_SOUND)
 						BottomText(i, BOTTOM_TEXT_SOUND);
 
+					//stop an enemy, so they can path to the sound
+					if(Enemies[i].nMode != MODE_SOUND)
+						StopEnemy(i);
+					
 					Enemies[i].nMode = MODE_SOUND;
 					Enemies[i].nSoundX = entity.x[shooter];
 					Enemies[i].nSoundY = entity.y[shooter];
 					Enemies[i].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
-					
+
 					Goto(Enemies[i].nEntity, entity.x[shooter], entity.y[shooter]);
 				}
 			}
