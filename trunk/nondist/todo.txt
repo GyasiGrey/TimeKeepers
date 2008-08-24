@@ -38,10 +38,10 @@ Priority 1
 
 Release 2.5
 ***********
-Make graphs for all maps
+Graph stuff
+	*DONE* -Make graphs for all maps
 	-Decrease number of nodes on mission 2. Current number is causing a performance hit.
-
-Update pathing code to A* directly to target XY if that XY is closer then the closest start node
+	-Increase number of nodes and lines for arena 2
 
 Arena Mode
 	Add more maps
@@ -113,6 +113,8 @@ give the punch an anim without muzzle flare
 
 DONE
 *********
+*DONE* Update pathing code to A* directly to target XY if that XY is closer then the closest start node
+
 *DONE* Allow some obstructions to be low. Meaning LoS can pass overtop of them.
 	-Add a second obs layer that will flag an obs as low
 	-Alter LineOfSight()
