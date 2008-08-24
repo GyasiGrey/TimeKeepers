@@ -309,6 +309,7 @@ void ClearLearderboardData()
 	{
 		sLeaderboardUsers[i].sUsername = "";
 		sLeaderboardUsers[i].iId = 0;
+		sLeaderboardUsers[i].sFinalScore = "";
 		
 		for(j=0;j<LEADERBOARD_NUM_SCORES;j++)
 			sLeaderboardUsers[i].sScores[j] = "";
