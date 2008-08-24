@@ -182,7 +182,7 @@ void Goto(int e, int x, int y)
 	//if the distance between the enemy and the target X,Y is less then the distance between the enemy and the start node
 	//just A* to the target
 	if(start == end || DistanceXY(entity.x[e], entity.y[e], x, y) < DistanceXY(entity.x[e], entity.y[e], Nodes[start].nX, Nodes[start].nY))
-		findPath(Enemies[e].nEntity, entity.x[Enemies[e].nEntity]/16, entity.y[Enemies[e].nEntity]/16, Enemies[e].nTargetX/16, Enemies[e].nTargetY/16);
+		findPath(e, entity.x[Enemies[e].nEntity]/16, entity.y[Enemies[e].nEntity]/16, Enemies[e].nTargetX/16, Enemies[e].nTargetY/16);
 		
 	enemyIndex = GetEnemyIndex(e);
 	
