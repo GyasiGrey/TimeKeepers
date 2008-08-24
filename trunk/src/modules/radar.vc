@@ -92,7 +92,9 @@ void DrawRadar()
 			x3 = ((((x3-xwin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageWidth(screen)))*RADAR_WIDTH)/100;
 			y3 = ((((y3-ywin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageHeight(screen)))*RADAR_HEIGHT)/100;
 
-			triangle(x1, y1, x2, y2, x3, y3, RGB(0, 255, 0), img);
+			SetLucent(50);
+			Triangle(x1, y1, x2, y2, x3, y3, RGB(0, 255, 0), img);
+			SetLucent(0);
 		}
 	}
 	
