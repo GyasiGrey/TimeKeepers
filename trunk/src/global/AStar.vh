@@ -66,6 +66,7 @@ int timeTrack;
 int findPath(int ent, int x1, int y1, int x2, int y2){
 	int i, chkValue, foundPath, tempIndex, tempCost;
 //Check for immediate errors in path
+	Error("Enemy " + str(GetEnemyIndex(ent)) + " pathing to " + str(x2) + "*" +str(y2));
 	if(x1 == x2 && y1 == y2){
 		error("EXIT: already at target position");
 		return 0;
