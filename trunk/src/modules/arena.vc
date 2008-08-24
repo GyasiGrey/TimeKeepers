@@ -34,7 +34,7 @@ void ArenaStart(int spawnDelay, int numEnemies, int arenaLevel)
 	
 	nNumMedkits = 2;
 	
-	arenaLevel = nArenaLevel;
+	nArenaLevel = arenaLevel;
 	
 	SetPause(0);
 
