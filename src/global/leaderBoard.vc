@@ -25,8 +25,9 @@ int sendScore(string username, string password, int gid, string data, string pKe
 	string retval;
 	
 	retval = GetUrlText(send);
-
-	Error("Tried to send scores. Server returned: " + retval);
+	
+	Error("Sending scores. Sent URL: " + send);
+	Error("Server returned: " + retval);
 	
 	if(strcmp(retval, "ERR_SUCCESS")==0)
 		return 1;
