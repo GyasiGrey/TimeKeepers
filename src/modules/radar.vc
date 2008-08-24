@@ -11,6 +11,12 @@ void DrawRadar()
 	int radarx, radary;
 	int img;
 	int color;
+
+	int ang;
+	int bot;
+	int top;
+
+	int x1, y1, x2, y2, x3, y3;
 	
 	//if the radar is not on, exit out
 	if(!nRadarOn)
@@ -42,6 +48,51 @@ void DrawRadar()
 			//the -1, +1 is to more or less center the square around the enemy
 			RectFill(radarx-1, radary-1, radarx+1, radary+1, color, img);
 			//printstring(radarx, radary, img, 0, str(i));
+			
+			//draw the FoV of this enemy
+			//up
+			if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_DOWN)
+				ang = 270;
+
+			//down
+			if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_UP)
+				ang = 90;
+
+			//left
+			if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_RIGHT)
+				ang = 180;
+
+			//right
+			if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_LEFT)
+				ang = 0;
+				
+			bot = ang-Enemies[i].nSightRange;
+			top = ang+Enemies[i].nSightRange;
+
+
+			x1 = entity.x[Enemies[i].nEntity];
+			y1 = entity.y[Enemies[i].nEntity];
+			
+			x2 = entity.x[Enemies[i].nEntity] + ((Enemies[i].nSightRange * cos(top))/65535);
+			y2 = entity.y[Enemies[i].nEntity] + ((Enemies[i].nSightRange * sin(top))/65535);
+			
+			x3 = entity.x[Enemies[i].nEntity] + ((Enemies[i].nSightRange * cos(bot))/65535);
+			y3 = entity.y[Enemies[i].nEntity] + ((Enemies[i].nSightRange * sin(bot))/65535);
+
+			//DEBUG
+			//triangle(x1-xwin, y1-ywin, x2-xwin, y2-ywin, x3-xwin, y3-ywin, RGB(0, 255, 0), screen);
+			//DEBUG
+
+			x1 = ((((x1-xwin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageWidth(screen)))*RADAR_WIDTH)/100;
+			y1 = ((((y1-ywin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageHeight(screen)))*RADAR_HEIGHT)/100;
+			
+			x2 = ((((x2-xwin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageWidth(screen)))*RADAR_WIDTH)/100;
+			y2 = ((((y2-ywin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageHeight(screen)))*RADAR_HEIGHT)/100;
+
+			x3 = ((((x3-xwin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageWidth(screen)))*RADAR_WIDTH)/100;
+			y3 = ((((y3-ywin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageHeight(screen)))*RADAR_HEIGHT)/100;
+
+			triangle(x1, y1, x2, y2, x3, y3, RGB(0, 255, 0), img);
 		}
 	}
 	
