@@ -58,3 +58,28 @@ void InitAmbientSounds()
 void InitAutoSave()
 {
 }
+
+void ArenaRewards()
+{
+	string sArenaText;
+	//rewards based on time spent
+	if(vcTimer[TIMER_ENEMY_LOGIC].nTick > 3000 && !bArenaRewards[0])
+	{
+		sArenaText = "Survived for 30 second! +1 medkit!";
+		lucentTextFade(160-(TextWidth(nTinyFont, sArenaText)/2), 80-(FontHeight(nTinyFont)/2), sArenaText, nTinyFont, RGB(255, 255, 255), 0);
+		GetMedkitLoot();
+		
+		bArenaRewards[0] = 1;
+	}
+
+	if(vcTimer[TIMER_ENEMY_LOGIC].nTick > 6000 && !bArenaRewards[1])
+	{
+		sArenaText = "Survived for 60 seconds! Ammo refilled!";
+		lucentTextFade(160-(TextWidth(nTinyFont, sArenaText)/2), 80-(FontHeight(nTinyFont)/2), sArenaText, nTinyFont, RGB(255, 255, 255), 0);
+		GetPistol();
+		GetShotgun();
+		GetM4();
+		
+		bArenaRewards[1] = 1;
+	}
+}
