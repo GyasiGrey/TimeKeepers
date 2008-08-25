@@ -83,15 +83,23 @@ string Dijkstra(int startNode, int destNode)
 	{
 		u = NodeWithShortestDistance();
 		DequeueValue(u);
-		
-		for(v=0;v<NUM_NODES && Nodes[u].nChildNodes[v] != -1;v++)
+
+		if(u == destNode)
 		{
-			alt = nDistances[u] + DistanceXY(Nodes[u].nX, Nodes[u].nY, Nodes[Nodes[u].nChildNodes[v]].nX, Nodes[Nodes[u].nChildNodes[v]].nY);
-			
-			if(alt < nDistances[Nodes[u].nChildNodes[v]])
+			//we have the shortest path. Shortcut out.
+			EmptyQueue();
+		}
+		else
+		{		
+			for(v=0;v<NUM_NODES && Nodes[u].nChildNodes[v] != -1;v++)
 			{
-				nDistances[Nodes[u].nChildNodes[v]] = alt;
-				nPrevious[Nodes[u].nChildNodes[v]] = u;
+				alt = nDistances[u] + DistanceXY(Nodes[u].nX, Nodes[u].nY, Nodes[Nodes[u].nChildNodes[v]].nX, Nodes[Nodes[u].nChildNodes[v]].nY);
+
+				if(alt < nDistances[Nodes[u].nChildNodes[v]])
+				{
+					nDistances[Nodes[u].nChildNodes[v]] = alt;
+					nPrevious[Nodes[u].nChildNodes[v]] = u;
+				}
 			}
 		}
 	}
