@@ -40,8 +40,6 @@ void InitLoot()
 
 void InitDoors()
 {
-	CreateDoor(35, 15, LoadImage("gfx\misc\door.png"), -1);
-	CreateDoor(33, 47, LoadImage("gfx\misc\door.png"), -1);
 }
 
 void InitLights()
