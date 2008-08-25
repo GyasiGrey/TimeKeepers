@@ -27,6 +27,7 @@ int nSoundStaticIn = LoadSound("sounds\static_in.wav");
 int nSoundStaticOut = LoadSound("sounds\static_out.wav");
 int nSoundAchivement = LoadSound("sounds\achivement.wav");
 int nSoundBigMetalDoor = LoadSound("sounds\bigmetaldoor.wav");
+int nSoundSpawn = LoadSound("sounds\spawn.wav");
 
 int nSoundTKSplashIn = LoadSound("sounds\tkSplashStaticIn.wav");
 int nSoundTKSplashOut = LoadSound("sounds\tkSplashStaticOut.wav");
@@ -201,4 +202,9 @@ void SoundTKSplashOut()
 void SoundTKSplashIn()
 {
 	PlaySound(nSoundTKSplashIn, nSoundVolume);
+}
+
+void SoundSpawn()
+{
+	PlaySound(nSoundSpawn, nSoundVolume);
 }
