@@ -346,6 +346,7 @@ void InitMap()
 	ClearLights();
 	ClearAutoSave();
 	ClearLoot();
+	ClearTooltip();
 
 	//Behold the magic of CallFunction! They are virtual functions!
 	//All these functions are defined in each map VC and called automatically
