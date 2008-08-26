@@ -530,6 +530,9 @@ void DamageEnemy(int damage, int entityindex)
 	{
 		nHealth -= damage;
 		
+		FadeIn(25, RGB(255, 0, 0));
+		nFadeInStart-=10;
+		
 		/*if(nHealth<=0)
 		{
 			PlayerDeath();
