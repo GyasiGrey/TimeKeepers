@@ -350,8 +350,11 @@ void EnterLastTutorialRoom()
 
 void GotGold()
 {
-	completeObjective("getloot");
-	CommText("Tech: I see you got to the end. I guess congratulations are in order. Then again this is your job.");
+	if(!nFlags[FLAG_COMM_TECH_GHOST_CHRONO])
+	{
+		completeObjective("getloot");
+		CommText("Tech: I see you got to the end. I guess congratulations are in order. Then again this is your job.");
+	}
 }
 
 void EnterTechRoom()
@@ -385,6 +388,12 @@ void EnterChronoRoom()
 {
 	if(!nFlags[FLAG_COMM_TECH_GHOST_CHRONO])
 	{
+		//set the flags for the tutorial
+		nFlags[FLAG_COMM_TECH_GHOST_SHOOTINGRANGE] = 1;
+		nFlags[FLAG_COMM_TECH_GHOST_FIRSTTUTROOM] = 1;
+		nFlags[FLAG_COMM_TECH_GHOST_DUMMYROOM] = 1;
+		nFlags[FLAG_COMM_TECH_GHOST_LASTTUTROOM] = 1;
+		
 		PlayerMove("X29Y29R0"); //move to and face ghost
 		EntityMove(0, "L0");
 		WaitForEntity(nPlayerEnt);
