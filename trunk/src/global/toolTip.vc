@@ -84,3 +84,8 @@ void DrawToolTip()
 		FreeImage(nImg);
 	}
 }
+
+void ClearTooltip()
+{
+	bToolTipOn = 0;
+}
