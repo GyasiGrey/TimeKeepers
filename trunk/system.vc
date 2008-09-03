@@ -53,6 +53,7 @@
 #include "src\modules\enemyai\dummy.vc"
 #include "src\modules\enemyai\camera.vc"
 #include "src\modules\enemyai\cautiouscivilian.vc"
+#include "src\modules\enemyai\wanderingenemy.vc"
 
 #include "src\modules\musicswitch.vc"
 #include "src\modules\particle.vc"

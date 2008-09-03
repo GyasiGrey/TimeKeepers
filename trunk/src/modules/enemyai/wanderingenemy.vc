@@ -1,0 +1,22 @@
+void EnemyAIWandering()
+{
+	int nDestNode = Random(1, numGraphNodes-1);
+	
+	if(Enemies[nCurrentEnemy].nMode == MODE_NORMAL)
+	{
+		//see if the enemy can see the player
+		if(CanSeePlayer(nCurrentEnemy))
+			MakeAlert(nCurrentEnemy);
+
+		//if the enemy dosen't have a node path, pick a random node to go to, and path to it
+		if(strcmp(Enemies[nCurrentEnemy].sNodePath, "") == 0)
+		{
+			Goto(Enemies[nCurrentEnemy].nEntity, Nodes[nDestNode].nX, Nodes[nDestNode].nY);
+		}
+	}
+	else
+	{
+		//otherwise, act just like a normal enemy
+		EnemyAINormal();
+	}
+}
