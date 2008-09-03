@@ -183,6 +183,8 @@ void Goto(int e, int x, int y)
 	//find the node closest the target
 	end = ClosestNode(x, y);
 
+	enemyIndex = GetEnemyIndex(e);
+	
 	Enemies[enemyIndex].nTargetX = x;
 	Enemies[enemyIndex].nTargetY = y;
 	
@@ -191,8 +193,6 @@ void Goto(int e, int x, int y)
 	//just A* to the target
 	if(start == end || DistanceXY(entity.x[e], entity.y[e], x, y) < DistanceXY(entity.x[e], entity.y[e], Nodes[start].nX, Nodes[start].nY))
 		findPath(e, entity.x[e]/16, entity.y[e]/16, Enemies[enemyIndex].nTargetX/16, Enemies[enemyIndex].nTargetY/16);
-		
-	enemyIndex = GetEnemyIndex(e);
 	
 	Enemies[enemyIndex].sNodePath = Dijkstra(start, end);
 	Enemies[enemyIndex].sNodeIndex = 0;
