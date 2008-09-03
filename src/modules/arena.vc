@@ -94,7 +94,7 @@ void ArenaHook()
 		spawnY = val(GetToken(DictGetString(nArenaSpawnPoints, str(spawnPoint)), "_", 1));
 		
 		ent = CreateEnemy(spawnX, spawnY, ENTITY_FACE_UP, ENEMY_TEMPLATE_PISTOL, "", "guard.chr");
-		MakeAlert(ent);
+		Enemies[ent].sAIFunc = "EnemyAIWandering";
 		
 		nArenaLastSpawn = timer;
 	}
