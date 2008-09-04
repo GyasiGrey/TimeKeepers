@@ -36,6 +36,8 @@ void InitEnemies()
 void InitLoot()
 {
 	CreateLoot(30*16, 50*16, "Medkit", 0, "medkit.png", "GetMedkitLootArena2");
+	CreateLoot(28*16, 9*16, "Shotgun", 0, "shotgun.png", "GetShotgunLootArena2");
+	CreateLoot(47*16, 40*16, "Pistol", 0, "pistol.png", "GetPistolLootArena2");
 }
 
 void InitDoors()
@@ -67,6 +69,18 @@ void GetMedkitLootArena2()
 {
 	nStealTimes[nCurrentLoot] = vcTimer[TIMER_ENEMY_LOGIC].nTick;
 	GetMedkitLoot();
+}
+
+void GetShotgunLootArena2()
+{
+	nStealTimes[nCurrentLoot] = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+	GetShotgun();
+}
+
+void GetPistolLootArena2()
+{
+	nStealTimes[nCurrentLoot] = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+	GetPistol();
 }
 
 void Respawner()
