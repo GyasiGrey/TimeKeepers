@@ -25,6 +25,8 @@ void start()
 	ArenaAddSpawnPoint(42, 34);
 	ArenaAddSpawnPoint(19, 34);
 	ArenaAddSpawnPoint(18, 18);
+	
+	AddHook("Respawner", 5);
 }
 
 void InitEnemies()
@@ -33,6 +35,8 @@ void InitEnemies()
 
 void InitLoot()
 {
+	CreateLoot(26*16, 26*16, "Medkit", 0, "medkit.png", "GetMedkitLootArena1");
+	CreateLoot(34*16, 26*16, "Pistol", 0, "pistol.png", "GetPistolLootArena1");
 }
 
 void InitDoors()
@@ -82,4 +86,31 @@ void ArenaRewards()
 		
 		bArenaRewards[1] = 1;
 	}
+}
+
+void Respawner()
+{
+	//cycle through the loots in this map to see if they should be respawned
+	int i;
+	
+	for(i=0;i<nNumLoot;i++)
+	{
+		if(Loots[i].nStolen == 1 && vcTimer[TIMER_ENEMY_LOGIC].nTick > nStealTimes[i] + ARENA_RESPAWN_TIME)
+		{
+			SoundSpawn();
+			Loots[i].nStolen = 0;
+		}
+	}
+}
+
+void GetMedkitLootArena1()
+{
+	nStealTimes[nCurrentLoot] = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+	GetMedkitLoot();
+}
+
+void GetPistolLootArena1()
+{
+	nStealTimes[nCurrentLoot] = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+	GetPistol();
 }
