@@ -30,11 +30,6 @@ Priority 1
 
 Release 2.5
 ***********
-Graph stuff
-	*DONE* -Make graphs for all maps
-	-Decrease number of nodes on mission 2. Current number is causing a performance hit.
-	-Increase number of nodes and lines for arena 2
-
 Arena Mode
 	Add more maps
 	*DONE* Add menu that allows the user to select a map
@@ -105,6 +100,11 @@ give the punch an anim without muzzle flare
 
 DONE
 *********
+*DONE* Graph stuff
+	-*DONE* Make graphs for all maps
+	-*DONE* Decrease number of nodes on mission 2. Current number is causing a performance hit.
+	-*DONE*Increase number of nodes and lines for arena 2
+
 *DONE* Arena mode entities will sometimes be paused when starting
 
 *DONE* Inet updates
