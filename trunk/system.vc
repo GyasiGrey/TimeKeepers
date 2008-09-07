@@ -319,8 +319,6 @@ void Init()
 	
 	nEquipedWeapon = 0; //equip the punch
 	
-	//load the target anim
-	nTargetPointerAnim = LoadAnimationEX("targetpointer.png", 16, 16, 0-16, 0-16, "T1 F0, W20, F1, W20, F2, W20, F3, W20, F2, W20, F1, W20, F0, R");
 
 	InitAchievements();
 	InitWeapons();
@@ -339,6 +337,9 @@ void InitMap()
 	nRadarOn=1;
 	
 	FreeAllAnimations();
+
+	//load the target anim
+	nTargetPointerAnim = LoadAnimationEX("targetpointer.png", 16, 16, 0-16, 0-16, "T1 F0, W20, F1, W20, F2, W20, F3, W20, F2, W20, F1, W20, F0, R");
 	
 	//SystemVC Functions
 	ClearAmbientSounds();
