@@ -80,8 +80,8 @@ int LoadAnimationImg(int img, int sizex, int sizey, int _x, int _y, string _anim
 	anims[index].ex = 1;
 	
 	anims[index].automatic = 1;
-	
-	Error("New anim index: " + str(index));
+
+	Error("New anim index: " + str(index) + " has image handle " + str(anims[index].image));
 
 	return index;
 }
@@ -91,10 +91,21 @@ int LoadAnimationEX(string filename, int sizex, int sizey, int _x, int _y, strin
 	return LoadAnimationImg(LoadImage0("gfx\animations\" + filename), sizex, sizey, _x, _y, _animstr);
 }
 
+void FreeAllAnimations()
+{
+	int i;
+	
+	for(i=0;i<MAX_ANIMATIONS;i++)
+	{
+		if(anims[i].active)
+			FreeAnimation(i);
+	}
+}
+
 void FreeAnimation(int index)
 {
 	Error("Freeing animation " + str(index));
-	
+
 	if (!anims[index].active)
 	{
 		Error("FreeAnimation() - Requested index is not in use! (" + str(index) + ")");
@@ -173,7 +184,7 @@ void ProcessAnimations()
 	string tok;
 
 	//RectFill(0, 0, ImageWidth(nAnimLayer), ImageHeight(nAnimLayer), rgb(255, 0, 255), nAnimLayer);	
-stolenImage();
+
 	//loop through all animations
 	for(i=0;i<MAX_ANIMATIONS;i++)
 	{
@@ -284,30 +295,5 @@ void DrawAnimation(int anim)
 			TBlitFrame(anims[anim].x-xwin, anims[anim].y-ywin, anim, anims[anim].frame, screen);
 		else
 			TBlitFrame(anims[anim].x, anims[anim].y, anim, anims[anim].frame, screen);
-	}
-}
-
-int stolenImage()
-{
-	//9v = stolen
-	
-	//there is a weird ass bug where animations are stealing other anims images.
-	//This function searches for this neferious act
-	int i, j;
-	
-	for(i=0;i<MAX_ANIMATIONS;i++)
-	{
-		if(anims[i].active)
-		{
-			for(j=0;j<MAX_ANIMATIONS;j++)
-			{
-				if(anims[j].active && j != i && anims[j].image == anims[i].image)
-				{
-//DebugBreakpoint();
-					Error("Image theft found! " + "i: " + str(i) + " j: " + str(j) + " img: " + str(anims[j].image));
-					anims[i].active = 0;
-				}
-			}
-		}
 	}
 }
