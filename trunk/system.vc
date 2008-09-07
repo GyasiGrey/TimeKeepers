@@ -338,6 +338,8 @@ void InitMap()
 
 	nRadarOn=1;
 	
+	FreeAllAnimations();
+	
 	//SystemVC Functions
 	ClearAmbientSounds();
 	DestroyEmitters();
