@@ -110,17 +110,23 @@ void ArenaHook()
 void ArenaGUI()
 {
 	//draw the arena specific GUI
+	SetLucent(50);
+	RectFill(0, 0, 100, 64, RGB(0, 0, 0), screen);
+	Rect(0, 0, 100, 64, RGB(255, 255, 255), screen);
+	SetLucent(0);
 	
+	//name
+	PrintString(8, 8, screen, nTinyFont, sAreaName);
 	//time in this arena match
-	PrintString(0, 0, screen, nTinyFont, "Time: " + TicksToHMSC(vcTimer[TIMER_ENEMY_LOGIC].nTick));
+	PrintString(8, 16, screen, nTinyFont, "Time: " + TicksToHMSC(vcTimer[TIMER_ENEMY_LOGIC].nTick));
 	//num kills
-	PrintString(0, 8, screen, nTinyFont, "Kills: " + str(nEnemiesKilled));
+	PrintString(8, 24, screen, nTinyFont, "Kills: " + str(nEnemiesKilled));
 	//knife kills
-	PrintString(0, 16, screen, nTinyFont, "Silent Kills: " + str(nSilentKills));
+	PrintString(8, 32, screen, nTinyFont, "Silent Kills: " + str(nSilentKills));
 	//tranq kills
-	PrintString(0, 24, screen, nTinyFont, "Tranq's: " + str(nEnemiesTranqd));
+	PrintString(8, 40, screen, nTinyFont, "Tranq's: " + str(nEnemiesTranqd));
 	//medkits used
-	PrintString(0, 32, screen, nTinyFont, "Medkits Used: " + str(nMedkitsUsed));
+	PrintString(8, 48, screen, nTinyFont, "Medkits Used: " + str(nMedkitsUsed));
 	//score
-	PrintString(0, 40, screen, nTinyFont, "Score: " + str(nArenaScore));
+	PrintString(8, 56, screen, nTinyFont, "Score: " + str(nArenaScore));
 }
