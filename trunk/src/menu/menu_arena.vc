@@ -19,6 +19,7 @@ void MenuArenaDraw()
 	//draw the arena map names
 	PrintString(12, 16, img, nTerminalFont, "Arena 1");
 	PrintString(12, 24, img, nTerminalFont, "Arena 2");
+	PrintString(12, 32, img, nTerminalFont, "Arena 3");
 
 	Blit(nMenuX, nMenuY, img, screen);
 	FreeImage(img);
@@ -37,7 +38,7 @@ void MenuArenaLogic()
 		if(nPointerPos > 0)
 			nPointerPos--;
 		else 
-			nPointerPos = 1;
+			nPointerPos = 2;
 			
 		unpress(5);
 	}
@@ -45,7 +46,7 @@ void MenuArenaLogic()
 	{
 		SoundKeyboardRand();
 		
-		if(nPointerPos < 1)
+		if(nPointerPos < 2)
 			nPointerPos++;
 		else
 			nPointerPos = 0;
@@ -79,6 +80,18 @@ void MenuArenaLogic()
 
 			CloseAllMenus();
 			TimeWarpNoTrans("0|1|2|3|4", "arena2.map");
+		}
+		else if(nPointerPos == 2)
+		{
+			SoundKeyboardRand();
+
+			if(bSendTrackedStats == 0)
+			{
+				GetTrackedLogin();
+			}
+
+			CloseAllMenus();
+			TimeWarpNoTrans("0|1|2|3|4", "arena3.map");
 		}
 	}
 	else if(BUTTON_MEDKIT)

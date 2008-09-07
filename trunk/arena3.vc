@@ -1,0 +1,79 @@
+void start()
+{
+	nPlayerEnt = EntitySpawn(85,67,"ghost.chr");
+	SetPlayer(nPlayerEnt);
+	HookEntityRender(nPlayerEnt, "PlayerRender");
+	
+	sAreaName = "Arena 3";	
+
+	//do clean up and call MapVC virtual functions
+	InitMap();
+	
+	SetLowObsZone(1);
+
+	MusicSwitch("boss.mod", 15);
+	
+	bCanSave = 0;
+	
+	RemoveHook("DoBlur");
+
+	bLoadingGame=0;
+	
+	ArenaStart(500, 8, 3);
+	
+	ArenaAddSpawnPoint(63, 63);
+	ArenaAddSpawnPoint(63, 78);
+	ArenaAddSpawnPoint(76, 78);
+	ArenaAddSpawnPoint(76, 63);
+	
+	ArenaAddSpawnPoint(93, 63);
+	ArenaAddSpawnPoint(93, 78);
+	ArenaAddSpawnPoint(106, 78);
+	ArenaAddSpawnPoint(106, 63);
+
+	AddHook("Respawner", 5);
+}
+
+void InitEnemies()
+{
+}
+
+void InitLoot()
+{
+}
+
+void InitDoors()
+{
+}
+
+void InitLights()
+{
+	nGlobalLight = 125;
+}
+
+void InitAmbientSounds()
+{
+}
+
+void InitAutoSave()
+{
+}
+
+void ArenaRewards()
+{
+}
+
+void Respawner()
+{
+	//cycle through the loots in this map to see if they should be respawned
+	int i;
+	
+	for(i=0;i<nNumLoot;i++)
+	{
+		if(Loots[i].nStolen == 1 && vcTimer[TIMER_ENEMY_LOGIC].nTick > nStealTimes[i] + ARENA_RESPAWN_TIME)
+		{
+			SoundSpawn();
+			Loots[i].nStolen = 0;
+		}
+	}
+}
