@@ -10,10 +10,6 @@ TURN ON FULL DEBUGGING AND TEST ALL MENUS
 
 CRASH Bugs
 **********
-Game will sometimes crash on exit to main menu with "trying to free a free'd image"
-	-Testcase - Get to the end of mission 2 before killing boss. Save, quit and start a new game. Imeaditly exit to main menu.
-	-Error is with invalid frames || buffered frames || images in the "Quick Save" animation that shows when entering the base
-	-*SOLUTION* Anims need a rewrite. There is some screwey code in there that that is crashing
 
 Gameplay Bugs
 *************
@@ -26,11 +22,7 @@ There is a bug with music crossfades that makes fmod return -1 on LoadSong. This
 
 Fixed Bugs needing testing
 *************
-*DONE* Arena mode entities will sometimes be paused when starting
 
-*DONE* Inet updates
-	-*DONE* Put a signature at the top of all responses to the client
-	-*DONE* If the client does not see this signature, ignore the response. Count as a general could not connect error.
 
 **********
 Priority 1
@@ -113,6 +105,18 @@ give the punch an anim without muzzle flare
 
 DONE
 *********
+*DONE* Arena mode entities will sometimes be paused when starting
+
+*DONE* Inet updates
+	-*DONE* Put a signature at the top of all responses to the client
+	-*DONE* If the client does not see this signature, ignore the response. Count as a general could not connect error.
+
+*DONE* Game will sometimes crash on exit to main menu with "trying to free a free'd image"
+	-Testcase - Get to the end of mission 2 before killing boss. Save, quit and start a new game. Imeaditly exit to main menu.
+	-Error is with invalid frames || buffered frames || images in the "Quick Save" animation that shows when entering the base
+	-Anims need a rewrite. There is some screwey code in there that that is crashing
+	- *FIXED* Called FreeAllAnimations() from InitMap()
+
 *DONE* Update pathing code to A* directly to target XY if that XY is closer then the closest start node
 
 *DONE* Allow some obstructions to be low. Meaning LoS can pass overtop of them.
