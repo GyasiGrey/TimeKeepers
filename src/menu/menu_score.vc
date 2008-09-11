@@ -34,9 +34,16 @@ void MenuScoreDraw()
 
 	int i;
 	string tmp;
-	int img = CreateWindow("Score", 120, 56, nTerminalFont);
+	int img = CreateWindow("Score", 120, 72, nTerminalFont);
 	
-	PrintString(12, 46, img, nTerminalFont, "Score go here.");
+	PrintString(8, 16, img, nTerminalFont, "Enemies killed:");
+	PrintString(8, 24, img, nTerminalFont, "Enemies tranq'd:");
+	PrintString(8, 32, img, nTerminalFont, "Silent kills:");
+	PrintString(8, 40, img, nTerminalFont, "Medkits used:");
+	PrintString(8, 48, img, nTerminalFont, "Time spent:");
+	
+	PrintString(30, 58, img, nTerminalFont, "Upload score");
+	PrintString(90, 58, img, nTerminalFont, "Quit");
 	
 	Blit(nMenuX, nMenuY, img, screen);	
 	FreeImage(img);
