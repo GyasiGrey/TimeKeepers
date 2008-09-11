@@ -64,6 +64,8 @@ void ArenaDeath()
 		RemoveHook("ArenaHook");
 		RemoveHook("ArenaGUI");
 		
+		OpenMenuScore();
+		
 		//upload arena score
 		SendMissionData(9+nArenaLevel);
 
