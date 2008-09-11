@@ -1,0 +1,87 @@
+int nScoreAnim;
+int bMenuScoreHold;
+
+void OpenMenuScore()
+{
+	SetPause(1);
+	
+	nPointerPos = 0;
+	nScoreAnim = LoadAnimationEX("cursor.png", 8, 8, 134, 154, ANIMATION_CURSOR_ANIM_STRING);
+	anims[nScoreAnim].automatic = 0;
+	
+	CreateMenu(130, 140, GetMenuTemplateIndex("MenuScore"));
+	
+	//store dual retrace counter
+	StoreDualCounter();
+
+	bMenuScoreHold = 1;
+	
+	//change counter so render() dosen't have a seisure	
+	nDualCounter = 0;
+
+	while(bMenuScoreHold)
+	{
+		Render();
+		ShowPage();
+	}
+
+	RestoreDualCounter();
+}
+
+
+void MenuScoreDraw()
+{
+
+	int i;
+	string tmp;
+	int img = CreateWindow("Score", 120, 56, nTerminalFont);
+	
+	PrintString(12, 46, img, nTerminalFont, "Score go here.");
+	
+	Blit(nMenuX, nMenuY, img, screen);	
+	FreeImage(img);
+	
+	DrawAnimation(nScoreAnim);
+}
+
+void MenuScoreLogic()
+{
+	anims[nScoreAnim].y = 154 + (nPointerPos*8);
+	
+	if(up)
+	{
+		SoundKeyboardRand();
+		
+		if(nPointerPos > 0)
+			nPointerPos--;
+		else 
+			nPointerPos = 4;
+			
+		unpress(5);
+	}
+	else if(down)
+	{
+		SoundKeyboardRand();
+		
+		if(nPointerPos < 4)
+			nPointerPos++;
+		else
+			nPointerPos = 0;
+			
+		unpress(6);
+	}
+	else if(BUTTON_SHOOT || BUTTON_MEDKIT)
+	{
+		UnpressButtons();
+		SoundKeyboardRand();
+		CloseTopMenu();
+	}
+}
+
+void MenuScoreClose()
+{
+	bMenuScoreHold = 0;
+	FreeAnimation(nScoreAnim);
+	
+	SetPause(0);
+}
