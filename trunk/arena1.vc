@@ -36,7 +36,6 @@ void InitEnemies()
 void InitLoot()
 {
 	CreateLoot(26*16, 26*16, "Medkit", 0, "medkit.png", "GetMedkitLootArena1");
-	CreateLoot(34*16, 26*16, "Pistol", 0, "pistol.png", "GetPistolLootArena1");
 }
 
 void InitDoors()
