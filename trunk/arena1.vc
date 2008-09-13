@@ -1,3 +1,5 @@
+#define ARENA_1_RESPAWN_TIME	1500
+
 void start()
 {
 	nPlayerEnt = EntitySpawn(30,26,"ghost.chr");
@@ -94,7 +96,7 @@ void Respawner()
 	
 	for(i=0;i<nNumLoot;i++)
 	{
-		if(Loots[i].nStolen == 1 && vcTimer[TIMER_ENEMY_LOGIC].nTick > nStealTimes[i] + ARENA_RESPAWN_TIME)
+		if(Loots[i].nStolen == 1 && vcTimer[TIMER_ENEMY_LOGIC].nTick > nStealTimes[i] + ARENA_1_RESPAWN_TIME)
 		{
 			SoundSpawn();
 			Loots[i].nStolen = 0;
