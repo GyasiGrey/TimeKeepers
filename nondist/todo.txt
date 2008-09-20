@@ -30,6 +30,9 @@ Priority 1
 
 Release 2.5
 ***********
+Get a var for mission number
+	Pass it to menu_score.vc:line 50
+
 Arena Mode
 	Add more maps
 	*DONE* Add menu that allows the user to select a map
