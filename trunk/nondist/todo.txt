@@ -33,6 +33,13 @@ Release 2.5
 Get a var for mission number
 	Pass it to menu_score.vc:line 50
 
+New death scene. Use the static effect!
+
+Intro scene
+	-How the bad lands were created
+	-How our "heroes" figured out how to use it to their advantage
+	-Look at TAGAP intro for ideas
+
 Arena Mode
 	Add more maps
 	*DONE* Add menu that allows the user to select a map
@@ -61,10 +68,6 @@ New Weapons
 	Grenade - Target anywhere on the map. Waits a little white then creates a AoE damage area.
 	Sniper rifle - Target anywhere on the map. Deals high damage to one enemy. Targeting system blacks out entire view except for a circle arount targeting recticle.
 
-Intro scene
-	-How the bad lands were created
-	-How our "heroes" figured out how to use it to their advantage
-	-Look at TAGAP intro for ideas
 
 **********
 Priority 2
