@@ -309,7 +309,7 @@ void CheckMissionPass()
 		nFlags[FLAG_MISSION1_COMPLETE] = 1;
 		
 		//send tracked stats to the server
-		SendMissionData(1);
+		OpenMenuScore();
 
 		TimeWarp("0|", "base.map");
 	}

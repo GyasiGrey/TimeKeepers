@@ -62,9 +62,6 @@ void ArenaDeath()
 		
 		OpenMenuScore();
 		
-		//upload arena score
-		SendMissionData(nMissionNum);
-
 		//go to normal death sequence
 		PlayerDeath();
 	}

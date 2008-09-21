@@ -30,8 +30,8 @@ Priority 1
 
 Release 2.5
 ***********
-Get a var for mission number
-	Pass it to menu_score.vc:line 50
+Score menu
+	Wire score menu to call UploadScores()
 
 New death scene. Use the static effect!
 
@@ -106,6 +106,9 @@ give the punch an anim without muzzle flare
 
 DONE
 *********
+*DONE* Get a var for mission number
+	Pass it to menu_score.vc:line 50
+
 *DONE* Graph stuff
 	-*DONE* Make graphs for all maps
 	-*DONE* Decrease number of nodes on mission 2. Current number is causing a performance hit.

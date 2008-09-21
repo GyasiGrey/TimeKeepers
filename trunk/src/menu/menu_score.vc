@@ -60,33 +60,43 @@ void MenuScoreDraw()
 
 void MenuScoreLogic()
 {
-	if(up)
+	anims[nScoreAnim].x = 132 + (60 * nPointerPos);
+	
+	if(left)
 	{
 		SoundKeyboardRand();
 		
 		if(nPointerPos > 0)
 			nPointerPos--;
 		else 
-			nPointerPos = 4;
+			nPointerPos = 1;
 			
-		unpress(5);
+		unpress(7);
 	}
-	else if(down)
+	else if(right)
 	{
 		SoundKeyboardRand();
 		
-		if(nPointerPos < 4)
+		if(nPointerPos < 1)
 			nPointerPos++;
 		else
 			nPointerPos = 0;
 			
-		unpress(6);
+		unpress(8);
 	}
 	else if(BUTTON_SHOOT || BUTTON_MEDKIT)
 	{
-		UnpressButtons();
-		SoundKeyboardRand();
-		CloseTopMenu();
+		if(nPointerPos == 0)
+		{
+			//upload score
+			SendMissionData(nMissionNum);
+		}
+		else if(nPointerPos == 1)
+		{
+			UnpressButtons();
+			SoundKeyboardRand();
+			CloseTopMenu();
+		}
 	}
 }
 
