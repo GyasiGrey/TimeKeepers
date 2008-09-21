@@ -6,10 +6,10 @@ void OpenMenuScore()
 	SetPause(1);
 	
 	nPointerPos = 0;
-	nScoreAnim = LoadAnimationEX("cursor.png", 8, 8, 134, 154, ANIMATION_CURSOR_ANIM_STRING);
+	nScoreAnim = LoadAnimationEX("cursor.png", 8, 8, 132, 186, ANIMATION_CURSOR_ANIM_STRING);
 	anims[nScoreAnim].automatic = 0;
 	
-	CreateMenu(130, 140, GetMenuTemplateIndex("MenuScore"));
+	CreateMenu(110, 120, GetMenuTemplateIndex("MenuScore"));
 	
 	//store dual retrace counter
 	StoreDualCounter();
@@ -34,23 +34,23 @@ void MenuScoreDraw()
 
 	int i;
 	string tmp;
-	int img = CreateWindow("Score", 120, 72, nTerminalFont);
+	int img = CreateWindow("Score", 120, 80, nTerminalFont);
 	
 	PrintString(8, 16, img, nTerminalFont, "Enemies killed:");
-	PrintString(50, 16, img, nTerminalFont, str(nEnemiesKilled));
+	PrintString(110, 16, img, nTerminalFont, str(nEnemiesKilled));
 	PrintString(8, 24, img, nTerminalFont, "Enemies tranq'd:");
-	PrintString(50, 24, img, nTerminalFont, str(nEnemiesTranqd));
+	PrintString(110, 24, img, nTerminalFont, str(nEnemiesTranqd));
 	PrintString(8, 32, img, nTerminalFont, "Silent kills:");
-	PrintString(50, 32, img, nTerminalFont, str(nSilentKills));
+	PrintString(110, 32, img, nTerminalFont, str(nSilentKills));
 	PrintString(8, 40, img, nTerminalFont, "Medkits used:");
-	PrintString(50, 40, img, nTerminalFont, str(nMedkitsUsed));
+	PrintString(110, 40, img, nTerminalFont, str(nMedkitsUsed));
 	PrintString(8, 48, img, nTerminalFont, "Time spent:");
-	PrintString(50, 48, img, nTerminalFont, TicksToHMSC(vcTimer[TIMER_MISSION_TIME_SPENT].nTick));
+	PrintRight(115, 48, img, nTerminalFont, TicksToHMSC(vcTimer[TIMER_MISSION_TIME_SPENT].nTick));
 	PrintString(8, 56, img, nTerminalFont, "Final score:");
-	PrintString(50, 56, img, nTerminalFont, str(CalculateMissionScore(1)));	//todo: get a variable for mission number. Pass it here.
+	PrintString(110, 56, img, nTerminalFont, str(CalculateMissionScore(1)));	//todo: get a variable for mission number. Pass it here.
 	
-	PrintString(30, 58, img, nTerminalFont, "Upload score");
-	PrintString(90, 58, img, nTerminalFont, "Quit");
+	PrintString(30, 66, img, nTerminalFont, "Upload score");
+	PrintString(90, 66, img, nTerminalFont, "Quit");
 	
 	Blit(nMenuX, nMenuY, img, screen);	
 	FreeImage(img);
@@ -60,8 +60,6 @@ void MenuScoreDraw()
 
 void MenuScoreLogic()
 {
-	anims[nScoreAnim].y = 154 + (nPointerPos*8);
-	
 	if(up)
 	{
 		SoundKeyboardRand();
