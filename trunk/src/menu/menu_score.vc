@@ -89,7 +89,12 @@ void MenuScoreLogic()
 		if(nPointerPos == 0)
 		{
 			//upload score
+			UnpressButtons();
+			SoundKeyboardRand();
+
 			SendMissionData(nMissionNum);
+
+			CloseTopMenu();
 		}
 		else if(nPointerPos == 1)
 		{
