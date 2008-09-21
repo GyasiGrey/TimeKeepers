@@ -143,6 +143,8 @@ int nShotAt;		//the timer value when the player shot his weapon. for recharging 
 
 int bLoadingGame = 0;	//True when loading a game before going to a map. This way maps know to push temp enemy data into the real array
 
+int nMissionNum;	//the mission that the player is currently on
+
 //for the player animation
 int nPlayerAnimating;
 int nPlayerAnimWakeUp;
@@ -331,11 +333,13 @@ void Init()
 
 //systemVC function called at the start of any map to make it
 //correctly clear and setup up doors, enemies, etc
-void InitMap()
+void InitMap(int missionNumber)
 {
 	NewGame();
 
 	nRadarOn=1;
+	
+	nMissionNum = missionNumber;
 	
 	FreeAllAnimations();
 

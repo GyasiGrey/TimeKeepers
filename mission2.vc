@@ -8,7 +8,7 @@ void start()
 
 	sAreaName = "Mission 2";
 
-	InitMap();
+	InitMap(2);
 	
 	SetLowObsZone(16);
 	

@@ -47,7 +47,7 @@ void MenuScoreDraw()
 	PrintString(8, 48, img, nTerminalFont, "Time spent:");
 	PrintRight(115, 48, img, nTerminalFont, TicksToHMSC(vcTimer[TIMER_MISSION_TIME_SPENT].nTick));
 	PrintString(8, 56, img, nTerminalFont, "Final score:");
-	PrintString(110, 56, img, nTerminalFont, str(CalculateMissionScore(1)));	//todo: get a variable for mission number. Pass it here.
+	PrintString(110, 56, img, nTerminalFont, str(CalculateMissionScore(nMissionNum)));
 	
 	PrintString(30, 66, img, nTerminalFont, "Upload score");
 	PrintString(90, 66, img, nTerminalFont, "Quit");
