@@ -73,7 +73,7 @@ void SendMissionData(int mission)
 			
 			if(retval)
 			{
-				OpenMessageMenu("Score data sent to server successfully!");
+				OpenMessageMenuHold("Score data sent to server successfully!");
 				tryagain = 1;	//woops
 				
 				Error("Score data sent to server successfully!");
