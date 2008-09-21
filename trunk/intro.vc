@@ -3,7 +3,7 @@
 void startup()
 {
 	//clean up after the last map
-	InitMap();
+	InitMap(-1);
 
 	ClearFlags();
 	

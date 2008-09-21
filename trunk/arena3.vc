@@ -7,7 +7,7 @@ void start()
 	sAreaName = "Arena 3";	
 
 	//do clean up and call MapVC virtual functions
-	InitMap();
+	InitMap(ARENA_MISSION_OFFSET + 2);
 	
 	SetLowObsZone(1);
 
@@ -19,7 +19,7 @@ void start()
 
 	bLoadingGame=0;
 	
-	ArenaStart(500, 8, 3);
+	ArenaStart(500, 8);
 	
 	ArenaAddSpawnPoint(63, 63);
 	ArenaAddSpawnPoint(63, 78);

@@ -9,12 +9,10 @@ int nArenaScore;
 
 int bArenaRewards[5];
 
-int nArenaLevel;
-
 //respawn loot logic
 int nStealTimes[MAX_LOOT];
 
-void ArenaStart(int spawnDelay, int numEnemies, int arenaLevel)
+void ArenaStart(int spawnDelay, int numEnemies)
 {
 	string sArenaStartText = "Arena mode begin. Kill or be killed.";
 	
@@ -39,8 +37,6 @@ void ArenaStart(int spawnDelay, int numEnemies, int arenaLevel)
 	nArenaScore = 0;
 	
 	nNumMedkits = 2;
-	
-	nArenaLevel = arenaLevel;
 	
 	SetPause(0);
 
@@ -67,7 +63,7 @@ void ArenaDeath()
 		OpenMenuScore();
 		
 		//upload arena score
-		SendMissionData(9+nArenaLevel);
+		SendMissionData(nMissionNum);
 
 		//go to normal death sequence
 		PlayerDeath();

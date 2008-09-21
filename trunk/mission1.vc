@@ -12,7 +12,7 @@ void start()
 	sAreaName = "Mission 1";	
 
 	//do clean up and call MapVC virtual functions
-	InitMap();
+	InitMap(1);
 	
 	SetLowObsZone(9);
 

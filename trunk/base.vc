@@ -10,7 +10,7 @@ void start()
 	
 	sAreaName = "Home Base";
 
-	InitMap();
+	InitMap(-1);
 	
 	SetLowObsZone(-1);
 	
