@@ -4,7 +4,7 @@ void OpenArenaMenu()
 {
 	SetEntitiesPaused(1);
 	nPointerPos = 0;
-	nArenaMenuAnim = LoadAnimationEX("cursor.png", 8, 8, 134, 154, ANIMATION_CURSOR_ANIM_STRING);
+	nArenaMenuAnim = LoadAnimationEX("cursor.png", 8, 8, 134, 156, ANIMATION_CURSOR_ANIM_STRING);
 	anims[nArenaMenuAnim].automatic = 0;
 	
 	CreateMenu(130, 140, GetMenuTemplateIndex("MenuArena"));
