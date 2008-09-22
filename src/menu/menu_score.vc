@@ -11,6 +11,8 @@ void OpenMenuScore()
 	
 	CreateMenu(110, 120, GetMenuTemplateIndex("MenuScore"));
 	
+	vcTimer[TIMER_MISSION_TIME_SPENT].nPause = 1;
+	
 	//store dual retrace counter
 	StoreDualCounter();
 
@@ -26,6 +28,8 @@ void OpenMenuScore()
 	}
 
 	RestoreDualCounter();
+	
+	vcTimer[TIMER_MISSION_TIME_SPENT].nPause = 0;
 }
 
 
