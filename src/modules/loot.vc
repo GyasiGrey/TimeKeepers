@@ -43,6 +43,8 @@ void CreateLoot(int x, int y, string name, int amt, string icn, string func)
 	
 	nNumLoot++;
 	
+	LoadAnimationEX("sparkle.png", 8, 8, x, y, ANIMATION_LOOT_SPARKLE);
+	
 	Error("CreateLoot() - x: " + str(x) + " y: " + str(Y) + " name: " + name + " amt: " + str(amt) + " function: " + func);
 }
 
