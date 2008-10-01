@@ -1,0 +1,60 @@
+string sMnuMessageChoice;
+int bMnuMessageChoiceHold = 0;
+
+void OpenMessageChoiceMenu(string message)
+{
+	SetPause(1);
+	sMnuMessageChoice = message;
+	CreateMenu(100, 100, GetMenuTemplateIndex("MenuMessageChoice"));
+}
+
+void OpenMessageChoiceMenuHold(string message)
+{
+	//same as OpenMessageMenu() but holds code execution after complete
+	SwitchPause();
+	sMnuMessageChoice = message;
+	CreateMenu(100, 100, GetMenuTemplateIndex("MenuMessageChoice"));
+	
+	bMnuMessageChoiceHold = 1;
+	
+	//store dual retrace counter
+	StoreDualCounter();
+
+	//change counter so render() dosen't have a seisure	
+	nDualCounter = 0;
+
+	while(bMnuMessageChoiceHold)
+	{
+		Render();
+		ShowPage();
+	}
+	
+	RestoreDualCounter();
+}
+
+void MenuMessageChoiceDraw()
+{
+	int img;
+	string wrapped = WrapText(nTerminalFont, sMnuMessage, 85);
+	int numBreaks = strstr(chr(10), wrapped);
+	
+	img = CreateWindow("Message", 100, 24+(numBreaks*8), nTerminalFont);
+	PrintString(8, 14, img, nTerminalFont, wrapped);
+	Blit(nMenuX, nMenuY, img, screen);
+	FreeImage(img);
+}
+
+void MenuMessageChoiceLogic()
+{
+	//on weapon key press, close the menu
+	if(BUTTON_SHOOT)
+	{
+		CloseTopMenu();
+	}
+}
+
+void MenuMessageChoiceClose()
+{
+	bMnuMessageChoiceHold = 0;
+	SetPause(0);
+}
