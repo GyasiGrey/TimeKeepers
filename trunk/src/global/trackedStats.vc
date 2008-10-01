@@ -80,12 +80,11 @@ void SendMissionData(int mission)
 			}
 			else if(retval == -1)
 			{
-				OpenMessageMenuHold("You has a bad password! Do it again!");
+				OpenMessageMenuHold("Password rejected.");
 			}
 			else
 			{
-				OpenMessageMenuHold("Score data was not sent successfully. Would you like to try again?");
-				tryagain = OpenChoiceMenu(100, 100, "Yes|No", "Keep Try?");
+				tryagain = OpenMessageChoiceMenu("Score data was not sent successfully. Would you like to try again?", "Yes|No");
 
 				Error("Score data didn't make it across the internets :(");
 			}
@@ -123,11 +122,8 @@ void GetTrackedLogin()
 
 	while(again == 1)
 	{
-		//ask player if they want to track their stats
-		OpenMessageMenuHold("You can now track and send you stats in this game to an internet leaderboard! You can also get achivements! To do so you Login. Would you like to do that now?");
-
-		//Yes, No, No and don't ask me again you attention whore! Also, register new user
-		res = OpenChoiceMenu(100, 100, "Yes|No|No, and don't ask again!|Regester new Username", "Register to upload stats?");
+		//ask player if they want to track their stats - Yes, No, No and don't ask me again you attention whore! Also, register new user
+		res = OpenMessageChoiceMenu("Would you like to login to track your stats?", "Yes|No|No, don't ask again.|New User");
 
 		switch(res)
 		{
@@ -141,11 +137,11 @@ void GetTrackedLogin()
 				
 				if(strcmp(sres, "couldn't open url") == 0)
 				{
-					OpenMessageMenuHold("The server did not respond. Make sure you have an internet connection. Would you like to try again?");
+					OpenMessageMenuHold("The server did not respond. Is your internet connection working?");
 				}
 				else if(strcmp(sres, "-1") == 0)
 				{
-					OpenMessageMenuHold("You has a bad password! Do it again!");
+					OpenMessageMenuHold("Password rejected.");
 					again = 1;
 				}
 				else
@@ -238,14 +234,12 @@ void RegisterNewUsername()
 		switch(errMode)
 		{
 			case 1:
-				OpenMessageMenuHold("That username is already taken. Would you like to try again?");
+				again = OpenMessageChoiceMenu("That username is already taken. Would you like to try again?", "Yes|No");
 			case 2:
-				OpenMessageMenuHold("The server did not respond. Make sure you have an internet connection. Would you like to try again?");
+				again = OpenMessageChoiceMenu("The server did not respond. Make sure you have an internet connection. Would you like to try again?", "Yes|No");
 			case 3:
-				OpenMessageMenuHold("Unknown error. The server might be dead! Would you like to try again?");
+				again = OpenMessageChoiceMenu("Unknown error. Would you like to try again?", "Yes|No");
 		}
-		
-		again = OpenChoiceMenu(100, 100, "Yes|No", "Keep Try?");
 		
 		if(again == 0)
 		{
