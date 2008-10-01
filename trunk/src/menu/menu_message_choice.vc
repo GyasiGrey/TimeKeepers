@@ -1,21 +1,25 @@
 string sMnuMessageChoice;
+string sMnuMessageChoiceChoices;
 int bMnuMessageChoiceHold = 0;
+int nMessageChoiceMenuNumChoices;
+int nMessageChoiceMenuAnim;
+int nMessageChoiceMenuRetVal;
 
-void OpenMessageChoiceMenu(string message)
-{
-	SetPause(1);
-	sMnuMessageChoice = message;
-	CreateMenu(100, 100, GetMenuTemplateIndex("MenuMessageChoice"));
-}
-
-void OpenMessageChoiceMenuHold(string message)
+int OpenMessageChoiceMenu(string message, string choices)
 {
 	//same as OpenMessageMenu() but holds code execution after complete
-	SwitchPause();
+	SetPause(1);
 	sMnuMessageChoice = message;
+	sMnuMessageChoiceChoices = choices;
 	CreateMenu(100, 100, GetMenuTemplateIndex("MenuMessageChoice"));
 	
 	bMnuMessageChoiceHold = 1;
+	nPointerPos = 0;
+	
+	nMessageChoiceMenuNumChoices = TokenCount(sMnuMessageChoiceChoices, "|")-1;
+	
+	nMessageChoiceMenuAnim = LoadAnimationEX("cursor.png", 8, 8, 203, 115, ANIMATION_CURSOR_ANIM_STRING);
+	anims[nMessageChoiceMenuAnim].automatic = 0;
 	
 	//store dual retrace counter
 	StoreDualCounter();
@@ -30,26 +34,64 @@ void OpenMessageChoiceMenuHold(string message)
 	}
 	
 	RestoreDualCounter();
+	
+	return nMessageChoiceMenuRetVal;
 }
 
 void MenuMessageChoiceDraw()
 {
-	int img;
-	string wrapped = WrapText(nTerminalFont, sMnuMessage, 85);
+	int img, choiceimg;
+	string wrapped = WrapText(nTerminalFont, sMnuMessageChoice, 85);
 	int numBreaks = strstr(chr(10), wrapped);
 	
 	img = CreateWindow("Message", 100, 24+(numBreaks*8), nTerminalFont);
+	choiceimg = CreateMenuChoice("Choice", sMnuMessageChoiceChoices, nTerminalFont);
+	
 	PrintString(8, 14, img, nTerminalFont, wrapped);
 	Blit(nMenuX, nMenuY, img, screen);
+	Blit(nMenuX+100, nMenuY, choiceimg, screen);
+	
+	DrawAnimation(nMessageChoiceMenuAnim);
+	
 	FreeImage(img);
+	FreeImage(choiceimg);
 }
 
 void MenuMessageChoiceLogic()
 {
-	//on weapon key press, close the menu
-	if(BUTTON_SHOOT)
+	anims[nMessageChoiceMenuAnim].y = nMenuY + 15 + (nPointerPos*9);
+
+	if(up)
 	{
+		SoundKeyboardRand();
+		
+		if(nPointerPos > 0)
+			nPointerPos--;
+		else 
+			nPointerPos = nMessageChoiceMenuNumChoices;
+			
+		unpress(5);
+	}
+	else if(down)
+	{
+		SoundKeyboardRand();
+		
+		if(nPointerPos < nMessageChoiceMenuNumChoices)
+			nPointerPos++;
+		else
+			nPointerPos = 0;
+			
+		unpress(6);
+	}
+	else if(BUTTON_SHOOT)
+	{
+		SoundKeyboardRand();
+		
+		nMessageChoiceMenuRetVal = nPointerPos;
+		//close the top two menues. message and choice
 		CloseTopMenu();
+		CloseTopMenu();
+		UnpressButtons();
 	}
 }
 
