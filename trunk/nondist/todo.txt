@@ -33,6 +33,9 @@ Release 2.5
 Score menu
 	Wire score menu to call UploadScores()
 
+Add a Yes/No menu.
+	-Use it in the login retry box
+
 New death scene. Use the static effect!
 
 Intro scene
