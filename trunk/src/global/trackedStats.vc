@@ -183,10 +183,7 @@ void GetTrackedLogin()
 			case 3: //register
 				RegisterNewUsername();
 
-				if(bSendTrackedStats == 0)
-					again = 1;
-				else
-					again = 0;
+				again = 0;
 		}
 	}
 	
@@ -251,7 +248,7 @@ void RegisterNewUsername()
 			case 1:
 				again = OpenMessageChoiceMenu("That username is already taken. Would you like to try again?", "Yes|No");
 			case 2:
-				again = OpenMessageChoiceMenu("The server did not respond. Make sure you have an internet connection. Would you like to try again?", "Yes|No");
+				again = OpenMessageChoiceMenu("The server did not respond. Would you like to try again?", "Yes|No");
 			case 3:
 				again = OpenMessageChoiceMenu("Unknown error. Would you like to try again?", "Yes|No");
 		}
