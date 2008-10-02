@@ -59,11 +59,13 @@ void ArenaDeath()
 		
 		RemoveHook("ArenaHook");
 		RemoveHook("ArenaGUI");
+
+		PlayerDeathEffect();
 		
 		OpenMenuScore();
 		
-		//go to normal death sequence
-		PlayerDeath();
+		RemoveGui();
+		TitleScreen();
 	}
 }
 
