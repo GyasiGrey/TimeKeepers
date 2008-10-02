@@ -288,8 +288,8 @@ void dumpmenustack()
 	int i;
 	for(i=0;i<MAX_MENUS && nMenuStack[i]>=0;i++)
 	{
-		messagebox(MenuTemplates[ActiveMenus[nMenuStack[i]].nMenuTemplate].sName);
-		messagebox(str(nMenuStack[i]));
+		Error(MenuTemplates[ActiveMenus[nMenuStack[i]].nMenuTemplate].sName);
+		Error(str(nMenuStack[i]));
 	}
 }
 
