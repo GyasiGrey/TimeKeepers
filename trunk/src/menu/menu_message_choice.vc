@@ -90,7 +90,6 @@ void MenuMessageChoiceLogic()
 		nMessageChoiceMenuRetVal = nPointerPos;
 		//close the top two menues. message and choice
 		CloseTopMenu();
-		CloseTopMenu();
 		UnpressButtons();
 	}
 }
