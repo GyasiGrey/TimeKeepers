@@ -117,14 +117,14 @@ void LoadTrackedProfile()
 
 void GetTrackedLogin()
 {
-	int res, again=1;
+	int res, again=1, userRes;
 	string username, pass, sres;
+
+	//ask player if they want to track their stats - Yes, No, No and don't ask me again you attention whore! Also, register new user
+	res = OpenMessageChoiceMenu("Would you like to login to track your stats?", "Yes|No|No, don't ask again.|New User");
 
 	while(again == 1)
 	{
-		//ask player if they want to track their stats - Yes, No, No and don't ask me again you attention whore! Also, register new user
-		res = OpenMessageChoiceMenu("Would you like to login to track your stats?", "Yes|No|No, don't ask again.|New User");
-
 		switch(res)
 		{
 			case 0:	//yes
@@ -137,12 +137,27 @@ void GetTrackedLogin()
 				
 				if(strcmp(sres, "couldn't open url") == 0)
 				{
-					OpenMessageMenuHold("The server did not respond. Is your internet connection working?");
+					userRes = OpenMessageChoiceMenu("The server did not respond. Try again?", "Yes|No");
+					
+					if(userRes == 0)
+						again = 1;
+					else
+					{
+						again = 0;
+						bSendTrackedStats = 0;
+					}
 				}
 				else if(strcmp(sres, "-1") == 0)
 				{
-					OpenMessageMenuHold("Password rejected.");
-					again = 1;
+					userRes = OpenMessageChoiceMenu("Password rejected. Try again?", "Yes|No");
+					
+					if(userRes == 0)
+						again = 1;
+					else
+					{
+						again = 0;
+						bSendTrackedStats = 0;
+					}
 				}
 				else
 				{
