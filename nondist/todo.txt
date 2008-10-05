@@ -30,12 +30,6 @@ Priority 1
 
 Release 2.5
 ***********
-Score menu
-	Wire score menu to call UploadScores()
-
-Add a Yes/No menu.
-	-Use it in the login retry box
-
 New death scene. Use the static effect!
 
 Intro scene
@@ -109,6 +103,12 @@ give the punch an anim without muzzle flare
 
 DONE
 *********
+*DONE* Score menu
+	*DONE* Wire score menu to call UploadScores()
+
+*DONE* Add a Yes/No menu.
+	-*DONE* Use it in the login retry box
+
 *DONE* Get a var for mission number
 	Pass it to menu_score.vc:line 50
 
