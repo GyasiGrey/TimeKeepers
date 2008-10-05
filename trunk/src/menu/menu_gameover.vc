@@ -22,49 +22,14 @@ void MenuGameOverDraw()
 {
 	int img = CreateMenuChoice("Continue?", "Load Last Save|Quit", nTerminalFont);
 	
-	int nEKGx, nEKGy;
-	int nEKGyIntercept = 90;
-	
 	RectFill(0, 0, 320, 240, RGB(0, 0, 0), screen);
 	
 	Blit(nMenuX, nMenuY, img, screen);
 	FreeImage(img);
 	
 	DrawAnimation(nGameOverMenuAnim);
-	
-	nEKGx = timer - nGameOverMenuStart;
-	
-	nEKGy = CalculateEKGy(nEKGx, nEKGyIntercept);
-	
-	if(nEKGx > 320)
-	{
-		nGameOverMenuStart = timer;
-		SoundLowHealth();
-	}
-		
-	//draw a red pixel to show the EKG thing
-	SetPixel(nEKGx, nEKGy, RGB(255, 0, 0), screen);
 }
 
-int CalculateEKGy(int nEKGx, int nEKGyIntercept)
-{
-	int nEKGy;
-	
-	if(nEKGx <= 100)
-		nEKGy = nEKGyIntercept;
-	else if(nEKGx > 100 && nEKGx < 150)
-		nEKGy = (-2*(nEKGx-100)) + nEKGyIntercept;
-	else if(nEKGx > 150 && nEKGx < 200)
-		nEKGy = (2*(nEKGx-150));
-	else if(nEKGx > 200 && nEKGx < 250)
-		nEKGy = (2*(nEKGx-200)) + nEKGyIntercept;
-	else if(nEKGx > 250 && nEKGx < 300)
-		nEKGy = (-2*(nEKGx-250)) + (nEKGyIntercept*2);
-	else
-		nEKGy = nEKGyIntercept;
-	
-	return nEKGy;
-}
 
 void MenuGameOverLogic()
 {
