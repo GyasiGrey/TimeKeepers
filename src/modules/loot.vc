@@ -15,6 +15,7 @@ struct Loot
 	int nStolen;	//==1 when item has been taken
 	string sFunc;	//optional function run when the item is stolen
 	int nImage;	//the image of the loot, 0-1 means no image
+	int nAnim;	//sparkle anim for this loot
 }
 
 int nNumLoot;
@@ -28,7 +29,7 @@ Loot LoadedLoots[MAX_LOOT];
 //a helper func to create loot
 //x and y are PIXEL coords
 //if icn is "" the loot will have no image
-void CreateLoot(int x, int y, string name, int amt, string icn, string func)
+void CreateLoot(int x, int y, string name, int amt, string icn, string func, int sparkle)
 {
 	Loots[nNumLoot].nX = x;
 	Loots[nNumLoot].nY = y;
@@ -43,7 +44,10 @@ void CreateLoot(int x, int y, string name, int amt, string icn, string func)
 	
 	nNumLoot++;
 	
-	LoadAnimationEX("sparkle.png", 8, 8, x, y, ANIMATION_LOOT_SPARKLE);
+	if(sparkle)
+		Loots[nNumLoot].nAnim = LoadAnimationEX("sparkle.png", 8, 8, x, y, ANIMATION_LOOT_SPARKLE);
+	else
+		Loots[nNumLoot].nAnim = -1;
 	
 	Error("CreateLoot() - x: " + str(x) + " y: " + str(Y) + " name: " + name + " amt: " + str(amt) + " function: " + func);
 }
@@ -122,6 +126,7 @@ void Steal()
 			{
 				lucentTextFade(Loots[nCurrentLoot].nX, Loots[nCurrentLoot].nY, Loots[nCurrentLoot].sName, nTinyFont, RGB(255, 255, 255), 1);
 			}
+			
 				
 
 			nCurrentLoot = 0-1;

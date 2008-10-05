@@ -35,9 +35,9 @@ void InitEnemies()
 
 void InitLoot()
 {
-	CreateLoot(30*16, 50*16, "Medkit", 0, "medkit.png", "GetMedkitLootArena2");
-	CreateLoot(28*16, 9*16, "Shotgun", 0, "shotgun.png", "GetShotgunLootArena2");
-	CreateLoot(47*16, 40*16, "Pistol", 0, "pistol.png", "GetPistolLootArena2");
+	CreateLoot(30*16, 50*16, "Medkit", 0, "medkit.png", "GetMedkitLootArena2", 0);
+	CreateLoot(28*16, 9*16, "Shotgun", 0, "shotgun.png", "GetShotgunLootArena2", 0);
+	CreateLoot(47*16, 40*16, "Pistol", 0, "pistol.png", "GetPistolLootArena2", 0);
 }
 
 void InitDoors()
