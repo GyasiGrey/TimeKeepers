@@ -104,22 +104,22 @@ void InitLoot()
 	//CreateLoot(201*16, 32*16, "", 0, "", "ElevatorButton");		//not really loot, just the elevator button
 	//CreateLoot(388*16, 39*16, "", 0, "", "ElevatorButton");
 	
-	CreateLoot(71*16, 37*16, "", 0, "", "ValtElevatorPannel");		//digit pad to the vault
+	CreateLoot(71*16, 37*16, "", 0, "", "ValtElevatorPannel", 1);		//digit pad to the vault
 	
 	//call elevator buttons
-	CreateLoot(53*16, 23*16, "", 0, "", "CallElevatorFloorCasino");
-	CreateLoot(387*16, 40*16, "", 0, "", "CallElevatorFloorSecurity");
-	CreateLoot(143*16, 23*16, "", 0, "", "CallElevatorFloor1");
-	CreateLoot(234*16, 23*16, "", 0, "", "CallElevatorFloor2");
-	CreateLoot(293*16, 47*16, "", 0, "", "CallElevatorVaultToCasino");
+	CreateLoot(53*16, 23*16, "", 0, "", "CallElevatorFloorCasino", 1);
+	CreateLoot(387*16, 40*16, "", 0, "", "CallElevatorFloorSecurity", 1);
+	CreateLoot(143*16, 23*16, "", 0, "", "CallElevatorFloor1", 1);
+	CreateLoot(234*16, 23*16, "", 0, "", "CallElevatorFloor2", 1);
+	CreateLoot(293*16, 47*16, "", 0, "", "CallElevatorVaultToCasino", 1);
 	
-	CreateLoot(438*16, 40*16, "", 0, "", "ElevatorInnerButton");		//buttons inside the elevator
+	CreateLoot(438*16, 40*16, "", 0, "", "ElevatorInnerButton", 1);		//buttons inside the elevator
 	
 	
-	CreateLoot(395*16, (36*16)-8, "", 0, "", "GenerateValtPassOne");
-	CreateLoot(366*16, (36*16)-8, "", 0, "", "GenerateValtPassTwo");
+	CreateLoot(395*16, (36*16)-8, "", 0, "", "GenerateValtPassOne", 1);
+	CreateLoot(366*16, (36*16)-8, "", 0, "", "GenerateValtPassTwo", 1);
 	
-	CreateLoot(370*16, 53*16, "", 0, "", "DisableCamerasSecurity");
+	CreateLoot(370*16, 53*16, "", 0, "", "DisableCamerasSecurity", 1);
 
 	//make the room with the card random
 	
@@ -138,90 +138,90 @@ void InitLoot()
 		case 7:x=235;y=31;
 	}
 	
-	CreateLoot(x*16, y*16, "Security Card", 0, "card.png", "GotSecurityCard");
+	CreateLoot(x*16, y*16, "Security Card", 0, "card.png", "GotSecurityCard", 0);
 	
 	//get the key that opens the locked door in the security room - that room lets you unlock all the hotel level doors
-	CreateLoot(26*16, 15*16, "Security Key", 0, "", "UnlockHotelLevelDoors");
+	CreateLoot(26*16, 15*16, "Security Key", 0, "", "UnlockHotelLevelDoors", 0);
 	
 	//CreateLoot(376*16, 53*16, "", 0, "", "UnlockHotelLevelDoors");
 	
-	CreateLoot(296*16, 47*16, "", 0, "", "OpenVault");
+	CreateLoot(296*16, 47*16, "", 0, "", "OpenVault", 1);
 	
-	CreateLoot(38*16, 18*16, "", 0, "paper.png", "VaultCodePaper");
+	CreateLoot(38*16, 18*16, "", 0, "paper.png", "VaultCodePaper", 0);
 	
 	
 	//Now for the actuall loot! It only took me ... what...6 months? A year to get this far?
-	CreateLoot(223*16, 35*16, "Cash", 100, "cash.png", "");
-	CreateLoot(230*16, 31*16, "Cash", 75, "cash.png", "");
-	CreateLoot(231*16, 57*16, "Cash", 80, "cash.png", "");
-	CreateLoot(149*16, 18*16, "Coins", 50, "gold.png", "");
-	CreateLoot(119*16, 14*16, "Medkit", 0, "medkit.png", "GetMedkitLoot");
-	CreateLoot(126*16, 13*16, "Vase", 75, "vase.png", "");
-	CreateLoot(126*16, 15*16, "Vase", 75, "vase.png", "");
-	CreateLoot(154*16, 18*16, "Medkit", 0, "medkit.png", "GetMedkitLoot");
-	CreateLoot(123*16, 53*16, "Coins", 25, "silver.png", "");
-	CreateLoot(123*16, 53*16, "Cash", 80, "cash.png", "");
-	CreateLoot(124*16, 53*16, "Cash", 80, "cash.png", "");
-	CreateLoot(139*16, 51*16, "Cash", 80, "cash.png", "");
-	CreateLoot(131*16, 52*16, "Cash", 80, "cash.png", "");
-	CreateLoot(237*16, 37*16, "Cash", 80, "cash.png", "");
-	CreateLoot(225*16, 13*16, "Cash", 80, "cash.png", "");
-	CreateLoot(47*16, 15*16, "Coins", 25, "gold.png", "");
+	CreateLoot(223*16, 35*16, "Cash", 100, "cash.png", "", 0);
+	CreateLoot(230*16, 31*16, "Cash", 75, "cash.png", "", 0);
+	CreateLoot(231*16, 57*16, "Cash", 80, "cash.png", "", 0);
+	CreateLoot(149*16, 18*16, "Coins", 50, "gold.png", "", 0);
+	CreateLoot(119*16, 14*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
+	CreateLoot(126*16, 13*16, "Vase", 75, "vase.png", "", 0);
+	CreateLoot(126*16, 15*16, "Vase", 75, "vase.png", "", 0);
+	CreateLoot(154*16, 18*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
+	CreateLoot(123*16, 53*16, "Coins", 25, "silver.png", "", 0);
+	CreateLoot(123*16, 53*16, "Cash", 80, "cash.png", "", 0);
+	CreateLoot(124*16, 53*16, "Cash", 80, "cash.png", "", 0);
+	CreateLoot(139*16, 51*16, "Cash", 80, "cash.png", "", 0);
+	CreateLoot(131*16, 52*16, "Cash", 80, "cash.png", "", 0);
+	CreateLoot(237*16, 37*16, "Cash", 80, "cash.png", "", 0);
+	CreateLoot(225*16, 13*16, "Cash", 80, "cash.png", "", 0);
+	CreateLoot(47*16, 15*16, "Coins", 25, "gold.png", "", 0);
 	
 	//top half
-	CreateLoot((35*16)+8, 46*16, "Coins", 50, "gold.png", ""); 
-	CreateLoot((49*16)-8, 52*16, "Coins", 50, "gold.png", "");
-	CreateLoot(43*16, 39*16, "Coins", 25, "silver.png", "");
-	CreateLoot((39*16)-8, 36*16, "Coins", 25, "silver.png", "");
-	CreateLoot(56*16, 52*16, "Coins", 50, "gold.png", "");
-	CreateLoot(48*16, 31*16, "Coins", 50, "gold.png", "");
+	CreateLoot((35*16)+8, 46*16, "Coins", 50, "gold.png", "", 0); 
+	CreateLoot((49*16)-8, 52*16, "Coins", 50, "gold.png", "", 0);
+	CreateLoot(43*16, 39*16, "Coins", 25, "silver.png", "", 0);
+	CreateLoot((39*16)-8, 36*16, "Coins", 25, "silver.png", "", 0);
+	CreateLoot(56*16, 52*16, "Coins", 50, "gold.png", "", 0);
+	CreateLoot(48*16, 31*16, "Coins", 50, "gold.png", "", 0);
 	
 	//bottom half
-	CreateLoot(31*16, 87*16, "Coins", 75, "gold.png", "");
-	CreateLoot(41*16, 88*16, "Coins", 75, "gold.png", "");
-	CreateLoot(57*16, (78*16)-4, "Coins", 75, "silver.png", "");
-	CreateLoot(37*16, (72*16)-4, "Coins", 75, "silver.png", "");
-	CreateLoot(32*16, 90*16, "Coins", 75, "gold.png", "");
-	CreateLoot(58*16, (66*16)-4, "Coins", 75, "gold.png", "");
-	CreateLoot(30*16, 84*16, "Coins", 75, "gold.png", "");
-	CreateLoot(38*16, 86*16, "Coins", 75, "silver.png", "");
+	CreateLoot(31*16, 87*16, "Coins", 75, "gold.png", "", 0);
+	CreateLoot(41*16, 88*16, "Coins", 75, "gold.png", "", 0);
+	CreateLoot(57*16, (78*16)-4, "Coins", 75, "silver.png", "", 0);
+	CreateLoot(37*16, (72*16)-4, "Coins", 75, "silver.png", "", 0);
+	CreateLoot(32*16, 90*16, "Coins", 75, "gold.png", "", 0);
+	CreateLoot(58*16, (66*16)-4, "Coins", 75, "gold.png", "", 0);
+	CreateLoot(30*16, 84*16, "Coins", 75, "gold.png", "", 0);
+	CreateLoot(38*16, 86*16, "Coins", 75, "silver.png", "", 0);
 
 	//Vault	
-	CreateLoot(305*16, (51*16)-8, "Cash", 150, "cash.png", "");
-	CreateLoot(306*16, (51*16)-8, "Cash", 150, "cash.png", "");
+	CreateLoot(305*16, (51*16)-8, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(306*16, (51*16)-8, "Cash", 150, "cash.png", "", 0);
 	
-	CreateLoot(305*16, (46*16)-8, "Cash", 150, "cash.png", "");
+	CreateLoot(305*16, (46*16)-8, "Cash", 150, "cash.png", "", 0);
 	
-	CreateLoot(311*16, (51*16)-8, "Cash", 150, "cash.png", "");
+	CreateLoot(311*16, (51*16)-8, "Cash", 150, "cash.png", "", 0);
 	
-	CreateLoot(315*16, (51*16)-8, "Cash", 150, "cash.png", "");
-	CreateLoot(316*16, (51*16)-8, "Cash", 150, "cash.png", "");
+	CreateLoot(315*16, (51*16)-8, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(316*16, (51*16)-8, "Cash", 150, "cash.png", "", 0);
 	
-	CreateLoot(315*16, (46*16)-8, "Cash", 150, "cash.png", "");
-	CreateLoot(316*16, (46*16)-8, "Cash", 150, "cash.png", "");
+	CreateLoot(315*16, (46*16)-8, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(316*16, (46*16)-8, "Cash", 150, "cash.png", "", 0);
 	
 	//CreateLoot(315*16, (40*16)-8, "Cash", 150, "cash.png", "");
 	
-	CreateLoot(306*16, (40*16)-8, "Cash", 150, "cash.png", "");
+	CreateLoot(306*16, (40*16)-8, "Cash", 150, "cash.png", "", 0);
 	
 	//Vault part 2
-	CreateLoot(294*16, (122*16)-4, "Medkit", 0, "medkit.png", "GetMedkitLoot");
-	CreateLoot(302*16, 109*16, "Shotgun", 0, "shotgun.png", "GetShotgun");
-	CreateLoot(306*16, (105*16)-4, "Cash", 150, "cash.png", "");
-	CreateLoot(307*16, (101*16)-4, "Cash", 150, "cash.png", "");
-	CreateLoot(299*16, (101*16)-4, "Cash", 150, "cash.png", "");
-	CreateLoot(298*16, (101*16)-4, "Cash", 150, "cash.png", "");
-	CreateLoot(294*16, (105*16)-4, "Medkit", 0, "medkit.png", "GetMedkitLoot");
-	CreateLoot(303*16, (105*16)-4, "Cash", 150, "cash.png", "");
-	CreateLoot(295*16, (109*16)-4, "Cash", 150, "cash.png", "");
-	CreateLoot(310*16, (113*16)-4, "Medkit", 0, "medkit.png", "GetMedkitLoot");
-	CreateLoot(314*16, (117*16)-4, "Cash", 150, "cash.png", "");
-	CreateLoot(310*16, (117*16)-4, "Cash", 150, "cash.png", "");
-	CreateLoot(302*16, (117*16)-4, "Cash", 150, "cash.png", "");
-	CreateLoot(295*16, 113*16, "Pistol", 0, "pistol.png", "GetPistol");
-	CreateLoot(307*16, (122*16)-4, "Cash", 150, "cash.png", "");
-	CreateLoot(311*16, (122*16)-4, "Cash", 150, "cash.png", "");
-	CreateLoot(295*16, (122*16)-4, "Medkit", 0, "medkit.png", "GetMedkitLoot");
+	CreateLoot(294*16, (122*16)-4, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
+	CreateLoot(302*16, 109*16, "Shotgun", 0, "shotgun.png", "GetShotgun", 0);
+	CreateLoot(306*16, (105*16)-4, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(307*16, (101*16)-4, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(299*16, (101*16)-4, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(298*16, (101*16)-4, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(294*16, (105*16)-4, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
+	CreateLoot(303*16, (105*16)-4, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(295*16, (109*16)-4, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(310*16, (113*16)-4, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
+	CreateLoot(314*16, (117*16)-4, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(310*16, (117*16)-4, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(302*16, (117*16)-4, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(295*16, 113*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
+	CreateLoot(307*16, (122*16)-4, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(311*16, (122*16)-4, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(295*16, (122*16)-4, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
 }
 
 void InitLights()

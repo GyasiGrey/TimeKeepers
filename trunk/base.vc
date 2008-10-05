@@ -244,12 +244,12 @@ void InitDoors()
 
 void InitLoot()
 {
-	CreateLoot(98*16, 66*16, "Gold", 50, "gold.png", "GotGold");
-	CreateLoot(58*16, (63*16)-2, "Pistol", 0, "pistol.png", "GotPistol");
-	CreateLoot(60*16, (63*16)-2, "Shotgun", 0, "shotgun.png", "GotShotgun");
-	CreateLoot(62*16, (63*16)-2, "M4", 0, "m4.png", "GotM4");
-	CreateLoot(64*16, (63*16)-2, "Tranq", 0, "tranq.png", "GotTranq");
-	CreateLoot(66*16, (63*16)-2, "Medkit", 0, "medkit.png", "GetMedkitBase");
+	CreateLoot(98*16, 66*16, "Gold", 50, "gold.png", "GotGold", 0);
+	CreateLoot(58*16, (63*16)-2, "Pistol", 0, "pistol.png", "GotPistol", 0);
+	CreateLoot(60*16, (63*16)-2, "Shotgun", 0, "shotgun.png", "GotShotgun", 0);
+	CreateLoot(62*16, (63*16)-2, "M4", 0, "m4.png", "GotM4", 0);
+	CreateLoot(64*16, (63*16)-2, "Tranq", 0, "tranq.png", "GotTranq", 0);
+	CreateLoot(66*16, (63*16)-2, "Medkit", 0, "medkit.png", "GetMedkitBase", 0);
 }
 
 void InitLights()

@@ -211,27 +211,27 @@ void InitEnemies()
 void InitLoot()
 {
 	//1st floor
-	CreateLoot(19*16, (190*16)-4, "Gold", 100, "gold.png", "");
-	CreateLoot(20*16, (190*16)-4, "Gold", 100, "gold.png", "");
-	CreateLoot(20*16, 205*16, "Gems", 100, "", "");
-	CreateLoot(26*16, 201*16, "Silver", 100, "", "");
-	CreateLoot(41*16, (202*16)-2, "Gold", 100, "gold.png", "");	
+	CreateLoot(19*16, (190*16)-4, "Gold", 100, "gold.png", "", 0);
+	CreateLoot(20*16, (190*16)-4, "Gold", 100, "gold.png", "", 0);
+	CreateLoot(20*16, 205*16, "Gems", 100, "", "", 0);
+	CreateLoot(26*16, 201*16, "Silver", 100, "", "", 0);
+	CreateLoot(41*16, (202*16)-2, "Gold", 100, "gold.png", "", 0);
 
 
 	//2nd floor
-	CreateLoot(20*16, (138*16)-2, "Silver", 50, "silver.png", "");
-	CreateLoot(22*16, (138*16)-2, "Silver", 50, "silver.png", "");
-	CreateLoot(20*16, 1896, "Silverware", 150, "", "");	//invis
-	CreateLoot(35*16, (133*16)-4, "Electronics", 125, "electronics.png", "");
-	CreateLoot(57*16, 125*16, "Vase", 50, "vase.png", "");
-	CreateLoot(57*16, 131*16, "Vase", 50, "vase.png", "");
+	CreateLoot(20*16, (138*16)-2, "Silver", 50, "silver.png", "", 0);
+	CreateLoot(22*16, (138*16)-2, "Silver", 50, "silver.png", "", 0);
+	CreateLoot(20*16, 1896, "Silverware", 150, "", "", 0);	//invis
+	CreateLoot(35*16, (133*16)-4, "Electronics", 125, "electronics.png", "", 0);
+	CreateLoot(57*16, 125*16, "Vase", 50, "vase.png", "", 0);
+	CreateLoot(57*16, 131*16, "Vase", 50, "vase.png", "", 0);
 	
 	//3rd floor
-	CreateLoot(312, 43*16, "Jewels", 200, "", "");		//invis
-	CreateLoot(59*16, 46*16, "Cash", 150, "cash.png", "");
-	CreateLoot(16*16, 39*16, "Ring", 300, "", "");		//invis
-	CreateLoot(25*16, 23*16, "Coins", 50, "", "");		//invis
-	CreateLoot(52*16, (26*16)-8, "Candle Holder", 100, "candle.png", "");
+	CreateLoot(312, 43*16, "Jewels", 200, "", "", 0);		//invis
+	CreateLoot(59*16, 46*16, "Cash", 150, "cash.png", "", 0);
+	CreateLoot(16*16, 39*16, "Ring", 300, "", "", 0);		//invis
+	CreateLoot(25*16, 23*16, "Coins", 50, "", "", 0);		//invis
+	CreateLoot(52*16, (26*16)-8, "Candle Holder", 100, "candle.png", "", 0);
 	
 }
 
