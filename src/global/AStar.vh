@@ -71,7 +71,7 @@ int findPath(int ent, int x1, int y1, int x2, int y2){
 		error("EXIT: already at target position");
 		return 0;
 	}
-	if(chkObs(x2,y2)){
+	if(chkObs(x2,y2,0)){
 		error("EXIT: target is an obstruction");
 		return 0;
 	}
@@ -123,10 +123,10 @@ int findPath(int ent, int x1, int y1, int x2, int y2){
 
 //#3. find adjacent squares and add to open list
 		for(temp.y=cur.y-1;temp.y<=cur.y+1;temp.y++)
-		if( !chkObs(cur.x,temp.y) ) //diagonal correction (top/bottom)
+		if( !chkObs(cur.x,temp.y,1) ) //diagonal correction (top/bottom)
 		for(temp.x=cur.x-1;temp.x<=cur.x+1;temp.x++)
-		if( !chkObs(temp.x, temp.y-(temp.y-cur.y)) ) //diagonal correction
-		if(!chkObs(temp.x, temp.y)){
+		if( !chkObs(temp.x, temp.y-(temp.y-cur.y), 1) ) //diagonal correction
+		if(!chkObs(temp.x, temp.y, 1)){
 		
 		//look up node type
 			chkValue=activeChk(temp.x, temp.y);
@@ -243,7 +243,7 @@ int openListChk(int x, int y){
 
 
 //note: include entities and map restrictions in obstruction chk
-int chkObs(int x, int y){
+int chkObs(int x, int y, int ignoreEnt){
 	int tx,ty;
 	x=x*TILES;
 	y=y*TILES;
@@ -254,12 +254,14 @@ int chkObs(int x, int y){
 				//rect(tx*(16)-xwin,ty*(16)-ywin,tx*(16)-xwin+(16),ty*(16)-ywin+(16),RGB(255,255,255),screen);
 				return(1);
 			}
+			if(ignoreEnt==1 && entityAt(tx,ty)!=-1){
+				return(1);
+			}
 			//else rect(tx*(16)-xwin,ty*(16)-ywin,tx*(16)-xwin+(16),ty*(16)-ywin+(16),0,screen);
 	}
 	else return(1);
 	return(0);
 }
-
 //-----------------------------------------------------------------
 string entPath;
 void writePath(){
