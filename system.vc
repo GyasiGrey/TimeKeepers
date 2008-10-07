@@ -668,6 +668,10 @@ void PlayerDeath()
 		
 	//The player is dead, don't kill him again. That's not nice.
 	RemovePreHook("PlayerDeath");
+
+	//make a copy of the screen for game over
+	Render();	//PlayerDeath() is hooked to the first Retrace, so Render() is necessary to get a full screen copy.
+	nScreenCopy = DuplicateImage(screen);
 			
 	PlayerDeathEffect();
 
