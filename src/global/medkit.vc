@@ -20,6 +20,10 @@ void UseMedkit()
 
 		scrollTextUp(entity.x[nPlayerEnt], entity.y[nPlayerEnt], "+"+str(MEDKIT_RESTORE_AMT), nFont, RGB(0, 255, 0));
 		
+		FadeIn(25, RGB(0, 255, 0));
+		nFadeInStart-=10;
+
+		
 		//track the stat
 		nMedkitsUsed++;
 	}
