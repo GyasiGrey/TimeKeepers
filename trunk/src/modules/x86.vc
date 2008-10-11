@@ -1,0 +1,93 @@
+#define NUM_OPCODES		8
+#define NUM_REGISTERS		12
+#define NUM_CODES		30
+#define GAMEOVER_ASM_DELAY	10
+
+int nGameOverASMTimer;
+
+int nAX, nBX, nCX, nDX;
+
+string sOpCodes[NUM_OPCODES] ;
+string sRegisters[NUM_REGISTERS];
+string sCodes[NUM_CODES];
+
+int nScreenCopy;
+
+string Generatex86()
+{
+	//returns a x86 "opcode"
+	return sOpCodes[random(0, NUM_OPCODES-1)] + " " + sRegisters[random(0, NUM_REGISTERS-1)] + ", " + sRegisters[random(0, NUM_REGISTERS-1)];
+}
+
+void Initx86()
+{
+	int i;
+	
+	sOpCodes[0] = "mov";
+	sOpCodes[1] = "cmp";
+	sOpCodes[2] = "jmp";
+	sOpCodes[3] = "jne";
+	sOpCodes[4] = "add";
+	sOpCodes[5] = "sub";
+	sOpCodes[6] = "mul";
+	sOpCodes[7] = "div";
+	
+	sRegisters[0] = "ax";
+	sRegisters[1] = "bx";
+	sRegisters[2] = "cx";
+	sRegisters[3] = "dx";
+	sRegisters[4] = "as";
+	sRegisters[5] = "bs";
+	sRegisters[6] = "cs";
+	sRegisters[7] = "ds";
+	sRegisters[8] = "ai";
+	sRegisters[9] = "bi";
+	sRegisters[10] = "ci";
+	sRegisters[11] = "di";
+
+	
+	for(i=0;i<NUM_CODES;i++)
+	{
+		sCodes[i] = Generatex86();
+	}
+	
+	nGameOverASMTimer = systemtime;
+}
+
+void Drawx86()
+{
+	int i;
+	
+	RectFill(0, 0, 320, 240, RGB(0, 0, 0), screen);
+	
+	PrintString(250, 180, screen, nTerminalFont, "ax: " + str(nAX));
+	PrintString(250, 196, screen, nTerminalFont, "bx: " + str(nBX));
+	PrintString(290, 180, screen, nTerminalFont, "cx: " + str(nCX));
+	PrintString(290, 196, screen, nTerminalFont, "dx: " + str(nDX));
+	
+	Rect(236, 0, 319, 63, RGB(255, 255, 255), screen);
+	ScaleBlit(238, 2, 80, 60, nScreenCopy, screen);
+
+	for(i=0;i<NUM_CODES;i++)
+	{
+		PrintString(4, i*8, screen, nTerminalFont, sCodes[i]);
+	}
+
+	//change the opcodes when necessary
+	if(systemtime-nGameOverASMTimer > GAMEOVER_ASM_DELAY)
+	{
+		for(i=0;i<NUM_CODES-1;i++)
+		{
+			sCodes[i] = sCodes[i+1];
+		}
+		sCodes[NUM_CODES-1] = Generatex86();
+		
+		nAX = random(0, 254);
+		nBX = random(0, 254);
+		nCX = random(0, 254);
+		nDX = random(0, 254);
+		
+		nGameOverASMTimer = systemtime;
+	}
+}
+

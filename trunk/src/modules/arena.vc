@@ -56,6 +56,9 @@ void ArenaDeath()
 		nHealth = 0;
 		RemovePreHook("ArenaDeath");
 		
+		//make a copy of the screen for game over
+		Render();	//PlayerDeath() is hooked to the first Retrace, so Render() is necessary to get a full screen copy.
+		nScreenCopy = DuplicateImage(screen);
 		
 		RemoveHook("ArenaHook");
 		RemoveHook("ArenaGUI");
