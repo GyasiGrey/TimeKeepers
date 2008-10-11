@@ -65,7 +65,7 @@ void ArenaDeath()
 
 		PlayerDeathEffect();
 		
-		OpenMenuScore();
+		OpenMenuScore(1);
 		
 		RemoveGui();
 		TitleScreen();

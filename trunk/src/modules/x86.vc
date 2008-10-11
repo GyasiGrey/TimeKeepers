@@ -64,7 +64,7 @@ void Drawx86()
 	PrintString(250, 196, screen, nTerminalFont, "bx: " + str(nBX));
 	PrintString(290, 180, screen, nTerminalFont, "cx: " + str(nCX));
 	PrintString(290, 196, screen, nTerminalFont, "dx: " + str(nDX));
-	
+
 	Rect(236, 0, 319, 63, RGB(255, 255, 255), screen);
 	ScaleBlit(238, 2, 80, 60, nScreenCopy, screen);
 

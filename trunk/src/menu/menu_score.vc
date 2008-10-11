@@ -1,9 +1,12 @@
 int nScoreAnim;
 int bMenuScoreHold;
+int bShowx86;
 
-void OpenMenuScore()
+void OpenMenuScore(int bx86)
 {
 	SetPause(1);
+	
+	bShowx86 = bx86;
 	
 	nPointerPos = 0;
 	nScoreAnim = LoadAnimationEX("cursor.png", 8, 8, 132, 186, ANIMATION_CURSOR_ANIM_STRING);
@@ -21,7 +24,8 @@ void OpenMenuScore()
 	//change counter so render() dosen't have a seisure	
 	nDualCounter = 0;
 
-	Initx86();
+	if(bShowx86)
+		Initx86();
 	
 	while(bMenuScoreHold)
 	{
@@ -42,7 +46,8 @@ void MenuScoreDraw()
 	string tmp;
 	int img = CreateWindow("Score", 120, 80, nTerminalFont);
 	
-	Drawx86();
+	if(bShowx86)
+		Drawx86();
 	
 	PrintString(8, 16, img, nTerminalFont, "Enemies killed:");
 	PrintRight(115, 16, img, nTerminalFont, str(nEnemiesKilled));
