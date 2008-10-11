@@ -1054,7 +1054,7 @@ void Mission2Over()
 		CompleteObjective("getoutalive");
 		
 		//send tracked stats to the server
-		OpenMenuScore();
+		OpenMenuScore(0);
 
 		TimeWarp("0|", "base.map");
 	}
