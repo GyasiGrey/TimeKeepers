@@ -77,6 +77,7 @@
 #include "src\modules\objectives.vc"
 #include "src\modules\dialogBox.vc"
 #include "src\modules\arena.vc"
+#include "src\modules\x86.vc"
 
 //menu stuff
 #include "src\menu\menu_system.vc"

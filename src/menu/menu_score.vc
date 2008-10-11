@@ -21,6 +21,8 @@ void OpenMenuScore()
 	//change counter so render() dosen't have a seisure	
 	nDualCounter = 0;
 
+	Initx86();
+	
 	while(bMenuScoreHold)
 	{
 		Render();
@@ -39,6 +41,8 @@ void MenuScoreDraw()
 	int i;
 	string tmp;
 	int img = CreateWindow("Score", 120, 80, nTerminalFont);
+	
+	Drawx86();
 	
 	PrintString(8, 16, img, nTerminalFont, "Enemies killed:");
 	PrintRight(115, 16, img, nTerminalFont, str(nEnemiesKilled));
