@@ -1,9 +1,8 @@
 #define MAX_WEAPONS 15		//DO NOT CHANGE. WILL BREAK SAVE GAMES. (yeah, if I ever get around to implementing savegames)
 
 #define WEAPON_TYPE_SILENT 0	//silent weapons do damage if the target is not alert
-#define WEAPON_TYPE_SINGLE 1	//not a spread weapon
-#define WEAPON_TYPE_SPREAD 2	//a spread weapon (like a shotgun)
-#define WEAPON_TYPE_AUTO   3	//automatic weapon (assault rifle)
+#define WEAPON_TYPE_SINGLE 1	//user must retrigger shoot button for every shot. Semi automatic weapons.
+#define WEAPON_TYPE_AUTO   2	//user can hold down shoot button to retrigger shots. Automatic weapons.
 
 #define NUM_WEAPONS 5
 
@@ -51,6 +50,7 @@ void InitWeapons()
 	Weapons[0].nDamageMax = 50;
 	Weapons[0].nRecharge = 0;
 	Weapons[0].nSoundRadius = 0;
+	Weapons[0].nSpreadShots = 1;
 	Weapons[0].nType = WEAPON_TYPE_SILENT;
 
 	Weapons[1].nRange = 100;
@@ -64,6 +64,7 @@ void InitWeapons()
 	Weapons[1].nSoundRadius = 100;
 	Weapons[1].nAccMin = 0-5;
 	Weapons[1].nAccMax = 5;
+	Weapons[1].nSpreadShots = 1;
 	Weapons[1].nType = WEAPON_TYPE_SINGLE;
 	
 	Weapons[2].nRange = 75;
@@ -78,7 +79,7 @@ void InitWeapons()
 	Weapons[2].nSpreadShots = 5;
 	Weapons[2].nAccMin = 0-15;
 	Weapons[2].nAccMax = 15;
-	Weapons[2].nType = WEAPON_TYPE_SPREAD;
+	Weapons[2].nType = WEAPON_TYPE_SINGLE;
 
 	Weapons[3].nRange = 100;
 	Weapons[3].sName = "M4";
@@ -91,6 +92,7 @@ void InitWeapons()
 	Weapons[3].nSoundRadius = 250;
 	Weapons[3].nAccMin = 0-15;
 	Weapons[3].nAccMax = 15;
+	Weapons[3].nSpreadShots = 1;
 	Weapons[3].nType = WEAPON_TYPE_AUTO;
 	
 	Weapons[4].nRange = 125;
@@ -105,6 +107,7 @@ void InitWeapons()
 	Weapons[4].nAccMin = 0-5;
 	Weapons[4].nAccMax = 5;
 	Weapons[4].nType = WEAPON_TYPE_SINGLE;
+	Weapons[4].nSpreadShots = 1;
 	Weapons[4].nNonLethal = 1;
 }
 
@@ -189,18 +192,9 @@ void FireWeapon(int shooter, int target)
 		}
 	}
 
-	if(Weapons[eqweapon].nType == WEAPON_TYPE_SPREAD)
+	for(i=0;i<Weapons[eqweapon].nSpreadShots;i++)
 	{
-		for(i=0;i<Weapons[eqweapon].nSpreadShots;i++)
-		{
-			//say goodby to your FPS
-			LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), entity.x[target]+(entity.hotw[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), entity.y[target]+(entity.hoth[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
-			FireWeaponHelp(shooter, target);
-		}
-	}
-	else
-	{
-		//draw a line from the player to the target
+		//say goodby to your FPS
 		LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), entity.x[target]+(entity.hotw[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), entity.y[target]+(entity.hoth[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
 		FireWeaponHelp(shooter, target);
 	}
