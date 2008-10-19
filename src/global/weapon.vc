@@ -3,14 +3,16 @@
 #define WEAPON_TYPE_SILENT 0	//silent weapons do damage if the target is not alert
 #define WEAPON_TYPE_SINGLE 1	//user must retrigger shoot button for every shot. Semi automatic weapons.
 #define WEAPON_TYPE_AUTO   2	//user can hold down shoot button to retrigger shots. Automatic weapons.
+#define WEAPON_TYPE_THROWN 3
 
-#define NUM_WEAPONS 5
+#define NUM_WEAPONS 6
 
 #define WEAPON_KNIFE		0
 #define WEAPON_PISTON		1
 #define WEAPON_SHOTGUN		2
 #define WEAPON_M4		3
 #define WEAPON_TRANQ		4
+#define WEAPON_GRENADE		4
 
 struct Weapon
 {
@@ -109,6 +111,20 @@ void InitWeapons()
 	Weapons[4].nType = WEAPON_TYPE_SINGLE;
 	Weapons[4].nSpreadShots = 1;
 	Weapons[4].nNonLethal = 1;
+
+	Weapons[5].nRange = 75;
+	Weapons[5].sName = "Grenade";
+	Weapons[5].nSound = LoadSound("sounds\tranq.wav");
+	Weapons[5].nIcon = LoadImage("gfx\icons\tranqicn.png");
+	Weapons[5].nMaxAmmo = 10;
+	Weapons[5].nDamageMin = 25;
+	Weapons[5].nDamageMax = 50;
+	Weapons[5].nRecharge = 100;
+	Weapons[5].nSoundRadius = 5;
+	Weapons[5].nAccMin = 0-5;
+	Weapons[5].nAccMax = 5;
+	Weapons[5].nType = WEAPON_TYPE_THROWN;
+	Weapons[5].nSpreadShots = 1;
 }
 
 void FreeWeapons()
