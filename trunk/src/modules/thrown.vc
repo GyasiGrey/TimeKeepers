@@ -1,0 +1,87 @@
+#define MAX_THROWN	30
+
+struct ThrownItem
+{
+	int nX;
+	int nY;
+	int nDeltaX;
+	int nDeltaY;
+	int nDeltaXDecay;
+	int nDeltaYDecay;
+	int nAnim;
+	int nDetonateTimer;
+	string sDetonateFunc;
+	
+	int nActive;
+}
+
+ThrownItem ThrownItems[MAX_THROWN];
+
+int CreateThrown(int x, int y, int dx, int dy, int dxd, int dyd, int anim, int dtimer, string func)
+{
+	int i;
+	
+	for(i=0;i<MAX_THROWN;i++)
+	{
+		if(!ThrownItems[i].nActive)
+		{
+			ThrownItems[i].nX = x;
+			ThrownItems[i].nY = y;
+			ThrownItems[i].nDeltaX = dx;
+			ThrownItems[i].nDeltaY = dy;
+			ThrownItems[i].nDeltaXDecay = dxd;
+			ThrownItems[i].nDeltaYDecay = dyd;
+			ThrownItems[i].nAnim = anim;
+			ThrownItems[i].nDetonateTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + dtimer;
+			ThrownItems[i].sDetonateFunc = func;
+			
+			ThrownItems[i].nActive = 1;
+			return i;
+		}
+	}
+	
+	FatialError("throw.vc::CreateThrown() - MAX_THROWN to small.");
+	return -1;
+}
+
+void ProcessesThrown()
+{
+	int i;
+	
+	for(i=0;i<MAX_THROWN;i++)
+	{
+		if(ThrownItems[i].nActive)
+		{
+			//move this item by deltaX and deltaY
+			ThrownItems[i].nX += ThrownItems[i].nDeltaX;
+			ThrownItems[i].nY += ThrownItems[i].nDeltaY;
+			
+			ThrownItems[i].nDeltaX -= ThrownItems[i].nDeltaXDecay;
+			ThrownItems[i].nDeltaY -= ThrownItems[i].nDeltaYDecay;
+			
+			Anims[ThrownItems[i].nAnim].x = ThrownItems[i].nX;
+			Anims[ThrownItems[i].nAnim].y = ThrownItems[i].nY;
+			
+			if(ThrownItems[i].nDetonateTimer >= vcTimer[TIMER_ENEMY_LOGIC].nTick)
+			{
+				CallFunction(ThrownItems[i].sDetonateFunc);
+				KillThrown(i);
+			}
+		}
+	}
+}
+
+void KillThrown(int i)
+{
+	ThrownItems[i].nX = 0;
+	ThrownItems[i].nY = 0;
+	ThrownItems[i].nDeltaX = 0;
+	ThrownItems[i].nDeltaY = 0;
+	ThrownItems[i].nDeltaXDecay = 0;
+	ThrownItems[i].nDeltaYDecay = 0;
+	ThrownItems[i].nAnim = 0;
+	ThrownItems[i].nDetonateTimer = 0;
+	ThrownItems[i].sDetonateFunc = "";
+
+	ThrownItems[i].nActive = 0;
+}
