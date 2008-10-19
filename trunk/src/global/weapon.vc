@@ -174,10 +174,6 @@ void FireWeapon(int shooter, int target)
 		eqweapon = nEquipedWeapon;
 		enemyindex = shooter;
 
-error("weapon type " + str(Weapons[nEquipedWeapon].nType));
-error("enemy mode " + str(Enemies[enemyindex].nMode));
-error("&& " + str(Weapons[nEquipedWeapon].nType == WEAPON_TYPE_SILENT && Enemies[GetEnemyIndex(target)].nMode != MODE_ALERT));
-
 		//only show the animation if the weapon is non silent or (the weapon is silent and the target is not alert)
 		if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_SILENT || (Weapons[nEquipedWeapon].nType == WEAPON_TYPE_SILENT && Enemies[GetEnemyIndex(target)].nMode != MODE_ALERT))
 		{
