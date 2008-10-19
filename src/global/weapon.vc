@@ -174,21 +174,29 @@ void FireWeapon(int shooter, int target)
 		eqweapon = nEquipedWeapon;
 		enemyindex = shooter;
 
-		if(entity.face[nPlayerEnt] == ENTITY_FACE_UP)
+error("weapon type " + str(Weapons[nEquipedWeapon].nType));
+error("enemy mode " + str(Enemies[enemyindex].nMode));
+error("&& " + str(Weapons[nEquipedWeapon].nType == WEAPON_TYPE_SILENT && Enemies[GetEnemyIndex(target)].nMode != MODE_ALERT));
+
+		//only show the animation if the weapon is non silent or (the weapon is silent and the target is not alert)
+		if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_SILENT || (Weapons[nEquipedWeapon].nType == WEAPON_TYPE_SILENT && Enemies[GetEnemyIndex(target)].nMode != MODE_ALERT))
 		{
-			AnimatePlayer("Z29 W10 Z30 W10");
-		}
-		else if(entity.face[nPlayerEnt] == ENTITY_FACE_LEFT)
-		{
-			AnimatePlayer("Z27 W10 Z28 W10");
-		}
-		else if(entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
-		{
-			AnimatePlayer("Z25 W10 Z26 W10");
-		}
-		else if(entity.face[nPlayerEnt] == ENTITY_FACE_RIGHT)
-		{
-			AnimatePlayer("Z31 W10 Z32 W10");
+			if(entity.face[nPlayerEnt] == ENTITY_FACE_UP)
+			{
+				AnimatePlayer("Z29 W10 Z30 W10");
+			}
+			else if(entity.face[nPlayerEnt] == ENTITY_FACE_LEFT)
+			{
+				AnimatePlayer("Z27 W10 Z28 W10");
+			}
+			else if(entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
+			{
+				AnimatePlayer("Z25 W10 Z26 W10");
+			}
+			else if(entity.face[nPlayerEnt] == ENTITY_FACE_RIGHT)
+			{
+				AnimatePlayer("Z31 W10 Z32 W10");
+			}
 		}
 	}
 
