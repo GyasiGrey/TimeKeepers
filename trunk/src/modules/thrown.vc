@@ -55,14 +55,16 @@ void ProcessesThrown()
 			//move this item by deltaX and deltaY
 			ThrownItems[i].nX += ThrownItems[i].nDeltaX;
 			ThrownItems[i].nY += ThrownItems[i].nDeltaY;
-			
-			ThrownItems[i].nDeltaX -= ThrownItems[i].nDeltaXDecay;
-			ThrownItems[i].nDeltaY -= ThrownItems[i].nDeltaYDecay;
+
+			if(ThrownItems[i].nDeltaX != 0)
+				ThrownItems[i].nDeltaX -= ThrownItems[i].nDeltaXDecay;
+			if(ThrownItems[i].nDeltaY != 0)
+				ThrownItems[i].nDeltaY -= ThrownItems[i].nDeltaYDecay;
 			
 			Anims[ThrownItems[i].nAnim].x = ThrownItems[i].nX;
 			Anims[ThrownItems[i].nAnim].y = ThrownItems[i].nY;
 			
-			if(ThrownItems[i].nDetonateTimer >= vcTimer[TIMER_ENEMY_LOGIC].nTick)
+			if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nDetonateTimer)
 			{
 				CallFunction(ThrownItems[i].sDetonateFunc);
 				KillThrown(i);
@@ -73,6 +75,8 @@ void ProcessesThrown()
 
 void KillThrown(int i)
 {
+	FreeAnimation(ThrownItems[i].nAnim);
+	
 	ThrownItems[i].nX = 0;
 	ThrownItems[i].nY = 0;
 	ThrownItems[i].nDeltaX = 0;
@@ -84,4 +88,9 @@ void KillThrown(int i)
 	ThrownItems[i].sDetonateFunc = "";
 
 	ThrownItems[i].nActive = 0;
+}
+
+void boom()
+{
+messagebox("boom");
 }
