@@ -212,11 +212,56 @@ void FireWeapon(int shooter, int target)
 		}
 	}
 
+	int nDeltaX;
+	int nDeltaY;
+	int nDeltaXDecay;
+	int nDeltaYDecay;
+
 	for(i=0;i<Weapons[eqweapon].nSpreadShots;i++)
 	{
-		//say goodby to your FPS
-		LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), entity.x[target]+(entity.hotw[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), entity.y[target]+(entity.hoth[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
-		FireWeaponHelp(shooter, target);
+		if(Weapons[nEquipedWeapon].nType == WEAPON_TYPE_THROWN)
+		{			
+			if(entity.face[nPlayerEnt] == ENTITY_FACE_UP)
+			{
+				nDeltaX = 0;
+				nDeltaY = -10;
+				
+				nDeltaXDecay = 0;
+				nDeltaYDecay = -1;
+			}
+			else if(entity.face[nPlayerEnt] == ENTITY_FACE_LEFT)
+			{
+				nDeltaX = -10;
+				nDeltaY = 0;
+
+				nDeltaXDecay = -1;
+				nDeltaYDecay = 0;
+			}
+			else if(entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
+			{
+				nDeltaX = 0;
+				nDeltaY = 10;
+				
+				nDeltaXDecay = 0;
+				nDeltaYDecay = 1;
+			}
+			else if(entity.face[nPlayerEnt] == ENTITY_FACE_RIGHT)
+			{
+				nDeltaX = 10;
+				nDeltaY = 0;
+				
+				nDeltaXDecay = 1;
+				nDeltaYDecay = 0;
+			}
+			
+			CreateThrown(entity.x[shooter], entity.y[shooter], nDeltaX, nDeltaY, nDeltaXDecay, nDeltaYDecay, LoadAnimationEX("cursor.png", 8, 8, entity.x[shooter], entity.y[shooter], "t1 " + ANIMATION_CURSOR_ANIM_STRING), 300, "boom");
+		}
+		else
+		{
+			//say goodby to your FPS
+			LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), entity.x[target]+(entity.hotw[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), entity.y[target]+(entity.hoth[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
+			FireWeaponHelp(shooter, target);
+		}
 	}
 }
 
