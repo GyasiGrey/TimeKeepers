@@ -12,7 +12,7 @@
 #define WEAPON_SHOTGUN		2
 #define WEAPON_M4		3
 #define WEAPON_TRANQ		4
-#define WEAPON_GRENADE		4
+#define WEAPON_GRENADE		5
 
 struct Weapon
 {
