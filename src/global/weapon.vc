@@ -219,7 +219,7 @@ void FireWeapon(int shooter, int target)
 
 	for(i=0;i<Weapons[eqweapon].nSpreadShots;i++)
 	{
-		if(Weapons[nEquipedWeapon].nType == WEAPON_TYPE_THROWN)
+		if(Weapons[eqweapon].nType == WEAPON_TYPE_THROWN)
 		{			
 			if(entity.face[nPlayerEnt] == ENTITY_FACE_UP)
 			{
