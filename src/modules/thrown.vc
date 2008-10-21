@@ -92,5 +92,5 @@ void KillThrown(int i)
 
 void boom()
 {
-messagebox("boom");
+	SoundGrenade();
 }
