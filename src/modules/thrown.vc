@@ -16,6 +16,7 @@ struct ThrownItem
 }
 
 ThrownItem ThrownItems[MAX_THROWN];
+int nCurrentThrown = -1;
 
 int CreateThrown(int x, int y, int dx, int dy, int dxd, int dyd, int anim, int dtimer, string func)
 {
@@ -66,7 +67,10 @@ void ProcessesThrown()
 			
 			if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nDetonateTimer)
 			{
+				nCurrentThrown = i;
 				CallFunction(ThrownItems[i].sDetonateFunc);
+				nCurrentThrown = -1;
+				
 				KillThrown(i);
 			}
 		}
@@ -93,5 +97,5 @@ void KillThrown(int i)
 void GrenadeExplode()
 {
 	SoundGrenade();
-	CreateDamageArea(entity.x[nPlayerEnt], entity.y[nPlayerEnt], 75, 15, 20, 100);
+	CreateDamageArea(ThrownItems[nCurrentThrown].nX, ThrownItems[nCurrentThrown].nY, 75, 15, 20, 100);
 }
