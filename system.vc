@@ -216,6 +216,8 @@ void AddDefaultHooks()
 	AddHook("BlitLockPick", 1505);
 	//thrown items
 	AddHook("ProcessesThrown", 1050);
+	//damage areas
+	AddHook("ProcessesDamageArea", 1060);
 	//the animations
 	AddHook("ProcessAnimations", 2501);
 	
