@@ -1,0 +1,57 @@
+#define MAX_DAMAGE_AREA		30
+
+struct DamageArea
+{
+	int nX;				//x location of the center of the area
+	int nY;				//y location of the center of the area
+	int nRadius;			//radius of the area
+	int nMinDamage;			//min damage taken
+	int nMaxDamage;			//max damage taken
+	int nDieTime;			//timer when this area will die
+	
+	int nActive;
+}
+
+DamageArea DamageAreas[MAX_DAMAGE_AREA];
+
+int CreateDamageArea(int x, int y, int radius, int minDamage, int maxDamage, int dieTime)
+{
+	int i;
+	
+	for(i=0;i<MAX_DAMAGE_AREA;i++)
+	{
+		if(!DamageAreas[i].nActive)
+		{
+			DamageAreas[i].nX = x;
+			DamageAreas[i].nY = y;
+			DamageAreas[i].nRadius = radius;
+			DamageAreas[i].nMinDamage = minDamage;
+			DamageAreas[i].nMaxDamage = maxDamage;
+			DamageAreas[i].nDieTime = timer + dieTime;
+			
+			DamageAreas[i].nActive = 1;
+			return i;
+		}
+	}
+	
+	FatialError("damageArea.vc::CreateDamageArea() - MAX_DAMAGE_AREA to small.");
+	return -1;
+}
+
+void ProcessesDamageArea()
+{
+	int i;
+	
+	for(i=0;i<MAX_DAMAGE_AREA;i++)
+	{
+		if(DamageAreas[i].nActive)
+		{
+			//if an enemy is inside this area's radius, damage it
+		}
+	}
+}
+
+void KillDamageArea(int i)
+{
+	DamageAreas[i].nActive = 0;
+}
