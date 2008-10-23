@@ -250,6 +250,7 @@ void InitLoot()
 	CreateLoot(62*16, (63*16)-2, "M4", 0, "m4.png", "GotM4", 0);
 	CreateLoot(64*16, (63*16)-2, "Tranq", 0, "tranq.png", "GotTranq", 0);
 	CreateLoot(66*16, (63*16)-2, "Medkit", 0, "medkit.png", "GetMedkitBase", 0);
+	CreateLoot(79*16, (67*16)-2, "Grenades", 0, "medkit.png", "GotGrenade", 0);
 }
 
 void InitLights()
@@ -319,6 +320,12 @@ void GetMedkitBase()
 	CreateToolTip("[" + ScanToKeyName(nKeyButton[1]) + "] Medkit");
 	CommText("Tech: That's a medkit. It keeps The Grim Reaper away. But you're good enough to not need them right?");
 	GetMedkitLoot();
+}
+
+void GotGrenade()
+{
+	nHasWeapon[5] = 1;
+	nAmmo[5] = 10;
 }
 
 
