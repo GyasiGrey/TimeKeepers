@@ -254,7 +254,7 @@ void FireWeapon(int shooter, int target)
 				nDeltaYDecay = 0;
 			}
 			
-			CreateThrown(entity.x[shooter], entity.y[shooter], nDeltaX, nDeltaY, nDeltaXDecay, nDeltaYDecay, LoadAnimationEX("cursor.png", 8, 8, entity.x[shooter], entity.y[shooter], "t1 " + ANIMATION_CURSOR_ANIM_STRING), 300, "boom");
+			CreateThrown(entity.x[shooter], entity.y[shooter], nDeltaX, nDeltaY, nDeltaXDecay, nDeltaYDecay, LoadAnimationEX("cursor.png", 8, 8, entity.x[shooter], entity.y[shooter], "t1 " + ANIMATION_CURSOR_ANIM_STRING), 300, "GrenadeExplode");
 		}
 		else
 		{
