@@ -40,13 +40,22 @@ int CreateDamageArea(int x, int y, int radius, int minDamage, int maxDamage, int
 
 void ProcessesDamageArea()
 {
-	int i;
+	int i, j;
 	
 	for(i=0;i<MAX_DAMAGE_AREA;i++)
 	{
 		if(DamageAreas[i].nActive)
 		{
-			//if an enemy is inside this area's radius, damage it
+			for(j=0;j<nNumEnemies;j++)
+			{
+				//if an enemy is inside this area's radius, damage it
+				if(DistanceXY(DamageAreas[i].nX, DamageAreas[i].nY, entity.x[Enemies[j].nEntity], entity.y[Enemies[j].nEntity]) < DamageAreas[i].nRadius)
+					DamageEnemy(Random(DamageAreas[i].nMinDamage, DamageAreas[i].nMaxDamage), j);
+					
+				//if timer > this area's dieTimer, kill it
+				if(timer > DamageAreas[i].nDieTime)
+					KillDamageArea(i);
+			}
 		}
 	}
 }
