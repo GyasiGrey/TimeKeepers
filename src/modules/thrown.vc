@@ -90,7 +90,8 @@ void KillThrown(int i)
 	ThrownItems[i].nActive = 0;
 }
 
-void boom()
+void GrenadeExplode()
 {
 	SoundGrenade();
+	CreateDamageArea(entity.x[nPlayerEnt], entity.y[nPlayerEnt], 75, 15, 20, 100);
 }
