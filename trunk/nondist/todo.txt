@@ -27,6 +27,20 @@ Fixed Bugs needing testing
 **********
 Priority 1
 **********
+Damage area
+	X coord
+	Y coord
+	Radius
+	Damage range
+	Lifetime
+
+Use damage areas for grenade explosions
+
+Grenade explosion animation
+
+Free aim mode. While the player holds the aim button they can use the D pad to move the recticle.
+
+Use free aim mode to aim genades.
 
 Release 2.5
 ***********
