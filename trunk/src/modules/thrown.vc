@@ -6,8 +6,6 @@ struct ThrownItem
 	int nY;			//fixed point number
 	int nDeltaX;		//fixed point number
 	int nDeltaY;		//fixed point number
-	int nDeltaXDecay;	//fixed point number
-	int nDeltaYDecay;	//fixed point number
 	int nAnim;
 	int nDetonateTimer;
 	string sDetonateFunc;
@@ -18,7 +16,7 @@ struct ThrownItem
 ThrownItem ThrownItems[MAX_THROWN];
 int nCurrentThrown = -1;
 
-int CreateThrown(int x, int y, int dx, int dy, int dxd, int dyd, int anim, int dtimer, string func)
+int CreateThrown(int x, int y, int dx, int dy, int anim, int dtimer, string func)
 {
 	int i;
 	
@@ -30,8 +28,6 @@ int CreateThrown(int x, int y, int dx, int dy, int dxd, int dyd, int anim, int d
 			ThrownItems[i].nY = y;
 			ThrownItems[i].nDeltaX = dx;
 			ThrownItems[i].nDeltaY = dy;
-			ThrownItems[i].nDeltaXDecay = dxd;
-			ThrownItems[i].nDeltaYDecay = dyd;
 			ThrownItems[i].nAnim = anim;
 			ThrownItems[i].nDetonateTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + dtimer;
 			ThrownItems[i].sDetonateFunc = func;
@@ -58,9 +54,6 @@ void ProcessesThrown()
 			{
 				ThrownItems[i].nDeltaX = ThrownItems[i].nDeltaX * -1;
 				ThrownItems[i].nDeltaY = ThrownItems[i].nDeltaY * -1;
-
-				ThrownItems[i].nDeltaXDecay = ThrownItems[i].nDeltaXDecay * -1;
-				ThrownItems[i].nDeltaYDecay = ThrownItems[i].nDeltaYDecay * -1;
 			}
 
 			//move this item by deltaX and deltaY
@@ -70,11 +63,6 @@ void ProcessesThrown()
 
 			Anims[ThrownItems[i].nAnim].x = oF_Fixed2Int(ThrownItems[i].nX);
 			Anims[ThrownItems[i].nAnim].y = oF_Fixed2Int(ThrownItems[i].nY);
-
-			if(ThrownItems[i].nDeltaX != 0)
-				ThrownItems[i].nDeltaX -= ThrownItems[i].nDeltaXDecay;
-			if(ThrownItems[i].nDeltaY != 0)
-				ThrownItems[i].nDeltaY -= ThrownItems[i].nDeltaYDecay;
 
 			if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nDetonateTimer)
 			{
@@ -96,8 +84,6 @@ void KillThrown(int i)
 	ThrownItems[i].nY = 0;
 	ThrownItems[i].nDeltaX = 0;
 	ThrownItems[i].nDeltaY = 0;
-	ThrownItems[i].nDeltaXDecay = 0;
-	ThrownItems[i].nDeltaYDecay = 0;
 	ThrownItems[i].nAnim = 0;
 	ThrownItems[i].nDetonateTimer = 0;
 	ThrownItems[i].sDetonateFunc = "";
