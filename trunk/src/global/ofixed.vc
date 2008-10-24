@@ -268,28 +268,28 @@ int oF_Float2Fixed(string FLOAT_number)	{
 //Takes the float number in the given string and returns a fixed-point multiplied integer.
 	string whole;
 	string dec;
-	string cur;
+	string sCur;
 	int count;
 	int num;
 	int change;
 	
 	while (count < len(FLOAT_number))
 		{
-		cur = mid(FLOAT_number, count, 1);
+		sCur = mid(FLOAT_number, count, 1);
 		
-//		Log(cur);
+//		Log(sCur);
 		
-		if (!strcmp(cur, "."))
+		if (!strcmp(sCur, "."))
 			{
 			change = 1;
 			}
 		else if (change == 0)
 			{
-			whole = whole + cur;
+			whole = whole + sCur;
 			}
 		else if (change == 1)
 			{
-			dec = dec + cur;
+			dec = dec + sCur;
 			}
 		count++;
 		}
