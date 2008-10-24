@@ -53,6 +53,16 @@ void ProcessesThrown()
 	{
 		if(ThrownItems[i].nActive)
 		{
+			//if the thrown object hits an obstruction, bounce in the opposite direction
+			if(RectCollision(ThrownItems[i].nX, ThrownItems[i].nY, 8, 8))
+			{
+				ThrownItems[i].nDeltaX = ThrownItems[i].nDeltaX * -1;
+				ThrownItems[i].nDeltaY = ThrownItems[i].nDeltaY * -1;
+				
+				ThrownItems[i].nDeltaXDecay = ThrownItems[i].nDeltaXDecay * -1;
+				ThrownItems[i].nDeltaYDecay = ThrownItems[i].nDeltaYDecay * -1;
+			}
+
 			//move this item by deltaX and deltaY
 			ThrownItems[i].nX += ThrownItems[i].nDeltaX;
 			ThrownItems[i].nY += ThrownItems[i].nDeltaY;
@@ -64,7 +74,7 @@ void ProcessesThrown()
 			
 			Anims[ThrownItems[i].nAnim].x = ThrownItems[i].nX;
 			Anims[ThrownItems[i].nAnim].y = ThrownItems[i].nY;
-			
+						
 			if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nDetonateTimer)
 			{
 				nCurrentThrown = i;
