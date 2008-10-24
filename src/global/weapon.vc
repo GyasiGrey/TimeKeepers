@@ -224,21 +224,7 @@ void FireWeapon(int shooter, int target)
 			nDeltaX = oF_divFF(oF_Whole2Fixed(entity.x[target] - entity.x[shooter]), oF_Whole2Fixed(300));
 			nDeltaY = oF_divFF(oF_Whole2Fixed(entity.y[target] - entity.y[shooter]), oF_Whole2Fixed(300));
 
-			if(nDeltaX > 0)
-				nDeltaXDecay = 1;
-			else if(nDeltaX < 0)
-				nDeltaXDecay = -1;
-			else 
-				nDeltaXDecay = 0;
-				
-			if(nDeltaY > 0)
-				nDeltaYDecay = 1;
-			else if(nDeltaY < 0)
-				nDeltaYDecay = -1;
-			else 
-				nDeltaYDecay = 0;
-
-			CreateThrown(oF_Whole2Fixed(entity.x[shooter]), oF_Whole2Fixed(entity.y[shooter],) nDeltaX, nDeltaY, nDeltaXDecay, nDeltaYDecay, LoadAnimationEX("cursor.png", 8, 8, entity.x[shooter], entity.y[shooter], "t1 " + ANIMATION_CURSOR_ANIM_STRING), 300, "GrenadeExplode");
+			CreateThrown(oF_Whole2Fixed(entity.x[shooter]), oF_Whole2Fixed(entity.y[shooter],) nDeltaX, nDeltaY, LoadAnimationEX("cursor.png", 8, 8, entity.x[shooter], entity.y[shooter], "t1 " + ANIMATION_CURSOR_ANIM_STRING), 300, "GrenadeExplode");
 		}
 		else
 		{
