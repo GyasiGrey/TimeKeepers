@@ -1,4 +1,5 @@
-#define MAX_THROWN	30
+#define MAX_THROWN		30
+#define THROWN_MOVE_DELAY	10
 
 struct ThrownItem
 {
@@ -10,6 +11,7 @@ struct ThrownItem
 	int nDeltaYDecay;
 	int nAnim;
 	int nDetonateTimer;
+	int nNextMoveTimer;
 	string sDetonateFunc;
 	
 	int nActive;
@@ -34,6 +36,7 @@ int CreateThrown(int x, int y, int dx, int dy, int dxd, int dyd, int anim, int d
 			ThrownItems[i].nDeltaYDecay = dyd;
 			ThrownItems[i].nAnim = anim;
 			ThrownItems[i].nDetonateTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + dtimer;
+			ThrownItems[i].nNextMoveTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + THROWN_MOVE_DELAY;
 			ThrownItems[i].sDetonateFunc = func;
 			
 			ThrownItems[i].nActive = 1;
@@ -58,7 +61,7 @@ void ProcessesThrown()
 			{
 				ThrownItems[i].nDeltaX = ThrownItems[i].nDeltaX * -1;
 				ThrownItems[i].nDeltaY = ThrownItems[i].nDeltaY * -1;
-				
+
 				ThrownItems[i].nDeltaXDecay = ThrownItems[i].nDeltaXDecay * -1;
 				ThrownItems[i].nDeltaYDecay = ThrownItems[i].nDeltaYDecay * -1;
 			}
@@ -67,13 +70,19 @@ void ProcessesThrown()
 			ThrownItems[i].nX += ThrownItems[i].nDeltaX;
 			ThrownItems[i].nY += ThrownItems[i].nDeltaY;
 
-			if(ThrownItems[i].nDeltaX != 0)
-				ThrownItems[i].nDeltaX -= ThrownItems[i].nDeltaXDecay;
-			if(ThrownItems[i].nDeltaY != 0)
-				ThrownItems[i].nDeltaY -= ThrownItems[i].nDeltaYDecay;
-			
+
 			Anims[ThrownItems[i].nAnim].x = ThrownItems[i].nX;
 			Anims[ThrownItems[i].nAnim].y = ThrownItems[i].nY;
+
+			if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nNextMoveTimer)
+			{
+				if(ThrownItems[i].nDeltaX != 0)
+					ThrownItems[i].nDeltaX -= ThrownItems[i].nDeltaXDecay;
+				if(ThrownItems[i].nDeltaY != 0)
+					ThrownItems[i].nDeltaY -= ThrownItems[i].nDeltaYDecay;
+				
+				ThrownItems[i].nNextMoveTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + THROWN_MOVE_DELAY;
+			}
 						
 			if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nDetonateTimer)
 			{
