@@ -76,11 +76,11 @@ void ProcessesThrown()
 
 			if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nNextMoveTimer)
 			{
-				if(ThrownItems[i].nDeltaX != 0)
+				/*if(ThrownItems[i].nDeltaX != 0)
 					ThrownItems[i].nDeltaX -= ThrownItems[i].nDeltaXDecay;
 				if(ThrownItems[i].nDeltaY != 0)
 					ThrownItems[i].nDeltaY -= ThrownItems[i].nDeltaYDecay;
-				
+				*/
 				ThrownItems[i].nNextMoveTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + THROWN_MOVE_DELAY;
 			}
 						

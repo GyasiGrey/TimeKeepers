@@ -1,0 +1,424 @@
+//Fixed number/float math utility library
+//By Omni
+//Verge/VergeC (V3)
+
+/*
+Goal:  Provides basic functions to aid in fixed point math.
+Keeps track of conversions and Fixed to Integer stuff,
+so you don't have to.
+*/
+
+
+
+/*
+Contents
+Y -- Notes
+X -- Quick Reference
+0 -- What is Fixed Point?
+1 -- Multiplying/dividing fixed numbers
+2 -- Precision
+3 -- Integer Wrapping
+4 -- Verge's Math Functions
+5 -- Useful links/information
+6 -- How to use?
+Followed by the actual code
+
+
+
+---------------------Y.  Notes
+
+Saturday, January 29, 2005--
+	first release.  Fixed2Str() has an accuracy problem or two
+	but is pretty close.  Division might have errors
+	if MATH_TRUNCATE is turned off, but I can't prove it.
+
+---------------------X.  Quick reference.
+
+FIXED_SCALE		Scale factor for fixed point numbers.
+			(default 512)
+FIXED_MATH_TRUNCATE	Will reduce detail by half to control wrapping.
+			(0/1 -- default 1)
+FIXED2INT_ROUND		Will Fixed2Int() round up to the nearest number?
+			(0/1 -- default 1)
+
+int(FIXED)	oF_Float2Fixed(string FLOAT_floatnum)
+	Takes a string containing a float number, returns Fixed number.
+int(FIXED)	oF_Whole2Fixed(int INT_whole)
+	Takes whole number, returns Fixed number.
+int		oF_Fixed2Int(int FIXED_num)
+	Takes fixed number, returns integer.  
+string(FLOAT)	oF_Fixed2Str(int FIXED_num, int max_places)
+	Takes fixed number, returns string float number with given number
+	of decimal places.
+int(FIXED)	oF_Convert(int FIXED_num, int from_FIXED_SCALE, int to_FIXED_SCALE)
+	Converts a fixed number from one fixed scale to the other, returns result.
+int(FIXED)	oF_multiFF(int FIXED_num1, int FIXED_num2)
+	Multiply two fixed numbers, return result.
+int(FIXED)	oF_divFF(int FIXED_num1, int FIXED_num2)
+	Divide two fixed numbers, return the result.
+int(FIXED)	oF_addFI(int FIXED_num1, int INT_num2)
+	Add an integer whole amount to a fixed number, return the value.
+int(FIXED)	oF_subFI(int FIXED_num1, int INT_num1)
+	Subtract an integer whole amount from a fixed number, return the value.
+int		oF_FIXED_Limit(int fix_scale)
+	Returns the suggested upper limit of a scale factor.
+	IE, with this scale factor, how large can the numbers be before they
+	wrap?
+string		LStrFixed(int FIXED_num)
+	Returns a string containing fixed and float data for a number.
+	Useful for logging.
+
+---------------------0.  What is Fixed Point?
+
+Fixed point basically is a way to gain additional numeric precision
+using big numbers.  IE, Verge can't do decimals, right?
+
+But it can do big numbers, right?
+
+So, how about in our math, we treat 1000 as 1.0, and 500 as 0.5?
+
+That's the idea.
+
+It's essentially a way of putting decimals into fractions.
+
+1000 / 1000 = 1.0
+500 / 1000 = 0.5
+
+We don't even have to use 1000, we could use something like, say, 25...
+
+25 / 25 = 1.0
+20 / 25 = 0.8
+15 / 25 = 0.6
+10 / 25 = 0.4
+5 / 25 = 0.2
+
+And so on.
+
+In this library, we handle all that math for you.  FIXED_SCALE is the
+denominator, or scale factor, of these fixed point functions.  512 is the
+default, so.
+
+512 / 512 = 1.0
+256 / 512 = 0.5
+
+And so on.  But all you have to type is
+
+Myvariable = oF_Float2Fixed("1.0");
+
+To achieve the same result.  The functions in this library help create,
+modify, and multiply/divide Fixed numbers.
+
+---------------------1.  Multiplying/dividing fixed numbers.
+
+Because fixed numbers are all scaled by a certain factor, their products
+in multiplication are scaled by this factor squared.
+(A * factor) * (B * factor) = A*B*factor^2.
+You don't want the final result to be multiplied twice by the scaled
+factor, and sometimes it's hard to remember what the factor even is.
+So, this library keeps track of it for you.
+
+Also, if you want to multiply by whole numbers, and not by decimal
+numbers, then just use Verge's normal operators.
+
+ex.
+mynumber = oF_Float2Fixed("1.5");
+mynumber = mynumber * 2;
+Log(LStrFixed(mynumber));	//Will log "3.0".
+
+2.  Precision.
+The bigger your FIXED_SCALE detail factor is, the greater decimal detail
+your numbers can have.
+
+For example, out of 25,
+
+25 / 25 = 1.0
+24 / 25
+23 / 25
+Etc.
+
+There are 25 levels of detail.  But out of 512, there are many more.
+For this library, using detail factors below 256 will often only
+give you one or two decimal points of detail.
+Factors between 512 and 8192 are near two or three decimal places,
+and factors near 65536 give four decimal places.
+
+---------------------3.  Integer Wrapping
+
+The only problem with this library is that Verge's integers wrap if
+they get too big.  Keep in mind, that out of 65536,
+
+65536 / 65536
+
+That's the real number needed to represent 1.0.
+
+But if Verge's integers reach above 2147483648, they start wrapping.
+That is, the memory for the variable's negative flag is activated,
+and the number actually begins counting backwards; it can't go any
+higher.  That means that with a factor like 65536, you can't
+have very many whole numbers.
+
+---------------------4.  Using Verge's Math Functions.
+
+Verge's trigonometric functions are 2^16 fixed point, or multiplied by
+a factor of 65536.  Use the oF_Convert() function to bring their results
+down to your FIXED_SCALE.
+
+---------------------5.  Useful links/information.
+
+http://www.verge-rpg.com/boards/display_thread.php?id=21309
+	--Locke's trials with Fixed Point, and a link to
+	Aen's fixed point explanation article
+http://www.pixelate.co.za/issues/5/articles/circle/sincos.htm
+	--Learn to use trigonometric functions like a man
+	with this fairly easy to understand guide.
+http://www.verge-rpg.com/boards/display_thread.php?id=23598
+	--More information on fixed point, and how to use
+	it with Verge's HookTimer, to increment by set values
+	over a set amount of time (IE, 0.5 per 1 second)
+http://www.verge-rpg.com/docs/view.php?libid=1&section=85&PHPSESSID=9c49364fa11c35424428cb4cacfb9720
+	--Official V3 documentation with more explanations by
+	Aen and zaril.
+http://atrevida.comprenica.com/
+	--Good programming tutorials.  Check the essentials
+	for information on binary data, and stuff like
+	integer wrapping and different number systems like
+	hexadecimal.
+
+---------------------6.  How to use?
+
+First, you have to include it in your system.vc code.
+
+#include "ofixed.vc"
+
+Then it's pretty simple.  Just create a float number with Float2Fixed()...
+
+mynumber = oF_Float2Fixed("1.0");
+
+And then do whatever, like...
+
+mynumber = oF_addFI(mynumber, 1);	//Add 1.0 to mynumber
+mynumber = oF_subFI(mynumber, 2);	//Subtract 2.0 from mynumber
+mynumber = oF_divFF(mynumber, oF_Float2Fixed("0.5"));
+					//Divide it by 0.5, essentially
+					//multiplying by 2.0
+mynumber = mynumber + oF_Whole2Fixed(100);
+					//A different way of adding 100.0.
+mynumber = mynumber / 2;		//A different way of dividing by 2.
+mynumber = mynumber * 2;		//A different way of multiplying by 2.
+
+mynumber++;				//This will increment the number
+					//by the smallest possible detail.
+					//IE, if FIXED_SCALE = 512,
+					//++ will increase the number by
+					//  (1 / 512).
+					//This _does not_ add 1.0 to the
+					//number.
+
+Log(str(oF_Fixed2Int(mynumber)));	//Turn it into a whole number and
+					//log it...
+
+You can do some pretty neat things with fixed math.
+*/
+
+
+
+//And now, the actual code for this library.
+
+
+
+#define FIXED_SCALE	512
+//This is the degree of bit-shift or multiplication scale of your fixed point numbers.
+//Bitshifting basically multiplies the number by the exponential factor of two.
+//
+//For bitshifting, scale of 1 = *2, 2 = *4, 3 = *8, 4 = *16, 5 = *32, 6 = *64, 7 = *128, 8 = *256,
+//9 = *512, 10 = *1024, 11 = *2048, 12 = *4096, 13 = *8192, 14 = *16384, *15 = 32768, *16 = 65536.
+//
+//Thus, if you wanted fixed-point numbers to be bitshifted by 2^16,
+//then your FIXED_SCALE should be 65536.
+//
+//The library uses FIXED_SCALE to manage fixed numbers so you don't have to worry
+//about what scale they're at.
+
+#define FIXED2INT_ROUND		1
+//When converting FIXED to Integer, will round up to the nearest number.
+
+#define FIXED_MATH_TRUNCATE	1
+//When the oF_multi and oF_div math functions are used, the fixed numbers are multiplied,
+//and then are scaled back down.  The reason for this is that because both numbers are scaled
+//up by FIXED_SCALE, the resulting number will be scaled up by FIXED_SCALE^2.
+//This detail of being scaled up may cause otherwise useable numbers to start wrapping.
+//When FIXED_MATH_TRUNCATE is set to 1, the factor numbers are each bitshifted down
+//by one.  This means that you lose some detail, but if you mess with large numbers
+//this will keep them from doing nasty wrapping.  If not, set it to zero.
+
+
+
+//FIXED POINT WARNING
+//Keep in mind that Verge integers have an upper bound of ...something like 2 trillion.
+//Go above that, and they begin wrapping from the negative side, so be careful.
+//For more information on data types, binary, and wrapping, see the Atrevida programming
+//tutorials, like this one in particular:
+//http://atrevida.comprenica.com/atrtut02.html
+
+
+
+//--------------Fixed point conversion/creation
+
+int oF_Float2Fixed(string FLOAT_number)	{
+//Takes the float number in the given string and returns a fixed-point multiplied integer.
+	string whole;
+	string dec;
+	string cur;
+	int count;
+	int num;
+	int change;
+	
+	while (count < len(FLOAT_number))
+		{
+		cur = mid(FLOAT_number, count, 1);
+		
+//		Log(cur);
+		
+		if (!strcmp(cur, "."))
+			{
+			change = 1;
+			}
+		else if (change == 0)
+			{
+			whole = whole + cur;
+			}
+		else if (change == 1)
+			{
+			dec = dec + cur;
+			}
+		count++;
+		}
+	
+	//Create whole number
+	num = val(whole)*FIXED_SCALE;
+	
+	//Add decimal component
+//	dec_real = dec_value * FIXED_SCALE / dec_place;
+//	dec_value / dec_place == dec_real / FIXED_SCALE
+	
+//	Log("whole:  "+str(num));
+	
+//	Log("decimal:  "+str( val(dec) * FIXED_SCALE / pow(10, len(dec)) ));
+	
+	num = num + ( val(dec) * FIXED_SCALE / pow(10, len(dec)) );
+	
+//	Log("final num:  "+str(num));
+
+	return num;
+	}
+
+int oF_Whole2Fixed(int INT_number)	{
+//The given whole number is scaled up to fixed point and returned.
+	return (INT_number * FIXED_SCALE);
+	}
+
+int oF_Fixed2Int(int FIXED_number)	{
+//The given fixed number is scaled back down to normal integer detail.
+	//If decimal component is greater than 0.5...
+	if (FIXED2INT_ROUND && (FIXED_number % FIXED_SCALE) > (FIXED_SCALE>>2))
+
+		{
+		//round up.
+		return (FIXED_number / FIXED_SCALE + 1);
+		}
+	return (FIXED_number / FIXED_SCALE);
+	}
+
+string oF_Fixed2Str(int FIXED_number, int max_position)	{
+//returns a decimal float equivalent of your fixed number in string format.
+//The max_position must be a power of ten and determines the
+//decimal position to calculate to.
+//For example, max_position =	10 will be 0.0,
+//				100 will be 0.00,
+//				1000 will be 0.000.
+//Useful with PrintString.
+	string whole;
+	string dec;
+	int pos_count;
+	int pos_value;
+	
+	whole = str(FIXED_number - (FIXED_number % FIXED_SCALE) / FIXED_SCALE);
+	
+	while (pos_count < max_position)
+		{
+		pos_value = FIXED_SCALE / pow(10, pos_count+1);
+		dec = dec + Left(str(FIXED_number % FIXED_SCALE / pos_value), 1);
+		pos_count++;
+		}
+	
+//	dec = str( (FIXED_number % FIXED_SCALE) * max_position / FIXED_SCALE );
+	
+	return whole + "." + dec;
+	}
+
+int oF_convert(int FIXED_num, int from_FIXED_SCALE, int to_FIXED_SCALE)	{
+//Converts the fixed point number from one fixed scale to another.  Make sure you get the original
+//from_FIXED_SCALE right, or you will alter the number irreparably.
+//Returns the new value.
+	if (FIXED_MATH_TRUNCATE) return FIXED_num>>2 * to_FIXED_SCALE / from_FIXED_SCALE<<2;
+
+	return FIXED_num * to_FIXED_SCALE / from_FIXED_SCALE;
+	}
+
+
+
+//---------------Fixed point math
+
+int oF_multiFF(int FIXED_num1, int FIXED_num2)	{
+//Multiply two fixed numbers, returns the result.
+
+//	Log("first  "+oF_Fixed2Str(FIXED_num1, 100) +"    "+str(FIXED_num1));		//1.0		65536
+//	Log("second  "+oF_Fixed2Str(FIXED_num2, 100) +"    "+str(FIXED_num2));		//0.5		32768
+
+	if (FIXED_MATH_TRUNCATE) return FIXED_num1>>2 * (FIXED_num2>>2) / FIXED_SCALE<<4;
+	
+	return FIXED_num1 * FIXED_num2 / FIXED_SCALE;
+	}
+
+int oF_divFF(int FIXED_num1, int FIXED_num2)	{
+//Divides num1 dividend by num2 divisor, returns the quotient result.
+
+//	Log("first  "+oF_Fixed2Str(FIXED_num1, 100) +"    "+str(FIXED_num1));		//1.0		65536
+//	Log("second  "+oF_Fixed2Str(FIXED_num2, 100) +"    "+str(FIXED_num2));		//0.5		32768
+	
+	if (FIXED_MATH_TRUNCATE) return FIXED_num1>>2 * (FIXED_SCALE>>2) / (FIXED_num2>>2)<<2;
+	
+	return FIXED_num1 * FIXED_SCALE / FIXED_num2;
+	}
+
+int oF_addFI(int FIXED_num1, int INT_num2)	{
+//Adds the integer number2 to the fixed number1, and returns the answer.
+	return FIXED_num1 + (INT_num2 * FIXED_SCALE);
+	}
+
+int oF_subFI(int FIXED_num1, int INT_num2)	{
+//Subtracts the integer value of num2 from the fixed number1, and returns the answer.
+	return FIXED_num1 - (INT_num2 * FIXED_SCALE);
+	}
+
+int oF_FIXED_Limit(int fix_scale)	{
+	int var;
+	int counter;
+	
+	var = fix_scale;
+	
+	while (var > 0)
+		{
+		counter++;
+		var = fix_scale*fix_scale*counter;
+		//Chances are, you're going to be using these numbers for multiplication.
+		//So, you've got to say, at max, a number could be
+		//fix_scale (1.0) x fix_scale(1.0), since each FIXED number is multiplied by fix_scale.
+		}
+	return counter;
+	}
+
+string LStrFixed(int FIXED_num)	{
+//Returns the fixed number and its float conversion.  Useful for logging.
+	return "FIXED "+str(FIXED_num)+" FLOAT "+oF_Fixed2Str(FIXED_num, 4);
+	}

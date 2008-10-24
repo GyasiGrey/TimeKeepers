@@ -221,39 +221,23 @@ void FireWeapon(int shooter, int target)
 	{
 		if(Weapons[eqweapon].nType == WEAPON_TYPE_THROWN)
 		{			
-			if(entity.face[nPlayerEnt] == ENTITY_FACE_UP)
-			{
-				nDeltaX = 0;
-				nDeltaY = -5;
-				
-				nDeltaXDecay = 0;
-				nDeltaYDecay = -1;
-			}
-			else if(entity.face[nPlayerEnt] == ENTITY_FACE_LEFT)
-			{
-				nDeltaX = -5;
-				nDeltaY = 0;
+			nDeltaX = (entity.x[target] - entity.x[shooter]) / 300;//(50 + Random(0, 50));
+			nDeltaY = (entity.y[target] - entity.y[shooter]) / 300;//(50 + Random(0, 50));
 
-				nDeltaXDecay = -1;
-				nDeltaYDecay = 0;
-			}
-			else if(entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
-			{
-				nDeltaX = 0;
-				nDeltaY = 5;
-				
-				nDeltaXDecay = 0;
-				nDeltaYDecay = 1;
-			}
-			else if(entity.face[nPlayerEnt] == ENTITY_FACE_RIGHT)
-			{
-				nDeltaX = 5;
-				nDeltaY = 0;
-				
+			if(nDeltaX > 0)
 				nDeltaXDecay = 1;
+			else if(nDeltaX < 0)
+				nDeltaXDecay = -1;
+			else 
+				nDeltaXDecay = 0;
+				
+			if(nDeltaY > 0)
+				nDeltaYDecay = 1;
+			else if(nDeltaY < 0)
+				nDeltaYDecay = -1;
+			else 
 				nDeltaYDecay = 0;
-			}
-			
+
 			CreateThrown(entity.x[shooter], entity.y[shooter], nDeltaX, nDeltaY, nDeltaXDecay, nDeltaYDecay, LoadAnimationEX("cursor.png", 8, 8, entity.x[shooter], entity.y[shooter], "t1 " + ANIMATION_CURSOR_ANIM_STRING), 300, "GrenadeExplode");
 		}
 		else
