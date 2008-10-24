@@ -1,0 +1,5 @@
+x(px) = v(px/cs) * t(cs)
+
+x = distance between player and target XY coord
+t = grenade fuse length + variable (random?)
+v = x/t
