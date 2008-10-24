@@ -37,6 +37,9 @@ struct Weapon
 	int nType;		//see the WEAPON_TYPE #defines
 	
 	int nNonLethal;		// == 1 if the weapon causes enemy to go unconscious
+	
+	int nFuseLength;	//thrown weapons. How long before they explode.
+	string sDetFunction;	//thrown weapons. Function called when the explode.
 }
 
 Weapon Weapons[MAX_WEAPONS];
@@ -125,6 +128,8 @@ void InitWeapons()
 	Weapons[5].nAccMax = 5;
 	Weapons[5].nType = WEAPON_TYPE_THROWN;
 	Weapons[5].nSpreadShots = 1;
+	Weapons[5].nFuseLength = 150;
+	Weapons[5].sDetFunction = "GrenadeExplode";
 }
 
 void FreeWeapons()
@@ -221,10 +226,10 @@ void FireWeapon(int shooter, int target)
 	{
 		if(Weapons[eqweapon].nType == WEAPON_TYPE_THROWN)
 		{			
-			nDeltaX = oF_divFF(oF_Whole2Fixed(entity.x[target] - entity.x[shooter]), oF_Whole2Fixed(300));
-			nDeltaY = oF_divFF(oF_Whole2Fixed(entity.y[target] - entity.y[shooter]), oF_Whole2Fixed(300));
+			nDeltaX = oF_divFF(oF_Whole2Fixed(entity.x[target] - entity.x[shooter]), oF_Whole2Fixed(Weapons[eqweapon].nFuseLength));
+			nDeltaY = oF_divFF(oF_Whole2Fixed(entity.y[target] - entity.y[shooter]), oF_Whole2Fixed(Weapons[eqweapon].nFuseLength));
 
-			CreateThrown(oF_Whole2Fixed(entity.x[shooter]), oF_Whole2Fixed(entity.y[shooter],) nDeltaX, nDeltaY, LoadAnimationEX("cursor.png", 8, 8, entity.x[shooter], entity.y[shooter], "t1 " + ANIMATION_CURSOR_ANIM_STRING), 300, "GrenadeExplode");
+			CreateThrown(oF_Whole2Fixed(entity.x[shooter]), oF_Whole2Fixed(entity.y[shooter],) nDeltaX, nDeltaY, LoadAnimationEX("cursor.png", 8, 8, entity.x[shooter], entity.y[shooter], "t1 " + ANIMATION_CURSOR_ANIM_STRING), Weapons[eqweapon].nFuseLength, Weapons[eqweapon].sDetFunction);
 		}
 		else
 		{
