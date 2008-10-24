@@ -3,12 +3,12 @@
 
 struct ThrownItem
 {
-	int nX;
-	int nY;
-	int nDeltaX;
-	int nDeltaY;
-	int nDeltaXDecay;
-	int nDeltaYDecay;
+	int nX;			//fixed point number
+	int nY;			//fixed point number
+	int nDeltaX;		//fixed point number
+	int nDeltaY;		//fixed point number
+	int nDeltaXDecay;	//fixed point number
+	int nDeltaYDecay;	//fixed point number
 	int nAnim;
 	int nDetonateTimer;
 	int nNextMoveTimer;
@@ -57,7 +57,7 @@ void ProcessesThrown()
 		if(ThrownItems[i].nActive)
 		{
 			//if the thrown object hits an obstruction, bounce in the opposite direction
-			if(RectCollision(ThrownItems[i].nX, ThrownItems[i].nY, 8, 8))
+			if(RectCollision(oF_Fixed2Int(ThrownItems[i].nX), oF_Fixed2Int(ThrownItems[i].nY), 8, 8))
 			{
 				ThrownItems[i].nDeltaX = ThrownItems[i].nDeltaX * -1;
 				ThrownItems[i].nDeltaY = ThrownItems[i].nDeltaY * -1;
@@ -71,8 +71,8 @@ void ProcessesThrown()
 			ThrownItems[i].nY += ThrownItems[i].nDeltaY;
 
 
-			Anims[ThrownItems[i].nAnim].x = ThrownItems[i].nX;
-			Anims[ThrownItems[i].nAnim].y = ThrownItems[i].nY;
+			Anims[ThrownItems[i].nAnim].x = oF_Fixed2Int(ThrownItems[i].nX);
+			Anims[ThrownItems[i].nAnim].y = oF_Fixed2Int(ThrownItems[i].nY);
 
 			if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nNextMoveTimer)
 			{
@@ -116,5 +116,5 @@ void KillThrown(int i)
 void GrenadeExplode()
 {
 	SoundGrenade();
-	CreateDamageArea(ThrownItems[nCurrentThrown].nX, ThrownItems[nCurrentThrown].nY, 75, 15, 20, 100);
+	CreateDamageArea(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 75, 15, 20, 100);
 }
