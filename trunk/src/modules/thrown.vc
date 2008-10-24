@@ -1,5 +1,4 @@
 #define MAX_THROWN		30
-#define THROWN_MOVE_DELAY	10
 
 struct ThrownItem
 {
@@ -11,7 +10,6 @@ struct ThrownItem
 	int nDeltaYDecay;	//fixed point number
 	int nAnim;
 	int nDetonateTimer;
-	int nNextMoveTimer;
 	string sDetonateFunc;
 	
 	int nActive;
@@ -36,7 +34,6 @@ int CreateThrown(int x, int y, int dx, int dy, int dxd, int dyd, int anim, int d
 			ThrownItems[i].nDeltaYDecay = dyd;
 			ThrownItems[i].nAnim = anim;
 			ThrownItems[i].nDetonateTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + dtimer;
-			ThrownItems[i].nNextMoveTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + THROWN_MOVE_DELAY;
 			ThrownItems[i].sDetonateFunc = func;
 			
 			ThrownItems[i].nActive = 1;
@@ -74,16 +71,11 @@ void ProcessesThrown()
 			Anims[ThrownItems[i].nAnim].x = oF_Fixed2Int(ThrownItems[i].nX);
 			Anims[ThrownItems[i].nAnim].y = oF_Fixed2Int(ThrownItems[i].nY);
 
-			if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nNextMoveTimer)
-			{
-				/*if(ThrownItems[i].nDeltaX != 0)
-					ThrownItems[i].nDeltaX -= ThrownItems[i].nDeltaXDecay;
-				if(ThrownItems[i].nDeltaY != 0)
-					ThrownItems[i].nDeltaY -= ThrownItems[i].nDeltaYDecay;
-				*/
-				ThrownItems[i].nNextMoveTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + THROWN_MOVE_DELAY;
-			}
-						
+			if(ThrownItems[i].nDeltaX != 0)
+				ThrownItems[i].nDeltaX -= ThrownItems[i].nDeltaXDecay;
+			if(ThrownItems[i].nDeltaY != 0)
+				ThrownItems[i].nDeltaY -= ThrownItems[i].nDeltaYDecay;
+
 			if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nDetonateTimer)
 			{
 				nCurrentThrown = i;
