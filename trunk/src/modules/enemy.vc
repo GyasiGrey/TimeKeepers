@@ -1,4 +1,4 @@
-#define DEBUG_MAKE_SOUND	1	//does the super funkorama effect to show where sounds are happening when set to 1
+#define DEBUG_MAKE_SOUND	0	//does the super funkorama effect to show where sounds are happening when set to 1
 #define MAX_ENEMIES 250
 #define WALK_SPEED_NORMAL 50
 #define WALK_SPEED_ALERT 75
