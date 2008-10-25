@@ -120,8 +120,8 @@ void InitWeapons()
 	Weapons[5].nSound = LoadSound("sounds\tranq.wav");
 	Weapons[5].nIcon = LoadImage("gfx\icons\tranqicn.png");
 	Weapons[5].nMaxAmmo = 10;
-	Weapons[5].nDamageMin = 25;
-	Weapons[5].nDamageMax = 50;
+	Weapons[5].nDamageMin = 10;
+	Weapons[5].nDamageMax = 20;
 	Weapons[5].nRecharge = 100;
 	Weapons[5].nSoundRadius = 5;
 	Weapons[5].nAccMin = 0-5;
