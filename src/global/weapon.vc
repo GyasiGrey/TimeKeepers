@@ -118,7 +118,7 @@ void InitWeapons()
 	Weapons[5].nRange = 100;
 	Weapons[5].sName = "Grenade";
 	Weapons[5].nSound = LoadSound("sounds\tranq.wav");
-	Weapons[5].nIcon = LoadImage("gfx\icons\tranqicn.png");
+	Weapons[5].nIcon = LoadImage("gfx\icons\grenade.png");
 	Weapons[5].nMaxAmmo = 10;
 	Weapons[5].nDamageMin = 10;
 	Weapons[5].nDamageMax = 20;
