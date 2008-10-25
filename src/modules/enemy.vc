@@ -1,4 +1,4 @@
-#define DEBUG_MAKE_SOUND	0	//does the super funkorama effect to show where sounds are happening when set to 1
+#define DEBUG_MAKE_SOUND	1	//does the super funkorama effect to show where sounds are happening when set to 1
 #define MAX_ENEMIES 250
 #define WALK_SPEED_NORMAL 50
 #define WALK_SPEED_ALERT 75
@@ -654,6 +654,31 @@ void ProcessEnemies()
 	}
 }
 
+void MakeSoundXY(int x, int y, int radius)
+{
+	Error("MakeSoundXY() x: " + str(x) + " y: " + str(y) + " radius: " + str(radius));
+	
+	int i;
+	
+	for(i=0;i<nNumEnemies;i++)
+	{
+		if(Enemies[i].nActive && DistanceXY(x, y, entity.x[Enemies[i].nEntity], entity.y[Enemies[i].nEntity]) < radius)
+		{
+			MakeSoundHelp(i, x, y);
+		}
+	}
+	
+	int t;
+	//debug code so I can see sound
+	if(DEBUG_MAKE_SOUND)
+	{
+		t = newimage(radius*2, radius*2);
+		rectfill(0, 0, radius*2, radius*2, RGB(255, 0, 255), t);
+		circleFill(radius, radius, radius, radius, RGB(random(100, 255), random(100, 255), random(100, 255)), t);
+		LoadAnimationImg(t, radius*2, radius*2, (x-radius)-xwin, (y-radius)-ywin, "T0 F0 W50 L0 W20 L10 W20 L20 W20 L30 W20 L40 W20 L50 W20 L60 W20 L70 W20 L80 W20 L90 W20 L100 D");
+	}
+}
+
 //alerts all guards in the radius to the location of the sound
 //shooter is an ENTITY index
 void MakeSound(int shooter, int radius)
@@ -666,30 +691,7 @@ void MakeSound(int shooter, int radius)
 	{
 		if(/*i != nPlayerEnt && */shooter != Enemies[i].nEntity && Enemies[i].nActive && Distance(shooter, Enemies[i].nEntity) < radius)
 		{
-			if(Enemies[i].bCanHear)
-			{
-				if(Enemies[i].nAIType == ENEMY_AI_TYPE_CIVILIAN)
-				{
-					//civilians go into alert mode when they hear something
-					MakeAlert(i);
-				}
-				else if(Enemies[i].nMode != MODE_ALERT)
-				{
-					if(Enemies[i].bCanSpeak && Enemies[i].nMode != MODE_SOUND)
-						BottomText(i, BOTTOM_TEXT_SOUND);
-
-					//stop an enemy, so they can path to the sound
-					if(Enemies[i].nMode != MODE_SOUND)
-						StopEnemy(i);
-					
-					Enemies[i].nMode = MODE_SOUND;
-					Enemies[i].nSoundX = entity.x[shooter];
-					Enemies[i].nSoundY = entity.y[shooter];
-					Enemies[i].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
-
-					Goto(Enemies[i].nEntity, entity.x[shooter], entity.y[shooter]);
-				}
-			}
+			MakeSoundHelp(i, entity.x[shooter], entity.y[shooter]);
 		}
 	}
 
@@ -704,6 +706,35 @@ void MakeSound(int shooter, int radius)
 	}
 }
 
+//Makes an enemy hear a sound
+//i is an ENEMY index
+void MakeSoundHelp(int i, int sourceX, int sourceY)
+{
+	if(Enemies[i].bCanHear)
+	{
+		if(Enemies[i].nAIType == ENEMY_AI_TYPE_CIVILIAN)
+		{
+			//civilians go into alert mode when they hear something
+			MakeAlert(i);
+		}
+		else if(Enemies[i].nMode != MODE_ALERT)
+		{
+			if(Enemies[i].bCanSpeak && Enemies[i].nMode != MODE_SOUND)
+				BottomText(i, BOTTOM_TEXT_SOUND);
+
+			//stop an enemy, so they can path to the sound
+			if(Enemies[i].nMode != MODE_SOUND)
+				StopEnemy(i);
+
+			Enemies[i].nMode = MODE_SOUND;
+			Enemies[i].nSoundX = sourceX;
+			Enemies[i].nSoundY = sourceY;
+			Enemies[i].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+
+			Goto(Enemies[i].nEntity, sourceX, sourceY);
+		}
+	}
+}
 
 //wake up a knocked out enemy
 //ent is an ENEMY index
