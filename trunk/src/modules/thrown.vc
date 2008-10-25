@@ -96,4 +96,5 @@ void GrenadeExplode()
 	SoundGrenade();
 	CreateDamageArea(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 50, 15, 20, 100);
 	MakeSoundXY(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 100);
+	StartShake(2, 25);
 }
