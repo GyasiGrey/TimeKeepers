@@ -46,6 +46,9 @@ void ProcessesDamageArea()
 	{
 		if(DamageAreas[i].nActive)
 		{
+			if(DistanceXY(DamageAreas[i].nX, DamageAreas[i].nY, entity.x[nPlayerEnt], entity.y[nPlayerEnt]) < DamageAreas[i].nRadius)
+				DamageEnemy(Random(DamageAreas[i].nMinDamage, DamageAreas[i].nMaxDamage), nPlayerEnt);
+				
 			for(j=0;j<nNumEnemies;j++)
 			{
 				if(Enemies[j].nActive)
@@ -53,7 +56,7 @@ void ProcessesDamageArea()
 					//if an enemy is inside this area's radius, damage it
 					if(DistanceXY(DamageAreas[i].nX, DamageAreas[i].nY, entity.x[Enemies[j].nEntity], entity.y[Enemies[j].nEntity]) < DamageAreas[i].nRadius)
 						DamageEnemy(Random(DamageAreas[i].nMinDamage, DamageAreas[i].nMaxDamage), Enemies[j].nEntity);
-
+						
 					//if timer > this area's dieTimer, kill it
 					if(timer > DamageAreas[i].nDieTime)
 						KillDamageArea(i);
