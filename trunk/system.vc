@@ -281,6 +281,8 @@ void NewGame()
 		
 	EnableCameras();	//enable cameras if they were disabled
 	
+	KillAllThrown();	//clear any thrown items
+	
 	//Clear the notes of the PDA
 	ClearNotes();
 	
