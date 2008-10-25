@@ -94,5 +94,5 @@ void KillThrown(int i)
 void GrenadeExplode()
 {
 	SoundGrenade();
-	CreateDamageArea(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 75, 15, 20, 100);
+	CreateDamageArea(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 50, 15, 20, 100);
 }
