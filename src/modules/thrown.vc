@@ -8,6 +8,7 @@ struct ThrownItem
 	int nDeltaY;		//fixed point number
 	int nAnim;
 	int nDetonateTimer;
+	int nWeapon;
 	string sDetonateFunc;
 	
 	int nActive;
@@ -16,7 +17,7 @@ struct ThrownItem
 ThrownItem ThrownItems[MAX_THROWN];
 int nCurrentThrown = -1;
 
-int CreateThrown(int x, int y, int dx, int dy, int anim, int dtimer, string func)
+int CreateThrown(int x, int y, int dx, int dy, int anim, int dtimer, int nweapon, string func)
 {
 	int i;
 	
@@ -30,6 +31,7 @@ int CreateThrown(int x, int y, int dx, int dy, int anim, int dtimer, string func
 			ThrownItems[i].nDeltaY = dy;
 			ThrownItems[i].nAnim = anim;
 			ThrownItems[i].nDetonateTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + dtimer;
+			ThrownItems[i].nWeapon = nweapon;
 			ThrownItems[i].sDetonateFunc = func;
 			
 			ThrownItems[i].nActive = 1;
@@ -86,6 +88,7 @@ void KillThrown(int i)
 	ThrownItems[i].nDeltaY = 0;
 	ThrownItems[i].nAnim = 0;
 	ThrownItems[i].nDetonateTimer = 0;
+	ThrownItems[i].nWeapon = -1;
 	ThrownItems[i].sDetonateFunc = "";
 
 	ThrownItems[i].nActive = 0;
@@ -94,7 +97,7 @@ void KillThrown(int i)
 void GrenadeExplode()
 {
 	SoundGrenade();
-	CreateDamageArea(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 50, 15, 20, 100);
+	CreateDamageArea(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 50, Weapons[ThrownItems[nCurrentThrown].nWeapon].nDamageMin, Weapons[ThrownItems[nCurrentThrown].nWeapon].nDamageMax, 50);
 	MakeSoundXY(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 100);
 	StartShake(2, 25);
 }

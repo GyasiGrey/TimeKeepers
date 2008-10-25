@@ -235,7 +235,7 @@ void FireWeapon(int shooter, int target)
 			else
 				nThrownAnim = LoadAnimationEX("grenadeLR.png", 8, 8, entity.x[shooter], entity.y[shooter], "T1 F0 W20 F1 W20 R");
 
-			CreateThrown(oF_Whole2Fixed(entity.x[shooter]), oF_Whole2Fixed(entity.y[shooter],) nDeltaX, nDeltaY, nThrownAnim, Weapons[eqweapon].nFuseLength, Weapons[eqweapon].sDetFunction);
+			CreateThrown(oF_Whole2Fixed(entity.x[shooter]), oF_Whole2Fixed(entity.y[shooter],) nDeltaX, nDeltaY, nThrownAnim, Weapons[eqweapon].nFuseLength, eqweapon, Weapons[eqweapon].sDetFunction);
 		}
 		else
 		{
