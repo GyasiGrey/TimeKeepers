@@ -518,8 +518,6 @@ void CheckInvasionOver()
 
 		FadeOutExclusive(100, RGB(0, 0, 0));
 		
-		CloseAllMenus();
-			
-		TitleScreen();
+		TimeWarpNoTrans("", "mission3.map");
 	}
 }
