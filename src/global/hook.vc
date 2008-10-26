@@ -9,7 +9,7 @@
 	Call StartDualRetraceMode() to start Dual Mode
 */
 
-#define NUM_HOOKS 30
+#define NUM_HOOKS 45
 #define HOOK_MAX_PRIORITY 999999
 
 string hook_hooks[NUM_HOOKS];
