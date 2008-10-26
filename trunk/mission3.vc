@@ -4,7 +4,17 @@ void start()
 	SetPlayer(nPlayerEnt);
 	HookEntityRender(nPlayerEnt, "PlayerRender");
 
-	sAreaName = "Mission 2";
+	sAreaName = "Mission 3";
 
 	InitMap(2);
+}
+
+void InitDoors()
+{
+	//jail doors
+	CreateDoor(34, 22, LoadImage("gfx\misc\jail_door.png"), -1);
+	CreateDoor(22, 22, LoadImage("gfx\misc\jail_door.png"), -1);
+	
+	CreateDoor(22, 29, LoadImage("gfx\misc\jail_door.png"), -2);
+	CreateDoor(34, 29, LoadImage("gfx\misc\jail_door.png"), -2);
 }
