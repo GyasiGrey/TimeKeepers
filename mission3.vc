@@ -1,0 +1,10 @@
+void start()
+{
+	nPlayerEnt = EntitySpawn(33, 19, "ghost.chr");
+	SetPlayer(nPlayerEnt);
+	HookEntityRender(nPlayerEnt, "PlayerRender");
+
+	sAreaName = "Mission 2";
+
+	InitMap(2);
+}
