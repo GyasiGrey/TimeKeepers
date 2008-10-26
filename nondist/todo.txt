@@ -67,7 +67,7 @@ Mission 3
 	Make necessary tiles (tech related. Reference FF4 Giant of Babil)
 
 New Weapons
-	Grenade - Target anywhere on the map. Waits a little white then creates a AoE damage area.
+	*DONE* Grenade - Target anywhere on the map. Waits a little white then creates a AoE damage area.
 	Sniper rifle - Target anywhere on the map. Deals high damage to one enemy. Targeting system blacks out entire view except for a circle arount targeting recticle.
 
 
