@@ -40,6 +40,9 @@ struct Weapon
 	
 	int nFuseLength;	//thrown weapons. How long before they explode.
 	string sDetFunction;	//thrown weapons. Function called when the explode.
+	
+	string sAimFunction;
+	string sShootFunction;
 }
 
 Weapon Weapons[MAX_WEAPONS];
@@ -57,6 +60,8 @@ void InitWeapons()
 	Weapons[0].nSoundRadius = 0;
 	Weapons[0].nSpreadShots = 1;
 	Weapons[0].nType = WEAPON_TYPE_SILENT;
+	Weapons[0].sAimFunction = "AimWeapon";
+	Weapons[0].sShootFunction = "ShootWeapon";
 
 	Weapons[1].nRange = 100;
 	Weapons[1].sName = "Pistol";
@@ -71,6 +76,8 @@ void InitWeapons()
 	Weapons[1].nAccMax = 5;
 	Weapons[1].nSpreadShots = 1;
 	Weapons[1].nType = WEAPON_TYPE_SINGLE;
+	Weapons[1].sAimFunction = "AimWeapon";
+	Weapons[1].sShootFunction = "ShootWeapon";
 	
 	Weapons[2].nRange = 75;
 	Weapons[2].sName = "Shotgun";
@@ -85,6 +92,9 @@ void InitWeapons()
 	Weapons[2].nAccMin = 0-15;
 	Weapons[2].nAccMax = 15;
 	Weapons[2].nType = WEAPON_TYPE_SINGLE;
+	Weapons[2].sAimFunction = "AimWeapon";
+	Weapons[2].sShootFunction = "ShootWeapon";
+
 
 	Weapons[3].nRange = 100;
 	Weapons[3].sName = "M4";
@@ -99,6 +109,9 @@ void InitWeapons()
 	Weapons[3].nAccMax = 15;
 	Weapons[3].nSpreadShots = 1;
 	Weapons[3].nType = WEAPON_TYPE_AUTO;
+	Weapons[3].sAimFunction = "AimWeapon";
+	Weapons[3].sShootFunction = "ShootWeapon";
+
 	
 	Weapons[4].nRange = 125;
 	Weapons[4].sName = "Tranq Gun";
@@ -114,6 +127,9 @@ void InitWeapons()
 	Weapons[4].nType = WEAPON_TYPE_SINGLE;
 	Weapons[4].nSpreadShots = 1;
 	Weapons[4].nNonLethal = 1;
+	Weapons[4].sAimFunction = "AimWeapon";
+	Weapons[4].sShootFunction = "ShootWeapon";
+
 
 	Weapons[5].nRange = 100;
 	Weapons[5].sName = "Grenades";
@@ -130,6 +146,8 @@ void InitWeapons()
 	Weapons[5].nSpreadShots = 1;
 	Weapons[5].nFuseLength = 150;
 	Weapons[5].sDetFunction = "GrenadeExplode";
+	Weapons[5].sAimFunction = "FreeAimWeapon";
+	Weapons[5].sShootFunction = "ThrowGrenade";
 }
 
 void FreeWeapons()
