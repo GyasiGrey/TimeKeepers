@@ -235,32 +235,11 @@ void FireWeapon(int shooter, int target)
 		}
 	}
 
-	int nDeltaX;
-	int nDeltaY;
-	int nDeltaXDecay;
-	int nDeltaYDecay;
-	int nThrownAnim;
-
 	for(i=0;i<Weapons[eqweapon].nSpreadShots;i++)
 	{
-		if(Weapons[eqweapon].nType == WEAPON_TYPE_THROWN)
-		{			
-			nDeltaX = oF_divFF(oF_Whole2Fixed(entity.x[target] - entity.x[shooter]), oF_Whole2Fixed(Weapons[eqweapon].nFuseLength));
-			nDeltaY = oF_divFF(oF_Whole2Fixed(entity.y[target] - entity.y[shooter]), oF_Whole2Fixed(Weapons[eqweapon].nFuseLength));
-
-			if(entity.face[nPlayerEnt] == ENTITY_FACE_UP || entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
-				nThrownAnim = LoadAnimationEX("grenadeUD.png", 8, 8, entity.x[shooter], entity.y[shooter], "T1 F0 W20 F1 W20 R");
-			else
-				nThrownAnim = LoadAnimationEX("grenadeLR.png", 8, 8, entity.x[shooter], entity.y[shooter], "T1 F0 W20 F1 W20 R");
-
-			CreateThrown(oF_Whole2Fixed(entity.x[shooter]), oF_Whole2Fixed(entity.y[shooter],) nDeltaX, nDeltaY, nThrownAnim, Weapons[eqweapon].nFuseLength, eqweapon, Weapons[eqweapon].sDetFunction);
-		}
-		else
-		{
-			//say goodby to your FPS
-			LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), entity.x[target]+(entity.hotw[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), entity.y[target]+(entity.hoth[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
-			FireWeaponHelp(shooter, target);
-		}
+		//say goodby to your FPS
+		LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), entity.x[target]+(entity.hotw[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), entity.y[target]+(entity.hoth[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
+		FireWeaponHelp(shooter, target);
 	}
 }
 

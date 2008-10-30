@@ -71,6 +71,12 @@ void ShootWeapon()
 	}
 }
 
+int nDeltaX;
+int nDeltaY;
+int nDeltaXDecay;
+int nDeltaYDecay;
+int nThrownAnim;
+
 void ThrowGrenade()
 {
 	if(nAmmo[nEquipedWeapon] == 0)
@@ -85,7 +91,16 @@ void ThrowGrenade()
 	{
 		if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
 		{
-			FireWeapon(nPlayerEnt, Enemies[nPlayerEnt].nEntity);
+			nDeltaX = oF_divFF(oF_Whole2Fixed(nFreeAimX - entity.x[nPlayerEnt]), oF_Whole2Fixed(Weapons[nEquipedWeapon].nFuseLength));
+			nDeltaY = oF_divFF(oF_Whole2Fixed(nFreeAimY - entity.y[nPlayerEnt]), oF_Whole2Fixed(Weapons[nEquipedWeapon].nFuseLength));
+
+			if(entity.face[nPlayerEnt] == ENTITY_FACE_UP || entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
+				nThrownAnim = LoadAnimationEX("grenadeUD.png", 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
+			else
+				nThrownAnim = LoadAnimationEX("grenadeLR.png", 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
+
+			CreateThrown(oF_Whole2Fixed(entity.x[nPlayerEnt]), oF_Whole2Fixed(entity.y[nPlayerEnt],) nDeltaX, nDeltaY, nThrownAnim, Weapons[nEquipedWeapon].nFuseLength, nEquipedWeapon, Weapons[nEquipedWeapon].sDetFunction);
+
 			UnpressButtons();
 		}
 	}
