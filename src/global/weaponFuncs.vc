@@ -100,6 +100,8 @@ void ThrowGrenade()
 				nThrownAnim = LoadAnimationEX("grenadeLR.png", 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
 
 			CreateThrown(oF_Whole2Fixed(entity.x[nPlayerEnt]), oF_Whole2Fixed(entity.y[nPlayerEnt],) nDeltaX, nDeltaY, nThrownAnim, Weapons[nEquipedWeapon].nFuseLength, nEquipedWeapon, Weapons[nEquipedWeapon].sDetFunction);
+			
+			nAmmo[nEquipedWeapon]--;
 
 			UnpressButtons();
 		}
