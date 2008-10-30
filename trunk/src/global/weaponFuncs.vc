@@ -1,0 +1,79 @@
+void FreeAimWeapon()
+{
+	if(Weapons[nEquipedWeapon].nType == WEAPON_TYPE_THROWN)
+	{
+		//free aim!
+		if(!bAimingLastTick)
+		{
+			nFreeAimX = entity.x[nPlayerEnt];
+			nFreeAimY = entity.y[nPlayerEnt];
+			entity.speed[nPlayerEnt] = 0;
+		}
+		
+		if(up)
+		{
+			nFreeAimY--;
+		}
+		
+		if(down)
+		{
+			nFreeAimY++;
+		}
+		
+		if(left)
+		{
+			nFreeAimX--;
+		}
+		
+		if(right)
+		{
+			nFreeAimX++;
+		}
+		
+		if(abs(entity.x[nPlayerEnt] - nFreeAimX) > Weapons[nEquipedWeapon].nRange)
+			nFreeAimX = entity.x[nPlayerEnt] + Weapons[nEquipedWeapon].nRange;
+			
+		if(abs(entity.y[nPlayerEnt] - nFreeAimY) > Weapons[nEquipedWeapon].nRange)
+			nFreeAimY = entity.y[nPlayerEnt] + Weapons[nEquipedWeapon].nRange;
+		
+		anims[nTargetPointerAnim].x = nFreeAimX;
+		anims[nTargetPointerAnim].y = nFreeAimY;
+	}
+}
+
+void ShootWeapon()
+{
+	//fire weapon
+	if(BUTTON_SHOOT)
+	{
+		if(nAmmo[nEquipedWeapon] == 0)
+		{
+			//no ammo, play the out of ammo sound
+			//guards can hear the click
+			MakeSound(nPlayerEnt, 50);
+			SoundNoAmmo();
+			UnpressButtons();
+		}
+		else
+		{
+			if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
+			{
+				if(Weapons[nEquipedWeapon].nType == WEAPON_TYPE_THROWN)
+				{
+					FireWeapon(nPlayerEnt, Enemies[nPlayerEnt].nEntity);
+				}
+				else
+				{
+					if(strcmp(sEntitiesInRange, "")!=0)
+					{
+						//let the player hold down the fire button on automatic weapons
+						if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_AUTO)
+							UnpressButtons();
+
+						FireWeapon(nPlayerEnt, Enemies[nTargetIndex].nEntity);
+					}
+				}
+			}
+		}
+	}
+}
