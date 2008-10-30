@@ -10,32 +10,29 @@ void FreeAimWeapon()
 			entity.speed[nPlayerEnt] = 0;
 		}
 		
-		if(up)
+		if(DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], nFreeAimX, nFreeAimY)  < Weapons[nEquipedWeapon].nRange)
 		{
-			nFreeAimY--;
+			if(up)
+			{
+				nFreeAimY-=2;
+			}
+
+			if(down)
+			{
+				nFreeAimY+=2;
+			}
+
+			if(left)
+			{
+				nFreeAimX-=2;
+			}
+
+			if(right)
+			{
+				nFreeAimX+=2;
+			}
 		}
-		
-		if(down)
-		{
-			nFreeAimY++;
-		}
-		
-		if(left)
-		{
-			nFreeAimX--;
-		}
-		
-		if(right)
-		{
-			nFreeAimX++;
-		}
-		
-		if(abs(entity.x[nPlayerEnt] - nFreeAimX) > Weapons[nEquipedWeapon].nRange)
-			nFreeAimX = entity.x[nPlayerEnt] + Weapons[nEquipedWeapon].nRange;
-			
-		if(abs(entity.y[nPlayerEnt] - nFreeAimY) > Weapons[nEquipedWeapon].nRange)
-			nFreeAimY = entity.y[nPlayerEnt] + Weapons[nEquipedWeapon].nRange;
-		
+
 		anims[nTargetPointerAnim].x = nFreeAimX;
 		anims[nTargetPointerAnim].y = nFreeAimY;
 	}
