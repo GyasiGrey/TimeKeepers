@@ -1,5 +1,7 @@
 void FreeAimWeapon()
 {
+	int bInRange;
+	
 	if(Weapons[nEquipedWeapon].nType == WEAPON_TYPE_THROWN)
 	{
 		//free aim!
@@ -10,27 +12,39 @@ void FreeAimWeapon()
 			entity.speed[nPlayerEnt] = 0;
 		}
 		
-		if(DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], nFreeAimX, nFreeAimY)  < Weapons[nEquipedWeapon].nRange)
+		bInRange = (DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], nFreeAimX, nFreeAimY)  < Weapons[nEquipedWeapon].nRange);
+		
+		if(up)
 		{
-			if(up)
-			{
+			if(bInRange)
 				nFreeAimY-=2;
-			}
-
-			if(down)
-			{
+			else
 				nFreeAimY+=2;
-			}
+		}
 
-			if(left)
-			{
+		if(down)
+		{
+			if(bInRange)
+				nFreeAimY+=2;
+			else
+				nFreeAimY-=2;
+		}
+
+		if(left)
+		{
+			if(bInRange)
 				nFreeAimX-=2;
-			}
-
-			if(right)
-			{
+			else
 				nFreeAimX+=2;
-			}
+		}
+
+		if(right)
+		{
+			if(bInRange)
+				nFreeAimX+=2;
+			else
+				nFreeAimX-=2;
+
 		}
 
 		anims[nTargetPointerAnim].x = nFreeAimX;
