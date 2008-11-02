@@ -1,6 +1,6 @@
 void FreeAimWeapon()
 {
-	int bInRange;
+	int theta;
 	
 	//free aim!
 	if(!bAimingLastTick)
@@ -10,41 +10,39 @@ void FreeAimWeapon()
 		entity.speed[nPlayerEnt] = 0;
 	}
 
-	bInRange = (DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], nFreeAimX, nFreeAimY)  < Weapons[nEquipedWeapon].nRange);
-
 	if(up)
 	{
-		if(bInRange)
-			nFreeAimY-=2;
-		else
-			nFreeAimY+=2;
+		nFreeAimY-=2;
 	}
 
 	if(down)
 	{
-		if(bInRange)
-			nFreeAimY+=2;
-		else
-			nFreeAimY-=2;
+		nFreeAimY+=2;
 	}
 
 	if(left)
 	{
-		if(bInRange)
-			nFreeAimX-=2;
-		else
-			nFreeAimX+=2;
+		nFreeAimX-=2;
 	}
 
 	if(right)
 	{
-		if(bInRange)
-			nFreeAimX+=2;
-		else
-			nFreeAimX-=2;
-
+		nFreeAimX+=2;
 	}
+	
+	if(DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], nFreeAimX, nFreeAimY)  > Weapons[nEquipedWeapon].nRange)
+	{
+		//r = weapon range
+		//theta = atan2(DeltaY, DeltaX)
+		//x = r cos (theta)
+		//y = r sin (theta)
+			
+		theta = zatan2(nFreeAimY - entity.y[nPlayerEnt], nFreeAimX - entity.x[nPlayerEnt]);
 
+		nFreeAimX = entity.x[nPlayerEnt] + ((Weapons[nEquipedWeapon].nRange * cos(theta)) / 65536);
+		nFreeAimY = entity.y[nPlayerEnt] + ((Weapons[nEquipedWeapon].nRange * sin(theta)) / 65536);
+	}
+	
 	anims[nTargetPointerAnim].x = nFreeAimX;
 	anims[nTargetPointerAnim].y = nFreeAimY;
 }
