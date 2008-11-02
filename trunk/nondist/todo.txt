@@ -27,8 +27,6 @@ Fixed Bugs needing testing
 **********
 Priority 1
 **********
-Figure out the trig to make the freeaim radius not suck
-
 Grenade explosion animation
 
 
@@ -107,6 +105,8 @@ give the punch an anim without muzzle flare
 
 DONE
 *********
+*DONE* Figure out the trig to make the freeaim radius not suck
+
 *DONE* Throwable reflection. Currently when a throwable hits an obstruction it negates DeltaX and DeltaY. 
 	It should calculate where the obs is relative to the throwable and reflect against it
 	If the obs is to the right or left of the throwable, negate X
