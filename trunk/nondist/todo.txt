@@ -27,11 +27,6 @@ Fixed Bugs needing testing
 **********
 Priority 1
 **********
-Throwable reflection. Currently when a throwable hits an obstruction it negates DeltaX and DeltaY. 
-	It should calculate where the obs is relative to the throwable and reflect against it
-	If the obs is to the right or left of the throwable, negate X
-	If the obs is to the top or bottom of the throwable, negate y
-
 Figure out the trig to make the freeaim radius not suck
 
 Grenade explosion animation
@@ -112,6 +107,11 @@ give the punch an anim without muzzle flare
 
 DONE
 *********
+*DONE* Throwable reflection. Currently when a throwable hits an obstruction it negates DeltaX and DeltaY. 
+	It should calculate where the obs is relative to the throwable and reflect against it
+	If the obs is to the right or left of the throwable, negate X
+	If the obs is to the top or bottom of the throwable, negate y
+
 *DONE* Free aim mode. While the player holds the aim button they can use the D pad to move the recticle.
 
 *DONE* Use free aim mode to aim genades.
