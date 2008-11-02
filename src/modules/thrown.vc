@@ -45,7 +45,7 @@ int CreateThrown(int x, int y, int dx, int dy, int anim, int dtimer, int nweapon
 
 void ProcessesThrown()
 {
-	int i;
+	int i, obsCollision;
 	
 	if(nGamePaused)
 		return;
@@ -55,10 +55,18 @@ void ProcessesThrown()
 		if(ThrownItems[i].nActive)
 		{
 			//if the thrown object hits an obstruction, bounce in the opposite direction
-			if(RectCollision(oF_Fixed2Int(ThrownItems[i].nX), oF_Fixed2Int(ThrownItems[i].nY), 8, 8))
+			obsCollision = RectCollision(oF_Fixed2Int(ThrownItems[i].nX), oF_Fixed2Int(ThrownItems[i].nY), 8, 8);
+			error(str(obsCollision));
+			switch(obsCollision)
 			{
-				ThrownItems[i].nDeltaX = ThrownItems[i].nDeltaX * -1;
-				ThrownItems[i].nDeltaY = ThrownItems[i].nDeltaY * -1;
+				case 1:	//left
+					ThrownItems[i].nDeltaX = ThrownItems[i].nDeltaX * -1;
+				case 2:	//right
+					ThrownItems[i].nDeltaX = ThrownItems[i].nDeltaX * -1;
+				case 3:	//top
+					ThrownItems[i].nDeltaY = ThrownItems[i].nDeltaY * -1;
+				case 4:	//botom
+					ThrownItems[i].nDeltaY = ThrownItems[i].nDeltaY * -1;
 			}
 
 			//move this item by deltaX and deltaY
