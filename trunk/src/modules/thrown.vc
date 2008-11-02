@@ -35,6 +35,8 @@ int CreateThrown(int x, int y, int dx, int dy, int anim, int dtimer, int nweapon
 			ThrownItems[i].sDetonateFunc = func;
 			
 			ThrownItems[i].nActive = 1;
+			
+			Anims[anim].automatic = 0;
 			return i;
 		}
 	}
@@ -113,6 +115,17 @@ void KillAllThrown()
 	{
 		if(ThrownItems[i].nActive)
 			KillThrown(i);
+	}
+}
+
+void DrawThrown()
+{
+	int i;
+	
+	for(i=0;i<MAX_THROWN;i++)
+	{
+		if(ThrownItems[i].nActive)
+			DrawAnimation(ThrownItems[i].nAnim);
 	}
 }
 

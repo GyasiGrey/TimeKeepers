@@ -199,6 +199,8 @@ void AddDefaultHooks()
 	AddHook("ProcessAmbientSounds", 5);
 	//callbacks
 	AddPreHook("ProcessDelayedCallbacks", 5);
+	//thrown
+	AddPreHook("DrawThrown", 500);
 	//doors
 	AddPreHook("DrawBottomDoors", 510);
 	AddHook("DrawTopDoors", 510);
