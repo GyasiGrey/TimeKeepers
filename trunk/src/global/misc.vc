@@ -605,17 +605,23 @@ string ScanToKeyName(int i)
 		return "Unknown";
 }
 
-//returns true if the rect defined by x,y,w,h collides with any obstructions in the map
+/*returns true if the rect defined by x,y,w,h collides with any obstructions in the map
+returns 1 if the hit is on the left
+returns 2 if the hit is on the right
+returns 3 if the hit is to the top
+returns 4 if the hit is to the bottom
+*/
 int RectCollision(int x, int y, int w, int h)
 {
-	if(GetObsPixel(x, y))		//top left
+	//check midway between the extrems on the axis to return against. Yeah.
+	if(GetObsPixel(x, y+(h/2)))		//left
 		return 1;
-	else if(GetObsPixel(x+w, y))	//top right
-		return 1;
-	else if(GetObsPixel(x, y+h))	//bottom left
-		return 1;
-	else if(GetObsPixel(x+w, y+h))	//bottom right
-		return 1;
+	else if(GetObsPixel(x+w,y+(h/2)))	//right
+		return 2;
+	else if(GetObsPixel(x+(w/2), y))	//top
+		return 3;
+	else if(GetObsPixel(x+(w/2), y+h))	//bottom
+		return 4;
 		
 	return 0;
 }
