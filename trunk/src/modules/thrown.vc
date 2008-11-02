@@ -58,7 +58,7 @@ void ProcessesThrown()
 		{
 			//if the thrown object hits an obstruction, bounce in the opposite direction
 			obsCollision = RectCollision(oF_Fixed2Int(ThrownItems[i].nX), oF_Fixed2Int(ThrownItems[i].nY), 8, 8);
-			error(str(obsCollision));
+
 			switch(obsCollision)
 			{
 				case 1:	//left
