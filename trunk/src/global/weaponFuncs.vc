@@ -2,54 +2,51 @@ void FreeAimWeapon()
 {
 	int bInRange;
 	
-	if(Weapons[nEquipedWeapon].nType == WEAPON_TYPE_THROWN)
+	//free aim!
+	if(!bAimingLastTick)
 	{
-		//free aim!
-		if(!bAimingLastTick)
-		{
-			nFreeAimX = entity.x[nPlayerEnt];
-			nFreeAimY = entity.y[nPlayerEnt];
-			entity.speed[nPlayerEnt] = 0;
-		}
-		
-		bInRange = (DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], nFreeAimX, nFreeAimY)  < Weapons[nEquipedWeapon].nRange);
-		
-		if(up)
-		{
-			if(bInRange)
-				nFreeAimY-=2;
-			else
-				nFreeAimY+=2;
-		}
-
-		if(down)
-		{
-			if(bInRange)
-				nFreeAimY+=2;
-			else
-				nFreeAimY-=2;
-		}
-
-		if(left)
-		{
-			if(bInRange)
-				nFreeAimX-=2;
-			else
-				nFreeAimX+=2;
-		}
-
-		if(right)
-		{
-			if(bInRange)
-				nFreeAimX+=2;
-			else
-				nFreeAimX-=2;
-
-		}
-
-		anims[nTargetPointerAnim].x = nFreeAimX;
-		anims[nTargetPointerAnim].y = nFreeAimY;
+		nFreeAimX = entity.x[nPlayerEnt];
+		nFreeAimY = entity.y[nPlayerEnt];
+		entity.speed[nPlayerEnt] = 0;
 	}
+
+	bInRange = (DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], nFreeAimX, nFreeAimY)  < Weapons[nEquipedWeapon].nRange);
+
+	if(up)
+	{
+		if(bInRange)
+			nFreeAimY-=2;
+		else
+			nFreeAimY+=2;
+	}
+
+	if(down)
+	{
+		if(bInRange)
+			nFreeAimY+=2;
+		else
+			nFreeAimY-=2;
+	}
+
+	if(left)
+	{
+		if(bInRange)
+			nFreeAimX-=2;
+		else
+			nFreeAimX+=2;
+	}
+
+	if(right)
+	{
+		if(bInRange)
+			nFreeAimX+=2;
+		else
+			nFreeAimX-=2;
+
+	}
+
+	anims[nTargetPointerAnim].x = nFreeAimX;
+	anims[nTargetPointerAnim].y = nFreeAimY;
 }
 
 void ShootWeapon()
