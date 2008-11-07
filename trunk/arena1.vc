@@ -13,7 +13,7 @@ void start()
 	
 	SetLowObsZone(1);
 
-	MusicSwitch("TK_jail.ogg", 15);
+	MusicSwitch("boss.mod", 15);
 	
 	bCanSave = 0;
 	
