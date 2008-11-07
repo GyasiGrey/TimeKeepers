@@ -67,7 +67,7 @@ void MenuArenaLogic()
 			}
 
 			CloseAllMenus();
-			TimeWarpNoTrans("0|1|2|3|4", "arena1.map");
+			TimeWarpNoTrans("0|1|2|3|4|5", "arena1.map");
 		}
 		else if(nPointerPos == 1)
 		{
@@ -79,7 +79,7 @@ void MenuArenaLogic()
 			}
 
 			CloseAllMenus();
-			TimeWarpNoTrans("0|1|2|3|4", "arena2.map");
+			TimeWarpNoTrans("0|1|2|3|4|5", "arena2.map");
 		}
 		else if(nPointerPos == 2)
 		{
@@ -91,7 +91,7 @@ void MenuArenaLogic()
 			}
 
 			CloseAllMenus();
-			TimeWarpNoTrans("0|1|2|3|4", "arena3.map");
+			TimeWarpNoTrans("0|1|2|3|4|5", "arena3.map");
 		}
 	}
 	else if(BUTTON_MEDKIT)
