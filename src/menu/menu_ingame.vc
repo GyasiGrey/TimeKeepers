@@ -5,7 +5,7 @@ int bCanOpenInGameMenu = 1;
 //returns true if the main menu can open
 int MenuCanOpen()
 {
-	if(!bCanOpenInGameMenu)
+	if(!bCanOpenInGameMenu || nHoldCommText)
 		return 0;
 	else
 		return 1;
