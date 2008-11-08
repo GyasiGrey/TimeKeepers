@@ -591,8 +591,10 @@ void CallElevatorVaultToCasino()
 void CallElevator(int floor)
 {
 	//if evevator isn't on it's way already
-	if(!IsDelayedCallbackActive("CallElevatorCallback"))
+	if(!IsDelayedCallbackActive("CallElevatorCallback") && !IsDelayedCallbackActive("ElevatorLeaveCallback"))
 	{
+		error("It's comming up...");
+		
 		//play the elevator call sound
 		SoundElevatorCall();
 
@@ -608,7 +610,9 @@ void CallElevator(int floor)
 void CallElevatorCallback()
 {
 	int floor = nFlags[FLAG_MISSION2_ELEVATOR_GOING_TO_FLOOR];
-	
+
+	error("It's there!");
+
 	//play the elevator arrived sound
 	SoundElevatorHere();
 	
