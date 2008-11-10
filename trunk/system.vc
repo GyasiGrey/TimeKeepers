@@ -45,6 +45,7 @@
 #include "src\global\sort.vc"
 #include "src\global\ofixed.vc"
 #include "src\global\weaponFuncs.vc"
+#include "src\global\deathEffect.vc"
 
 //Modules - all these hook to the renderer and can
 //basically work independently of the rest of the game
@@ -645,22 +646,6 @@ void ProcessInput()
 	}
 }
 
-void PlayerDeathEffect()
-{
-	SoundPlayerDeath();
-	//player died - do the death anim
-	AnimatePlayer("Z20 W25 Z21 W25 Z22 W25 Z23 W25 Z24");
-	
-	WaitTimer(50);
-	
-	//Fade out the screen
-	FadeOut(250, RGB(0, 0, 0));
-	
-	WaitTimer(250);
-	
-	StopSong(nCurrentMusic);
-}
-
 void PlayerDeath()
 {
 	if(nHealth>0)
@@ -670,10 +655,6 @@ void PlayerDeath()
 		
 	//The player is dead, don't kill him again. That's not nice.
 	RemovePreHook("PlayerDeath");
-
-	//make a copy of the screen for game over
-	Render();	//PlayerDeath() is hooked to the first Retrace, so Render() is necessary to get a full screen copy.
-	nScreenCopy = DuplicateImage(screen);
 			
 	PlayerDeathEffect();
 
