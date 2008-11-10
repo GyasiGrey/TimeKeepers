@@ -13,6 +13,7 @@
 #define WEAPON_M4		3
 #define WEAPON_TRANQ		4
 #define WEAPON_GRENADE		5
+#define WEAPON_EMPTY		6
 
 struct Weapon
 {
@@ -148,6 +149,22 @@ void InitWeapons()
 	Weapons[5].sDetFunction = "GrenadeExplode";
 	Weapons[5].sAimFunction = "FreeAimWeapon";
 	Weapons[5].sShootFunction = "ThrowGrenade";
+
+	Weapons[6].nRange = 0;
+	Weapons[6].sName = "Nada";
+	Weapons[6].nSound = -1;
+	Weapons[6].nIcon = LoadImage("gfx\icons\grenade.png");
+	Weapons[6].nMaxAmmo = -1;
+	Weapons[6].nDamageMin = 0;
+	Weapons[6].nDamageMax = 0;
+	Weapons[6].nRecharge = 10;
+	Weapons[6].nSoundRadius = 0;
+	Weapons[6].nAccMin = 0;
+	Weapons[6].nAccMax = 0;
+	Weapons[6].nType = WEAPON_TYPE_THROWN;
+	Weapons[6].nSpreadShots = 0;
+	Weapons[6].sAimFunction = "NullAim";
+	Weapons[6].sShootFunction = "NullShoot";
 }
 
 void FreeWeapons()

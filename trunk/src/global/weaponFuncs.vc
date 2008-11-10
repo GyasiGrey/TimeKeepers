@@ -115,3 +115,13 @@ void ThrowGrenade()
 		}
 	}
 }
+
+void NullAim()
+{
+	anims[nTargetPointerAnim].x = -15;
+	anims[nTargetPointerAnim].y = -15;
+}
+
+void NullShoot()
+{
+}
