@@ -1,0 +1,15 @@
+void PlayerDeathEffect()
+{
+	SoundPlayerDeath();
+	//player died - do the death anim
+	AnimatePlayer("Z20 W25 Z21 W25 Z22 W25 Z23 W25 Z24");
+	
+	WaitTimer(50);
+
+	//make a copy of the screen for game over
+	Render();	//PlayerDeath() is hooked to the first Retrace, so Render() is necessary to get a full screen copy.
+	nScreenCopy = DuplicateImage(screen);
+
+
+	StopSong(nCurrentMusic);
+}
