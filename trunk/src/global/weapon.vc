@@ -151,7 +151,7 @@ void InitWeapons()
 	Weapons[5].sShootFunction = "ThrowGrenade";
 
 	Weapons[6].nRange = 0;
-	Weapons[6].sName = "Nada";
+	Weapons[6].sName = "Empty";
 	Weapons[6].nSound = -1;
 	Weapons[6].nIcon = LoadImage("gfx\icons\grenade.png");
 	Weapons[6].nMaxAmmo = -1;
