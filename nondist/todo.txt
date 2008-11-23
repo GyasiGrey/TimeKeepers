@@ -27,8 +27,6 @@ Fixed Bugs needing testing
 **********
 Priority 1
 **********
-Grenade explosion animation
-
 
 Release 2.5
 ***********
@@ -105,6 +103,8 @@ give the punch an anim without muzzle flare
 
 DONE
 *********
+*DONE* Grenade explosion animation
+
 *DONE* Figure out the trig to make the freeaim radius not suck
 
 *DONE* Throwable reflection. Currently when a throwable hits an obstruction it negates DeltaX and DeltaY. 
