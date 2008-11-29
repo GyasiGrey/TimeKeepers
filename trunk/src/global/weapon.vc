@@ -5,7 +5,7 @@
 #define WEAPON_TYPE_AUTO   2	//user can hold down shoot button to retrigger shots. Automatic weapons.
 #define WEAPON_TYPE_THROWN 3
 
-#define NUM_WEAPONS 6
+#define NUM_WEAPONS 7
 
 #define WEAPON_KNIFE		0
 #define WEAPON_PISTON		1
@@ -14,6 +14,7 @@
 #define WEAPON_TRANQ		4
 #define WEAPON_GRENADE		5
 #define WEAPON_EMPTY		6
+#define WEAPON_AUTO_SHOTGUN	7
 
 struct Weapon
 {
@@ -165,6 +166,22 @@ void InitWeapons()
 	Weapons[6].nSpreadShots = 0;
 	Weapons[6].sAimFunction = "NullAim";
 	Weapons[6].sShootFunction = "NullShoot";
+
+	Weapons[7].nRange = 75;
+	Weapons[7].sName = "Auto Shotgun";
+	Weapons[7].nSound = LoadSound("sounds\shotgun.wav");
+	Weapons[7].nIcon = LoadImage("gfx\icons\shotgunicn.png");
+	Weapons[7].nMaxAmmo = 20;
+	Weapons[7].nDamageMin = 10;
+	Weapons[7].nDamageMax = 15;
+	Weapons[7].nRecharge = 25;
+	Weapons[7].nSoundRadius = 300;	//dem shotguns is loud mah!
+	Weapons[7].nSpreadShots = 5;
+	Weapons[7].nAccMin = 0-15;
+	Weapons[7].nAccMax = 15;
+	Weapons[7].nType = WEAPON_TYPE_AUTO;
+	Weapons[7].sAimFunction = "AimWeapon";
+	Weapons[7].sShootFunction = "ShootWeapon";
 }
 
 void FreeWeapons()
