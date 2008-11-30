@@ -1,3 +1,6 @@
+#define THROWN_COLLISION_REFLECT	0
+#define THROWN_COLLISION_DETONATE	1
+
 void FreeAimWeapon()
 {
 	int theta;
@@ -107,7 +110,7 @@ void ThrowGrenade()
 			else
 				nThrownAnim = LoadAnimationEX("grenadeLR.png", 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
 
-			CreateThrown(oF_Whole2Fixed(entity.x[nPlayerEnt]), oF_Whole2Fixed(entity.y[nPlayerEnt],) nDeltaX, nDeltaY, nThrownAnim, Weapons[nEquipedWeapon].nFuseLength, nEquipedWeapon, Weapons[nEquipedWeapon].sDetFunction);
+			CreateThrown(oF_Whole2Fixed(entity.x[nPlayerEnt]), oF_Whole2Fixed(entity.y[nPlayerEnt],) nDeltaX, nDeltaY, nThrownAnim, Weapons[nEquipedWeapon].nFuseLength, nEquipedWeapon, THROWN_COLLISION_REFLECT, Weapons[nEquipedWeapon].sDetFunction);
 			
 			nAmmo[nEquipedWeapon]--;
 
@@ -133,4 +136,38 @@ void GrenadeExplode()
 	MakeSoundXY(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 100);
 	StartShake(2, 25);
 	LoadAnimationEX("explode.png", 64, 64, oF_Fixed2Int(ThrownItems[nCurrentThrown].nX)-32, oF_Fixed2Int(ThrownItems[nCurrentThrown].nY)-32, "T1 F0 L25 W20 F1 L50 W20 F2 L75 W20 F3 W20");
+}
+
+//TODO: Refactor me. Please.
+void ShootRocket()
+{
+	if(nAmmo[nEquipedWeapon] == 0)
+	{
+		//no ammo, play the out of ammo sound
+		//guards can hear the click
+		MakeSound(nPlayerEnt, 50);
+		SoundNoAmmo();
+		UnpressButtons();
+	}
+	else
+	{
+		PlaySound(Weapons[nEquipedWeapon].nSound, 100);
+		
+		if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
+		{
+			nDeltaX = oF_divFF(oF_Whole2Fixed(nFreeAimX - entity.x[nPlayerEnt]), oF_Whole2Fixed(Weapons[nEquipedWeapon].nFuseLength));
+			nDeltaY = oF_divFF(oF_Whole2Fixed(nFreeAimY - entity.y[nPlayerEnt]), oF_Whole2Fixed(Weapons[nEquipedWeapon].nFuseLength));
+
+			if(entity.face[nPlayerEnt] == ENTITY_FACE_UP || entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
+				nThrownAnim = LoadAnimationEX("grenadeUD.png", 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
+			else
+				nThrownAnim = LoadAnimationEX("grenadeLR.png", 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
+
+			CreateThrown(oF_Whole2Fixed(entity.x[nPlayerEnt]), oF_Whole2Fixed(entity.y[nPlayerEnt],) nDeltaX, nDeltaY, nThrownAnim, Weapons[nEquipedWeapon].nFuseLength, nEquipedWeapon, THROWN_COLLISION_DETONATE, Weapons[nEquipedWeapon].sDetFunction);
+			
+			nAmmo[nEquipedWeapon]--;
+
+			UnpressButtons();
+		}
+	}
 }

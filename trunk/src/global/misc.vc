@@ -299,6 +299,11 @@ int FileExists(string file)
 	
 }
 
+int MakeScrollBar(int width, int height, int total, int current)
+{
+	
+}
+
 int MakeWaitBar(int width, int height, int value, int maxvalue)
 {
 	int barimg = newimage(width, height);
