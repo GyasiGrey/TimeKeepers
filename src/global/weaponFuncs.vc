@@ -125,3 +125,12 @@ void NullAim()
 void NullShoot()
 {
 }
+
+void GrenadeExplode()
+{
+	SoundGrenade();
+	CreateDamageArea(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 50, Weapons[ThrownItems[nCurrentThrown].nWeapon].nDamageMin, Weapons[ThrownItems[nCurrentThrown].nWeapon].nDamageMax, 50);
+	MakeSoundXY(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 100);
+	StartShake(2, 25);
+	LoadAnimationEX("explode.png", 64, 64, oF_Fixed2Int(ThrownItems[nCurrentThrown].nX)-32, oF_Fixed2Int(ThrownItems[nCurrentThrown].nY)-32, "T1 F0 L25 W20 F1 L50 W20 F2 L75 W20 F3 W20");
+}
