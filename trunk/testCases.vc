@@ -60,12 +60,26 @@ void test_NodeWithShortestDistance()
 	EmptyQueue();
 }
 
+
+/*returns 1 if the hit is on the left
+returns 2 if the hit is on the right
+returns 3 if the hit is to the top
+returns 4 if the hit is to the bottom
+*/
 void test_XYCollision()
 {
-	//big object around a small object
-	assertTrue(CheckCollisionXY(5, 5, 10, 10, 6, 6, 1, 1));
-	//small object inside a big object
-	assertTrue(CheckCollisionXY(6, 6, 1, 1, 5, 5, 10, 10));
 	//objects outside each other
 	assertFalse(CheckCollisionXY(1, 1, 1, 1, 5, 5, 10, 10));
+	
+	//object one colides on top side of object two
+	assertTrue(CheckCollisionXY(7, 2, 3, 7, 5, 5, 10, 10) == 3);
+	
+	//object one colides on left side of object two
+	assertTrue(CheckCollisionXY(3, 4, 8, 2, 5, 5, 10, 10) == 1);
+
+	//object one colides on bottom side of object two
+	assertTrue(CheckCollisionXY(6, 2, 14, 2, 5, 5, 10, 10) == 4);
+	
+	//object one colides on right side of object two
+	assertTrue(CheckCollisionXY(13, 5, 8, 2, 5, 5, 10, 10) == 2);
 }
