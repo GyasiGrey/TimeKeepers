@@ -59,3 +59,13 @@ void test_NodeWithShortestDistance()
 	
 	EmptyQueue();
 }
+
+void test_XYCollision()
+{
+	//big object around a small object
+	assertTrue(CheckCollisionXY(5, 5, 10, 10, 6, 6, 1, 1));
+	//small object inside a big object
+	assertTrue(CheckCollisionXY(6, 6, 1, 1, 5, 5, 10, 10));
+	//objects outside each other
+	assertFalse(CheckCollisionXY(1, 1, 1, 1, 5, 5, 10, 10));
+}
