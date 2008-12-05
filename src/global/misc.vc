@@ -661,25 +661,25 @@ int RectEnemyCollision(int x, int y, int w, int h)
 
 int CheckCollisionXY(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2)
 {
-	int left1, left2;
-	int right1, right2;
-	int top1, top2;
-	int bottom1, bottom2;
-
-	left1 = x1;
-	left2 = x2;
-	right1 = x1 + w1;
-	right2 = x2 + w2;
-	top1 = y1;
-	top2 = y2;
-	bottom1 = y1 + h1;
-	bottom2 = y2 + h2;
-
-	if (bottom1 < top2) return(4);
-	if (top1 > bottom2) return(3);
-
-	if (right1 < left2) return(2);
-	if (left1 > right2) return(1);
+	int left2;
+	int right2;
+	int top2;
+	int bottom2;
 	
+	int midw1;
+	int midh1;
+
+	left2 = x2;
+	right2 = x2 + w2;
+	top2 = y2;
+	bottom2 = y2 + h2;
+	
+	midw1 = x1 + (w1/2);
+	midh1 = y1 + (h1/2);
+
+
+	if(midh1  > top2 && midh1 < bottom2)
+		return 3;
+
 	return 0;
 }
