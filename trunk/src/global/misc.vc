@@ -666,20 +666,45 @@ int CheckCollisionXY(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int
 	int top2;
 	int bottom2;
 	
-	int midw1;
-	int midh1;
+	int t1x;
+	int t1y;
+	int b1x;
+	int b1y;
+	
+	int l1x;
+	int l1y;
+	int r1x;
+	int r1y;
 
 	left2 = x2;
 	right2 = x2 + w2;
 	top2 = y2;
 	bottom2 = y2 + h2;
 	
-	midw1 = x1 + (w1/2);
-	midh1 = y1 + (h1/2);
-
-
-	if(midh1  > top2 && midh1 < bottom2)
-		return 3;
+	t1x = x1 + (w1/2);
+	t1y = y1;
+	b1x = x1 + (w1/2);
+	b1y = y1 + h1;
+	l1x = x1;
+	l1y = y1 + (h1/2);
+	r1x = x1 + w1;
+	r1y = y1 + (h1/2);
+	
+	if(l1x < right2 && l1x > left2)
+		if(l1y < top2 && l1y > bottom2)
+			return 2;
+	
+	if(r1x < right2 && r1x > left2)
+		if(r1y < top2 && r1y < bottom2)
+			return 1;
+			
+	if(t1y < top2 && t1y > bottom2)
+		if(t1x < right2 && t1x > left2)
+			return 4;
+	
+	if(t1y < bottom2 && t1x > top2)
+		if(t1x < right2 && t1x > left2)
+			return 3;
 
 	return 0;
 }
