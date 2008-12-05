@@ -86,22 +86,26 @@ void ProcessesThrown()
 					KillThrown(i);
 				}
 			}
-
-			//move this item by deltaX and deltaY
-			ThrownItems[i].nX += ThrownItems[i].nDeltaX;
-			ThrownItems[i].nY += ThrownItems[i].nDeltaY;
-
-
-			Anims[ThrownItems[i].nAnim].x = oF_Fixed2Int(ThrownItems[i].nX);
-			Anims[ThrownItems[i].nAnim].y = oF_Fixed2Int(ThrownItems[i].nY);
-
-			if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nDetonateTimer)
+			
+			//if the thrown item wasn't killed in the previous statements, move it
+			if(ThrownItems[i].nActive)
 			{
-				nCurrentThrown = i;
-				CallFunction(ThrownItems[i].sDetonateFunc);
-				nCurrentThrown = -1;
-				
-				KillThrown(i);
+				//move this item by deltaX and deltaY
+				ThrownItems[i].nX += ThrownItems[i].nDeltaX;
+				ThrownItems[i].nY += ThrownItems[i].nDeltaY;
+
+
+				Anims[ThrownItems[i].nAnim].x = oF_Fixed2Int(ThrownItems[i].nX);
+				Anims[ThrownItems[i].nAnim].y = oF_Fixed2Int(ThrownItems[i].nY);
+
+				if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nDetonateTimer)
+				{
+					nCurrentThrown = i;
+					CallFunction(ThrownItems[i].sDetonateFunc);
+					nCurrentThrown = -1;
+
+					KillThrown(i);
+				}
 			}
 		}
 	}
