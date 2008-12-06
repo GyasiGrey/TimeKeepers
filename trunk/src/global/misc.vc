@@ -676,9 +676,6 @@ int CheckCollisionXY(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int
 	int r1x;
 	int r1y;
 	
-	int m1x;
-	int m1y;
-
 	left2 = x2;
 	right2 = x2 + w2;
 	top2 = y2;
