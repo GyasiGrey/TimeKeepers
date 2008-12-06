@@ -693,29 +693,33 @@ int CheckCollisionXY(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int
 	r1x = x1 + w1;
 	r1y = y1 + (h1/2);
 
-	
-	RectFill(x1-xwin, y1-ywin, x1+w1-xwin, y1+h1-ywin, RGB(0, 255, 0), screen);
-	RectFill(left2-xwin, top2-ywin, right2-xwin, bottom2-ywin, RGB(255, 0, 0), screen);
+	//Debug
+	//RectFill(x1-xwin, y1-ywin, x1+w1-xwin, y1+h1-ywin, RGB(0, 255, 0), screen);
+	//RectFill(left2-xwin, top2-ywin, right2-xwin, bottom2-ywin, RGB(255, 0, 0), screen);
 
 	//left
 	if(l1x < right2 && l1x > left2)
 		if(l1y < bottom2 && l1y > top2)
-			return 1;
+			if(r1x > right2)
+				return 1;
 
 	//right
 	if(r1x < right2 && r1x > left2)
 		if(l1y < bottom2 && l1y > top2)
-			return 2;
+			if(l1x < left2)
+				return 2;
 
 	//top
 	if(t1y < bottom2 && t1y > top2)
 		if(t1x < right2 && t1x > left2)
-			return 3;
+			if(b1y > bottom2)
+				return 3;
 
 	//bottom
 	if(b1y < bottom2 && b1y > top2)
 		if(t1x < right2 && t1x > left2)
-			return 4;
+			if(t1y < top2)
+				return 4;
 
 	return 0;
 }
