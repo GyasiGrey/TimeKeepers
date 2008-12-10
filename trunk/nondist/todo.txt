@@ -30,8 +30,6 @@ Priority 1
 
 Release 2.5
 ***********
-New death scene. Use the static effect!
-
 Intro scene
 	-How the bad lands were created
 	-How our "heroes" figured out how to use it to their advantage
@@ -103,6 +101,8 @@ give the punch an anim without muzzle flare
 
 DONE
 *********
+*DONE* New death scene. Use the static effect!
+
 *DONE* Grenade explosion animation
 
 *DONE* Figure out the trig to make the freeaim radius not suck
