@@ -8,18 +8,25 @@ void PlayerDeathEffect()
 
 	StartStatic();
 
-	WaitTimer(50);
+	WaitTimer(75);
 
 	RemoveStatic();
 
-	WaitTimer(25);
+	WaitTimer(50);
 
 	StartStatic();
 
-	WaitTimer(50);
+	WaitTimer(25);
 
 	RemoveStatic();
 	
+	WaitTimer(50);
+	
+	StartStatic();
+	
+	WaitTimer(50);
+	
+	RemoveStatic();
 
 	//make a copy of the screen for game over
 	Render();	//PlayerDeath() is hooked to the first Retrace, so Render() is necessary to get a full screen copy.
