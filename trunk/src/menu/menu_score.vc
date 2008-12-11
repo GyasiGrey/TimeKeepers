@@ -48,7 +48,7 @@ void MenuScoreDraw()
 	
 	if(bShowx86)
 		Drawx86();
-	
+		
 	PrintString(8, 16, img, nTerminalFont, "Enemies killed:");
 	PrintRight(115, 16, img, nTerminalFont, str(nEnemiesKilled));
 	PrintString(8, 24, img, nTerminalFont, "Enemies tranq'd:");
@@ -68,6 +68,8 @@ void MenuScoreDraw()
 	Blit(nMenuX, nMenuY, img, screen);	
 	FreeImage(img);
 	
+	PrintCenter(160, 90, screen, nTerminalFont, "SIGNAL LOST");
+		
 	DrawAnimation(nScoreAnim);
 }
 
