@@ -8,6 +8,7 @@ void PlayerDeathEffect()
 
 	StartStatic();
 
+	SoundStatic750ms();
 	WaitTimer(75);
 
 	RemoveStatic();
@@ -16,6 +17,7 @@ void PlayerDeathEffect()
 
 	StartStatic();
 
+	SoundStatic250ms();
 	WaitTimer(25);
 
 	RemoveStatic();
@@ -24,6 +26,7 @@ void PlayerDeathEffect()
 	
 	StartStatic();
 	
+	SoundStatic500ms();
 	WaitTimer(50);
 	
 	RemoveStatic();
