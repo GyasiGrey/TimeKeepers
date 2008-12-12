@@ -57,6 +57,10 @@ int nSoundKeyboard6 = LoadSound("sounds\keyboard6.wav");
 int nSoundKeyboard7 = LoadSound("sounds\keyboard7.wav");
 int nSoundKeyboard8 = LoadSound("sounds\keyboard8.wav");
 
+int nSoundStatic750ms = LoadSound("sounds\750ms.wav");
+int nSoundStatic500ms = LoadSound("sounds\500ms.wav");
+int nSoundStatic250ms = LoadSound("sounds\250ms.wav");
+
 void SoundPlayerDeath()
 {
 	PlaySound(nSoundPlayerDeath, nSoundVolume);
@@ -207,4 +211,19 @@ void SoundTKSplashIn()
 void SoundSpawn()
 {
 	PlaySound(nSoundSpawn, nSoundVolume);
+}
+
+void SoundStatic250ms()
+{
+	PlaySound(nSoundStatic250ms, nSoundVolume);
+}
+
+void SoundStatic500ms()
+{
+	PlaySound(nSoundStatic500ms, nSoundVolume);
+}
+
+void SoundStatic750ms()
+{
+	PlaySound(nSoundStatic750ms, nSoundVolume);
 }
