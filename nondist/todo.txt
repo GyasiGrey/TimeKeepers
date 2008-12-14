@@ -27,6 +27,12 @@ Fixed Bugs needing testing
 **********
 Priority 1
 **********
+Add test cases for FoV()
+	Expected return values
+		If any point between the targets x, y, w, h are inside the triangle, return true
+		Test for all cardinal directions (0. 90, 180, 240)
+		Test for deg >= 360
+		Test for deg <= 0
 
 Release 2.5
 ***********
