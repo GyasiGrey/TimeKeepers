@@ -84,3 +84,7 @@ void test_XYCollision()
 	//object one colides on bottom side of object two
 	assertTrue(CheckCollisionXY(7, 3, 2, 7, 5, 5, 10, 10) == 4);
 }
+
+/*void test_FoV()
+{
+}*/

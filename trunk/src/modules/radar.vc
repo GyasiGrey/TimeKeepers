@@ -18,6 +18,8 @@ void DrawRadar()
 
 	int x1, y1, x2, y2, x3, y3;
 	
+	int nTriangleColor;
+	
 	//if the radar is not on, exit out
 	if(!nRadarOn)
 		return;
@@ -92,8 +94,13 @@ void DrawRadar()
 			x3 = ((((x3-xwin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageWidth(screen)))*RADAR_WIDTH)/100;
 			y3 = ((((y3-ywin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageHeight(screen)))*RADAR_HEIGHT)/100;
 
+			if(Enemies[i].nMode == MODE_ALERT)
+				nTriangleColor = RGB(255, 0, 0);
+			else
+				nTriangleColor = RGB(0, 255, 0);
+
 			SetLucent(50);
-			Triangle(x1, y1, x2, y2, x3, y3, RGB(0, 255, 0), img);
+			Triangle(x1, y1, x2, y2, x3, y3, nTriangleColor, img);
 			SetLucent(0);
 		}
 	}
