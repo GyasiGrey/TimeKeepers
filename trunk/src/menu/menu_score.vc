@@ -47,7 +47,10 @@ void MenuScoreDraw()
 	int img = CreateWindow("Score", 120, 80, nTerminalFont);
 	
 	if(bShowx86)
+	{
 		Drawx86();
+		PrintCenter(160, 90, screen, nTerminalFont, "SIGNAL LOST");
+	}
 		
 	PrintString(8, 16, img, nTerminalFont, "Enemies killed:");
 	PrintRight(115, 16, img, nTerminalFont, str(nEnemiesKilled));
@@ -68,8 +71,6 @@ void MenuScoreDraw()
 	Blit(nMenuX, nMenuY, img, screen);	
 	FreeImage(img);
 	
-	PrintCenter(160, 90, screen, nTerminalFont, "SIGNAL LOST");
-		
 	DrawAnimation(nScoreAnim);
 }
 
