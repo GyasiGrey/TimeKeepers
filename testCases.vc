@@ -85,6 +85,11 @@ void test_XYCollision()
 	assertTrue(CheckCollisionXY(7, 3, 2, 7, 5, 5, 10, 10) == 4);
 }
 
-/*void test_FoV()
+void test_FoV()
 {
-}*/
+	assertFalse(FoV(5, 5, 5, 5, 45, 90));
+	
+	assertTrue(FoV(5, 5, 5, 5, 45, 270));
+	
+	assertTrue(FoV(15, 5, 5, 5, 45, 90));
+}
