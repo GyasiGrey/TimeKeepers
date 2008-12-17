@@ -87,9 +87,18 @@ void test_XYCollision()
 
 void test_FoV()
 {
-	assertFalse(FoV(5, 5, 5, 5, 45, 90));
+	//target is outside the source's FoV
+	assertFalse(FoV(10, 10, 5, 5, 45, 90));
+
+	//target is inside the source's FoV - source is facing left	
+	assertTrue(FoV(10, 10, 5, 10, 45, 180));
 	
-	assertTrue(FoV(5, 5, 5, 5, 45, 270));
+	//target is inside the source's FoV - source is facing right
+	assertTrue(FoV(10, 10, 15, 10, 45, 0));
 	
-	assertTrue(FoV(15, 5, 5, 5, 45, 90));
+	//target is inside the source's FoV - source is facing up
+	assertTrue(FoV(10, 10, 10, 5, 45, 270));
+	
+	//target is inside the source's FoV - source is facing down
+	assertTrue(FoV(10, 10, 10, 15, 45, 90));
 }
