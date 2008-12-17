@@ -131,7 +131,7 @@ int LineOfSight(int x1, int y1, int x2, int y2, int ignoreent)
 //Field of View. It will return true if x2y2 is in x1y1's Field of view.
 //Direction is the direction x1y1 is facing and sightwidth is the angle of x1y1's FoV
 //Note this does no distance or obstruction checks, that is handled in Enemy.vc::CanSeePlayer()
-int FoV(int x1, int y1, int x2, int y2, int sightwidth, int direction)
+int FoV(int x1, int y1, int x2, int y2, int w2, int h2, int sightwidth, int direction)
 {
 	//get the theta of the point (polar coords)
 	int theta = zatan2(y2-y1, x2-x1);
