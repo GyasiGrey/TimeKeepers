@@ -133,8 +133,11 @@ int LineOfSight(int x1, int y1, int x2, int y2, int ignoreent)
 //Note this does no distance or obstruction checks, that is handled in Enemy.vc::CanSeePlayer()
 int FoV(int x1, int y1, int x2, int y2, int w2, int h2, int sightwidth, int direction)
 {
-	//get the theta of the point (polar coords)
-	int theta = zatan2(y2-y1, x2-x1);
+	//get the 4 points of the targets bounding box (polar coords)
+	int theta1 = zatan2(y2-y1, x2-x1);		//top left
+	int theta2 = zatan2(y2-y1, (x2+w2)-x1);		//top right
+	int theta3 = zatan2((y2+h2)-y1, x2-x1);		//bottom left
+	int theta4 = zatan2((y2+h2)-y1, (x2+w2)-x1);	//bottom right
 	
 	int bot = direction-sightwidth;
 	int top = direction+sightwidth;
@@ -173,7 +176,19 @@ int FoV(int x1, int y1, int x2, int y2, int w2, int h2, int sightwidth, int dire
 	}*/
 
 	//theta is inside the part were looking at
-	if(theta > bot && theta < top)
+	if(theta1 > bot && theta1 < top)
+	{
+		return 1;
+	}
+	else if(theta2 > bot && theta2 < top)
+	{
+		return 1;
+	}
+	else if(theta3 > bot && theta3 < top)
+	{
+		return 1;
+	}
+	else if(theta4 > bot && theta4 < top)
 	{
 		return 1;
 	}
