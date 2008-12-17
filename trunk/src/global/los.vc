@@ -139,6 +139,23 @@ int FoV(int x1, int y1, int x2, int y2, int sightwidth, int direction)
 	int bot = direction-sightwidth;
 	int top = direction+sightwidth;
 	
+	//DEBUG
+	/*int dx1 = x1;
+	int dy1 = y1;
+	int dx2, dy2, dx3, dy3;
+	int dbot = direction-sightwidth;
+	int dtop = direction+sightwidth;
+
+			
+	dx2 = dx1 + ((35 * cos(dtop))/65535);
+	dy2 = dy1 + ((35 * sin(dtop))/65535);
+
+	dx3 = dx1 + ((35 * cos(dbot))/65535);
+	dy3 = dy1 + ((35 * sin(dbot))/65535);
+
+	triangle(dx1-xwin, dy1-ywin, dx2-xwin, dy2-ywin, dx3-xwin, dy3-ywin, RGB(0, 255, 0), screen);*/
+	//DEBUG
+
 	//Log("SoS() called x1: " + str(x1) + " y1: " + str(y1) +" x2: " + str(x2) + " y2: " + str(y2) + " sightwidth: " + str(sightwidth) + " direction: " + str(direction));
 	
 	if(top > 360)
