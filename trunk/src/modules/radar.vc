@@ -68,18 +68,17 @@ void DrawRadar()
 			if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_LEFT)
 				ang = 0;
 				
-			bot = ang-Enemies[i].nSightRange;
-			top = ang+Enemies[i].nSightRange;
-
+			bot = ang-Enemies[i].nSightAngle;
+			top = ang+Enemies[i].nSightAngle;
 
 			x1 = entity.x[Enemies[i].nEntity];
 			y1 = entity.y[Enemies[i].nEntity];
 			
-			x2 = entity.x[Enemies[i].nEntity] + ((Enemies[i].nSightRange * cos(top))/65535);
-			y2 = entity.y[Enemies[i].nEntity] + ((Enemies[i].nSightRange * sin(top))/65535);
+			x2 = entity.x[Enemies[i].nEntity] - ((Enemies[i].nSightRange * cos(top))/65535);
+			y2 = entity.y[Enemies[i].nEntity] - ((Enemies[i].nSightRange * sin(top))/65535);
 			
-			x3 = entity.x[Enemies[i].nEntity] + ((Enemies[i].nSightRange * cos(bot))/65535);
-			y3 = entity.y[Enemies[i].nEntity] + ((Enemies[i].nSightRange * sin(bot))/65535);
+			x3 = entity.x[Enemies[i].nEntity] - ((Enemies[i].nSightRange * cos(bot))/65535);
+			y3 = entity.y[Enemies[i].nEntity] - ((Enemies[i].nSightRange * sin(bot))/65535);
 
 			//DEBUG
 			//triangle(x1-xwin, y1-ywin, x2-xwin, y2-ywin, x3-xwin, y3-ywin, RGB(0, 255, 0), screen);
