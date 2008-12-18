@@ -781,6 +781,7 @@ void Search(int ent)
 int CanSeePlayer(int i)
 {
 	int ang;
+	int nXStart, nYStart;
 	
 	if(CHEATS_ENABLED)
 	{
@@ -796,24 +797,38 @@ int CanSeePlayer(int i)
 	//see if the enemy can see the player
 	if(Enemies[i].nActive && Distance(nPlayerEnt, Enemies[i].nEntity) < Enemies[i].nSightRange)
 	{
-		//up
 		if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_UP)
+		{
 			ang = 270;
-
-		//down
-		if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_DOWN)
+			
+			nYStart = entity.y[Enemies[i].nEntity];
+			nXStart = entity.x[Enemies[i].nEntity] + (entity.hotw[Enemies[i].nEntity]/2);
+		}
+		else if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_DOWN)
+		{
 			ang = 90;
 
-		//left
-		if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_LEFT)
+			nYStart = entity.y[Enemies[i].nEntity] + entity.hoth[Enemies[i].nEntity];
+			nXStart = entity.x[Enemies[i].nEntity] + (entity.hotw[Enemies[i].nEntity]/2);
+		}
+		else if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_LEFT)
+		{
 			ang = 180;
 
-		//right
-		if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_RIGHT)
+			nYStart = entity.y[Enemies[i].nEntity] + (entity.hoth[Enemies[i].nEntity]/2);
+			nXStart = entity.x[Enemies[i].nEntity];
+		}
+		else if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_RIGHT)
+		{
 			ang = 0;
 
+			nYStart = entity.y[Enemies[i].nEntity] + (entity.hoth[Enemies[i].nEntity]/2);
+			nXStart = entity.x[Enemies[i].nEntity] + entity.hotw[Enemies[i].nEntity];
+		}
+			
+
 		//am I looking in your direction?
-		if(FoV(entity.x[Enemies[i].nEntity], entity.y[Enemies[i].nEntity], entity.x[nPlayerEnt], entity.y[nPlayerEnt], entity.hotw[nPlayerEnt], entity.hoth[nPlayerEnt], Enemies[i].nSightAngle, ang))
+		if(FoV(nXStart, nYStart, entity.x[nPlayerEnt], entity.y[nPlayerEnt], entity.hotw[nPlayerEnt], entity.hoth[nPlayerEnt], Enemies[i].nSightAngle, ang))
 		{
 			//can I get a line of sight to you? (no obs in the way)
 			if(LineOfSight(entity.x[Enemies[i].nEntity], entity.y[Enemies[i].nEntity], entity.x[nPlayerEnt], entity.y[nPlayerEnt], Enemies[i].nEntity) == nPlayerEnt)
