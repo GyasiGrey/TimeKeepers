@@ -130,7 +130,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nMaxHp = 25;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nWeapon = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSightRange = 200;
-	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSightAngle = 45;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSightAngle = 35;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nWeapon].nRecharge*2;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAlertTime = 1000;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSearchTime = 600;
@@ -152,7 +152,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nMaxHp = 35;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nWeapon = 2;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nSightRange = 200;
-	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nSightAngle = 45;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nSightAngle = 35;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nWeapon].nRecharge*2;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nAlertTime = 500;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nSearchTime = 600;
