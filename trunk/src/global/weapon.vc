@@ -5,7 +5,7 @@
 #define WEAPON_TYPE_AUTO   2	//user can hold down shoot button to retrigger shots. Automatic weapons.
 #define WEAPON_TYPE_THROWN 3
 
-#define NUM_WEAPONS 8
+#define NUM_WEAPONS 9
 
 #define WEAPON_KNIFE		0
 #define WEAPON_PISTON		1
@@ -16,6 +16,7 @@
 #define WEAPON_EMPTY		6
 #define WEAPON_AUTO_SHOTGUN	7
 #define WEAPON_ROCKET_LAUNCHER	8
+#define	WEAPON_FLASH_BANG	9
 
 struct Weapon
 {
@@ -201,6 +202,24 @@ void InitWeapons()
 	Weapons[8].sDetFunction = "GrenadeExplode";
 	Weapons[8].sAimFunction = "FreeAimWeapon";
 	Weapons[8].sShootFunction = "ShootRocket";
+	
+	Weapons[9].nRange = 100;
+	Weapons[9].sName = "Flash Bang";
+	Weapons[9].nSound = LoadSound("sounds\grenadeDrop.wav");
+	Weapons[9].nIcon = LoadImage("gfx\icons\grenade.png");
+	Weapons[9].nMaxAmmo = 10;
+	Weapons[9].nDamageMin = 10;
+	Weapons[9].nDamageMax = 20;
+	Weapons[9].nRecharge = 100;
+	Weapons[9].nSoundRadius = 5;
+	Weapons[9].nAccMin = 0-5;
+	Weapons[9].nAccMax = 5;
+	Weapons[9].nType = WEAPON_TYPE_THROWN;
+	Weapons[9].nSpreadShots = 1;
+	Weapons[9].nFuseLength = 150;
+	Weapons[9].sDetFunction = "FlashBangExplode";
+	Weapons[9].sAimFunction = "FreeAimWeapon";
+	Weapons[9].sShootFunction = "ThrowGrenade";
 }
 
 void FreeWeapons()
