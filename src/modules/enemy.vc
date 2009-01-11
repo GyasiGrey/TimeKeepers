@@ -754,17 +754,20 @@ void WakeUp(int ent)
 void Knockout(int ent)
 {
 	Error("Knockout() called ent: " + str(ent));
-	Enemies[ent].nActive = 0;
-	Enemies[ent].nTranqAt = vcTimer[TIMER_ENEMY_LOGIC].nTick;	//stamp when they were knocked out
-	Enemies[ent].nMode = MODE_NORMAL;
-	StopEnemy(ent);
-	entity.obstruct[Enemies[ent].nEntity] = 0; //now i can walk through you
-	//do enemy death anim
-	AnimateEnemy(ent, "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24");
-	//knockout sound
-	SoundKnockOut();
-	//track the tranq
-	nEnemiesTranqd++;
+	if(Enemies[ent].bCanBeTranqd)
+	{
+		Enemies[ent].nActive = 0;
+		Enemies[ent].nTranqAt = vcTimer[TIMER_ENEMY_LOGIC].nTick;	//stamp when they were knocked out
+		Enemies[ent].nMode = MODE_NORMAL;
+		StopEnemy(ent);
+		entity.obstruct[Enemies[ent].nEntity] = 0; //now i can walk through you
+		//do enemy death anim
+		AnimateEnemy(ent, "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24");
+		//knockout sound
+		SoundKnockOut();
+		//track the tranq
+		nEnemiesTranqd++;
+	}
 }
 
 //make an enemy start searching the area
