@@ -1,9 +1,16 @@
 #define THROWN_COLLISION_REFLECT	0
 #define THROWN_COLLISION_DETONATE	1
 
+
+int nLastFreeAimTick;
+
 void FreeAimWeapon()
 {
 	int theta;
+
+	//calculate the delta in ticks between this and the previous cycle
+	int nFreeAimTickDelta = oF_Whole2Fixed(timer - nLastFreeAimTick);
+	nLastFreeAimTick = timer;
 	
 	//free aim!
 	if(!bAimingLastTick)
@@ -15,22 +22,22 @@ void FreeAimWeapon()
 
 	if(up)
 	{
-		nFreeAimY-=2;
+		nFreeAimY-=2*oF_Fixed2Int(nFreeAimTickDelta);
 	}
 
 	if(down)
 	{
-		nFreeAimY+=2;
+		nFreeAimY+=2*oF_Fixed2Int(nFreeAimTickDelta);
 	}
 
 	if(left)
 	{
-		nFreeAimX-=2;
+		nFreeAimX-=2*oF_Fixed2Int(nFreeAimTickDelta);
 	}
 
 	if(right)
 	{
-		nFreeAimX+=2;
+		nFreeAimX+=2*oF_Fixed2Int(nFreeAimTickDelta);
 	}
 	
 	if(DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], nFreeAimX, nFreeAimY)  > Weapons[nEquipedWeapon].nRange)
