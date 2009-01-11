@@ -9,13 +9,14 @@ struct DamageArea
 	int nMaxDamage;			//max damage taken
 	int nDieTime;			//timer when this area will die
 	int dEntitiesHit;		//dictionary of the entities hit by this damage area
+	string sCollisionFunction;	//the function run when an entity collides with this damage area
 	
 	int nActive;
 }
 
 DamageArea DamageAreas[MAX_DAMAGE_AREA];
 
-int CreateDamageArea(int x, int y, int radius, int minDamage, int maxDamage, int dieTime)
+int CreateDamageArea(int x, int y, int radius, int minDamage, int maxDamage, string sColisionFunction, int dieTime)
 {
 	int i;
 	
@@ -30,6 +31,7 @@ int CreateDamageArea(int x, int y, int radius, int minDamage, int maxDamage, int
 			DamageAreas[i].nMaxDamage = maxDamage;
 			DamageAreas[i].nDieTime = timer + dieTime;
 			DamageAreas[i].dEntitiesHit = DictNew();
+			DamageAreas[i].sCollisionFunction = sColisionFunction;
 			
 			DamageAreas[i].nActive = 1;
 			return i;
@@ -50,7 +52,7 @@ void ProcessesDamageArea()
 		{
 			if(!DictContains(DamageAreas[i].dEntitiesHit, str(nPlayerEnt)) && DistanceXY(DamageAreas[i].nX, DamageAreas[i].nY, entity.x[nPlayerEnt], entity.y[nPlayerEnt]) < DamageAreas[i].nRadius)
 			{
-				DamageEnemy(Random(DamageAreas[i].nMinDamage, DamageAreas[i].nMaxDamage), nPlayerEnt);
+				CallFunction(DamageAreas[i].sCollisionFunction,	i, nPlayerEnt);
 				DictSetInt(DamageAreas[i].dEntitiesHit, str(nPlayerEnt), 1);
 			}
 				
@@ -61,7 +63,7 @@ void ProcessesDamageArea()
 					//if an enemy is inside this area's radius, damage it
 					if(!DictContains(DamageAreas[i].dEntitiesHit, str(Enemies[j].nEntity)) && DistanceXY(DamageAreas[i].nX, DamageAreas[i].nY, entity.x[Enemies[j].nEntity], entity.y[Enemies[j].nEntity]) < DamageAreas[i].nRadius)
 					{
-						DamageEnemy(Random(DamageAreas[i].nMinDamage, DamageAreas[i].nMaxDamage), Enemies[j].nEntity);
+						CallFunction(DamageAreas[i].sCollisionFunction,	i, Enemies[j].nEntity);
 						DictSetInt(DamageAreas[i].dEntitiesHit, str(Enemies[j].nEntity), 1);
 					}
 				}
@@ -79,4 +81,13 @@ void KillDamageArea(int i)
 {
 	DamageAreas[i].nActive = 0;
 	DictFree(DamageAreas[i].dEntitiesHit);
+}
+
+void DamageAreaDamage(int nArea, int nTarget)
+{
+	DamageEnemy(Random(DamageAreas[nArea].nMinDamage, DamageAreas[nArea].nMaxDamage), nTarget);
+}
+
+void DamageAreaStun()
+{
 }
