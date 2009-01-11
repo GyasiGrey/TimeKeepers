@@ -15,6 +15,9 @@ struct ThrownItem
 	int nActive;
 }
 
+int nLastThrownTick;
+int nThrownTickDelta;
+
 ThrownItem ThrownItems[MAX_THROWN];
 int nCurrentThrown = -1;
 
@@ -39,6 +42,9 @@ int CreateThrown(int x, int y, int dx, int dy, int anim, int dtimer, int nweapon
 			ThrownItems[i].nActive = 1;
 			
 			Anims[anim].automatic = 0;
+
+			nLastThrownTick = timer;
+
 			return i;
 		}
 	}
@@ -46,6 +52,7 @@ int CreateThrown(int x, int y, int dx, int dy, int anim, int dtimer, int nweapon
 	FatialError("throw.vc::CreateThrown() - MAX_THROWN to small.");
 	return -1;
 }
+
 
 void ProcessesThrown()
 {
@@ -88,11 +95,15 @@ void ProcessesThrown()
 			}
 			
 			//if the thrown item wasn't killed in the previous statements, move it
+
+			nThrownTickDelta = oF_Whole2Fixed(timer - nLastThrownTick);
+			nLastThrownTick = timer;
+
 			if(ThrownItems[i].nActive)
 			{
 				//move this item by deltaX and deltaY
-				ThrownItems[i].nX += ThrownItems[i].nDeltaX;
-				ThrownItems[i].nY += ThrownItems[i].nDeltaY;
+				ThrownItems[i].nX += ThrownItems[i].nDeltaX*oF_Fixed2Int(nThrownTickDelta);
+				ThrownItems[i].nY += ThrownItems[i].nDeltaY*oF_Fixed2Int(nThrownTickDelta);
 
 
 				Anims[ThrownItems[i].nAnim].x = oF_Fixed2Int(ThrownItems[i].nX);
