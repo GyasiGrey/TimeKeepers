@@ -88,6 +88,7 @@ void DamageAreaDamage(int nArea, int nTarget)
 	DamageEnemy(Random(DamageAreas[nArea].nMinDamage, DamageAreas[nArea].nMaxDamage), nTarget);
 }
 
-void DamageAreaStun()
+void DamageAreaStun(int nArea, int nTarget)
 {
+	KnockOut(GetEnemyIndex(nTarget));
 }
