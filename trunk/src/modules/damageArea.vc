@@ -90,5 +90,13 @@ void DamageAreaDamage(int nArea, int nTarget)
 
 void DamageAreaStun(int nArea, int nTarget)
 {
-	KnockOut(GetEnemyIndex(nTarget));
+	if(nTarget != nPlayerEnt)
+	{
+		KnockOut(GetEnemyIndex(nTarget));
+	}
+	else
+	{
+		//team flash n00b - longer screen fade and annoying ear ringing noise
+		FadeIn(300, RGB(255, 255, 255));
+	}
 }
