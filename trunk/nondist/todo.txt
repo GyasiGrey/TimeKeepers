@@ -27,6 +27,7 @@ Fixed Bugs needing testing
 **********
 Priority 1
 **********
+Add watch's to the debug window. Use the get variable by name function to add a list of variables at runtime. Variable display will be updated every refresh
 
 Release 2.5
 ***********
