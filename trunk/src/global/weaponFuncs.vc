@@ -151,7 +151,7 @@ void FlashBangExplode()
 	CreateDamageArea(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 50, Weapons[ThrownItems[nCurrentThrown].nWeapon].nDamageMin, Weapons[ThrownItems[nCurrentThrown].nWeapon].nDamageMax, "DamageAreaStun", 50);
 	MakeSoundXY(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 100);
 	//screen fade effect
-	FadeIn(25, RGB(255, 255, 255));
+	FadeIn(50, RGB(255, 255, 255));
 	nFadeInStart-=10;
 }
 
