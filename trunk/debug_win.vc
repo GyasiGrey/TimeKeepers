@@ -76,4 +76,7 @@ void dbgwin_Draw()
 		PrintString(8, j*(4+fontheight(dbgwin_FONT)), dbgwin_MainImage, dbgwin_FONT, dbgwin_Text[i]);
 		j++;
 	}
+
+	PrintString(8, dbgwin_HEIGHT-fontheight(dbgwin_FONT), dbgwin_MainImage, dbgwin_FONT, "Timer: " + str(timer));
+	PrintString(100, dbgwin_HEIGHT-fontheight(dbgwin_FONT), dbgwin_MainImage, dbgwin_FONT, "Timer: " + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
 }
