@@ -92,7 +92,7 @@ void DamageAreaStun(int nArea, int nTarget)
 {
 	if(nTarget != nPlayerEnt)
 	{
-		KnockOut(GetEnemyIndex(nTarget));
+		KnockOut(GetEnemyIndex(nTarget), 200);
 	}
 	else
 	{
