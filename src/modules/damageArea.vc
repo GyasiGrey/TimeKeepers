@@ -58,7 +58,7 @@ void ProcessesDamageArea()
 				
 			for(j=0;j<nNumEnemies;j++)
 			{
-				if(Enemies[j].nActive)
+				if(Enemies[j].nActive && Enemies[j].nMode != MODE_TRANQ)
 				{
 					//if an enemy is inside this area's radius, damage it
 					if(!DictContains(DamageAreas[i].dEntitiesHit, str(Enemies[j].nEntity)) && DistanceXY(DamageAreas[i].nX, DamageAreas[i].nY, entity.x[Enemies[j].nEntity], entity.y[Enemies[j].nEntity]) < DamageAreas[i].nRadius)
