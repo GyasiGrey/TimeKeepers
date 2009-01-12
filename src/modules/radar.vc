@@ -34,7 +34,7 @@ void DrawRadar()
 	//draw the enemies blips
 	for(i=0;i<MAX_ENEMIES;i++)
 	{
-		if(Enemies[i].nActive)
+		if(Enemies[i].nActive && Enemies[i].nMode != MODE_TRANQ)
 		{
 			radarx = (((entity.x[Enemies[i].nEntity]-xwin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageWidth(screen)))*RADAR_WIDTH;
 			radary = (((entity.y[Enemies[i].nEntity]-ywin+RADAR_RANGE)*100)/((RADAR_RANGE*2)+ImageHeight(screen)))*RADAR_HEIGHT;
