@@ -2,6 +2,7 @@
 //may be expanded in the future for watch variables and such
 //all functions and vars are prefixed with dbgwin_
 #define dbgwin_TEXTSIZE 40	//total lines stored
+#define dbgwin_WATCHSIZE 5
 #define dbgwin_FONT	0		//font to use
 #define dbgwin_WIDTH	600
 #define dbgwin_HEIGHT	475
@@ -12,6 +13,7 @@ int dbgwin_MainImage;	//hndl for the debug window image
 
 
 string dbgwin_Text[dbgwin_TEXTSIZE];	//text of debug window
+int dgbwin_dictWatches;			//variable watches - key = variable name, value = string/int
 
 //inits the debug window
 void dbgwin_Init()
@@ -34,6 +36,14 @@ void dbgwin_Init()
 		dbgwin_Text[i] = "";
 	}
 	
+
+	//null out dbgwin_Watches
+	for(i=0;i<dbgwin_WATCHSIZE;i++)
+	{
+		dbgwin_Watches[i] = "";
+	}
+
+	dgbwin_dictWatches = DictNew();
 
 	dbgwin_Initd=1;
 }
@@ -63,10 +73,21 @@ void dbgwin_Output(string out)
 	dbgwin_Text[dbgwin_TEXTSIZE-1] = out;
 }
 
+void dbgwin_AddWatch(string sName, string sType)
+{
+	if(strcmp(sType, "int") == 0 || strcmp(sType, "string") == 0)
+	{
+		if(!DictContains(dgbwin_dictWatches, sName))
+		{
+			DictSetString(dgbwin_dictWatches, sName, sType);
+		}
+	}
+}
 //draws the debug window, hook to the retrace
 void dbgwin_Draw()
 {
 	int i, j;
+	string sWatchName, sWatchType;	//Who watches the watchmen? The watcher watches the watchmen.
 	
 	RectFill(0, 0, dbgwin_WIDTH, dbgwin_HEIGHT, RGB(0, 0, 0), dbgwin_MainImage);
 	
@@ -77,6 +98,11 @@ void dbgwin_Draw()
 		j++;
 	}
 
-	PrintString(8, dbgwin_HEIGHT-fontheight(dbgwin_FONT), dbgwin_MainImage, dbgwin_FONT, "Timer: " + str(timer));
-	PrintString(100, dbgwin_HEIGHT-fontheight(dbgwin_FONT), dbgwin_MainImage, dbgwin_FONT, "Timer: " + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
+	for(i=0;i<DictSize(dgbwin_dictWatches);i++)
+	{
+		//read the data from the dict
+		sWatchname = DictGetString(
+	}
+	//PrintString(8, dbgwin_HEIGHT-fontheight(dbgwin_FONT), dbgwin_MainImage, dbgwin_FONT, "Timer: " + str(timer));
+	//PrintString(100, dbgwin_HEIGHT-fontheight(dbgwin_FONT), dbgwin_MainImage, dbgwin_FONT, "Timer: " + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
 }
