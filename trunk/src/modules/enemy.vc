@@ -719,7 +719,7 @@ void MakeSoundHelp(int i, int sourceX, int sourceY)
 			//civilians go into alert mode when they hear something
 			MakeAlert(i);
 		}
-		else if(Enemies[i].nMode != MODE_ALERT)
+		else if(Enemies[i].nMode != MODE_ALERT && Enemies[i].nMode != MODE_TRANQ)
 		{
 			if(Enemies[i].bCanSpeak && Enemies[i].nMode != MODE_SOUND)
 				BottomText(i, BOTTOM_TEXT_SOUND);
