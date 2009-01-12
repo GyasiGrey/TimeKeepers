@@ -8,7 +8,7 @@
 				//so that they do go around obs
 				
 #define TRANQ_EFFECT_TIME 1000 //how long it takes for a tranq gun to take effect (10 seconds)
-#define TRANQ_SLEEP_TIME 60000  //how long it takes for an enemy to wake up (10 minutes)
+#define TRANQ_SLEEP_TIME 6000  //how long it takes for an enemy to wake up (1 minute)
 
 #define SEARCH_WAIT_TIME 200	//how long to stay startled before searching
 
@@ -48,6 +48,7 @@ struct Enemy
 /**/	int nTranqEnd;			//timer when they will go unconscious form a tranq dart (timer + WEAPON_TRANQ_EFFECT_TIME)
 	int nTranqHit;			//true if this enemy was hit by a tranq dart
 	int nTranqAt;			//timer when they went unconscious
+	int nTranqTime;			//timer when they should wake
 
 /**/	int nSoundStart;		//timer when they heard a noise
 
@@ -605,18 +606,19 @@ void ProcessEnemies()
 				//check if the enemy is waiting to be knocked out
 				if(Enemies[i].nTranqHit)
 				{
-					if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= Enemies[i].nTranqEnd)
+					if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= Enemies[i].nTranqEnd && Enemies[i].nMode != MODE_TRANQ)
 					{
 						//the tranq dart took effect
-						Knockout(i);
+						Knockout(i, TRANQ_SLEEP_TIME);
 					}
-				}
-				else if(Enemies[i].nTranqHit)
-				{
-					//check if enemy is knocked out and should wake up
-					if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[i].nTranqAt + TRANQ_SLEEP_TIME)
-					{
-						WakeUp(i);
+
+					if(Enemies[i].nMode == MODE_TRANQ)	
+					{	
+						//check if enemy is knocked out and should wake up
+						if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[i].nTranqAt + Enemies[i].nTranqTime)
+						{
+							WakeUp(i);
+						}
 					}
 				}
 			}
@@ -741,7 +743,7 @@ void MakeSoundHelp(int i, int sourceX, int sourceY)
 void WakeUp(int ent)
 {
 	Error("WakeUp() called ent: " + str(ent));
-	Enemies[ent].nActive = 1;
+//	Enemies[ent].nActive = 1;
 	Enemies[ent].nTranqHit = 0;
 	//do enemy death anim in reverse!
 	AnimateEnemy(ent, "Z24 W15 Z23 W15 Z22 W15 Z21 W15 Z20 W15");
@@ -751,14 +753,16 @@ void WakeUp(int ent)
 
 //knock out an enemy from a tranq dart
 //ent is an ENEMY index
-void Knockout(int ent)
+void Knockout(int ent, int nSleepTime)
 {
-	Error("Knockout() called ent: " + str(ent));
+	Error("Knockout() called ent: " + str(ent) + " enemy will wake at: " + str(vcTimer[TIMER_ENEMY_LOGIC].nTick + nSleepTime));
 	if(Enemies[ent].bCanBeTranqd)
 	{
-		Enemies[ent].nActive = 0;
+//		Enemies[ent].nActive = 0;
 		Enemies[ent].nTranqAt = vcTimer[TIMER_ENEMY_LOGIC].nTick;	//stamp when they were knocked out
-		Enemies[ent].nMode = MODE_NORMAL;
+		Enemies[ent].nTranqTime = nSleepTime;
+		Enemies[ent].nTranqHit = 1;
+		Enemies[ent].nMode = MODE_TRANQ;
 		StopEnemy(ent);
 		entity.obstruct[Enemies[ent].nEntity] = 0; //now i can walk through you
 		//do enemy death anim

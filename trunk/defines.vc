@@ -11,6 +11,7 @@
 #define MODE_BEFORE_SEARCH 4	//enemy is startled and about to go to search mode
 #define MODE_RETURN 5		//enemy is returning to their original position before going back on patrol
 #define MODE_WARN 6		//enemy has seen the player and is letting out a warning before going into full alarm (cameras)
+#define MODE_TRANQ 7		//enemy has been tranq'd
 
 #define ENEMY_AI_TYPE_NORMAL		0	//will chase player and shoot them
 #define ENEMY_AI_TYPE_DUMMY		1	//will do nothing whatsoever
