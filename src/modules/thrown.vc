@@ -11,12 +11,10 @@ struct ThrownItem
 	int nWeapon;
 	int nCollisionType;
 	string sDetonateFunc;
+	int nLastTick;
 	
 	int nActive;
 }
-
-int nLastThrownTick;
-int nThrownTickDelta;
 
 ThrownItem ThrownItems[MAX_THROWN];
 int nCurrentThrown = -1;
@@ -38,12 +36,11 @@ int CreateThrown(int x, int y, int dx, int dy, int anim, int dtimer, int nweapon
 			ThrownItems[i].nWeapon = nweapon;
 			ThrownItems[i].nCollisionType = collisiontype;
 			ThrownItems[i].sDetonateFunc = func;
+			ThrownItems[i].nLastTick = timer;
 			
 			ThrownItems[i].nActive = 1;
 			
 			Anims[anim].automatic = 0;
-
-			nLastThrownTick = timer;
 
 			return i;
 		}
@@ -57,6 +54,7 @@ int CreateThrown(int x, int y, int dx, int dy, int anim, int dtimer, int nweapon
 void ProcessesThrown()
 {
 	int i, obsCollision;
+	int nThrownTickDelta;
 	
 	if(nGamePaused)
 		return;
@@ -96,8 +94,8 @@ void ProcessesThrown()
 			
 			//if the thrown item wasn't killed in the previous statements, move it
 
-			nThrownTickDelta = oF_Whole2Fixed(timer - nLastThrownTick);
-			nLastThrownTick = timer;
+			nThrownTickDelta = oF_Whole2Fixed(timer - ThrownItems[i].nLastTick);
+			ThrownItems[i].nLastTick = timer;
 
 			if(ThrownItems[i].nActive)
 			{
