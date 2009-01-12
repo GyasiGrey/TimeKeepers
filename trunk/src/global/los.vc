@@ -11,6 +11,7 @@ int LineOfSight(int x1, int y1, int x2, int y2, int ignoreent)
 	int enthit;
 	int xinc1, xinc2, yinc1, yinc2, den, num, numadd, numpixels, curpixel;
 	int continue;
+	int tempent;
 	
 	//log("LoS() called x1: " + str(x1) + " x2: " + str(x2) + " y1: " + str(y1) + " y2: " + str(y2) + " ignoreent: " + str(ignoreent));
 	
@@ -77,7 +78,8 @@ int LineOfSight(int x1, int y1, int x2, int y2, int ignoreent)
 		{
 			if(enthit != nPlayerEnt)
 			{
-				if(Enemies[GetEnemyIndex(enthit)].nActive)
+				tempent = GetEnemyIndex(enthit);
+				if(Enemies[tempent].nActive && Enemies[tempent].nMode != MODE_TRANQ)
 				{
 					LOSXstop = x;
 					LOSYstop = y;
