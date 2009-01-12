@@ -646,7 +646,7 @@ int RectEnemyCollision(int x, int y, int w, int h)
 	{
 		for(i=0;i<nNumEnemies;i++)
 		{
-			if(Enemies[i].nActive)
+			if(Enemies[i].nActive && Enemies[i].nMode != MODE_TRANQ)
 			{
 				retvalXY = CheckCollisionXY(x, y, w, h, entity.x[Enemies[i].nEntity], entity.y[Enemies[i].nEntity], entity.hotw[Enemies[i].nEntity], entity.hoth[Enemies[i].nEntity]);
 
