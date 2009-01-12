@@ -409,7 +409,7 @@ string GenerateTargetList()
 	for(i=0;i<nNumEnemies;i++)
 	{
 		d = Distance(nPlayerEnt, Enemies[i].nEntity);
-		if(Enemies[i].nActive && d < Weapons[nEquipedWeapon].nRange)
+		if(Enemies[i].nActive && Enemies[i].nMode != MODE_TRANQ && d < Weapons[nEquipedWeapon].nRange)
 		{
 			enemyList = enemyList + str(i) + " ";
 			priorities = priorities + str(Enemies[i].nTargetPriority) + " ";
