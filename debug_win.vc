@@ -35,13 +35,6 @@ void dbgwin_Init()
 	{
 		dbgwin_Text[i] = "";
 	}
-	
-
-	//null out dbgwin_Watches
-	for(i=0;i<dbgwin_WATCHSIZE;i++)
-	{
-		dbgwin_Watches[i] = "";
-	}
 
 	dgbwin_dictWatches = DictNew();
 
@@ -87,7 +80,7 @@ void dbgwin_AddWatch(string sName, string sType)
 void dbgwin_Draw()
 {
 	int i, j;
-	string sWatchName, sWatchType;	//Who watches the watchmen? The watcher watches the watchmen.
+	string sWatchName, sWatchType, sWatchValue;	//Who watches the watchmen? The watcher watches the watchmen.
 	
 	RectFill(0, 0, dbgwin_WIDTH, dbgwin_HEIGHT, RGB(0, 0, 0), dbgwin_MainImage);
 	
@@ -101,8 +94,24 @@ void dbgwin_Draw()
 	for(i=0;i<DictSize(dgbwin_dictWatches);i++)
 	{
 		//read the data from the dict
-		sWatchname = DictGetString(
+		sWatchName = DictGetKey(dgbwin_dictWatches, i);
+		sWatchType = DictGetString(dgbwin_dictWatches, sWatchName);
+		
+		if(strcmp(sWatchType, "int") == 0)
+			sWatchValue = str(GetInt(sWatchName));
+		else
+			sWatchValue = GetString(sWatchName);
+		
+		PrintString(8, dbgwin_HEIGHT-fontheight(dbgwin_FONT), dbgwin_MainImage, dbgwin_FONT, sWatchName + ": " + sWatchValue);
 	}
+	
+	
 	//PrintString(8, dbgwin_HEIGHT-fontheight(dbgwin_FONT), dbgwin_MainImage, dbgwin_FONT, "Timer: " + str(timer));
 	//PrintString(100, dbgwin_HEIGHT-fontheight(dbgwin_FONT), dbgwin_MainImage, dbgwin_FONT, "Timer: " + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
+}
+
+string DictGetKey(int nDictionary, int nIndex)
+{
+	string sKeys = DictListKeys(nDictionary, "|");
+	return GetToken(sKeys, "|", nIndex);
 }
