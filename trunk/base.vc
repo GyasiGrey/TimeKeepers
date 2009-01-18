@@ -251,6 +251,7 @@ void InitLoot()
 	CreateLoot(64*16, (63*16)-2, "Tranq", 0, "tranq.png", "GotTranq", 0);
 	CreateLoot(66*16, (63*16)-2, "Medkit", 0, "medkit.png", "GetMedkitBase", 0);
 	CreateLoot(64*16, (71*16)-2, "Grenades", 0, "grenade.png", "GotGrenade", 0);
+	CreateLoot(64*16, (72*16)-2, "Flash Bangs", 0, "grenade.png", "GotFlashBang", 0);
 }
 
 void InitLights()
@@ -326,6 +327,12 @@ void GotGrenade()
 {
 	nHasWeapon[5] = 1;
 	nAmmo[5] = 10;
+}
+
+void GotFlashBang()
+{
+	nHasWeapon[9] = 1;
+	nAmmo[9] = 10;
 }
 
 
