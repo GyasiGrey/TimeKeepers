@@ -902,6 +902,10 @@ void EnemyRender()
 		//set the frame to the on the floor frame
 		Enemies[enemyindex].nAnimationFrame = Enemies[enemyindex].nDeadFrame;	//bad monkey! no magic number!
 	}
+	else if(!Enemies[enemyindex].nAnimating && Enemies[enemyIndex].nMode == MODE_TRANQ)
+	{
+		Enemies[enemyindex].nAnimationFrame = Enemies[enemyindex].nDeadFrame;
+	}
 	else if(!Enemies[enemyindex].nAnimating)
 	{
 		//ent is not animating, use the default frame
