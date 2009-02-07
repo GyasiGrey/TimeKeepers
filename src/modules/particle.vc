@@ -83,6 +83,9 @@ void ProcessEmitters()
 			theta = Random(Emitters[i].nDirectionMax, Emitters[i].nDirectionMin);
 			CreateParticle(Emitters[i].nX, Emitters[i].nY, Emitters[i].nVelocity*cos(theta)/65535, Emitters[i].nVelocity*sin(theta)/65535, Emitters[i].nMoveDelay, LoadImage(Emitters[i].sParticleImage), Emitters[i].nLucency, timer+Random(Emitters[i].nLifeMax, Emitters[i].nLifeMin));
 			Emitters[i].nLastParticleAt = timer;
+
+			//i fail :(
+			Emitters[i].nParticlesMade++;
 			
 			if(Emitters[i].nMaxParticles > 0-1 && Emitters[i].nParticlesMade > Emitters[i].nMaxParticles)
 			{
