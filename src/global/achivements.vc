@@ -8,7 +8,7 @@
 #define ACHIVEMENT_SPEED_RUN1		3
 #define ACHIVEMENT_SPEED_RUN2		4
 
-#define ACHIVEMENT_NUM_ACHIVEMENTS	5
+#define ACHIVEMENT_NUM_ACHIVEMENTS	6
 
 struct AchivementDef
 {
@@ -46,6 +46,11 @@ void InitAchievements()
 	pAchivements[4].nId = 5;
 	pAchivements[4].nLocalUnlocked = 0;
 	pAchivements[4].nServerUnlocked = 0;
+
+	//flodded the toilet in mission 3
+	pAchivements[5].nId = 6;
+	pAchivements[5].nLocalUnlocked = 0;
+	pAchivements[5].nServerUnlocked = 0;
 }
 
 int UploadAchivement(string username, string password, int achid)
