@@ -44,7 +44,7 @@ void start()
 void InitDoors()
 {
 	//jail doors
-	CreateDoor(34, 22, LoadImage("gfx\misc\jail_door.png"), -1);
+	nFlags[FLAG_MISSION3_JAIL_DOOR_ID] = CreateDoor(34, 22, LoadImage("gfx\misc\jail_door.png"), -2);
 	CreateDoor(22, 22, LoadImage("gfx\misc\jail_door.png"), -2);
 	
 	CreateDoor(22, 29, LoadImage("gfx\misc\jail_door.png"), -2);
@@ -89,8 +89,12 @@ void Flush()
 			StopEnemy(nFlags[FLAG_MISSION3_JAIL_GUARD_ID]);
 			Goto(Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity, 34*16, 22*16);
 			//wait for the guard to unlock the door
+		//WaitTimer(200);
+		//ManualOpenDoor(nFlags[FLAG_MISSION3_JAIL_DOOR_ID]);
 			//walk the guard through the door
+		//Goto(Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity, 36*16, 19*16);
 			//close and lock the door after the guard
+		//ManualOpenDoor(nFlags[FLAG_MISSION3_JAIL_DOOR_ID]);
 			//give the player a few seconds where he can steal the key from the guard
 		}
 	}

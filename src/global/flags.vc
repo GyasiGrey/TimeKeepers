@@ -67,6 +67,7 @@ int nFlags[NUM_FLAGS]; //dat theres a lota flags
 #define FLAG_MISSION3_TOILET_ID				605	//loot ID of the toilet in Ghost's cell
 #define FLAG_MISSION3_TOILET_FLUSHES			610	//number of times the player flushed the poilet
 #define FLAG_MISSION3_JAIL_GUARD_ID			615
+#define FLAG_MISSION3_JAIL_DOOR_ID			620
 
 
 
