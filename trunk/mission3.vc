@@ -53,7 +53,7 @@ void InitDoors()
 
 void InitEnemies()
 {
-	CreateEnemy(43, 19, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "Y24X20R0W500X43Y19D0W500B", "tk.chr");
+	nFlags[FLAG_MISSION3_JAIL_GUARD_ID] = CreateEnemy(43, 19, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "Y24X20R0W500X43Y19D0W500B", "tk.chr");
 
 	CreateEnemy(113, 106, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
 	CreateEnemy(108, 106, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
@@ -72,7 +72,7 @@ void InitLoot()
 //ALWAYS flush
 void Flush()
 {
-	if(!IsDelayedCallbackActive("ResetToilet"))
+	if(!IsDelayedCallbackActive("ResetToilet") && nFlags[FLAG_MISSION3_TOILET_FLUSHES] < 5)
 	{
 		nFlags[FLAG_MISSION3_TOILET_FLUSHES]++;
 
@@ -81,10 +81,13 @@ void Flush()
 		//delayed callback to unsteal the loot so the player can't just activate it 10 times quickly
 		CreateDelayedCallback(200, "ResetToilet");
 
-		if(nFlags[FLAG_MISSION3_TOILET_FLUSHES] >= 10)
+		if(nFlags[FLAG_MISSION3_TOILET_FLUSHES] >= 5)
 		{
+			AchivementUnlocked(5);
 			//flood the cell
 			//walk the guard over to the door
+			StopEnemy(nFlags[FLAG_MISSION3_JAIL_GUARD_ID]);
+			Goto(Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity, 34*16, 22*16);
 			//wait for the guard to unlock the door
 			//walk the guard through the door
 			//close and lock the door after the guard
