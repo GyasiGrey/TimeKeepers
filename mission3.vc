@@ -6,6 +6,8 @@ void start()
 
 	sAreaName = "Mission 3";
 
+	SetLowObsZone(1);
+
 	InitMap(2);
 }
 
@@ -17,4 +19,13 @@ void InitDoors()
 	
 	CreateDoor(22, 29, LoadImage("gfx\misc\jail_door.png"), -2);
 	CreateDoor(34, 29, LoadImage("gfx\misc\jail_door.png"), -2);
+}
+
+void InitEnemies()
+{
+	CreateEnemy(113, 106, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
+	CreateEnemy(108, 106, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
+
+	CreateEnemy(100, 109, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
+	CreateEnemy(121, 109, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
 }
