@@ -62,6 +62,9 @@ int nFlags[NUM_FLAGS]; //dat theres a lota flags
 #define FLAG_MISSION2_COMPLETE				540
 #define FLAG_MISSION2_SPAWN_CASINO_TK			545
 
+//Mission 3 flags
+#define FLAG_MISSION3_TECH_GHOST_START			600	//dialog at the start of the mission			
+
 
 
 //this will reset all the flags back to false

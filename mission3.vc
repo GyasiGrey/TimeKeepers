@@ -9,13 +9,41 @@ void start()
 	SetLowObsZone(1);
 
 	InitMap(2);
+
+	if(!nFlags[FLAG_MISSION3_TECH_GHOST_START])
+	{
+		nHoldCommText = 1;
+		CommText("Ghost: What..the...shit...");
+		CommText("Tech: Oh, Your Highness is awake. Nice of you to join me, looks like we have the penthouse suite.");
+		CommText("Ghost: Funny man. Fuuuuny. How about making yourself usefull and telling me what happened?");
+		CommText("Tech: What happened is we got caught. I don't know how but our gracious hosts found us, raided us and put us here.");
+		CommText("Ghost: So now what?");
+		CommText("Tech: Well, since I'm not the breaking and entering type I suggest that you find a way out.");
+		CommText("Tech: They didn't take my radio so we should still be able to communicate.");
+		CommText("Ghost: Ahhh...");
+		CommText("Tech: What..");
+		CommText("Ghost: They took all my gear.");
+		CommText("Tech: What were you expecting? We're prisoners.");
+		CommText("Ghost: Yeah, but..");
+		CommText("Tech: Your name is 'Ghost'. That would imply stealth right? How about you try it?");
+		CommText("Ghost: Such harsh words.");
+		CommText("Tech: I hurt because I care.");
+		CommText("Ghost: About yourself.");
+		CommText("Tech: Well, yeah.");
+		WaitForCommText();
+		nHoldCommText = 0;
+
+		nFlags[FLAG_MISSION3_TECH_GHOST_START] = 1;
+
+		QuickSave();
+	}
 }
 
 void InitDoors()
 {
 	//jail doors
 	CreateDoor(34, 22, LoadImage("gfx\misc\jail_door.png"), -1);
-	CreateDoor(22, 22, LoadImage("gfx\misc\jail_door.png"), -1);
+	CreateDoor(22, 22, LoadImage("gfx\misc\jail_door.png"), -2);
 	
 	CreateDoor(22, 29, LoadImage("gfx\misc\jail_door.png"), -2);
 	CreateDoor(34, 29, LoadImage("gfx\misc\jail_door.png"), -2);
@@ -30,4 +58,6 @@ void InitEnemies()
 
 	CreateEnemy(100, 109, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
 	CreateEnemy(121, 109, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
+
+	CreateEnemy(22, 19, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_CIVILIAN, "", "tech.chr");
 }
