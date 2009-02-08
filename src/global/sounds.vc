@@ -28,6 +28,8 @@ int nSoundStaticOut = LoadSound("sounds\static_out.wav");
 int nSoundAchivement = LoadSound("sounds\achivement.wav");
 int nSoundBigMetalDoor = LoadSound("sounds\bigmetaldoor.wav");
 int nSoundSpawn = LoadSound("sounds\spawn.wav");
+int nSoundFlush1 = LoadSound("sounds\flush1.wav");
+int nSoundFlush2 = LoadSound("sounds\flush2.wav");
 
 int nSoundTKSplashIn = LoadSound("sounds\tkSplashStaticIn.wav");
 int nSoundTKSplashOut = LoadSound("sounds\tkSplashStaticOut.wav");
@@ -226,4 +228,10 @@ void SoundStatic500ms()
 void SoundStatic750ms()
 {
 	PlaySound(nSoundStatic750ms, nSoundVolume);
+}
+
+void SoundFlush()
+{
+	int i = random(1, 2);
+	PlaySound(GetInt("nSoundFlush" + str(i)), nSoundVolume);
 }
