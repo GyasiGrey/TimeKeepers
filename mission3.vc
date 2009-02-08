@@ -80,6 +80,16 @@ void Flush()
 
 		//delayed callback to unsteal the loot so the player can't just activate it 10 times quickly
 		CreateDelayedCallback(200, "ResetToilet");
+
+		if(nFlags[FLAG_MISSION3_TOILET_FLUSHES] >= 10)
+		{
+			//flood the cell
+			//walk the guard over to the door
+			//wait for the guard to unlock the door
+			//walk the guard through the door
+			//close and lock the door after the guard
+			//give the player a few seconds where he can steal the key from the guard
+		}
 	}
 }
 
