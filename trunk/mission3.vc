@@ -23,6 +23,8 @@ void InitDoors()
 
 void InitEnemies()
 {
+	CreateEnemy(43, 19, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "Y24X20R0W500X43Y19D0W500B", "tk.chr");
+
 	CreateEnemy(113, 106, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
 	CreateEnemy(108, 106, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
 
