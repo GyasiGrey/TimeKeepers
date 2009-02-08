@@ -29,7 +29,7 @@ Loot LoadedLoots[MAX_LOOT];
 //a helper func to create loot
 //x and y are PIXEL coords
 //if icn is "" the loot will have no image
-void CreateLoot(int x, int y, string name, int amt, string icn, string func, int sparkle)
+int CreateLoot(int x, int y, string name, int amt, string icn, string func, int sparkle)
 {
 	Loots[nNumLoot].nX = x;
 	Loots[nNumLoot].nY = y;
@@ -50,6 +50,8 @@ void CreateLoot(int x, int y, string name, int amt, string icn, string func, int
 		Loots[nNumLoot].nAnim = -1;
 	
 	Error("CreateLoot() - x: " + str(x) + " y: " + str(Y) + " name: " + name + " amt: " + str(amt) + " function: " + func);
+
+	return nNumLoot;
 }
 
 void ClearLoot()
