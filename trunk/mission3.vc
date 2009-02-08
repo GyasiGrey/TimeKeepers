@@ -35,6 +35,8 @@ void start()
 
 		nFlags[FLAG_MISSION3_TECH_GHOST_START] = 1;
 
+		createObjective("escapejail", "Find some way to escape the jail cell.");
+
 		QuickSave();
 	}
 }
@@ -60,4 +62,28 @@ void InitEnemies()
 	CreateEnemy(121, 109, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
 
 	CreateEnemy(22, 19, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_CIVILIAN, "", "tech.chr");
+}
+
+void InitLoot()
+{
+	nFlags[FLAG_MISSION3_TOILET_ID] = CreateLoot(37*16, 18*16, "", 0, "", "Flush", 0);
+}
+
+//ALWAYS flush
+void Flush()
+{
+	if(!IsDelayedCallbackActive("ResetToilet"))
+	{
+		nFlags[FLAG_MISSION3_TOILET_FLUSHES]++;
+
+		SoundFlush();
+
+		//delayed callback to unsteal the loot so the player can't just activate it 10 times quickly
+		CreateDelayedCallback(200, "ResetToilet");
+	}
+}
+
+void ResetToilet()
+{
+	Loots[nFlags[FLAG_MISSION3_TOILET_ID]].nStolen = 0;
 }
