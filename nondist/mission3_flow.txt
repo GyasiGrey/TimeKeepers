@@ -9,7 +9,13 @@ Try and make this mission 15 minutes atleast. Please?
 
 
 Gameplay:
-Ghost and Tech wake up in seprate jail cells in the TK base. Ghost is able to pick the lock on his cell but can't pick the lock on Tech's cell. So they decide to "breach" the door. With explosives.
+Ghost and Tech wake up in seprate jail cells in the TK base.
+	-Ways to escape the jail cell
+		-Flush the toilet untill it overflows then pickpocket the guard while he's not looking and lock him in the cell.
+			-This causes the jail guard to call for reinforcements who will come down the elevator after X seconds. Escape up the duct work to escape.
+		-Bang on the cell bars untill the guard gets pissed off and opens the door to beat you. Then lock him in the cell.
+			-This causes the jail guard to call for reinforcements who will come down the elevator after X seconds. Escape up the duct work to escape.
+		-If you wait long enough TK will come to interogate you. Right before the interogation starts the lights go out, Tech was able to hack the electronics through his radio. You take the guards guns and make a run for it.
 
 Ghost has to stealth his way to the TK armory and get their explosives. Then go back to the cell and make the door to Tech's cell go bye bye. With explosives.
 
