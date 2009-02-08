@@ -42,12 +42,12 @@ int CreateLoot(int x, int y, string name, int amt, string icn, string func, int 
 	else
 		Loots[nNumLoot].nImage = 0-1;
 	
-	nNumLoot++;
-	
 	if(sparkle)
 		Loots[nNumLoot].nAnim = LoadAnimationEX("sparkle.png", 8, 8, x+4, y, ANIMATION_LOOT_SPARKLE);
 	else
 		Loots[nNumLoot].nAnim = -1;
+
+	nNumLoot++;
 	
 	Error("CreateLoot() - x: " + str(x) + " y: " + str(Y) + " name: " + name + " amt: " + str(amt) + " function: " + func);
 
