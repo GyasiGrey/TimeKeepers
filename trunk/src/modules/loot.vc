@@ -51,7 +51,7 @@ int CreateLoot(int x, int y, string name, int amt, string icn, string func, int 
 	
 	Error("CreateLoot() - x: " + str(x) + " y: " + str(Y) + " name: " + name + " amt: " + str(amt) + " function: " + func);
 
-	return nNumLoot;
+	return nNumLoot-1;
 }
 
 void ClearLoot()
