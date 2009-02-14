@@ -233,20 +233,11 @@ string GetTime12String()
 void WaitForEntity(int wait_entity)
 // A useful function for waiting until an entity has finished its movecode
 {
-	// Just incase we get stuck somewhere, set a timeout
-	int timeout = timer + 1000;
 	// While the entity is still doing stuff
 	while (entity.movecode[wait_entity])
 	{
 		Render(); // Render the map
 		ShowPage(); // Display to screen
-		if (timeout < timer) // If they've got stuck
-		{
-			// Stop the movecode
-			EntityMove(wait_entity, "");
-			// Notify you so you can fix your code
-			MessageBox("Time out for entity number "+str(wait_entity));
-		}
 	}
 }
 
@@ -719,4 +710,22 @@ int CheckCollisionXY(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int
 				return 4;
 
 	return 0;
+}
+
+int nPlayersSpeed;
+void CripplePlayer()
+{
+	if(Entity.speed[nPlayerEnt] != 0)
+	{
+		nPlayersSpeed = Entity.speed[nPlayerEnt];
+		Entity.speed[nPlayerEnt] = 0;
+	}
+}
+
+void UnCripplePlayer()
+{
+	if(Entity.speed[nPlayerEnt] == 0)
+	{
+		Entity.speed[nPlayerEnt] = nPlayersSpeed;
+	}
 }
