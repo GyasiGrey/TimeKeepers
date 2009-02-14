@@ -167,3 +167,9 @@ void EscapeCell()
 		nFlags[FLAG_MISSION3_ESCAPE_FLOOD] = 1;
 	}
 }
+
+void EnterDuctJail()
+{
+	CommText("HOLY SHIT. AN AIR DUCT. HOW ORIGINAL.");
+	CommText("Oh yeah. NYI.");
+}
