@@ -241,6 +241,16 @@ void WaitForEntity(int wait_entity)
 	}
 }
 
+//like WitForEntity() but takes into account an enemies pathfinding
+void WaitForEnemy(int nEnemy)
+{
+	while(strcmp(Enemies[nEnemy].sNodePath, "") != 0 && entity.movecode[Enemies[nEnemy].nEntity])
+	{
+		Render();
+		ShowPage();
+	}
+}
+
 //Yes. I stole Zonker's text color thingy out of the code vault instead of mine
 // Prints text to an image in any colour
 void PrintStringCol(int destx, int desty, int destimg, int sourcefont, string sourcetext, int destcol)
