@@ -83,6 +83,8 @@ void Flush()
 
 		if(nFlags[FLAG_MISSION3_TOILET_FLUSHES] >= 5)
 		{
+			CommText("Guard: Oh what in the...");
+			
 			//keep the player from moving
 			CripplePlayer();
 			
