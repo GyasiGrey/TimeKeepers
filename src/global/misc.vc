@@ -233,22 +233,40 @@ string GetTime12String()
 void WaitForEntity(int wait_entity)
 // A useful function for waiting until an entity has finished its movecode
 {
+	//store dual retrace counter
+	StoreDualCounter();
+
+	//change counter so render() dosen't have a seisure	
+	nDualCounter = 0;
+
 	// While the entity is still doing stuff
 	while (entity.movecode[wait_entity])
 	{
 		Render(); // Render the map
 		ShowPage(); // Display to screen
 	}
+
+	//restore dual counter so things go back to normal
+	RestoreDualCounter();
 }
 
 //like WitForEntity() but takes into account an enemies pathfinding
 void WaitForEnemy(int nEnemy)
 {
+	//store dual retrace counter
+	StoreDualCounter();
+
+	//change counter so render() dosen't have a seisure	
+	nDualCounter = 0;
+
 	while(strcmp(Enemies[nEnemy].sNodePath, "") != 0 && entity.movecode[Enemies[nEnemy].nEntity])
 	{
 		Render();
 		ShowPage();
 	}
+
+	//restore dual counter so things go back to normal
+	RestoreDualCounter();
 }
 
 //Yes. I stole Zonker's text color thingy out of the code vault instead of mine
@@ -425,12 +443,21 @@ string TicksToHMSC(int centi)
 //blocks for a set number of timer ticks
 void WaitTimer(int t)
 {
+	//store dual retrace counter
+	StoreDualCounter();
+
+	//change counter so render() dosen't have a seisure	
+	nDualCounter = 0;
+
 	int starttime  = timer;
 	while(timer-starttime < t)
 	{
 		Render();
 		ShowPage();
 	}
+
+	//restore dual counter so things go back to normal
+	RestoreDualCounter();
 }
 
 
