@@ -83,6 +83,8 @@ void Flush()
 
 		if(nFlags[FLAG_MISSION3_TOILET_FLUSHES] >= 5)
 		{
+			bCanSave = 0;
+			
 			CommText("Guard: Oh what in the...");
 			
 			//keep the player from moving
@@ -108,19 +110,14 @@ void Flush()
 
 			//walk the guard through the door
 			
-			Goto(Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity, 37*16, 19*16);
+			Goto(Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity, 36*16, 20*16);
+			CommText("Guard: I do not get paid enough for this...");
 			WaitForEnemy(nFlags[FLAG_MISSION3_JAIL_GUARD_ID]);
-
+			
 			WaitTimer(50);
-			
-			//close and lock the door after the guard
-			ManualCloseDoor(nFlags[FLAG_MISSION3_JAIL_DOOR_ID]);
-			
-			//give the player a few seconds where he can steal the key from the guard
 			
 			//let the player move again
 			UnCripplePlayer();
-			Entity.obstructable[Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity] = 1;
 		}
 	}
 }
@@ -128,4 +125,45 @@ void Flush()
 void ResetToilet()
 {
 	Loots[nFlags[FLAG_MISSION3_TOILET_ID]].nStolen = 0;
+}
+
+void EscapeCell()
+{
+	if(!nFlags[FLAG_MISSION3_ESCAPE_FLOOD])
+	{
+		//called from map zone when the player escapes the jail cell by flooding it
+
+		//cripple the player
+		CripplePlayer();
+
+		//turn the player around
+		EntityMove(nPlayerEnt, "U0");
+
+		//taunt the guard
+		nHoldCommText = 1;
+		CommText("Ghost: Maybe your employers should consider paying you less.");
+		WaitForCommText();
+		EntityMove(Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity, "D0");
+		CommText("Guard: Huh?...ahhh crap.");
+		WaitForCommText();
+		nHoldCommText = 0;
+
+		//close the door
+		ManualCloseDoor(nFlags[FLAG_MISSION3_JAIL_DOOR_ID]);
+
+		//clear the objective
+		completeObjective("escapejail");
+
+		//set next objective
+		createObjective("getequip", "Find some equipment.");
+		createObjective("investigatetk", "Find out more about the captors.");
+		createObjective("escapebase", "Find an escape.");
+
+		//uncripple the player
+		UnCripplePlayer();
+		
+		bCanSave = 1;
+		
+		nFlags[FLAG_MISSION3_ESCAPE_FLOOD] = 1;
+	}
 }
