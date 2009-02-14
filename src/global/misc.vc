@@ -749,20 +749,14 @@ int CheckCollisionXY(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int
 	return 0;
 }
 
-int nPlayersSpeed;
 void CripplePlayer()
 {
-	if(Entity.speed[nPlayerEnt] != 0)
-	{
-		nPlayersSpeed = Entity.speed[nPlayerEnt];
-		Entity.speed[nPlayerEnt] = 0;
-	}
+	cameratracking = 0;
+	SetPlayer(-1);
 }
 
 void UnCripplePlayer()
 {
-	if(Entity.speed[nPlayerEnt] == 0)
-	{
-		Entity.speed[nPlayerEnt] = nPlayersSpeed;
-	}
+	cameratracking = 1;
+	SetPlayer(nPlayerEnt);
 }
