@@ -259,7 +259,7 @@ void WaitForEnemy(int nEnemy)
 	//change counter so render() dosen't have a seisure	
 	nDualCounter = 0;
 
-	while(strcmp(Enemies[nEnemy].sNodePath, "") != 0 && entity.movecode[Enemies[nEnemy].nEntity])
+	while(strcmp(Enemies[nEnemy].sNodePath, "") != 0 && entity.movecode[Enemies[nEnemy].nEntity] != 0 && Enemies[nEnemy].sNodeIndex < TokenCount(Enemies[nEnemy].sNodePath, " "))
 	{
 		Render();
 		ShowPage();
