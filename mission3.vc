@@ -83,19 +83,42 @@ void Flush()
 
 		if(nFlags[FLAG_MISSION3_TOILET_FLUSHES] >= 5)
 		{
+			//keep the player from moving
+			CripplePlayer();
+			
+			//make the enemy passive so they won't shoot the player
+			Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nPassive = 1;
+			Entity.obstructable[Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity] = 0;
+			
 			AchivementUnlocked(5);
+			
 			//flood the cell
+			
 			//walk the guard over to the door
 			StopEnemy(nFlags[FLAG_MISSION3_JAIL_GUARD_ID]);
-			Goto(Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity, 34*16, 22*16);
-			//wait for the guard to unlock the door
-		//WaitTimer(200);
-		//ManualOpenDoor(nFlags[FLAG_MISSION3_JAIL_DOOR_ID]);
+			Goto(Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity, 34*16, 23*16);
+			WaitForEnemy(nFlags[FLAG_MISSION3_JAIL_GUARD_ID]);
+
+			//open the door
+			ManualOpenDoor(nFlags[FLAG_MISSION3_JAIL_DOOR_ID]);
+			
+			WaitTimer(50);
+
 			//walk the guard through the door
-		//Goto(Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity, 36*16, 19*16);
+			
+			Goto(Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity, 37*16, 19*16);
+			WaitForEnemy(nFlags[FLAG_MISSION3_JAIL_GUARD_ID]);
+
+			WaitTimer(50);
+			
 			//close and lock the door after the guard
-		//ManualOpenDoor(nFlags[FLAG_MISSION3_JAIL_DOOR_ID]);
+			ManualCloseDoor(nFlags[FLAG_MISSION3_JAIL_DOOR_ID]);
+			
 			//give the player a few seconds where he can steal the key from the guard
+			
+			//let the player move again
+			UnCripplePlayer();
+			Entity.obstructable[Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity] = 1;
 		}
 	}
 }
