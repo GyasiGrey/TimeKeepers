@@ -66,11 +66,11 @@ int CreateDelayedCallback(int delayAmt, string func)
 		}
 	}
 	
-	delayedCallbacks[retval].nTimeStamp = timer + delayAmt;
+	delayedCallbacks[retval].nTimeStamp = vcTimer[TIMER_ENEMY_LOGIC].nTick + delayAmt;
 	delayedCallbacks[retval].sFunction = func;
 	delayedCallbacks[retval].nActive = 1;
 	
-	error("Delayed callback created. i:" + str(retval) + " function:" + func + " stamp:" + str(timer + delayAmt) + " timer:" + str(timer));
+	error("Delayed callback created. i:" + str(retval) + " function:" + func + " stamp:" + str(vcTimer[TIMER_ENEMY_LOGIC].nTick + delayAmt) + " timer:" + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
 }
 
 void ProcessDelayedCallbacks()
@@ -79,7 +79,7 @@ void ProcessDelayedCallbacks()
 
 	for(i=0;i<DELAYED_CALLBACK_MAX;i++)
 	{
-		if(delayedCallbacks[i].nActive && timer >= delayedCallbacks[i].nTimeStamp)
+		if(delayedCallbacks[i].nActive && vcTimer[TIMER_ENEMY_LOGIC].nTick >= delayedCallbacks[i].nTimeStamp)
 		{
 			Error("Running callback: " + str(i) + " func: " + delayedCallbacks[i].sFunction);
 
