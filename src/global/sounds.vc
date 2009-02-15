@@ -14,6 +14,8 @@ if is unloaded from memory.
 */
 #define SOUND_STACK_SIZE	5	//number of sounds to load at once
 
+int nSoundVolume = 100;
+
 struct LoadedSound
 {
 	int nHndl;
@@ -22,59 +24,101 @@ struct LoadedSound
 
 LoadedSound pLoadedSounds[SOUND_STACK_SIZE];
 
-void PlaySoundStack(string sFileName)
+void PlaySoundStack(string sFilename)
 {
 	//Plays a sound
+	int nID;
 	
 	//Search the stack for the sound
+	nID = FindSoundStack(sFilename);
+	
 	//if it is found
+	if(nID != -1)
+	{
 		//move it to the top of the stack
+		MoveSoundToTop(nID);
 		//play the sound
-	//else (not found)
-		//load the sound
-		//move it to the top of the stack
+		PlaySound(pLoadedSounds[nID].nHndl, nSoundVolume);
+	}
+	else
+	{
+		//not found
 
-	//NYI
+		//load the sound
+		LoadSoundStack(sFilename);
+		//play index 0 (the newly loaded sound)
+		PlaySound(pLoadedSounds[0].nHndl, nSoundVolume);
+	}
+
 }
 
-int FindSoundStack(string sFileName)
+int FindSoundStack(string sFilename)
 {
 	//linear search the stack for an item that matches sFileName
-	//if found
-		//return the array ID
-	//else (not found)
-		//return -1
-		
-	//NYI
+	int i;
+	
+	for(i=0;i<SOUND_STACK_SIZE;i++)
+	{
+		//if found
+		if(strcmp(pLoadedSounds[i].sFilename, sFilename) == 0)
+		{
+			//return the array ID
+			return i;
+		}
+	}
+	
+	//not found
+	return -1;
 }
 
 void MoveSoundToTop(int nId)
 {
 	//if nId == 0 (sound is at the top) return
+	if(nId == 0)
+		return;
 	
 	//bubble this item up to the top
-	//for i=nId, i>0, i--
-		//swap data at nId and nId-1
-		
-	//NYI
+	BubbleStack(nId);
 }
 
 void LoadSoundStack(string sFileName)
 {
-	//bubble everything uo
-	//for i=nId, i>0, i--
-		//swap data at nId and nId-1
-
+	//bubble everything up
+	BubbleStack(SOUND_STACK_SIZE-1);
+	
 	//unload the data at pLoadedSounds[0]
+	FreeSound(pLoadedSounds[0].nHndl);
+	pLoadedSounds[0].sFilename = "";
 	
 	//insert the new item at id 0
+	pLoadedSounds[0].nHndl = LoadSound(sFileName);
+	pLoadedSounds[0].sFilename = sFileName;
 
 	//NYI
 }
 
-//Old code
+void BubbleStack(int nStartId)
+{
+	int i;
+	
+	int nTempHndl;
+	string sTempFilename;
 
-int nSoundVolume = 100;
+	for(i=nStartId;i>0;i--)
+	{
+		//swap data at nId and nId-1
+		nTempHndl = pLoadedSounds[i].nHndl;
+		sTempFilename = pLoadedSounds[i].sFilename;
+		
+		pLoadedSounds[i].nHndl = pLoadedSounds[i-1].nHndl;
+		pLoadedSounds[i].sFilename = pLoadedSounds[i-1].sFilename;
+
+		pLoadedSounds[i-1].nHndl = nTempHndl;
+		pLoadedSounds[i-1].sFilename = sTempFilename;
+	}
+}
+
+//Old code
 
 int nSoundPlayerDeath = LoadSound("sounds\playerdeath.wav");
 int nSoundLoot = LoadSound("sounds\loot.wav");
