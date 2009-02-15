@@ -96,7 +96,7 @@ struct Enemy
 	string sDeathAnim;		//string for this enemies death anim
 	int nDeadFrame;			//frame of the enemy being dead
 	
-	int nDeathSound;
+	string sDeathSound;
 	
 	int nPassive;			//when true this player will ignore the player
 	
@@ -141,7 +141,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sShootDownAnim = "Z25 W10 Z26 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sShootRightAnim = "Z31 W10 Z32 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
-	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nDeathSound = LoadSound("sounds\enemydeath.wav");
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sDeathSound = "sounds\enemydeath.wav";
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nDeadFrame = 24;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].bCanBeTranqd = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].bCanSpeak = 1;
@@ -163,7 +163,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sShootDownAnim = "Z25 W10 Z26 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sShootRightAnim = "Z31 W10 Z32 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
-	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nDeathSound = LoadSound("sounds\enemydeath.wav");	
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sDeathSound = "sounds\enemydeath.wav";
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nDeadFrame = 24;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].bCanBeTranqd = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].bCanSpeak = 1;
@@ -186,7 +186,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sShootDownAnim = "Z25 W10 Z26 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sShootRightAnim = "Z31 W10 Z32 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
-	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nDeathSound = LoadSound("sounds\enemydeath.wav");		//shouldn't be able to kill a dummy, but for sanity sake	
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sDeathSound = "sounds\enemydeath.wav";		//shouldn't be able to kill a dummy, but for sanity sake	
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nDeadFrame = 24;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].bCanBeTranqd = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].bCanSpeak = 0;
@@ -209,7 +209,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sShootDownAnim = "Z25 W10 Z26 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sShootRightAnim = "Z31 W10 Z32 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
-	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nDeathSound = LoadSound("sounds\civildeath.wav");
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sDeathSound = "sounds\civildeath.wav";
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nDeadFrame = 24;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].bCanBeTranqd = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].bCanSpeak = 1;
@@ -232,7 +232,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sShootDownAnim = "Z25 W10 Z26 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sShootRightAnim = "Z31 W10 Z32 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
-	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nDeathSound = LoadSound("sounds\civildeath.wav");
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sDeathSound = "sounds\civildeath.wav";
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nDeadFrame = 24;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].bCanBeTranqd = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].bCanSpeak = 1;
@@ -255,7 +255,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sShootDownAnim = "Z25 W10 Z26 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sShootRightAnim = "Z31 W10 Z32 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
-	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nDeathSound = LoadSound("sounds\enemydeath.wav");
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sDeathSound = "sounds\enemydeath.wav";
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nDeadFrame = 24;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].bCanBeTranqd = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].bCanSpeak = 1;
@@ -278,7 +278,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sShootDownAnim = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sShootRightAnim = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sDeathAnim = "Z4 W15 Z5 W15 Z6 W15 Z7 W15 Z8";
-	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nDeathSound = LoadSound("sounds\cameradeath.wav");	
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sDeathSound = "sounds\cameradeath.wav";	
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nDeadFrame = 8;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].bCanBeTranqd = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].bCanSpeak = 0;
@@ -300,7 +300,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sShootDownAnim = "";
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sShootRightAnim = "";
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sDeathAnim = "Z4 W15 Z5 W15 Z6 W15 Z7 W15 Z8";
-	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nDeathSound = LoadSound("sounds\cameradeath.wav");		
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sDeathSound = "sounds\cameradeath.wav";
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nDeadFrame = 8;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].bCanBeTranqd = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].bCanSpeak = 0;
@@ -365,7 +365,7 @@ int CreateEnemy(int x, int y, int face, int template, string movestring, string 
 	
 	Enemies[nNumEnemies].nTargetPriority = EnemyTemplates[template].nTargetPriority;
 	
-	Enemies[nNumEnemies].nDeathSound = EnemyTemplates[template].nDeathSound;
+	Enemies[nNumEnemies].sDeathSound = EnemyTemplates[template].sDeathSound;
 	
 	Enemies[nNumEnemies].nEntity = EntitySpawn(x, y, chrfile);
 	entity.speed[Enemies[nNumEnemies].nEntity] = WALK_SPEED_NORMAL;
@@ -551,7 +551,7 @@ void DamageEnemy(int damage, int entityindex)
 			entity.obstruct[entityindex] = 0; //now i can walk through you
 			//death sound
 			//SoundEnemyDeath();
-			DistanceSound(Enemies[enemyindex].nDeathSound, entity.x[Enemies[enemyindex].nEntity], entity.y[Enemies[enemyindex].nEntity], 200);
+			PlaySoundStackDistance(Enemies[enemyindex].sDeathSound, entity.x[Enemies[enemyindex].nEntity], entity.y[Enemies[enemyindex].nEntity], 200);
 			//do enemy death anim
 			AnimateEnemy(enemyindex, Enemies[enemyindex].sDeathAnim);
 			//track the kill

@@ -24,6 +24,18 @@ struct LoadedSound
 
 LoadedSound pLoadedSounds[SOUND_STACK_SIZE];
 
+void PlaySoundStackDistance(string sFilename, int x, int y, int range)
+{
+	int nOldVolume = nSoundVolume;
+	
+	//this sound is played ambiently (softer at further ranges)
+	int dist = DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], x, y);
+	
+	nSoundVolume = 100-((dist*100)/range);
+	PlaySoundStack(sFilename);
+	nSoundVolume = nOldVolume;
+}
+
 void PlaySoundStack(string sFilename)
 {
 	//Plays a sound
@@ -118,27 +130,14 @@ void BubbleStack(int nStartId)
 	}
 }
 
-//Old code
-
-int nSoundKlaxon = LoadSound("sounds\klaxon.wav");
-int nSoundWarn = LoadSound("sounds\warn.wav");
-
-
-void DistanceSound(int snd, int x, int y, int range)
-{
-	//this sound is played ambiently (softer at further ranges)
-	int dist = DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], x, y);
-	PlaySound(snd, 100-((dist*100)/range));
-}
-
 void SoundKlaxon(int x, int y, int range)
 {
-	DistanceSound(nSoundKlaxon, x, y, range);
+	PlaySoundStackDistance("sounds\klaxon.wav", x, y, range);
 }
 
 void SoundWarn(int x, int y, int range)
 {
-	DistanceSound(nSoundWarn, x, y, range);
+	PlaySoundStackDistance("sounds\warn.wav", x, y, range);
 }
 
 void SoundPlayerDeath()
