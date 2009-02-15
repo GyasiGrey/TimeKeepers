@@ -40,28 +40,26 @@ void PlaySoundStack(string sFilename)
 {
 	//Plays a sound
 	int nID;
-	
+
 	//Search the stack for the sound
 	nID = FindSoundStack(sFilename);
 	
 	//if it is found
 	if(nID != -1)
 	{
-		//move it to the top of the stack
-		MoveSoundToTop(nID);
 		//play the sound
 		PlaySound(pLoadedSounds[nID].nHndl, nSoundVolume);
+		//move it to the top of the stack
+		MoveSoundToTop(nID);
 	}
 	else
 	{
 		//not found
-
 		//load the sound
 		LoadSoundStack(sFilename);
 		//play index 0 (the newly loaded sound)
 		PlaySound(pLoadedSounds[0].nHndl, nSoundVolume);
 	}
-
 }
 
 int FindSoundStack(string sFilename)
@@ -127,6 +125,18 @@ void BubbleStack(int nStartId)
 
 		pLoadedSounds[i-1].nHndl = nTempHndl;
 		pLoadedSounds[i-1].sFilename = sTempFilename;
+	}
+}
+
+void DumpSoundStack()
+{
+	int i;
+	
+	Error("Dumping sound stack.");
+	for(i=0;i<SOUND_STACK_SIZE;i++)
+	{
+		Error("filename: " + pLoadedSounds[i].sFilename);
+		Error("hndl: " + str(pLoadedSounds[i].nHndl));
 	}
 }
 
