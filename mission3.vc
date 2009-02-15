@@ -54,6 +54,7 @@ void InitDoors()
 	CreateDoor(46, 18, LoadImage("gfx\misc\locker_door.png"), -1);
 	
 	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID] = CreateDoor(43, 17, LoadImage("gfx\misc\elevator_door.png"), -2);
+	nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID] = CreateDoor(111, 90, LoadImage("gfx\misc\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID] = CreateDoor(78, 15, LoadImage("gfx\misc\elevator_door.png"), -2);
 }
 
@@ -74,6 +75,8 @@ void InitLoot()
 {
 	nFlags[FLAG_MISSION3_TOILET_ID] = CreateLoot(37*16, 18*16, "", 0, "", "Flush", 0);
 	CreateLoot(77*16, (15*16)-8, "", 0, "", "MainElevatorButton", 1);
+	CreateLoot(110*16, (90*16)-8, "", 0, "", "LobbyElevatorButton", 1);
+	CreateLoot(42*16, (17*16)-8, "", 0, "", "JailElevatorButton", 1);
 }
 
 //ALWAYS flush
@@ -191,16 +194,25 @@ void SpawnJailSquad()
 
 void WarpToElevator()
 {
+	nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] = 1;
+	
 	FadeOutExclusive(50, RGB(0, 0, 0));
 	ManualCloseDoor(nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID]);
 	Warp(78, 16);
 	FadeInExclusive(50, RGB(0, 0, 0));
+	
+	CloseLobbyElevatorDoor();
+	CloseInnerElevatorDoor();
+	CloseJailElevatorDoor();
 }
 
 void MainElevatorButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
-	
+
+	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0)
+		return;
+
 	switch(nFlags[FLAG_MISSION3_ELEVATOR_FLOOR])
 	{
 		//if the player is at the jail, send them to the main level
@@ -222,9 +234,51 @@ void InnerElevatorArrived()
 	CreateDelayedCallback(500, "CloseInnerElevatorDoor");
 }
 
+void JailElevatorButton()
+{
+	Loots[nCurrentLoot].nStolen = 0;
+
+	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0)
+		return;
+
+	CreateDelayedCallback(500, "JailElevatorArrived");
+}
+
+void JailElevatorArrived()
+{
+	ManualOpenDoor(nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID]);
+	CreateDelayedCallback(500, "CloseJailElevatorDoor");
+}
+
+void LobbyElevatorButton()
+{
+	Loots[nCurrentLoot].nStolen = 0;
+
+	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0)
+		return;
+
+	CreateDelayedCallback(500, "LobbyElevatorArrived");
+}
+
+void LobbyElevatorArrived()
+{
+	ManualOpenDoor(nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID]);
+	CreateDelayedCallback(500, "CloseLobbyElevatorDoor");
+}
+
+void CloseLobbyElevatorDoor()
+{
+	ManualCloseDoor(nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID]);
+}
+
 void CloseInnerElevatorDoor()
 {
 	ManualCloseDoor(nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID]);
+}
+
+void CloseJailElevatorDoor()
+{
+	ManualCloseDoor(nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID]);
 }
 
 void ExitElevator()

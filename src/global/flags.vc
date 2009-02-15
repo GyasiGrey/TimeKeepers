@@ -72,6 +72,8 @@ int nFlags[NUM_FLAGS]; //dat theres a lota flags
 #define FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID		630
 #define FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID		635
 #define FLAG_MISSION3_ELEVATOR_FLOOR			640
+#define FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID		645
+#define FLAG_MISSION3_ELEVATOR_ACCESS			650	//true when the player has the ability to use the elevator
 
 
 
