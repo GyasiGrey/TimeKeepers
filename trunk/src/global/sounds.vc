@@ -4,6 +4,76 @@
 
 //this is not the best use of ram...we shall see what comes of this
 
+/*
+Sound stack - Keeps commonly used sound files in ram instead of loading all files at game start.
+
+It uses a stack of sound handels. Whenever a new sound is loaded, it goes to the top of the stack.
+Whenever a sound that is already in the stack is played, it goes to the top of the stack. When an item
+is moved to the top of the stack, everything else shuffels down. If an item falls off the bottom of the stack
+if is unloaded from memory.
+*/
+#define SOUND_STACK_SIZE	5	//number of sounds to load at once
+
+struct LoadedSound
+{
+	int nHndl;
+	string sFilename;
+};
+
+LoadedSound pLoadedSounds[SOUND_STACK_SIZE];
+
+void PlaySoundStack(string sFileName)
+{
+	//Plays a sound
+	
+	//Search the stack for the sound
+	//if it is found
+		//move it to the top of the stack
+		//play the sound
+	//else (not found)
+		//load the sound
+		//move it to the top of the stack
+
+	//NYI
+}
+
+int FindSoundStack(string sFileName)
+{
+	//linear search the stack for an item that matches sFileName
+	//if found
+		//return the array ID
+	//else (not found)
+		//return -1
+		
+	//NYI
+}
+
+void MoveSoundToTop(int nId)
+{
+	//if nId == 0 (sound is at the top) return
+	
+	//bubble this item up to the top
+	//for i=nId, i>0, i--
+		//swap data at nId and nId-1
+		
+	//NYI
+}
+
+void LoadSoundStack(string sFileName)
+{
+	//bubble everything uo
+	//for i=nId, i>0, i--
+		//swap data at nId and nId-1
+
+	//unload the data at pLoadedSounds[0]
+	
+	//insert the new item at id 0
+
+	//NYI
+}
+
+//Old code
+
 int nSoundVolume = 100;
 
 int nSoundPlayerDeath = LoadSound("sounds\playerdeath.wav");
