@@ -5,6 +5,8 @@ void start()
 	HookEntityRender(nPlayerEnt, "PlayerRender");
 
 	sAreaName = "Mission 3";
+	
+	nGlobalLight = 100;
 
 	SetLowObsZone(1);
 
