@@ -10,6 +10,7 @@ int bCanSave = 1;
 string tmpNotes[MAX_NOTES];
 string tmpComm[MAX_COMM_LOGS];
 objective tmpObjectives[MAX_OBJECTIVES];
+delayedCallback tmpCallbacks[DELAYED_CALLBACK_MAX];
 
 int tmpEnemiesKilled;
 int tmpEnemiesTranqd;
@@ -124,6 +125,14 @@ int SaveGame(string filename)
 			FileWriteString(hndl, objectives[i].sName);
 			FileWriteByte(hndl, objectives[i].bActive);
 			FileWriteByte(hndl, objectives[i].bComplete);
+		}
+		
+		//DelayedCallbacks
+		for(i=0;i<DELAYED_CALLBACK_MAX;i++)
+		{
+			FileWriteQuad(hndl, delayedCallbacks[i].nTimeStamp);
+			FileWriteString(hndl, delayedCallbacks[i].sFunction);
+			FileWriteByte(hndl, delayedCallbacks[i].nActive);
 		}
 		
 		//tracked stats
@@ -252,6 +261,14 @@ int LoadGame(string filename)
 			tmpObjectives[i].sName = FileReadString(hndl);
 			tmpObjectives[i].bActive = FileReadByte(hndl);
 			tmpObjectives[i].bComplete = FileReadByte(hndl);
+		}
+		
+		//DelayedCallbacks
+		for(i=0;i<DELAYED_CALLBACK_MAX;i++)
+		{
+			tmpCallbacks[i].nTimeStamp = FileReadQuad(hndl);
+			tmpCallbacks[i].sFunction = FileReadString(hndl);
+			tmpCallbacks[i].nActive = FileReadByte(hndl);
 		}
 		
 		//tracked stats
@@ -433,6 +450,13 @@ void MoveLoadedData()
 			objectives[i].bComplete = tmpObjectives[i].bComplete;
 		}
 		
+		for(i=0;i<DELAYED_CALLBACK_MAX;i++)
+		{
+			delayedCallbacks[i].nTimeStamp = tmpCallbacks[i].nTimeStamp;
+			delayedCallbacks[i].sFunction = tmpCallbacks[i].sFunction;
+			delayedCallbacks[i].nActive = tmpCallbacks[i].nActive;
+		}
+
 		nEnemiesKilled = tmpEnemiesKilled;
 		nEnemiesTranqd = tmpEnemiesTranqd;
 		nSilentKills = tmpSilentKills;
