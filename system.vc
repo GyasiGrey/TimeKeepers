@@ -371,6 +371,7 @@ void InitMap(int missionNumber)
 	ClearAutoSave();
 	ClearLoot();
 	ClearTooltip();
+	FreeAllDelayedCallbacks();
 
 	//Behold the magic of CallFunction! They are virtual functions!
 	//All these functions are defined in each map VC and called automatically
