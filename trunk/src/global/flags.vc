@@ -69,6 +69,7 @@ int nFlags[NUM_FLAGS]; //dat theres a lota flags
 #define FLAG_MISSION3_JAIL_GUARD_ID			615
 #define FLAG_MISSION3_JAIL_DOOR_ID			620
 #define FLAG_MISSION3_ESCAPE_FLOOD			625	//player escaped the jail cell by flooding the toilet
+#define FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID		630
 
 
 

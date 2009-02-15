@@ -49,6 +49,11 @@ void InitDoors()
 	
 	CreateDoor(22, 29, LoadImage("gfx\misc\jail_door.png"), -2);
 	CreateDoor(34, 29, LoadImage("gfx\misc\jail_door.png"), -2);
+	
+	CreateDoor(39, 18, LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(46, 18, LoadImage("gfx\misc\locker_door.png"), -1);
+	
+	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID] = CreateDoor(43, 17, LoadImage("gfx\misc\elevator_door.png"), -1);
 }
 
 void InitEnemies()
@@ -165,5 +170,19 @@ void EscapeCell()
 		bCanSave = 1;
 		
 		nFlags[FLAG_MISSION3_ESCAPE_FLOOD] = 1;
+		
+		CreateDelayedCallback(1000, "SpawnJailSquad");
 	}
+}
+
+//spawn two guards 
+void SpawnJailSquad()
+{
+	int spawnedGuard1;
+	
+	SoundElevatorHere();
+	ManualOpenDoor(nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID]);
+	spawnedGuard1 = CreateEnemy(43, 15, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "", "tk.chr");
+	
+	Goto(Enemies[spawnedGuard1].nEntity, 38*16, 24*16);
 }
