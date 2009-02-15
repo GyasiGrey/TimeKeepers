@@ -8,7 +8,7 @@ void start()
 
 	SetLowObsZone(1);
 
-	InitMap(2);
+	InitMap(3);
 
 	if(!nFlags[FLAG_MISSION3_TECH_GHOST_START])
 	{
@@ -53,7 +53,7 @@ void InitDoors()
 	CreateDoor(39, 18, LoadImage("gfx\misc\locker_door.png"), -1);
 	CreateDoor(46, 18, LoadImage("gfx\misc\locker_door.png"), -1);
 	
-	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID] = CreateDoor(43, 17, LoadImage("gfx\misc\elevator_door.png"), -1);
+	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID] = CreateDoor(43, 17, LoadImage("gfx\misc\elevator_door.png"), -2);
 }
 
 void InitEnemies()
@@ -185,4 +185,11 @@ void SpawnJailSquad()
 	spawnedGuard1 = CreateEnemy(43, 15, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "", "tk.chr");
 	
 	Goto(Enemies[spawnedGuard1].nEntity, 38*16, 24*16);
+}
+
+void WarpToElevator()
+{
+	FadeOutExclusive(50, RGB(0, 0, 0));
+	Warp(78, 16);
+	FadeInExclusive(50, RGB(0, 0, 0));
 }
