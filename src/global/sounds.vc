@@ -179,62 +179,62 @@ int nSoundStatic250ms = LoadSound("sounds\250ms.wav");
 
 void SoundPlayerDeath()
 {
-	PlaySound(nSoundPlayerDeath, nSoundVolume);
+	PlaySoundStack("sounds\playerdeath.wav");
 }
 
 void SoundLoot()
 {
-	PlaySound(nSoundLoot, nSoundVolume);
+	PlaySoundStack("sounds\loot.wav");
 }
 
 void SoundNoAmmo()
 {
-	PlaySound(nSoundNoAmmo, nSoundVolume);
+	PlaySoundStack("sounds\noammo.wav");
 }
 
 void SoundKnockOut()
 {
-	PlaySound(nSoundKnockOut, nSoundVolume);
+	PlaySoundStack("sounds\knockout.wav");
 }
 
 void SoundLowHealth()
 {
-	PlaySound(nSoundLowHealth, nSoundVolume);
+	PlaySoundStack("sounds\lowhealth.wav");
 }
 
 void SoundDoorOpen()
 {
-	PlaySound(nSoundDoorOpen, nSoundVolume);
+	PlaySoundStack("sounds\dooropen.wav");
 }
 
 void SoundDoorClose()
 {
-	PlaySound(nSoundDoorClose, nSoundVolume);
+	PlaySoundStack("sounds\doorclose.wav");
 }
 
 void SoundPickLock()
 {
-	PlaySound(nSoundPickLock, nSoundVolume);
+	PlaySoundStack("sounds\picklock.wav");
 }
 
 void SoundLocked()
 {
-	PlaySound(nSoundLocked, nSoundVolume);
+	PlaySoundStack("sounds\locked.wav");
 }
 
 void SoundError()
 {
-	PlaySound(nSoundError, nSoundVolume);
+	PlaySoundStack("sounds\error.wav");
 }
 
 void SoundTeleport()
 {
-	PlaySound(nSoundTeleport, nSoundVolume);
+	PlaySoundStack("sounds\teleport.wav");
 }
 
 void SoundMedkitUse()
 {
-	PlaySound(nSoundMedkit, nSoundVolume);
+	PlaySoundStack("sounds\medkit.wav");
 }
 
 void SoundKlaxon(int x, int y, int range)
@@ -249,37 +249,37 @@ void SoundWarn(int x, int y, int range)
 
 void SoundElevatorCall()
 {
-	PlaySound(nSoundElevatorCall, nSoundVolume);
+	PlaySoundStack("sounds\elevatorcall.wav");
 }
 
 void SoundElevatorHere()
 {
-	PlaySound(nSoundElevatorHere, nSoundVolume);
+	PlaySoundStack("sounds\elevatorhere.wav");
 }
 
 void SoundGrenade()
 {
-	PlaySound(nSoundGrenade, nSoundVolume);
+	PlaySoundStack("sounds\grenade.wav");
 }
 
 void StaticIn()
 {
-	PlaySound(nSoundStaticIn, nSoundVolume);
+	PlaySoundStack("sounds\static_in.wav");
 }
 
 void StaticOut()
 {
-	PlaySound(nSoundStaticOut, nSoundVolume);
+	PlaySoundStack("sounds\static_out.wav");
 }
 
 void SoundAchivement()
 {
-	PlaySound(nSoundAchivement, nSoundVolume);
+	PlaySoundStack("sounds\achivement.wav");
 }
 
 void SoundBigMetalDoor()
 {
-	PlaySound(nSoundBigMetalDoor, nSoundVolume);
+	PlaySoundStack("sounds\bigmetaldoor.wav");
 }
 
 void DistanceSound(int snd, int x, int y, int range)
@@ -316,32 +316,32 @@ void SoundUghRand()
 
 void SoundTKSplashOut()
 {
-	PlaySound(nSoundTKSplashOut, nSoundVolume);
+	PlaySoundStack("sounds\tkSplashStaticOut.wav");
 }
 
 void SoundTKSplashIn()
 {
-	PlaySound(nSoundTKSplashIn, nSoundVolume);
+	PlaySoundStack("sounds\tkSplashStaticIn.wav");
 }
 
 void SoundSpawn()
 {
-	PlaySound(nSoundSpawn, nSoundVolume);
+	PlaySoundStack("sounds\spawn.wav");
 }
 
 void SoundStatic250ms()
 {
-	PlaySound(nSoundStatic250ms, nSoundVolume);
+	PlaySoundStack("sounds\250ms.wav");
 }
 
 void SoundStatic500ms()
 {
-	PlaySound(nSoundStatic500ms, nSoundVolume);
+	PlaySoundStack("sounds\500ms.wav");
 }
 
 void SoundStatic750ms()
 {
-	PlaySound(nSoundStatic750ms, nSoundVolume);
+	PlaySoundStack("sounds\750ms.wav");
 }
 
 void SoundFlush()
