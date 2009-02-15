@@ -210,7 +210,7 @@ void MainElevatorButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
 
-	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0)
+	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0 || IsDelayedCallbackActive("InnerElevatorArrived") || IsDelayedCallbackActive("CloseInnerElevatorDoor"))
 		return;
 
 	switch(nFlags[FLAG_MISSION3_ELEVATOR_FLOOR])
@@ -238,7 +238,7 @@ void JailElevatorButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
 
-	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0)
+	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0 || IsDelayedCallbackActive("JailElevatorArrived") || IsDelayedCallbackActive("CloseJailElevatorDoor"))
 		return;
 
 	CreateDelayedCallback(500, "JailElevatorArrived");
@@ -254,7 +254,7 @@ void LobbyElevatorButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
 
-	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0)
+	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0 || IsDelayedCallbackActive("LobbyElevatorArrived") || IsDelayedCallbackActive("CloseLobbyElevatorDoor"))
 		return;
 
 	CreateDelayedCallback(500, "LobbyElevatorArrived");
