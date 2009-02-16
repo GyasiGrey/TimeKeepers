@@ -307,6 +307,28 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].bCanHear = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nTargetPriority = 300;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sAIFunc = "EnemyAICamera";
+	
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nHp = 150;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nMaxHp = 150;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nWeapon = 3;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nSightRange = 200;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nSightAngle = 45;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nWeapon].nRecharge*2;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nAlertTime = 1000;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nSearchTime = 600;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nAIType = ENEMY_AI_TYPE_NORMAL;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootUpAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootLeftAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootDownAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootRightAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sDeathAnim = "Z4 W15 Z5 W15 Z6 W15 Z7 W15 Z8";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sDeathSound = "sounds\cameradeath.wav";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nDeadFrame = 8;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].bCanBeTranqd = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].bCanSpeak = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].bCanHear = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nTargetPriority = 300;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sAIFunc = "EnemyAINormal";
 }
 
 void ClearEnemies()
