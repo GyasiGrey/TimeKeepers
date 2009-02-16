@@ -58,6 +58,8 @@ void InitDoors()
 	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID] = CreateDoor(43, 17, LoadImage("gfx\misc\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID] = CreateDoor(111, 90, LoadImage("gfx\misc\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID] = CreateDoor(78, 15, LoadImage("gfx\misc\elevator_door.png"), -2);
+	
+	CreateDoor(88, 141, LoadImage("gfx\misc\locker_door.png"), -1);
 }
 
 void InitEnemies()
@@ -71,6 +73,8 @@ void InitEnemies()
 	CreateEnemy(121, 109, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_CAMERA, "", "camera.chr");
 
 	CreateEnemy(22, 19, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_CIVILIAN, "", "tech.chr");
+	
+	CreateEnemy(97, 92, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_ROBOT, "Y120X124Y92Y120X97Y92B", "camera.chr");
 }
 
 void InitLoot()
@@ -79,6 +83,7 @@ void InitLoot()
 	CreateLoot(77*16, (15*16)-8, "", 0, "", "MainElevatorButton", 1);
 	CreateLoot(110*16, (90*16)-8, "", 0, "", "LobbyElevatorButton", 1);
 	CreateLoot(42*16, (17*16)-8, "", 0, "", "JailElevatorButton", 1);
+	CreateLoot(85*16, 136*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
 }
 
 //ALWAYS flush
