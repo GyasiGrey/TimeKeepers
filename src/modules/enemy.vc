@@ -317,7 +317,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nAlertTime = 1000;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nSearchTime = 600;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nAIType = ENEMY_AI_TYPE_NORMAL;
-	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootUpAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootUpAnim = "Z12 W10 Z13 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootLeftAnim = "";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootDownAnim = "";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootRightAnim = "";
