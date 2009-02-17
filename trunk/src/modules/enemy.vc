@@ -321,9 +321,9 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootLeftAnim = "Z18 W10 Z19 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootDownAnim = "Z14 W10 Z15 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootRightAnim = "Z16 W10 Z17 W10";
-	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sDeathAnim = "Z4 W15 Z5 W15 Z6 W15 Z7 W15 Z8";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sDeathSound = "sounds\cameradeath.wav";
-	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nDeadFrame = 8;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nDeadFrame = 24;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].bCanBeTranqd = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].bCanSpeak = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].bCanHear = 1;
