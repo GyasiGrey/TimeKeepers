@@ -318,9 +318,9 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nSearchTime = 600;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nAIType = ENEMY_AI_TYPE_NORMAL;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootUpAnim = "Z12 W10 Z13 W10";
-	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootLeftAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootLeftAnim = "Z18 W10 Z19 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootDownAnim = "Z14 W10 Z15 W10";
-	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootRightAnim = "";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sShootRightAnim = "Z16 W10 Z17 W10";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sDeathAnim = "Z4 W15 Z5 W15 Z6 W15 Z7 W15 Z8";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sDeathSound = "sounds\cameradeath.wav";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nDeadFrame = 8;
