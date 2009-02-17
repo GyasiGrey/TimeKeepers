@@ -305,3 +305,13 @@ void ExitElevator()
 
 	FadeInExclusive(50, RGB(0, 0, 0));
 }
+
+void CatwalkNoise()
+{
+	if(vcTimer[TIMER_ENEMY_LOGIC].nTick > nFlags[FLAG_MISSION3_CATWALK_NOISE])
+	{
+		//make noise as the player walks over the cat walk
+		nFlags[FLAG_MISSION3_CATWALK_NOISE] = vcTimer[TIMER_ENEMY_LOGIC].nTick + 50;
+		SoundMetalStep();
+	}
+}

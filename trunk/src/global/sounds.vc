@@ -305,3 +305,9 @@ void SoundFlush()
 	int i = random(1, 2);
 	PlaySoundStack("sounds\flush" + str(i) + ".wav");
 }
+
+void SoundMetalStep()
+{
+	int i = random(1, 2);
+	PlaySoundStack("sounds\MetalStep" + str(i) + ".wav");
+}
