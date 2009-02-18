@@ -75,6 +75,8 @@ void InitEnemies()
 	CreateEnemy(22, 19, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_CIVILIAN, "", "tech.chr");
 	
 	CreateEnemy(97, 92, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_ROBOT, "Y120X124Y92Y120X97Y92B", "robot.chr");
+	
+	CreateEnemy(156, 107, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_SLEEP, "", "tk.chr");
 }
 
 void InitLoot()
