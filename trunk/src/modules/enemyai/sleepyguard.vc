@@ -7,15 +7,17 @@ void EnemyAISleepy()
 			MakeAlert(nCurrentEnemy);
 			
 		//choose between being asleep and awake
-		if(vcTimer[TIMER_ENEMY_LOGIC].nTick % 500 == 0)
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick % 1000 == 0)
 		{
 			//swap awake and asleep
 			if(Enemies[nCurrentEnemy].nPassive == 1)
 			{
+				BottomTextHelper(nCurrentEnemy, "ZZzsha..Wha?");
 				Enemies[nCurrentEnemy].nPassive = 0;
 			}
 			else
 			{
+				BottomTextHelper(nCurrentEnemy, "ZZzzz...");
 				Enemies[nCurrentEnemy].nPassive = 1;
 			}
 		}

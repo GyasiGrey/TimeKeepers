@@ -1214,6 +1214,13 @@ void BottomText(int ent, int state)
 		MakeSound(Enemies[ent].nEntity, 100);	//same bug as MakeSound line above
 	}
 	
+	BottomTextHelper(ent, Enemies[ent].sBottomText);
+}
+
+void BottomTextHelper(int ent, string sText)
+{
+	Enemies[ent].sBottomText = sText;
+	
 	Enemies[ent].nBottomTextStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
 	
 	if(Enemies[ent].nBottomTextAnim >= 0 && anims[Enemies[ent].nBottomTextAnim].active)
