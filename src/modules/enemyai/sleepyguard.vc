@@ -1,0 +1,28 @@
+void EnemyAISleepy()
+{
+	if(Enemies[nCurrentEnemy].nMode == MODE_NORMAL)
+	{
+		//see if the camera can see the player
+		if(CanSeePlayer(nCurrentEnemy))
+			MakeAlert(nCurrentEnemy);
+			
+		//choose between being asleep and awake
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick % 500 == 0)
+		{
+			//swap awake and asleep
+			if(Enemies[nCurrentEnemy].nPassive == 1)
+			{
+				Enemies[nCurrentEnemy].nPassive = 0;
+			}
+			else
+			{
+				Enemies[nCurrentEnemy].nPassive = 1;
+			}
+		}
+	}
+	else
+	{
+		//otherwise, act just like a normal guard
+		EnemyAINormal();
+	}
+}

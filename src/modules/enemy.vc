@@ -329,6 +329,28 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].bCanHear = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nTargetPriority = 300;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sAIFunc = "EnemyAINormal";
+
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nHp = 25;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nMaxHp = 25;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nWeapon = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nSightRange = 200;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nSightAngle = 35;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nWeapon].nRecharge*2;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nAlertTime = 1000;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nSearchTime = 600;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nAIType = ENEMY_AI_TYPE_NORMAL;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sShootUpAnim = "Z29 W10 Z30 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sShootLeftAnim = "Z27 W10 Z28 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sShootDownAnim = "Z25 W10 Z26 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sShootRightAnim = "Z31 W10 Z32 W10";
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sDeathSound = "sounds\enemydeath.wav";
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nDeadFrame = 24;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].bCanBeTranqd = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].bCanSpeak = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].bCanHear = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nTargetPriority = 200;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sAIFunc = "EnemyAISleepy";
 }
 
 void ClearEnemies()
