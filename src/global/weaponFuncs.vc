@@ -105,7 +105,7 @@ void ThrowGrenade()
 	}
 	else
 	{
-		PlaySound(Weapons[nEquipedWeapon].nSound, 100);
+		PlaySoundStack(Weapons[nEquipedWeapon].sSound);
 		
 		if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
 		{
@@ -169,7 +169,7 @@ void ShootRocket()
 	}
 	else
 	{
-		PlaySound(Weapons[nEquipedWeapon].nSound, 100);
+		PlaySoundStack(Weapons[nEquipedWeapon].sSound);
 		
 		if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
 		{

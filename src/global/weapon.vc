@@ -21,7 +21,7 @@
 struct Weapon
 {
 	int nRange;		//the radius of the range of the weapon
-	int nSound;		//the sound played when fired
+	string sSound;		//the sound played when fired
 	int nIcon;		//the icon showed in the ingame gui
 	string sName;		//weapon name
 	int nDamageMin;		//minimun damage done
@@ -55,7 +55,7 @@ void InitWeapons()
 {
 	Weapons[0].nRange = 20;
 	Weapons[0].sName = "Knife";
-	Weapons[0].nSound = LoadSound("sounds\knife.wav");
+	Weapons[0].sSound = "sounds\knife.wav";
 	Weapons[0].nIcon = LoadImage("gfx\icons\punchicn.png");
 	Weapons[0].nMaxAmmo = 0-1;
 	Weapons[0].nDamageMin = 50;
@@ -69,7 +69,7 @@ void InitWeapons()
 
 	Weapons[1].nRange = 100;
 	Weapons[1].sName = "Pistol";
-	Weapons[1].nSound = LoadSound("sounds\gun.wav");
+	Weapons[1].sSound = "sounds\gun.wav";
 	Weapons[1].nIcon = LoadImage("gfx\icons\pistolicn.png");
 	Weapons[1].nMaxAmmo = 25;
 	Weapons[1].nDamageMin = 5;
@@ -85,7 +85,7 @@ void InitWeapons()
 	
 	Weapons[2].nRange = 75;
 	Weapons[2].sName = "Shotgun";
-	Weapons[2].nSound = LoadSound("sounds\shotgun.wav");
+	Weapons[2].sSound = "Sounds\shotgun.wav";
 	Weapons[2].nIcon = LoadImage("gfx\icons\shotgunicn.png");
 	Weapons[2].nMaxAmmo = 20;
 	Weapons[2].nDamageMin = 10;
@@ -102,7 +102,7 @@ void InitWeapons()
 
 	Weapons[3].nRange = 100;
 	Weapons[3].sName = "M4";
-	Weapons[3].nSound = LoadSound("sounds\mgun.wav");
+	Weapons[3].sSound = "sounds\mgun.wav";
 	Weapons[3].nIcon = LoadImage("gfx\icons\mgunicn.png");
 	Weapons[3].nMaxAmmo = 45;
 	Weapons[3].nDamageMin = 5;
@@ -119,7 +119,7 @@ void InitWeapons()
 	
 	Weapons[4].nRange = 125;
 	Weapons[4].sName = "Tranq Gun";
-	Weapons[4].nSound = LoadSound("sounds\tranq.wav");
+	Weapons[4].sSound = "sounds\tranq.wav";
 	Weapons[4].nIcon = LoadImage("gfx\icons\tranqicn.png");
 	Weapons[4].nMaxAmmo = 30;
 	Weapons[4].nDamageMin = 50;
@@ -137,7 +137,7 @@ void InitWeapons()
 
 	Weapons[5].nRange = 100;
 	Weapons[5].sName = "Grenades";
-	Weapons[5].nSound = LoadSound("sounds\grenadeDrop.wav");
+	Weapons[5].sSound = "sounds\grenadeDrop.wav";
 	Weapons[5].nIcon = LoadImage("gfx\icons\grenade.png");
 	Weapons[5].nMaxAmmo = 10;
 	Weapons[5].nDamageMin = 10;
@@ -155,7 +155,7 @@ void InitWeapons()
 
 	Weapons[6].nRange = 0;
 	Weapons[6].sName = "Empty";
-	Weapons[6].nSound = -1;
+	Weapons[6].sSound = "";
 	Weapons[6].nIcon = LoadImage("gfx\icons\nogun.png");
 	Weapons[6].nMaxAmmo = -1;
 	Weapons[6].nDamageMin = 0;
@@ -171,7 +171,7 @@ void InitWeapons()
 
 	Weapons[7].nRange = 75;
 	Weapons[7].sName = "Auto Shotgun";
-	Weapons[7].nSound = LoadSound("sounds\shotgun.wav");
+	Weapons[7].sSound = "sounds\shotgun.wav";
 	Weapons[7].nIcon = LoadImage("gfx\icons\shotgunicn.png");
 	Weapons[7].nMaxAmmo = 20;
 	Weapons[7].nDamageMin = 10;
@@ -187,7 +187,7 @@ void InitWeapons()
 
 	Weapons[8].nRange = 100;
 	Weapons[8].sName = "Rocket Launcher";
-	Weapons[8].nSound = LoadSound("sounds\grenadeDrop.wav");
+	Weapons[8].sSound = "sounds\grenadeDrop.wav";
 	Weapons[8].nIcon = LoadImage("gfx\icons\grenade.png");
 	Weapons[8].nMaxAmmo = 10;
 	Weapons[8].nDamageMin = 10;
@@ -205,7 +205,7 @@ void InitWeapons()
 	
 	Weapons[9].nRange = 100;
 	Weapons[9].sName = "Flash Bang";
-	Weapons[9].nSound = LoadSound("sounds\grenadeDrop.wav");
+	Weapons[9].sSound = "sounds\grenadeDrop.wav";
 	Weapons[9].nIcon = LoadImage("gfx\icons\grenade.png");
 	Weapons[9].nMaxAmmo = 10;
 	Weapons[9].nDamageMin = 10;
@@ -250,7 +250,7 @@ void FireWeapon(int shooter, int target)
 	if(shooter != nPlayerEnt)
 	{
 		enemyindex = GetEnemyIndex(shooter);
-		PlaySound(Weapons[Enemies[enemyindex].nWeapon].nSound, 100);
+		PlaySoundStack(Weapons[Enemies[enemyindex].nWeapon].sSound);
 		//enemies have inf ammo, don't take it away
 		eqweapon = Enemies[enemyindex].nWeapon;
 
@@ -280,7 +280,7 @@ void FireWeapon(int shooter, int target)
 		//only silent weapons can miss, and therfore sometimes won't play there sound
 		//non silent always play the sound
 		if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_SILENT)
-			PlaySound(Weapons[nEquipedWeapon].nSound, 100);
+			PlaySoundStack(Weapons[nEquipedWeapon].sSound);
 			
 		eqweapon = nEquipedWeapon;
 		enemyindex = shooter;
@@ -382,7 +382,7 @@ void FireWeaponHelp(int shooter, int target)
 					if(Enemies[targetindex].nMode != MODE_ALERT)
 					{
 						DamageEnemy(Random(Weapons[nEquipedWeapon].nDamageMin, Weapons[nEquipedWeapon].nDamageMax), LOSstop);
-						PlaySound(Weapons[nEquipedWeapon].nSound, 100);
+						PlaySoundStack(Weapons[nEquipedWeapon].sSound);
 					}
 				}
 				else if(Weapons[nEquipedWeapon].nNonLethal)
