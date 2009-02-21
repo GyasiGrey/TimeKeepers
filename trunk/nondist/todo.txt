@@ -25,6 +25,20 @@ Fixed Bugs needing testing
 
 
 **********
+Map stuff
+**********
+Put bars infront of the command center. These bars don't open untill a certan objective is met.
+Each of the computers in the command center will open a different door to a different of the base.
+	One for the armory
+	One for the R&D
+	One for the Baricks
+	ONE TO RULE THEM ALL
+Put a code to one of the computers infront of the sleeping guard. 
+From the storage room make a crawl space that gets to the Baricks.
+Put the key to the control center in a foot locker of one of the beds in the baricks.
+
+
+**********
 Priority 1
 **********
 Add watch's to the debug window. Use the get variable by name function to add a list of variables at runtime. Variable display will be updated every refresh
