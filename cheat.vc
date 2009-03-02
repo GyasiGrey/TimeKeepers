@@ -40,6 +40,14 @@ void GotoMission2()
 	TimeWarp("0|1|4|2", "mission2.map");
 }
 
+void GotoMission3()
+{
+	if(!CHEATS_ENABLED)
+		return;
+		
+	TimeWarp("6", "mission3.map");
+}
+
 void GotoTestcase()
 {
 	if(!CHEATS_ENABLED)
