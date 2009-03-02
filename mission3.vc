@@ -60,8 +60,6 @@ void InitDoors()
 	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID] = CreateDoor(78, 15, LoadImage("gfx\misc\elevator_door.png"), -2);
 	
 	CreateDoor(88, 141, LoadImage("gfx\misc\locker_door.png"), -1);
-	
-	CreateDoor(111, 118, LoadImage("gfx\misc\locker_door.png"), -1);
 }
 
 void InitEnemies()
