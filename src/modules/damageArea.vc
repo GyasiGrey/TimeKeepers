@@ -52,8 +52,11 @@ void ProcessesDamageArea()
 		{
 			if(!DictContains(DamageAreas[i].dEntitiesHit, str(nPlayerEnt)) && DistanceXY(DamageAreas[i].nX, DamageAreas[i].nY, entity.x[nPlayerEnt], entity.y[nPlayerEnt]) < DamageAreas[i].nRadius)
 			{
-				CallFunction(DamageAreas[i].sCollisionFunction,	i, nPlayerEnt);
-				DictSetInt(DamageAreas[i].dEntitiesHit, str(nPlayerEnt), 1);
+				if(!nGodMode)
+				{
+					CallFunction(DamageAreas[i].sCollisionFunction,	i, nPlayerEnt);
+					DictSetInt(DamageAreas[i].dEntitiesHit, str(nPlayerEnt), 1);
+				}
 			}
 				
 			for(j=0;j<nNumEnemies;j++)
