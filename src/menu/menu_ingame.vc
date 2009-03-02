@@ -121,6 +121,9 @@ void MenuInGameLogic()
 			RemoveGui();
 			UnpressButtons();
 			
+			bLoadingGame = 0;
+			NewGame();
+			
 			TitleScreen();
 		}
 	}
