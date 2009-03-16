@@ -86,6 +86,8 @@ void InitLoot()
 	CreateLoot(110*16, (90*16)-8, "", 0, "", "LobbyElevatorButton", 1);
 	CreateLoot(42*16, (17*16)-8, "", 0, "", "JailElevatorButton", 1);
 	CreateLoot(85*16, 136*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
+	
+	CreateLoot((137*16)-8, 106*16, "Card", 0, "card.png", "GetKeyCard1", 0);
 }
 
 //ALWAYS flush
@@ -317,4 +319,29 @@ void CatwalkNoise()
 		MakeSound(nPlayerEnt, 100);
 		SoundMetalStep();
 	}
+}
+
+void GetKeyCard1()
+{
+	nFlags[FLAG_MISSION3_KEYCARD_1] = 1;
+}
+
+void GetKeyCard2()
+{
+	nFlags[FLAG_MISSION3_KEYCARD_2] = 1;
+}
+
+void GetKeyCard3()
+{
+	nFlags[FLAG_MISSION3_KEYCARD_3] = 1;
+}
+
+void GetKeyCard4()
+{
+	nFlags[FLAG_MISSION3_KEYCARD_4] = 1;
+}
+
+void GetKeyCard5()
+{
+	nFlags[FLAG_MISSION3_KEYCARD_5] = 1;
 }
