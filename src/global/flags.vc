@@ -75,6 +75,11 @@ int nFlags[NUM_FLAGS]; //dat theres a lota flags
 #define FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID		645
 #define FLAG_MISSION3_ELEVATOR_ACCESS			650	//true when the player has the ability to use the elevator
 #define FLAG_MISSION3_CATWALK_NOISE			656	//Timer when the last catwalk noise was. move along. nothing to see here.
+#define FLAG_MISSION3_KEYCARD_1				660	//keycards for the armory and other doors in mission 3 
+#define FLAG_MISSION3_KEYCARD_2				665
+#define FLAG_MISSION3_KEYCARD_3				670
+#define FLAG_MISSION3_KEYCARD_4				675
+#define FLAG_MISSION3_KEYCARD_5				680
 
 
 
