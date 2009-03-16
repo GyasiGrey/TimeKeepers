@@ -72,6 +72,15 @@ Mission 3
 			-Chrono tube area behind boss battel
 			-Inbetween areas
 
+	Seprate utility room into another floor
+		-Give the player a sekrit way of getting to the utility room. (trash chute, hole in the floor, air duct, whatever)
+		-Once in the utility room they player can C4 the generators to knock out main power 
+
+	The to open the doors to stuff in the armory the player must have certan key cards.
+		-The first key card is on the catwalk (yeah on the catwalk) of the cargo room. This allows the player to get C4. 
+			-Make C4.
+
+
 	Make necessary tiles (tech related. Reference FF4 Giant of Babil)
 
 New Weapons
