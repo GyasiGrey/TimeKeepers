@@ -1,10 +1,5 @@
 #define MAX_WEAPONS 15		//DO NOT CHANGE. WILL BREAK SAVE GAMES. (yeah, if I ever get around to implementing savegames)
 
-#define WEAPON_TYPE_SILENT 0	//silent weapons do damage if the target is not alert
-#define WEAPON_TYPE_SINGLE 1	//user must retrigger shoot button for every shot. Semi automatic weapons.
-#define WEAPON_TYPE_AUTO   2	//user can hold down shoot button to retrigger shots. Automatic weapons.
-#define WEAPON_TYPE_THROWN 3
-
 #define NUM_WEAPONS 9
 
 #define WEAPON_KNIFE		0
