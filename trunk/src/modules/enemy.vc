@@ -575,7 +575,7 @@ void DamageEnemy(int damage, int entityindex, int nDamageType)
 				//track the kill
 				nEnemiesKilled++;
 				
-				if(Weapons[nEquipedWeapon].nType == 0) //TODO: remove magic number. This check if the player has a silent weapon equiped
+				if(Weapons[nEquipedWeapon].nType == WEAPON_TYPE_SILENT)
 				{
 					//track a silent kill
 					nSilentKills++;
