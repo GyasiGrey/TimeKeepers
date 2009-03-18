@@ -88,7 +88,7 @@ void KillDamageArea(int i)
 
 void DamageAreaDamage(int nArea, int nTarget)
 {
-	DamageEnemy(Random(DamageAreas[nArea].nMinDamage, DamageAreas[nArea].nMaxDamage), nTarget);
+	DamageEnemy(Random(DamageAreas[nArea].nMinDamage, DamageAreas[nArea].nMaxDamage), nTarget, DAMAGE_TYPE_NORMAL);
 }
 
 void DamageAreaStun(int nArea, int nTarget)

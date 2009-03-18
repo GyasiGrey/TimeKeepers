@@ -498,74 +498,32 @@ int GetEnemyIndex(int entityindex)
 }
 
 //entityindex is an ENTITY index
-//a copy of DamageEnemy except for tranqing enemies
-void TranqEnemy(int damage, int entityindex)
+void DamageEnemy(int damage, int entityindex, int nDamageType)
 {
 	int enemyindex;
 	string damageText;
 	
-	Error("TranqEnemy() called damage: " + str(damage) + " entityindex: " + str(entityindex));
+	Error("DamageEnemy() called damage: " + str(damage) + " entityindex:" + str(entityindex) + " nDamageType:" + str(nDamageType));
 	
-
 	if(entityindex == nPlayerEnt)
 		enemyindex = nPlayerEnt;
 	else
 		enemyindex = GetEnemyIndex(entityindex);
-		
-	if(!Enemies[enemyindex].bCanBeTranqd)
-		damageText = "Immune";
-	else
-		damageText = "tranq +"+str(damage);
+
+	if(nDamageType == DAMAGE_TYPE_TRANQ)
+	{	
+		if(!Enemies[enemyindex].bCanBeTranqd)
+			damageText = "Immune";
+		else
+			damageText = "tranq +"+str(damage);
+	}
+	else if(nDamageType == DAMAGE_TYPE_NORMAL)
+	{
+		damageText = "-" + str(damage);
+	}
 
 	//make the damage anim
-	scrollTextUp(entity.x[entityindex], entity.y[entityindex], damageText, nTinyFont, RGB(255, 0, 0));
-	
-	if(!Enemies[enemyindex].bCanBeTranqd)
-		return;
-
-	if(entityindex == nPlayerEnt)	//?? tranq the player?
-	{
-		nHealth -= damage;
-		
-	}
-	else
-	{
-		if(!Enemies[enemyindex].nTranqHit)
-		{
-			//start tranq timer
-			Enemies[enemyindex].nTranqEnd = vcTimer[TIMER_ENEMY_LOGIC].nTick + TRANQ_EFFECT_TIME;
-			Error("TranqEnemy() - Enemy will go down at " + str(Enemies[enemyindex].nTranqEnd) + " - current " + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
-			//start searching
-			Search(enemyindex);
-			//you got shot - say something!
-			if(Enemies[enemyindex].bCanSpeak)	//dummies can't talk, civilians talk a different way
-				BottomText(enemyindex, BOTTOM_TEXT_SHOT);
-			Enemies[enemyindex].nTranqHit = 1;
-		}
-		else
-		{
-			//already hit by dart, move nTranqEnd closer to timer (decrease it)
-			Enemies[enemyindex].nTranqEnd -= damage;
-			Error("TranqEnemy() - Enemy will go down at " + str(Enemies[enemyindex].nTranqEnd) + " - current " + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
-			//start searching
-			Search(enemyindex);
-		}
-	}
-}
-
-//entityindex is an ENTITY index
-void DamageEnemy(int damage, int entityindex)
-{
-	int enemyindex;
-	
-	Error("DamageEnemy() called damage: " + str(damage) + " entityindex:" + str(entityindex));
-	
-	if(entityindex == nPlayerEnt)
-		enemyindex = nPlayerEnt;
-	else
-		enemyindex = GetEnemyIndex(entityindex);
-
-	scrollTextUp(entity.x[entityindex], entity.y[entityindex], "-"+str(damage), nTinyFont, RGB(255, 0, 0));
+	scrollTextUp(entity.x[entityindex], entity.y[entityindex], damagetext, nTinyFont, RGB(255, 0, 0));
 	
 	if(entityindex == nPlayerEnt)
 	{
@@ -576,44 +534,70 @@ void DamageEnemy(int damage, int entityindex)
 	}
 	else
 	{
-		Enemies[enemyindex].nHp -= damage;
-		
-		if(Enemies[enemyindex].nHp <= 0)
+		if(nDamageType == DAMAGE_TYPE_TRANQ)
 		{
-			Enemies[enemyindex].nActive = 0;
-			Enemies[enemyindex].nMode = MODE_NORMAL;
-			StopEnemy(enemyindex);
-			entity.obstruct[entityindex] = 0; //now i can walk through you
-			//death sound
-			//SoundEnemyDeath();
-			PlaySoundStackDistance(Enemies[enemyindex].sDeathSound, entity.x[Enemies[enemyindex].nEntity], entity.y[Enemies[enemyindex].nEntity], 200);
-			//do enemy death anim
-			AnimateEnemy(enemyindex, Enemies[enemyindex].sDeathAnim);
-			//track the kill
-			nEnemiesKilled++;
-			
-			if(Weapons[nEquipedWeapon].nType == 0) //TODO: remove magic number. This check if the player has a silent weapon equiped
+			if(!Enemies[enemyindex].nTranqHit)
 			{
-				//track a silent kill
-				nSilentKills++;
-				AchivementUnlocked(ACHIVEMENT_1_SILENT_KILL);	//ACHIVEMENT
+				//start tranq timer
+				Enemies[enemyindex].nTranqEnd = vcTimer[TIMER_ENEMY_LOGIC].nTick + TRANQ_EFFECT_TIME;
+				Error("TranqEnemy() - Enemy will go down at " + str(Enemies[enemyindex].nTranqEnd) + " - current " + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
+				//start searching
+				Search(enemyindex);
+				//you got shot - say something!
+				if(Enemies[enemyindex].bCanSpeak)	//dummies can't talk, civilians talk a different way
+					BottomText(enemyindex, BOTTOM_TEXT_SHOT);
+				Enemies[enemyindex].nTranqHit = 1;
 			}
 			else
 			{
-				//not a silent kill, let guards hear it
-				MakeSound(entityindex, 100);
+				//already hit by dart, move nTranqEnd closer to timer (decrease it)
+				Enemies[enemyindex].nTranqEnd -= damage;
+				Error("TranqEnemy() - Enemy will go down at " + str(Enemies[enemyindex].nTranqEnd) + " - current " + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
+				//start searching
+				Search(enemyindex);
 			}
 		}
-		else if (Enemies[enemyindex].bCanSpeak)
+		else if(nDamageType == DAMAGE_TYPE_NORMAL)
 		{
-			//you got shot - say something!
-			BottomText(enemyindex, BOTTOM_TEXT_SHOT);
-		}
-
-		if(Enemies[enemyindex].nMode != MODE_ALERT && Enemies[enemyindex].nHp > 0)
-		{
-			//I just got shot, might think I would become alert
-			MakeAlert(enemyindex);
+			Enemies[enemyindex].nHp -= damage;
+			
+			if(Enemies[enemyindex].nHp <= 0)
+			{
+				Enemies[enemyindex].nActive = 0;
+				Enemies[enemyindex].nMode = MODE_NORMAL;
+				StopEnemy(enemyindex);
+				entity.obstruct[entityindex] = 0; //now i can walk through you
+				//death sound
+				//SoundEnemyDeath();
+				PlaySoundStackDistance(Enemies[enemyindex].sDeathSound, entity.x[Enemies[enemyindex].nEntity], entity.y[Enemies[enemyindex].nEntity], 200);
+				//do enemy death anim
+				AnimateEnemy(enemyindex, Enemies[enemyindex].sDeathAnim);
+				//track the kill
+				nEnemiesKilled++;
+				
+				if(Weapons[nEquipedWeapon].nType == 0) //TODO: remove magic number. This check if the player has a silent weapon equiped
+				{
+					//track a silent kill
+					nSilentKills++;
+					AchivementUnlocked(ACHIVEMENT_1_SILENT_KILL);	//ACHIVEMENT
+				}
+				else
+				{
+					//not a silent kill, let guards hear it
+					MakeSound(entityindex, 100);
+				}
+			}
+			else if (Enemies[enemyindex].bCanSpeak)
+			{
+				//you got shot - say something!
+				BottomText(enemyindex, BOTTOM_TEXT_SHOT);
+			}
+	
+			if(Enemies[enemyindex].nMode != MODE_ALERT && Enemies[enemyindex].nHp > 0)
+			{
+				//I just got shot, might think I would become alert
+				MakeAlert(enemyindex);
+			}
 		}
 	}
 }
