@@ -527,10 +527,6 @@ void TranqEnemy(int damage, int entityindex)
 	{
 		nHealth -= damage;
 		
-/*		if(nHealth<=0)
-		{
-			PlayerDeath();
-		}*/
 	}
 	else
 	{
@@ -577,11 +573,6 @@ void DamageEnemy(int damage, int entityindex)
 		
 		FadeIn(25, RGB(255, 0, 0));
 		nFadeInStart-=10;
-		
-		/*if(nHealth<=0)
-		{
-			PlayerDeath();
-		}*/
 	}
 	else
 	{
