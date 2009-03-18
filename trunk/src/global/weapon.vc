@@ -357,7 +357,7 @@ void FireWeaponHelp(int shooter, int target)
 				{
 					//enemy shot enemy
 					//FRIENDLY FIRE!!
-					DamageEnemy(Random(Weapons[Enemies[enemyindex].nWeapon].nDamageMin, Weapons[Enemies[enemyindex].nWeapon].nDamageMax), LOSstop);				
+					DamageEnemy(Random(Weapons[Enemies[enemyindex].nWeapon].nDamageMin, Weapons[Enemies[enemyindex].nWeapon].nDamageMax), LOSstop, DAMAGE_TYPE_NORMAL);				
 					//put the explode anim where it hit
 					LoadAnimationEX("bloodhit.png", 8, 8, LOSXstop, LOSYstop, "T1 F0 W15 F1 W15 F2 W15 F3 W15 D");
 				}
@@ -365,7 +365,7 @@ void FireWeaponHelp(int shooter, int target)
 			else
 			{
 				//enemy shot player
-				DamageEnemy(Random(Weapons[Enemies[enemyindex].nWeapon].nDamageMin, Weapons[Enemies[enemyindex].nWeapon].nDamageMax), LOSstop);				
+				DamageEnemy(Random(Weapons[Enemies[enemyindex].nWeapon].nDamageMin, Weapons[Enemies[enemyindex].nWeapon].nDamageMax), LOSstop, DAMAGE_TYPE_NORMAL);				
 				//put the explode anim where it hit
 				LoadAnimationEX("bloodhit.png", 8, 8, LOSXstop, LOSYstop, "T1 F0 W15 F1 W15 F2 W15 F3 W15 D");
 			}
@@ -381,19 +381,19 @@ void FireWeaponHelp(int shooter, int target)
 					//silent weapons only work if the target is not active
 					if(Enemies[targetindex].nMode != MODE_ALERT)
 					{
-						DamageEnemy(Random(Weapons[nEquipedWeapon].nDamageMin, Weapons[nEquipedWeapon].nDamageMax), LOSstop);
+						DamageEnemy(Random(Weapons[nEquipedWeapon].nDamageMin, Weapons[nEquipedWeapon].nDamageMax), LOSstop, DAMAGE_TYPE_NORMAL);
 						PlaySoundStack(Weapons[nEquipedWeapon].sSound);
 					}
 				}
 				else if(Weapons[nEquipedWeapon].nNonLethal)
 				{
-					TranqEnemy(Random(Weapons[nEquipedWeapon].nDamageMin, Weapons[nEquipedWeapon].nDamageMax), LOSstop);
+					DamageEnemy(Random(Weapons[nEquipedWeapon].nDamageMin, Weapons[nEquipedWeapon].nDamageMax), LOSstop, DAMAGE_TYPE_TRANQ);
 					//put the dart explode anim where it hit
 					LoadAnimationEX("darthit.png", 8, 8, LOSXstop, LOSYstop, "T1 F0 W15 F1 W15 F2 W15 F3 W15 D");
 				}
 				else
 				{
-					DamageEnemy(Random(Weapons[nEquipedWeapon].nDamageMin, Weapons[nEquipedWeapon].nDamageMax), LOSstop);
+					DamageEnemy(Random(Weapons[nEquipedWeapon].nDamageMin, Weapons[nEquipedWeapon].nDamageMax), LOSstop, DAMAGE_TYPE_NORMAL);
 					//put the explode anim where it hit
 					LoadAnimationEX("bloodhit.png", 8, 8, LOSXstop, LOSYstop, "T1 F0 W15 F1 W15 F2 W15 F3 W15 D");
 				}
