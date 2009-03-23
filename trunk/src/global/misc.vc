@@ -766,6 +766,10 @@ x1 = (x2/y2)*y1
 */
 int CalculateRatio(int y1, int x2, int y2)
 {
-	//NYI
-	return (x2/y2)*y1;
+	//fixed point math to take care of integer division incase  x2 < y2
+	int fixX2 = oF_Whole2Fixed(x2);
+	int fixY2 = oF_Whole2Fixed(y2);
+	int fixY1 = oF_Whole2Fixed(y1);	
+	
+	return oF_Fixed2Int(oF_multiFF(oF_divFF(fixX2, fixY2), fixY1));
 }
