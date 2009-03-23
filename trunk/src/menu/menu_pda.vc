@@ -73,7 +73,11 @@ void MenuPDADraw()
 			
 			for(i=nPDAScreenPosition;i<MAX_NOTES;i++)
 			{
-				//CAT ME UP!
+				if(i != 0)
+					numbreaks += strstr(chr(10), WrapText(nTerminalFont, sNotes[i], 100)) + 2;
+				else
+					numbreaks = 0;
+
 				if(strcmp(sNotes[i], "") != 0 && (len(allNotes) + len(sNotes[i]) < PDA_STRING_MAX_LEN))
 				{
 					allNotes += WrapText(nTerminalFont, sNotes[i], 100) + chr(10) + chr(10);
@@ -83,7 +87,13 @@ void MenuPDADraw()
 			}
 			
 			PrintString(8, 32, img, nTerminalFont, allNotes);
-		
+			
+			//put the scroll bar on the text image
+			imgTmpScrollBar = MakeScrollBar(5, 85, nPDAScreenPosition, numbreaks);
+			TBlit(115, 32, imgTmpScrollBar, img);
+
+			FreeImage(imgTmpScrollBar);
+			
 		case PDA_SCREEN_CONVERSATION:
 			PrintString(8, 16, img, nTerminalFont, "Conversations");
 
