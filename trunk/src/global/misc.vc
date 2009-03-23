@@ -764,8 +764,8 @@ y1	y2
 
 x1 = (x2/y2)*y1
 */
-int CalculateRatio(int x2, int y1, int y2)
+int CalculateRatio(int y1, int x2, int y2)
 {
 	//NYI
-	return -1;
+	return (x2/y2)*y1;
 }
