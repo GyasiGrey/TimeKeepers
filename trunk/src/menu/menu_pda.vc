@@ -108,7 +108,7 @@ void MenuPDADraw()
 			
 			//put the scroll bar on the text image
 			imgTmpScrollBar = MakeScrollBar(5, 85, nPDAScreenPosition, numbreaks);
-			TBlit(110, 32, imgTmpScrollBar, img);
+			TBlit(115, 32, imgTmpScrollBar, img);
 
 			FreeImage(nTextArea);
 			FreeImage(imgTmpScrollBar);
