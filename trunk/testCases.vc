@@ -102,3 +102,28 @@ void test_FoV()
 	//target is inside the source's FoV - source is facing down
 	assertTrue(FoV(10, 10, 10, 15, 5, 5, 45, 90));
 }
+
+void test_MakeScrollBar()
+{
+	//setup for this test - call MakeScrollBar() with some knows values
+	int nTempImg = -1;
+	nTempImg = MakeScrollBar(5, 100, 100, 50);
+
+	//test that the function returns a valid image pointer
+	assertTrue(ImageValid(nTempImg));
+	
+	//weird, but if I run the rest of the tests on an invalid image pointer everything will crash
+	if(ImageValid(nTempImg))
+	{
+		//test the width of the image
+		assertTrue(ImageWidth(nTempImg) == 5);
+
+		//test the height of the image
+		assertTrue(ImageHeight(nTempImg) == 100);
+		
+		//NYI - test that the returned image is the correct ratio of filled versus empty
+
+		//clean up from the test - free the image
+		FreeImage(nTempImg);
+	}
+}
