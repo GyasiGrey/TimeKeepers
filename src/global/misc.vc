@@ -753,3 +753,19 @@ void UnCripplePlayer()
 	cameratracking = 1;
 	SetPlayer(nPlayerEnt);
 }
+
+/*
+Calculates a ration in the form of:
+
+x1	x2
+-	-
+y1	y2
+
+
+x1 = (x2/y2)*y1
+*/
+int CalculateRatio(int x2, int y1, int y2)
+{
+	//NYI
+	return -1;
+}
