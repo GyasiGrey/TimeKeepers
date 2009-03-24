@@ -1,0 +1,59 @@
+string[] sTextLines;	//all the text that could be drawn to the PDA
+int nStartIndex;	//position in the array of strings of the first string drawn
+int nOverlap = 30;	//amount of space at the top of the scrollable area that will be covered
+int nX = 0;		//x position of the current string being drawn
+int nY = nOverlap;	//y position of the current string being drawn
+int nHeight;		//height of the scrollable text area
+
+
+void DrawCrap()
+{
+	int i;
+
+	i = nStartIndex;
+	while(nX > nHeight)
+	{
+		Draw sTextLines[i] at nX, nY
+
+		nX += TextBlockHeight(i)
+
+		i++;
+	}
+}
+
+void InputCrap()
+{
+	if(down)
+	{
+		if(can scroll down)
+		{
+			nY--;
+
+			if(TextBlockHeight(nStartIndex) + nY >= nOverlap)
+			{
+				nStartIndex++;
+				nY = nOverlap;
+			}
+		}
+	}
+
+
+	if(up)
+	{
+		if(nY != 0 && nStartIndex != 0)
+		{
+			nY++;
+
+			if(nY >= nOverlap)
+			{
+				nStartIndex--;
+				nY = 0;
+			}
+		}
+	}
+}
+
+int TextBlockHeight(i)
+{
+	return calculate the height of the string at sTextLines[i] from FontHeight() and WrapText() + a few pixels of spacing between each string
+}
