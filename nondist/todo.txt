@@ -43,6 +43,10 @@ Priority 1
 **********
 Add watch's to the debug window. Use the get variable by name function to add a list of variables at runtime. Variable display will be updated every refresh
 
+
+MD5 the password stored in profile.sav
+	-MD5 all the passwords on the website. This will force anyone wanting to upload scores to get the new version killing the old site code.
+
 Release 2.5
 ***********
 Intro scene
