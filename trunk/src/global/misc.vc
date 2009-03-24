@@ -318,7 +318,7 @@ int MakeScrollBar(int width, int height, int total, int current)
 	int nInnerPixelHeight = CalculateRatio(height, total, current);
 	
 	//create the border of the scroll bar
-	Rect(0, 0, width-1, height-1, RGB(255, 255, 255), nReturnImage);
+	RectFill(0, 0, width-1, height-1, RGB(50, 50, 50), nReturnImage);
 	
 	//put the pointer on the scroll bar at the correct location
 	RectFill(0, nInnerPixelHeight-4, width-1, ((nInnerPixelHeight-4)+8)-1, RGB(0, 255, 0), nReturnImage);
