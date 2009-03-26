@@ -19,6 +19,7 @@
 
 //includes needed for the whole program
 #include "src\global\misc.vc"		//Funcs used all over the place (abs, strstr etc)
+#include "src\global\scrollingTextWindow.vc"
 #include "src\global\XMLParse.vc"	//My simple XML parser
 #include "src\global\leaderBoard.vc"	//leaderboard of AWSUM
 #include "src\global\trackedStats.vc"
