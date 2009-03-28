@@ -9,52 +9,53 @@ int nScrollingTextY = nScrollingTextOverlap;		//y position of the current string
 void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nHeight)
 {
 	int i;
+	int nY = nScrollingTextY;
 
 	i = nScrollingTextStartIndex;
-	nScrollingTextY = nScrollingTextOverlap;	//y position of the current string being drawn
 
-	while(nScrollingTextY < nHeight && i < SCROLLING_TEXT_WINDOW_MAX_LINES)
+	while(nY < nHeight && i < SCROLLING_TEXT_WINDOW_MAX_LINES)
 	{
-		PrintString(nScrollingTextX, nScrollingTextY, nDestination, nTextFont, WrapText(nTextFont, sTextLines[i], nWidth));
+		PrintString(nScrollingTextX, nY, nDestination, nTextFont, WrapText(nTextFont, sTextLines[i], nWidth));
 
-		nScrollingTextY += ScrollingTextBlockHeight(i, nWidth, nTextFont);
+		nY += ScrollingTextBlockHeight(i, nWidth, nTextFont);
 
 		i++;
 	}
+	
+	ScrollingTextWindowInput(nTextFont, nWidth);
 }
 
-/*void InputCrap()
+void ScrollingTextWindowInput(int nTextFont, int nWidth)
 {
 	if(down)
 	{
-		if(can scroll down)
-		{
-			nY--;
+		//if(can scroll down)
+		//{
+			nScrollingTextY--;
 
-			if(TextBlockHeight(nStartIndex) + nY >= nOverlap)
+			if(ScrollingTextBlockHeight(nScrollingTextStartIndex, nWidth, nTextFont) + nScrollingTextY <= nScrollingTextOverlap)
 			{
-				nStartIndex++;
-				nY = nOverlap;
+				nScrollingTextStartIndex++;
+				nScrollingTextY = nScrollingTextOverlap;
 			}
-		}
+		//}
 	}
 
 
 	if(up)
 	{
-		if(nY != 0 && nStartIndex != 0)
+		if(nScrollingTextY != 0 && nScrollingTextStartIndex != 0)
 		{
-			nY++;
+			nScrollingTextY++;
 
-			if(nY >= nOverlap)
+			if(nScrollingTextY >= nScrollingTextOverlap)
 			{
-				nStartIndex--;
-				nY = 0;
+				nScrollingTextStartIndex--;
+				nScrollingTextY = 0;
 			}
 		}
 	}
 }
-*/
 
 int ScrollingTextBlockHeight(int i, int nWidth, int nTextFont)
 {
