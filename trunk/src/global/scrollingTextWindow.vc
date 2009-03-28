@@ -4,7 +4,7 @@
 string sTextLines[SCROLLING_TEXT_WINDOW_MAX_LINES];	//all the text that could be drawn to the PDA
 int nScrollingTextStartIndex;				//position in the array of strings of the first string drawn
 int nScrollingTextOverlap = 30;				//amount of space at the top of the scrollable area that will be covered
-int nScrollingTextX = 8;				//x position of the current string being drawn
+int nScrollingTextX = 0;				//x position of the current string being drawn
 int nScrollingTextY = nScrollingTextOverlap;		//y position of the current string being drawn
 int nScrollingTextLastItem;
 
@@ -12,22 +12,27 @@ void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nH
 {
 	int i;
 	int nY = nScrollingTextY;
+	int nClippingRect = NewImage(nWidth, nHeight);
+	
+	RectFill(0, 0, nWidth, nHeight, RGB(0,0,0), nClippingRect);
 	
 	i = nScrollingTextStartIndex;
 
 	while(nY < nHeight && i < SCROLLING_TEXT_WINDOW_MAX_LINES)
 	{
-		PrintString(nScrollingTextX, nY, nDestination, nTextFont, WrapText(nTextFont, sTextLines[i], nWidth));
+		PrintString(nScrollingTextX, nY, nClippingRect, nTextFont, WrapText(nTextFont, sTextLines[i], nWidth));
 
 		nY += ScrollingTextBlockHeight(i, nWidth, nTextFont);
 
 		i++;
 	}
 	
-	//draw the cliping rect to hide text that should be hidden
-	RectFill(8, 10, nWidth+10, nScrollingTextOverlap-1, RGB(0, 0, 0), nDestination);
-
+	//draw the clipping rect with all the text to the destination
+	Blit(8, 10, nClippingRect, nDestination);
+	
 	ScrollingTextWindowInput(nTextFont, nWidth);
+	
+	FreeImage(nClippingRect);
 }
 
 void ScrollingTextWindowInput(int nTextFont, int nWidth)
