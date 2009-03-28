@@ -27,6 +27,10 @@ void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nH
 		i++;
 	}
 	
+	//draw the overlap rects ontop and bottom to hide the text that should be hidden
+	RectFill(0, 0, nWidth+10, nScrollingTextOverlap-1, RGB(0, 0, 0), nClippingRect);
+	RectFill(0, nHeight-nScrollingTextOverlap, nWidth+10, nHeight+nScrollingTextOverlap-1, RGB(0, 0, 0), nClippingRect);
+	
 	//draw the clipping rect with all the text to the destination
 	Blit(8, 10, nClippingRect, nDestination);
 	
