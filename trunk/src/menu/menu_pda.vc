@@ -144,36 +144,15 @@ void MenuPDALogic()
 	if(up)
 	{
 		SoundKeyboardRand();
-		nPDAScreenPosition--;
-		
-		if(nPDAScreenPosition < 0)
-			nPDAScreenPosition = 0;
-		
-		unpress(5);
+		ScrollingTextWindowInput(nTerminalFont, 100);
 	}
 	
 	if(down)
 	{
 		SoundKeyboardRand();
-		
-		nPDAScreenPosition++;
-		
-		switch(nPDAScreen)
-		{
-			case PDA_SCREEN_OBJECTIVES:
-				nPDAScreenPosition = 0;
-			case PDA_SCREEN_STATS:
-				nPDAScreenPosition = 0;
-			case PDA_SCREEN_NOTES:
-				if(nPDAScreenPosition > MAX_NOTES)
-					nPDAScreenPosition = MAX_NOTES;
-			case PDA_SCREEN_CONVERSATION:
-				if(nPDAScreenPosition > MAX_COMM_LOGS)
-					nPDAScreenPosition = MAX_COMM_LOGS;
-		}
-		
-		unpress(6);
+		ScrollingTextWindowInput(nTerminalFont, 100);
 	}
+
 	//PDA_SCREEN_STATS
 	if(left)
 	{
