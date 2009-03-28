@@ -93,3 +93,19 @@ void CopyNotesToScrollingText()
 		sTextLines[i] = sNotes[i] + chr(10);
 	}
 }
+
+void CopyConversationsToScrollingText()
+{
+	int i;
+	
+	nScrollingTextLastItem = -1;
+	
+	for(i=0;i<SCROLLING_TEXT_WINDOW_MAX_LINES;i++)
+	{
+		//find the last item in the list. It will be the item before the first blank item.
+		if(strcmp(sCommLogs[i], "") == 0 && nScrollingTextLastItem == -1)
+			nScrollingTextLastItem = i-1;
+		
+		sTextLines[i] = sCommLogs[i] + chr(10);
+	}
+}

@@ -81,32 +81,15 @@ void MenuPDADraw()
 			FreeImage(imgTmpScrollBar);
 			
 		case PDA_SCREEN_CONVERSATION:
+			CopyConversationsToScrollingText();
+			DrawScrollingTextWindow(img, nTerminalFont, 100, 85);
+			
 			PrintString(8, 16, img, nTerminalFont, "Conversations");
 
-			for(i=nPDAScreenPosition;i<MAX_COMM_LOGS;i++)
-			{
-				if(i != 0)
-					numbreaks += strstr(chr(10), WrapText(nTerminalFont, sCommLogs[i], 100)) + 2;
-				else
-					numbreaks = 0;
-
-				if(strcmp(sCommLogs[i], "") != 0 && (len(allNotes) + len(sCommLogs[i]) < PDA_STRING_MAX_LEN))
-				{
-					allNotes += WrapText(nTerminalFont, sCommLogs[i], 100) + chr(10) + chr(10);
-				}
-				else
-					i = MAX_COMM_LOGS;	//break
-			}
-			
-			PrintString(0, 0, nTextArea, nTerminalFont, allNotes);
-			
-			TBlit(8, 32, nTextArea, img);
-			
 			//put the scroll bar on the text image
 			imgTmpScrollBar = MakeScrollBar(5, 85, nPDAScreenPosition, numbreaks);
 			TBlit(115, 32, imgTmpScrollBar, img);
 
-			FreeImage(nTextArea);
 			FreeImage(imgTmpScrollBar);
 
 		case PDA_SCREEN_STATS:
