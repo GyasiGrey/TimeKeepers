@@ -69,10 +69,10 @@ void MenuPDADraw()
 			}
 			
 		case PDA_SCREEN_NOTES:
-			PrintString(8, 16, img, nTerminalFont, "Notes");
-			
 			CopyNotesToScrollingText();
 			DrawScrollingTextWindow(img, nTerminalFont, 100, 85);
+			
+			PrintString(8, 16, img, nTerminalFont, "Notes");
 			
 			/*for(i=nPDAScreenPosition;i<MAX_NOTES;i++)
 			{
