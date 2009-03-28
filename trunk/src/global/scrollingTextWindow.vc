@@ -6,6 +6,7 @@ int nScrollingTextStartIndex;				//position in the array of strings of the first
 int nScrollingTextOverlap = 30;				//amount of space at the top of the scrollable area that will be covered
 int nScrollingTextX = 8;				//x position of the current string being drawn
 int nScrollingTextY = nScrollingTextOverlap;		//y position of the current string being drawn
+int nScrollingTextLastItem;
 
 void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nHeight)
 {
@@ -39,6 +40,12 @@ void ScrollingTextWindowInput(int nTextFont, int nWidth)
 		{
 			nScrollingTextStartIndex++;
 			nScrollingTextY = nScrollingTextOverlap;
+		}
+		
+		if(nScrollingTextStartIndex >= nScrollingTextLastItem)
+		{
+			nScrollingTextY = nScrollingTextOverlap;
+			nScrollingTextStartIndex = nScrollingTextLastItem;
 		}
 	}
 
@@ -75,8 +82,14 @@ void CopyNotesToScrollingText()
 {
 	int i;
 	
+	nScrollingTextLastItem = -1;
+	
 	for(i=0;i<SCROLLING_TEXT_WINDOW_MAX_LINES;i++)
 	{
+		//find the last item in the list. It will be the item before the first blank item.
+		if(strcmp(sNotes[i], "") == 0 && nScrollingTextLastItem == -1)
+			nScrollingTextLastItem = i-1;
+		
 		sTextLines[i] = sNotes[i] + chr(10);
 	}
 }
