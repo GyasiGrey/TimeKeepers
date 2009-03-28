@@ -32,31 +32,32 @@ void ScrollingTextWindowInput(int nTextFont, int nWidth)
 {
 	if(down)
 	{
-		//if(can scroll down)
-		//{
-			nScrollingTextY--;
+		nScrollingTextY--;
 
-			if(ScrollingTextBlockHeight(nScrollingTextStartIndex, nWidth, nTextFont) + nScrollingTextY <= nScrollingTextOverlap)
-			{
-				nScrollingTextStartIndex++;
-				nScrollingTextY = nScrollingTextOverlap;
-			}
-		//}
+		if(ScrollingTextBlockHeight(nScrollingTextStartIndex, nWidth, nTextFont) + nScrollingTextY <= nScrollingTextOverlap)
+		{
+			nScrollingTextStartIndex++;
+			nScrollingTextY = nScrollingTextOverlap;
+		}
 	}
 
 
 	if(up)
 	{
-		//if(nScrollingTextY != 0 && nScrollingTextStartIndex != 0)
-		//{
-			nScrollingTextY++;
+		nScrollingTextY++;
 
-			if(nScrollingTextY >= nScrollingTextOverlap)
-			{
-				nScrollingTextStartIndex--;
-				nScrollingTextY = nScrollingTextOverlap - ScrollingTextBlockHeight(nScrollingTextStartIndex, nWidth, nTextFont);
-			}
-		//}
+		if(nScrollingTextY >= nScrollingTextOverlap)
+		{
+			nScrollingTextStartIndex--;
+			nScrollingTextY = nScrollingTextOverlap - ScrollingTextBlockHeight(nScrollingTextStartIndex, nWidth, nTextFont);
+		}
+
+		//prevent the user from scrolling out of bounds
+		if(nScrollingTextStartIndex < 0)
+		{
+			nScrollingTextY = nScrollingTextOverlap;
+			nScrollingTextStartIndex = 0;
+		}
 	}
 }
 
