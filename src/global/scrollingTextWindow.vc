@@ -10,7 +10,7 @@ void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nH
 {
 	int i;
 	int nY = nScrollingTextY;
-
+	
 	i = nScrollingTextStartIndex;
 
 	while(nY < nHeight && i < SCROLLING_TEXT_WINDOW_MAX_LINES)
@@ -22,6 +22,9 @@ void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nH
 		i++;
 	}
 	
+	//draw the cliping rect to hide text that should be hidden
+	RectFill(8, 10, nWidth+10, nScrollingTextOverlap, RGB(0, 0, 0), nDestination);
+
 	ScrollingTextWindowInput(nTextFont, nWidth);
 }
 
