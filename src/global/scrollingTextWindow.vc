@@ -34,8 +34,6 @@ void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nH
 	//draw the clipping rect with all the text to the destination
 	Blit(8, 10, nClippingRect, nDestination);
 	
-	ScrollingTextWindowInput(nTextFont, nWidth);
-	
 	FreeImage(nClippingRect);
 }
 
