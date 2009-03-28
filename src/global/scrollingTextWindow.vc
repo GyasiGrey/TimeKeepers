@@ -18,7 +18,7 @@ void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nH
 	{
 		PrintString(nScrollingTextX, nScrollingTextY, nDestination, nTextFont, sTextLines[i]);
 
-		nScrollingTextY += ScrollingTextBlockHeight(i, nWidth, nFont);
+		nScrollingTextY += ScrollingTextBlockHeight(i, nWidth, nTextFont);
 
 		i++;
 	}
@@ -57,13 +57,13 @@ void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nH
 }
 */
 
-int ScrollingTextBlockHeight(int i, int nWidth, int nFont)
+int ScrollingTextBlockHeight(int i, int nWidth, int nTextFont)
 {
 	//calculate the height of the string at sTextLines[i] from FontHeight() and WrapText() + a few pixels of spacing between each string
-	string sWrapped = WrapText(nFont, sTextLines[i], nWidth);
+	string sWrapped = WrapText(nTextFont, sTextLines[i], nWidth);
 	int nBreaks = strstr(chr(10), sWrapped) + 1;			//+1 since strstr does not count the last line as a new line
 
-	return nBreaks * FontHeight(nFont);
+	return nBreaks * FontHeight(nTextFont);
 }
 
 void CopyNotesToScrollingText()
