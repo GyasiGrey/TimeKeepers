@@ -71,7 +71,10 @@ void MenuPDADraw()
 		case PDA_SCREEN_NOTES:
 			PrintString(8, 16, img, nTerminalFont, "Notes");
 			
-			for(i=nPDAScreenPosition;i<MAX_NOTES;i++)
+			CopyNotesToScrollingText();
+			DrawScrollingTextWindow(img, nTerminalFont, 100, 85);
+			
+			/*for(i=nPDAScreenPosition;i<MAX_NOTES;i++)
 			{
 				if(i != 0)
 					numbreaks += strstr(chr(10), WrapText(nTerminalFont, sNotes[i], 100)) + 2;
@@ -84,9 +87,9 @@ void MenuPDADraw()
 				}
 				else
 					i = MAX_NOTES;	//break
-			}
+			}*/
 			
-			PrintString(8, 32, img, nTerminalFont, allNotes);
+			//PrintString(8, 32, img, nTerminalFont, allNotes);
 			
 			//put the scroll bar on the text image
 			imgTmpScrollBar = MakeScrollBar(5, 85, nPDAScreenPosition, numbreaks);

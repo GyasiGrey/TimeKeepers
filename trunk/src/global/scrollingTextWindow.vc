@@ -5,18 +5,20 @@ int nScrollingTextStartIndex;				//position in the array of strings of the first
 int nScrollingTextOverlap = 30;				//amount of space at the top of the scrollable area that will be covered
 int nScrollingTextX = 0;				//x position of the current string being drawn
 int nScrollingTextY = nScrollingTextOverlap;		//y position of the current string being drawn
-int nScrollingTextHeight;				//height of the scrollable text area
 
-void DrawScrollingTextWindow(int nDestination, int nFont, int nWidth)
+void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nHeight)
 {
 	int i;
 
 	i = nScrollingTextStartIndex;
-	while(nScrollingTextX > nScrollingTextHeight)
-	{
-		PrintString(nScrollingTextX, nScrollingTextY, nDestination, nFont, sTextLines[i]);
+	nScrollingTextX = 0;				//x position of the current string being drawn
+	nScrollingTextY = nScrollingTextOverlap;		//y position of the current string being drawn
 
-		nScrollingTextX += ScrollingTextBlockHeight(i, nWidth, nFont);
+	while(nScrollingTextY < nHeight && i < SCROLLING_TEXT_WINDOW_MAX_LINES)
+	{
+		PrintString(nScrollingTextX, nScrollingTextY, nDestination, nTextFont, sTextLines[i]);
+
+		nScrollingTextY += ScrollingTextBlockHeight(i, nWidth, nFont);
 
 		i++;
 	}
@@ -62,4 +64,14 @@ int ScrollingTextBlockHeight(int i, int nWidth, int nFont)
 	int nBreaks = strstr(chr(10), sWrapped) + 1;			//+1 since strstr does not count the last line as a new line
 
 	return nBreaks * FontHeight(nFont);
+}
+
+void CopyNotesToScrollingText()
+{
+	int i;
+	
+	for(i=0;i<SCROLLING_TEXT_WINDOW_MAX_LINES;i++)
+	{
+		sTextLines[i] = sNotes[i];
+	}
 }
