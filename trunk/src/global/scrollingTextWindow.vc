@@ -15,7 +15,7 @@ void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nH
 
 	while(nScrollingTextY < nHeight && i < SCROLLING_TEXT_WINDOW_MAX_LINES)
 	{
-		PrintString(nScrollingTextX, nScrollingTextY, nDestination, nTextFont, sTextLines[i]);
+		PrintString(nScrollingTextX, nScrollingTextY, nDestination, nTextFont, WrapText(nTextFont, sTextLines[i], nWidth));
 
 		nScrollingTextY += ScrollingTextBlockHeight(i, nWidth, nTextFont);
 
