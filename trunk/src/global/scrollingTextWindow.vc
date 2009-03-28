@@ -51,7 +51,7 @@ void ScrollingTextWindowInput(int nTextFont, int nWidth)
 			if(nScrollingTextY >= nScrollingTextOverlap)
 			{
 				nScrollingTextStartIndex--;
-				nScrollingTextY = 0;
+				nScrollingTextY = nScrollingTextOverlap - ScrollingTextBlockHeight(nScrollingTextStartIndex, nWidth, nTextFont);
 			}
 		//}
 	}
