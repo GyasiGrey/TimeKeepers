@@ -137,10 +137,10 @@ void test_CalculateRatio()
 	assertTrue(CalculateRatio(200, 50, 100) == 100);
 }
 
-void testScrollingTextBlockHeight()
+/*void testScrollingTextBlockHeight()
 {
 	//init - load a font put some text into the array
-/*	int nTempFont = LoadFont("gfx\fonts\terminal_menu.png");
+	int nTempFont = LoadFont("gfx\fonts\terminal_menu.png");
 	EnableVariableWidth(nTempFont);
 	sTextLines[0] = "Tech: I still have some things to finish up before the mission. Why don't you go to the training area to the right untill I'm ready?";
 
@@ -148,5 +148,5 @@ void testScrollingTextBlockHeight()
 
 	//cleanup
 	sTextLines[0] = "";
-	FreeFont(nTempFont);*/
-}
+	FreeFont(nTempFont);
+}*/
