@@ -136,3 +136,14 @@ void test_CalculateRatio()
 	//test using decimal results
 	assertTrue(CalculateRatio(200, 50, 100) == 100);
 }
+
+void testScrollingTextBlockHeight()
+{
+	//init - put some text into the array
+	sTextLines[0] = "Tech: I still have some things to finish up before the mission. Why don't you go to the training area to the right untill I'm ready?";
+
+	assertTrue(ScrollingTextBlockHeight(0, 80, nTerminalFont) == 30);
+	
+	//cleanup
+	sTextLines[0] = "";
+}

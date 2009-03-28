@@ -7,22 +7,22 @@ int nScrollingTextX = 0;				//x position of the current string being drawn
 int nScrollingTextY = nScrollingTextOverlap;		//y position of the current string being drawn
 int nScrollingTextHeight;				//height of the scrollable text area
 
-/*void DrawScrollingTextWindow()
+void DrawScrollingTextWindow(int nDestination, int nFont, int nWidth)
 {
 	int i;
 
 	i = nScrollingTextStartIndex;
 	while(nScrollingTextX > nScrollingTextHeight)
 	{
-		Draw sTextLines[i] at nX, nY
+		PrintString(nScrollingTextX, nScrollingTextY, nDestination, nFont, sTextLines[i]);
 
-		nX += TextBlockHeight(i)
+		nScrollingTextX += ScrollingTextBlockHeight(i, nWidth, nFont);
 
 		i++;
 	}
 }
 
-void InputCrap()
+/*void InputCrap()
 {
 	if(down)
 	{
@@ -53,8 +53,12 @@ void InputCrap()
 		}
 	}
 }
+*/
 
-int TextBlockHeight(i)
+int ScrollingTextBlockHeight(int i, int nWidth, int nFont)
 {
-	return calculate the height of the string at sTextLines[i] from FontHeight() and WrapText() + a few pixels of spacing between each string
-}*/
+	//calculate the height of the string at sTextLines[i] from FontHeight() and WrapText() + a few pixels of spacing between each string
+	string sWrapped = WrapText(nFont, sTextLines[i], nWidth);
+
+	return -1;
+}
