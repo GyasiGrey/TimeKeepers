@@ -41,10 +41,6 @@ void MenuPDADraw()
 	
 	int numbreaks = 0;
 	
-	//image to act as a clipping area for the conversastion text
-	int nTextArea = NewImage(110, 85);
-	RectFill(0, 0, 110, 85, RGB(255, 0, 255), nTextArea);
-	
 	switch(nPDAScreen)
 	{
 		case PDA_SCREEN_OBJECTIVES:
