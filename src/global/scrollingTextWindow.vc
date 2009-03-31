@@ -130,11 +130,12 @@ void CopyConversationsToScrollingText(int nHeight, int nTextFont)
 int CalculateScrollingTextHeight(int nWidth, int nTextFont, int nLimit)
 {
 	int nRetval = 0;
+	int i;
 
 	for(i=0;i<nLimit;i++)
 	{
-		nRetval += ScrollingTextBlockHeight(i, nHeight, nTextFont);
+		nRetval += ScrollingTextBlockHeight(i, nWidth, nTextFont);
 	}
 
-	return nRetval
+	return nRetval;
 }
