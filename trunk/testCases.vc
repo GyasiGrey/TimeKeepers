@@ -158,6 +158,14 @@ void test_ScrollingTextBlockHeight()
 	//cleanup
 	sTextLines[0] = "";
 
+	//test that the height of a \n string is 0
+	sTextLines[0] = chr(10);
+
+	assertTrue(ScrollingTextBlockHeight(0, 100, nTempFont) == 0);
+
+	//cleanup
+	sTextLines[0] = "";
+
 	FreeFont(nTempFont);
 }
 
