@@ -124,7 +124,7 @@ void CopyConversationsToScrollingText(int nHeight, int nTextFont)
 		if(strcmp(sCommLogs[i], "") == 0 && nScrollingTextLastItem == -1)
 			nScrollingTextLastItem = i-1;
 		
-		if(strcmp(sNotes[i], "") == 0)
+		if(strcmp(sCommLogs[i], "") == 0)
 			sTextLines[i] = sCommLogs[i] + chr(10);
 	}
 	
