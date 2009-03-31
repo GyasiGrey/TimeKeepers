@@ -96,6 +96,8 @@ void MenuPDADraw()
 			sTextLines[3] = "Medkits Used: " + str(nMedkitsUsed) + chr(10);
 			sTextLines[4] = "Time Spent: " + TicksToHMSC(vcTimer[TIMER_MISSION_TIME_SPENT].nTick) + chr(10);
 			
+			nScrollingTextHeight = CalculateScrollingTextHeight(100, nTerminalFont, SCROLLING_TEXT_WINDOW_MAX_LINES);
+			
 			DrawScrollingTextWindow(img, nTerminalFont, 100, 135);
 
 			PrintString(8, 16, img, nTerminalFont, "Mission Stats");
