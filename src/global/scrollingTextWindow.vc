@@ -102,9 +102,9 @@ void CopyNotesToScrollingText(int nHeight, int nTextFont)
 			nScrollingTextLastItem = i-1;
 		
 		sTextLines[i] = sNotes[i] + chr(10);
-		
-		nScrollingTextHeight += ScrollingTextBlockHeight(i, nHeight, nTextFont);
 	}
+	
+	nScrollingTextHeight = CalculateScrollingTextHeight(nHeight, nTextFont, SCROLLING_TEXT_WINDOW_MAX_LINES);
 }
 
 void CopyConversationsToScrollingText(int nHeight, int nTextFont)
@@ -121,7 +121,20 @@ void CopyConversationsToScrollingText(int nHeight, int nTextFont)
 			nScrollingTextLastItem = i-1;
 		
 		sTextLines[i] = sCommLogs[i] + chr(10);
-		
-		nScrollingTextHeight += ScrollingTextBlockHeight(i, nHeight, nTextFont);
 	}
+	
+	nScrollingTextHeight = CalculateScrollingTextHeight(nHeight, nTextFont, SCROLLING_TEXT_WINDOW_MAX_LINES);
+}
+
+//Calculates the height of all text lines in the scrolling text window untill index nLimit
+int CalculateScrollingTextHeight(int nWidth, int nTextFont, int nLimit)
+{
+	int nRetval = 0;
+
+	for(i=0;i<nLimit;i++)
+	{
+		nRetval += ScrollingTextBlockHeight(i, nHeight, nTextFont);
+	}
+
+	return nRetval
 }

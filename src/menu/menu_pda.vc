@@ -71,7 +71,7 @@ void MenuPDADraw()
 			PrintString(8, 16, img, nTerminalFont, "Notes");
 			
 			//put the scroll bar on the text image
-			imgTmpScrollBar = MakeScrollBar(5, 85, nPDAScreenPosition, numbreaks);
+			imgTmpScrollBar = MakeScrollBar(5, 85, nPDAScreenPosition, nScrollingTextHeight);
 			TBlit(115, 32, imgTmpScrollBar, img);
 
 			FreeImage(imgTmpScrollBar);
@@ -83,7 +83,7 @@ void MenuPDADraw()
 			PrintString(8, 16, img, nTerminalFont, "Conversations");
 
 			//put the scroll bar on the text image
-			imgTmpScrollBar = MakeScrollBar(5, 85, nPDAScreenPosition, numbreaks);
+			imgTmpScrollBar = MakeScrollBar(5, 85, nPDAScreenPosition, nScrollingTextHeight);
 			TBlit(115, 32, imgTmpScrollBar, img);
 
 			FreeImage(imgTmpScrollBar);
