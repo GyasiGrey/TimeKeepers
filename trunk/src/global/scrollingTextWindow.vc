@@ -95,6 +95,8 @@ void CopyNotesToScrollingText(int nHeight, int nTextFont)
 {
 	int i;
 	
+	ClearScrollingText();
+	
 	nScrollingTextLastItem = -1;
 	nScrollingTextHeight = 0;
 	
@@ -114,6 +116,8 @@ void CopyNotesToScrollingText(int nHeight, int nTextFont)
 void CopyConversationsToScrollingText(int nHeight, int nTextFont)
 {
 	int i;
+	
+	ClearScrollingText();
 	
 	nScrollingTextLastItem = -1;
 	nScrollingTextHeight = 0;
