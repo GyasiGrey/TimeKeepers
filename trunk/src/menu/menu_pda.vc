@@ -88,15 +88,23 @@ void MenuPDADraw()
 			FreeImage(imgTmpScrollBar);
 
 		case PDA_SCREEN_STATS:
+			ClearScrollingText();
+			
+			sTextLines[0] = "Enemies Killed: " + str(nEnemiesKilled) + chr(10);
+			sTextLines[1] = "Enemies Tranq'd: " + str(nEnemiesTranqd) + chr(10);
+			sTextLines[2] = "Silent Kills: " + str(nSilentKills) + chr(10);
+			sTextLines[3] = "Medkits Used: " + str(nMedkitsUsed) + chr(10);
+			sTextLines[4] = "Time Spent: " + TicksToHMSC(vcTimer[TIMER_MISSION_TIME_SPENT].nTick) + chr(10);
+			
+			DrawScrollingTextWindow(img, nTerminalFont, 100, 135);
+
 			PrintString(8, 16, img, nTerminalFont, "Mission Stats");
 			
-			allNotes += "Enemies Killed: " + str(nEnemiesKilled) + chr(10) + chr(10);
-			allNotes += "Enemies Tranq'd: " + str(nEnemiesTranqd) + chr(10) + chr(10);
-			allNotes += "Silent Kills: " + str(nSilentKills) + chr(10) + chr(10);
-			allNotes += "Medkits Used: " + str(nMedkitsUsed) + chr(10) + chr(10);
-			allNotes += "Time Spent: " + TicksToHMSC(vcTimer[TIMER_MISSION_TIME_SPENT].nTick) + chr(10) + chr(10);
+			imgTmpScrollBar = MakeScrollBar(5, 85, CalculateScrollingTextHeight(100, nTerminalFont, nScrollingTextStartIndex), nScrollingTextHeight);
+			TBlit(115, 32, imgTmpScrollBar, img);
 
-			PrintString(8, 32, img, nTerminalFont, allNotes);
+			FreeImage(imgTmpScrollBar);
+
 	}
 	
 	//no (bool)?(int):(int) :((
