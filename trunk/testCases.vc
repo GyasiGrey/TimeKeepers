@@ -137,7 +137,7 @@ void test_CalculateRatio()
 	assertTrue(CalculateRatio(200, 50, 100) == 100);
 }
 
-void testScrollingTextBlockHeight()
+void test_ScrollingTextBlockHeight()
 {
 	//init - load a font put some text into the array
 	int nTempFont = LoadFont("gfx\fonts\terminal_menu.png");
