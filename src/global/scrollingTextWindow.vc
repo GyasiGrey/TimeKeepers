@@ -79,6 +79,9 @@ void ScrollingTextWindowInput(int nTextFont, int nWidth)
 
 int ScrollingTextBlockHeight(int i, int nWidth, int nTextFont)
 {
+	if(strcmp(sTextLines[i], "") == 0)
+		return 0;
+		
 	//calculate the height of the string at sTextLines[i] from FontHeight() and WrapText() + a few pixels of spacing between each string
 	string sWrapped = WrapText(nTextFont, sTextLines[i], nWidth);
 	int nBreaks = strstr(chr(10), sWrapped) + 1;			//+1 since strstr does not count the last line as a new line
