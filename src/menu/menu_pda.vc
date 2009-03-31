@@ -7,7 +7,6 @@
 #define PDA_STRING_MAX_LEN	350
 
 int nPDAScreen;			//3 way toggle - shows Objectives, Notes or Conversations
-int nPDAScreenPosition;		//vertical position of PDA text
 
 void OpenPDAMenu()
 {
@@ -170,8 +169,6 @@ void MenuPDALogic()
 				nPDAScreen = PDA_SCREEN_CONVERSATION;
 		}
 		
-		nPDAScreenPosition = 0;
-		
 		unpress(7);
 	}
 
@@ -190,8 +187,6 @@ void MenuPDALogic()
 			case PDA_SCREEN_STATS:
 				nPDAScreen = PDA_SCREEN_OBJECTIVES;
 		}
-		
-		nPDAScreenPosition = 0;
 		
 		unpress(8);
 	}
