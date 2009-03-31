@@ -184,3 +184,21 @@ void test_CalculateScrollingTextHeight()
 	sTextLines[1] = "";
 	FreeFont(nTempFont);
 }
+
+void test_ClearScrollingText()
+{
+	int i;
+
+	//init - fill sTextLines with crap
+	for(i=0;i<100;i++)
+	{
+		sTextLines[i] = "crap";
+	}
+	
+	ClearScrollingText();
+	
+	for(i=0;i<100;i++)
+	{
+		assertTrue(strcmp(sTextLines[i], "") == 0);
+	}
+}
