@@ -144,3 +144,7 @@ int CalculateScrollingTextHeight(int nWidth, int nTextFont, int nLimit)
 
 	return nRetval;
 }
+
+void ClearScrollingText()
+{
+}
