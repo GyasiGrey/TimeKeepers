@@ -102,7 +102,7 @@ void dbgwin_Draw()
 		else
 			sWatchValue = GetString(sWatchName);
 		
-		PrintString(8, dbgwin_HEIGHT-fontheight(dbgwin_FONT), dbgwin_MainImage, dbgwin_FONT, sWatchName + ": " + sWatchValue);
+		PrintString(8, dbgwin_HEIGHT-25 + (i * fontheight(dbgwin_FONT)), dbgwin_MainImage, dbgwin_FONT, sWatchName + ": " + sWatchValue);
 	}
 	
 	
