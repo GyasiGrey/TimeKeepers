@@ -65,7 +65,7 @@ void MenuPDADraw()
 			}
 			
 		case PDA_SCREEN_NOTES:
-			CopyNotesToScrollingText();
+			CopyNotesToScrollingText(100, nTerminalFont);
 			DrawScrollingTextWindow(img, nTerminalFont, 100, 135);
 			
 			PrintString(8, 16, img, nTerminalFont, "Notes");
@@ -77,7 +77,7 @@ void MenuPDADraw()
 			FreeImage(imgTmpScrollBar);
 			
 		case PDA_SCREEN_CONVERSATION:
-			CopyConversationsToScrollingText();
+			CopyConversationsToScrollingText(100, nTerminalFont);
 			DrawScrollingTextWindow(img, nTerminalFont, 100, 135);
 			
 			PrintString(8, 16, img, nTerminalFont, "Conversations");
