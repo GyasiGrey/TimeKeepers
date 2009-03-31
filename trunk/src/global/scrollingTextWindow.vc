@@ -147,4 +147,10 @@ int CalculateScrollingTextHeight(int nWidth, int nTextFont, int nLimit)
 
 void ClearScrollingText()
 {
+	int i;
+	
+	for(i=0;i<SCROLLING_TEXT_WINDOW_MAX_LINES;i++)
+	{
+		sTextLines[i] = "";
+	}
 }
