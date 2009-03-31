@@ -7,6 +7,7 @@ int nScrollingTextOverlap = 30;				//amount of space at the top of the scrollabl
 int nScrollingTextX = 0;				//x position of the current string being drawn
 int nScrollingTextY = nScrollingTextOverlap;		//y position of the current string being drawn
 int nScrollingTextLastItem;
+int nScrollingTextHeight;
 
 void DrawScrollingTextWindow(int nDestination, int nTextFont, int nWidth, int nHeight)
 {
@@ -85,11 +86,14 @@ int ScrollingTextBlockHeight(int i, int nWidth, int nTextFont)
 	return nBreaks * FontHeight(nTextFont);
 }
 
-void CopyNotesToScrollingText()
+
+//TODO: Merge CopyNotesToScrollingText() and CopyConversationsToScrollingText()
+void CopyNotesToScrollingText(int nHeight, int nTextFont)
 {
 	int i;
 	
 	nScrollingTextLastItem = -1;
+	nScrollingTextHeight = 0;
 	
 	for(i=0;i<SCROLLING_TEXT_WINDOW_MAX_LINES;i++)
 	{
@@ -98,14 +102,17 @@ void CopyNotesToScrollingText()
 			nScrollingTextLastItem = i-1;
 		
 		sTextLines[i] = sNotes[i] + chr(10);
+		
+		nScrollingTextHeight += ScrollingTextBlockHeight(i, nHeight, nTextFont);
 	}
 }
 
-void CopyConversationsToScrollingText()
+void CopyConversationsToScrollingText(int nHeight, int nTextFont)
 {
 	int i;
 	
 	nScrollingTextLastItem = -1;
+	nScrollingTextHeight = 0;
 	
 	for(i=0;i<SCROLLING_TEXT_WINDOW_MAX_LINES;i++)
 	{
@@ -114,5 +121,7 @@ void CopyConversationsToScrollingText()
 			nScrollingTextLastItem = i-1;
 		
 		sTextLines[i] = sCommLogs[i] + chr(10);
+		
+		nScrollingTextHeight += ScrollingTextBlockHeight(i, nHeight, nTextFont);
 	}
 }
