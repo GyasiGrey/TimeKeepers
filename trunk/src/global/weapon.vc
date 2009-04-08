@@ -335,14 +335,6 @@ void FireWeaponHelp(int shooter, int LOSstop)
 	if(LOSstop >= 0 && LOSstop != nPlayerEnt)
 		targetindex = GetEnemyIndex(LOSstop);
 	
-	/*CHEAT CODE - Lets player be invincible*/
-//TODO: Fix me
-/*	if(CHEATS_ENABLED)
-	{
-		if(target == nPlayerEnt && nGodMode)
-			return;
-	}*/
-
 	//give guards a chance to hear the shot
 	if(shooter == nPlayerEnt)
 	{
