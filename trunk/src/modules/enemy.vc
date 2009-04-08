@@ -879,10 +879,15 @@ void ReturnToPosition(int i)
 //facer and dacee are ENTITY indexes
 void EntityFace(int facer, int facee)
 {
-	int theta;
+	EntityFaceXY(facer, entity.x[facee], entity.y[facee]);
+}
 
+//makes the entity facer face the XY coords passed
+void EntityFaceXY(int facer, int nFaceeX, int nFaceeY)
+{
+	int theta;
 	
-	theta = zatan2(entity.y[facee]-entity.y[facer], entity.x[facee]-entity.x[facer]);
+	theta = zatan2(nFaceeY-entity.y[facer], nFaceeX-entity.x[facer]);
 
 	//up
 	if(theta > 225 && theta < 315)
