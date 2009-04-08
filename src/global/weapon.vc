@@ -248,10 +248,10 @@ void FreeWeapons()
 //checks for spread weapons, and does the LoS check multiple times if necessary
 //else only does it once
 //shooter and target are ENTITY indexes
-int LOSstop;
 void FireWeapon(int shooter, int targetX, int targetY, int targetW, int targetH)
 {
 	int eqweapon, i, enemyindex;
+	int LOSstop;
 	
 	Error("FireWeapon() Called shooter: " + str(shooter) + " targetX: " + str(targetX) + " targetY: " + str(targetY));
 	
@@ -323,12 +323,12 @@ void FireWeapon(int shooter, int targetX, int targetY, int targetW, int targetH)
 	{
 		//say goodby to your FPS
 		LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), targetX+(targetW/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), targetY+(targetH/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
-		FireWeaponHelp(shooter, target);
+		FireWeaponHelp(shooter, target, LOSstop);
 	}
 }
 
 //shooter and target are ENTITY indexes
-void FireWeaponHelp(int shooter, int target)
+void FireWeaponHelp(int shooter, int target, int LOSstop)
 {
 	int enemyindex, targetindex;
 
