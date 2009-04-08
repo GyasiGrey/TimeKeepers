@@ -349,8 +349,7 @@ void FireWeaponHelp(int shooter, int LOSstop)
 		MakeSound(shooter, Weapons[Enemies[enemyindex].nWeapon].nSoundRadius);
 	}
 	
-//TODO: fix me
-//	Error("FireWeaponHelp() called shooter: " + str(shooter) + " target: " + str(target) + " enemyindex: " + str(enemyindex) + " targetindex: " + str(targetindex));
+	Error("FireWeaponHelp() called shooter: " + str(shooter) + " LOSstop: " + str(LOSstop) + " enemyindex: " + str(enemyindex) + " targetindex: " + str(targetindex));
 
 	//we hit an ent
 	if(LOSstop >= 0)
