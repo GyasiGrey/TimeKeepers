@@ -1,6 +1,6 @@
 #define MAX_WEAPONS 15		//DO NOT CHANGE. WILL BREAK SAVE GAMES. (yeah, if I ever get around to implementing savegames)
 
-#define NUM_WEAPONS 9
+#define NUM_WEAPONS 10
 
 #define WEAPON_KNIFE		0
 #define WEAPON_PISTON		1
@@ -215,6 +215,22 @@ void InitWeapons()
 	Weapons[9].sDetFunction = "FlashBangExplode";
 	Weapons[9].sAimFunction = "FreeAimWeapon";
 	Weapons[9].sShootFunction = "ThrowGrenade";
+	
+	Weapons[10].nRange = 200;
+	Weapons[10].sName = "Sniper";
+	Weapons[10].sSound = "sounds\grenadeDrop.wav";
+	Weapons[10].nIcon = LoadImage("gfx\icons\grenade.png");
+	Weapons[10].nMaxAmmo = 25;
+	Weapons[10].nDamageMin = 35;
+	Weapons[10].nDamageMax = 30;
+	Weapons[10].nRecharge = 500;
+	Weapons[10].nSoundRadius = 25;
+	Weapons[10].nAccMin = 0;
+	Weapons[10].nAccMax = 0;
+	Weapons[10].nType = WEAPON_TYPE_SINGLE;
+	Weapons[10].nSpreadShots = 1;
+	Weapons[10].sAimFunction = "FreeAimWeapon";
+	Weapons[10].sShootFunction = "ShootWeapon";
 }
 
 void FreeWeapons()
