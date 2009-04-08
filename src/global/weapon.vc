@@ -223,14 +223,14 @@ void InitWeapons()
 	Weapons[10].nMaxAmmo = 25;
 	Weapons[10].nDamageMin = 35;
 	Weapons[10].nDamageMax = 30;
-	Weapons[10].nRecharge = 500;
+	Weapons[10].nRecharge = 50;
 	Weapons[10].nSoundRadius = 25;
 	Weapons[10].nAccMin = 0;
 	Weapons[10].nAccMax = 0;
 	Weapons[10].nType = WEAPON_TYPE_SINGLE;
 	Weapons[10].nSpreadShots = 1;
 	Weapons[10].sAimFunction = "FreeAimWeapon";
-	Weapons[10].sShootFunction = "ShootWeapon";
+	Weapons[10].sShootFunction = "ShootWeaponXY";
 }
 
 void FreeWeapons()
