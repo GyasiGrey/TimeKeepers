@@ -28,7 +28,7 @@ void EnemyAINormal()
 		{
 			StopEnemy(nCurrentEnemy);
 			Enemies[nCurrentEnemy].nCoolDownStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
-			FireWeapon(Enemies[nCurrentEnemy].nEntity, nPlayerEnt);
+			FireWeapon(Enemies[nCurrentEnemy].nEntity, entity.x[nPlayerEnt], entity.y[nPlayerEnt], entity.hotw[nPlayerEnt], entity.hoth[nPlayerEnt]);
 		}
 
 		//you know where the player is, go after them
