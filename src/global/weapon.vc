@@ -256,8 +256,8 @@ void FireWeapon(int shooter, int targetX, int targetY, int targetW, int targetH)
 	Error("FireWeapon() Called shooter: " + str(shooter) + " targetX: " + str(targetX) + " targetY: " + str(targetY));
 	
 	//face your target when shooting
-//	EntityFace(shooter, target);	TODO: Refactor a EntityFaceXY()
-	
+	EntityFaceXY(shooter, targetX, targetY);
+
 	if(shooter != nPlayerEnt)
 	{
 		enemyindex = GetEnemyIndex(shooter);
