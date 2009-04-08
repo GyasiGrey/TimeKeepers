@@ -221,8 +221,8 @@ void InitWeapons()
 	Weapons[10].sSound = "sounds\grenadeDrop.wav";
 	Weapons[10].nIcon = LoadImage("gfx\icons\grenade.png");
 	Weapons[10].nMaxAmmo = 25;
-	Weapons[10].nDamageMin = 35;
-	Weapons[10].nDamageMax = 30;
+	Weapons[10].nDamageMin = 30;
+	Weapons[10].nDamageMax = 35;
 	Weapons[10].nRecharge = 50;
 	Weapons[10].nSoundRadius = 25;
 	Weapons[10].nAccMin = 0;
