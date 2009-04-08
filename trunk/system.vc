@@ -600,6 +600,7 @@ void ProcessInput()
 			anims[nTargetPointerAnim].y = 0-16;
 			bHasTargetList = 0;
 			bAimingLastTick = 0;
+			cameratracking = 1;
 			entity.speed[nPlayerEnt] = 100;
 		}
 
