@@ -64,8 +64,8 @@ void SniperAim()
 	
 	//center the camera around the target
 	cameratracking = 0;
-	xwin = nFreeAimX - (ImageWidth(screen)/2) - 8;
-	ywin = nFreeAimY - (ImageHeight(screen)/2) - 8;
+	xwin = nFreeAimX - (ImageWidth(screen)/2) + 8;
+	ywin = nFreeAimY - (ImageHeight(screen)/2) + 8;
 	
 	//make a mask to hide most of the screen 
 	RectFill(0, 0, ImageWidth(screen), ImageWidth(screen), RGB(0, 0, 0), nScreenMask);
