@@ -61,29 +61,26 @@ void ShootWeapon()
 {
 	int nEntity;
 	//fire weapon
-	if(BUTTON_SHOOT)
+	if(nAmmo[nEquipedWeapon] == 0)
 	{
-		if(nAmmo[nEquipedWeapon] == 0)
+		//no ammo, play the out of ammo sound
+		//guards can hear the click
+		MakeSound(nPlayerEnt, 50);
+		SoundNoAmmo();
+		UnpressButtons();
+	}
+	else
+	{
+		if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
 		{
-			//no ammo, play the out of ammo sound
-			//guards can hear the click
-			MakeSound(nPlayerEnt, 50);
-			SoundNoAmmo();
-			UnpressButtons();
-		}
-		else
-		{
-			if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
+			if(strcmp(sEntitiesInRange, "")!=0)
 			{
-				if(strcmp(sEntitiesInRange, "")!=0)
-				{
-					//let the player hold down the fire button on automatic weapons
-					if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_AUTO)
-						UnpressButtons();
+				//let the player hold down the fire button on automatic weapons
+				if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_AUTO)
+					UnpressButtons();
 
-					nEntity = Enemies[nTargetIndex].nEntity;
-					FireWeapon(nPlayerEnt, entity.x[nEntity], entity.y[nEntity], entity.hotw[nEntity], entity.hoth[nEntity]);
-				}
+				nEntity = Enemies[nTargetIndex].nEntity;
+				FireWeapon(nPlayerEnt, entity.x[nEntity], entity.y[nEntity], entity.hotw[nEntity], entity.hoth[nEntity]);
 			}
 		}
 	}
