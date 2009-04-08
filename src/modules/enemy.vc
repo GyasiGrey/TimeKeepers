@@ -506,7 +506,13 @@ void DamageEnemy(int damage, int entityindex, int nDamageType)
 	Error("DamageEnemy() called damage: " + str(damage) + " entityindex:" + str(entityindex) + " nDamageType:" + str(nDamageType));
 	
 	if(entityindex == nPlayerEnt)
+	{
+		/*CHEAT CODE - Lets player be invincible*/
+		if(CHEATS_ENABLED && nGodMode)
+			return;
+		
 		enemyindex = nPlayerEnt;
+	}
 	else
 		enemyindex = GetEnemyIndex(entityindex);
 
