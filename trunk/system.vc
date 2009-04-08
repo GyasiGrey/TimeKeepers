@@ -596,6 +596,7 @@ void ProcessInput()
 		}
 		else
 		{
+			//TODO: Refactor this logic into a weapon post aim kind of function. Having it all here is kinda ugly.
 			anims[nTargetPointerAnim].x = 0-16;
 			anims[nTargetPointerAnim].y = 0-16;
 			bHasTargetList = 0;
