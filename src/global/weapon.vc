@@ -249,14 +249,14 @@ void FreeWeapons()
 //else only does it once
 //shooter and target are ENTITY indexes
 int LOSstop;
-void FireWeapon(int shooter, int target)
+void FireWeapon(int shooter, int targetX, int targetY, int targetW, int targetH)
 {
 	int eqweapon, i, enemyindex;
 	
-	Error("FireWeapon() Called shooter: " + str(shooter) + " target: " + str(target));
+	Error("FireWeapon() Called shooter: " + str(shooter) + " targetX: " + str(targetX) + " targetY: " + str(targetY));
 	
 	//face your target when shooting
-	EntityFace(shooter, target);
+//	EntityFace(shooter, target);	TODO: Refactor a EntityFaceXY()
 	
 	if(shooter != nPlayerEnt)
 	{
@@ -297,7 +297,8 @@ void FireWeapon(int shooter, int target)
 		enemyindex = shooter;
 
 		//only show the animation if the weapon is non silent or (the weapon is silent and the target is not alert)
-		if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_SILENT || (Weapons[nEquipedWeapon].nType == WEAPON_TYPE_SILENT && Enemies[GetEnemyIndex(target)].nMode != MODE_ALERT))
+		//TODO: hide firing animation for silent weapons when they don't hit
+		if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_SILENT)// || (Weapons[nEquipedWeapon].nType == WEAPON_TYPE_SILENT && Enemies[GetEnemyIndex(target)].nMode != MODE_ALERT))
 		{
 			if(entity.face[nPlayerEnt] == ENTITY_FACE_UP)
 			{
@@ -321,7 +322,7 @@ void FireWeapon(int shooter, int target)
 	for(i=0;i<Weapons[eqweapon].nSpreadShots;i++)
 	{
 		//say goodby to your FPS
-		LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), entity.x[target]+(entity.hotw[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), entity.y[target]+(entity.hoth[target]/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
+		LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), targetX+(targetW/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), targetY+(targetH/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
 		FireWeaponHelp(shooter, target);
 	}
 }
