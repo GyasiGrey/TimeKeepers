@@ -59,6 +59,7 @@ void FreeAimWeapon()
 
 void ShootWeapon()
 {
+	int nEntity;
 	//fire weapon
 	if(BUTTON_SHOOT)
 	{
@@ -80,7 +81,8 @@ void ShootWeapon()
 					if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_AUTO)
 						UnpressButtons();
 
-					FireWeapon(nPlayerEnt, Enemies[nTargetIndex].nEntity);
+					nEntity = Enemies[nTargetIndex].nEntity;
+					FireWeapon(nPlayerEnt, entity.x[nEntity], entity.y[nEntity], entity.hotw[nEntity], entity.hoth[nEntity]);
 				}
 			}
 		}

@@ -323,12 +323,12 @@ void FireWeapon(int shooter, int targetX, int targetY, int targetW, int targetH)
 	{
 		//say goodby to your FPS
 		LOSstop = LineOfSight(entity.x[shooter]+(entity.hotw[shooter]/2), entity.y[shooter]+(entity.hoth[shooter]/2), targetX+(targetW/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), targetY+(targetH/2)+Random(Weapons[eqweapon].nAccMin, Weapons[eqweapon].nAccMax), shooter);
-		FireWeaponHelp(shooter, target, LOSstop);
+		FireWeaponHelp(shooter, LOSstop);
 	}
 }
 
 //shooter and target are ENTITY indexes
-void FireWeaponHelp(int shooter, int target, int LOSstop)
+void FireWeaponHelp(int shooter, int LOSstop)
 {
 	int enemyindex, targetindex;
 
@@ -336,11 +336,12 @@ void FireWeaponHelp(int shooter, int target, int LOSstop)
 		targetindex = GetEnemyIndex(LOSstop);
 	
 	/*CHEAT CODE - Lets player be invincible*/
-	if(CHEATS_ENABLED)
+//TODO: Fix me
+/*	if(CHEATS_ENABLED)
 	{
 		if(target == nPlayerEnt && nGodMode)
 			return;
-	}
+	}*/
 
 	//give guards a chance to hear the shot
 	if(shooter == nPlayerEnt)
@@ -356,7 +357,8 @@ void FireWeaponHelp(int shooter, int target, int LOSstop)
 		MakeSound(shooter, Weapons[Enemies[enemyindex].nWeapon].nSoundRadius);
 	}
 	
-	Error("FireWeaponHelp() called shooter: " + str(shooter) + " target: " + str(target) + " enemyindex: " + str(enemyindex) + " targetindex: " + str(targetindex));
+//TODO: fix me
+//	Error("FireWeaponHelp() called shooter: " + str(shooter) + " target: " + str(target) + " enemyindex: " + str(enemyindex) + " targetindex: " + str(targetindex));
 
 	//we hit an ent
 	if(LOSstop >= 0)
