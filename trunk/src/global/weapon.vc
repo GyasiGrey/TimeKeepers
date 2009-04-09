@@ -60,7 +60,7 @@ void InitWeapons()
 	Weapons[0].nSpreadShots = 1;
 	Weapons[0].nType = WEAPON_TYPE_SILENT;
 	Weapons[0].sAimFunction = "AimWeapon";
-	Weapons[0].sShootFunction = "ShootWeapon";
+	Weapons[0].sShootFunction = "KnifeAttack";
 
 	Weapons[1].nRange = 100;
 	Weapons[1].sName = "Pistol";

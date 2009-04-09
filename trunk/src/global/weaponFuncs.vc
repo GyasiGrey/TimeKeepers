@@ -109,6 +109,38 @@ void ShootWeapon()
 	}
 }
 
+void KnifeAttack()
+{
+	int nEntity;
+	
+	//fire weapon
+	if(nAmmo[nEquipedWeapon] == 0)
+	{
+		//no ammo, play the out of ammo sound
+		//guards can hear the click
+		MakeSound(nPlayerEnt, 50);
+		SoundNoAmmo();
+		UnpressButtons();
+	}
+	else
+	{
+		if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
+		{
+			if(strcmp(sEntitiesInRange, "")!=0)
+			{
+				UnpressButtons();
+				
+				nEntity = Enemies[nTargetIndex].nEntity;
+
+				if(Enemies[nTargetIndex].nMode != MODE_ALERT)
+					PlayerShootAnimation();
+
+				FireWeapon(nPlayerEnt, entity.x[nEntity], entity.y[nEntity], entity.hotw[nEntity], entity.hoth[nEntity]);
+			}
+		}
+	}
+}
+
 //Shoot function for the sniper rifle. Calls ShootWeaponXY() and then shakes the screen
 void ShootSniper()
 {
