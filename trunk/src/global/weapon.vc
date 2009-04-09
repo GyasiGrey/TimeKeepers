@@ -230,7 +230,7 @@ void InitWeapons()
 	Weapons[10].nType = WEAPON_TYPE_SINGLE;
 	Weapons[10].nSpreadShots = 1;
 	Weapons[10].sAimFunction = "SniperAim";
-	Weapons[10].sShootFunction = "ShootWeaponXY";
+	Weapons[10].sShootFunction = "ShootSniper";
 }
 
 void FreeWeapons()
