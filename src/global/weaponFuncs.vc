@@ -79,6 +79,7 @@ void SniperAim()
 void ShootWeapon()
 {
 	int nEntity;
+	
 	//fire weapon
 	if(nAmmo[nEquipedWeapon] == 0)
 	{
@@ -99,7 +100,10 @@ void ShootWeapon()
 					UnpressButtons();
 
 				nEntity = Enemies[nTargetIndex].nEntity;
+
 				FireWeapon(nPlayerEnt, entity.x[nEntity], entity.y[nEntity], entity.hotw[nEntity], entity.hoth[nEntity]);
+
+				PlayerShootAnimation();
 			}
 		}
 	}
@@ -133,6 +137,8 @@ void ShootWeaponXY()
 
 			//TODO: remove magic numbers
 			FireWeapon(nPlayerEnt, nFreeAimX, nFreeAimY, 16, 16);
+			
+			PlayerShootAnimation();
 		}
 	}
 }

@@ -295,28 +295,6 @@ void FireWeapon(int shooter, int targetX, int targetY, int targetW, int targetH)
 			
 		eqweapon = nEquipedWeapon;
 		enemyindex = shooter;
-
-		//only show the animation if the weapon is non silent or (the weapon is silent and the target is not alert)
-		//TODO: hide firing animation for silent weapons when they don't hit
-		if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_SILENT)// || (Weapons[nEquipedWeapon].nType == WEAPON_TYPE_SILENT && Enemies[GetEnemyIndex(target)].nMode != MODE_ALERT))
-		{
-			if(entity.face[nPlayerEnt] == ENTITY_FACE_UP)
-			{
-				AnimatePlayer("Z29 W10 Z30 W10");
-			}
-			else if(entity.face[nPlayerEnt] == ENTITY_FACE_LEFT)
-			{
-				AnimatePlayer("Z27 W10 Z28 W10");
-			}
-			else if(entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
-			{
-				AnimatePlayer("Z25 W10 Z26 W10");
-			}
-			else if(entity.face[nPlayerEnt] == ENTITY_FACE_RIGHT)
-			{
-				AnimatePlayer("Z31 W10 Z32 W10");
-			}
-		}
 	}
 
 	for(i=0;i<Weapons[eqweapon].nSpreadShots;i++)
@@ -413,6 +391,26 @@ void FireWeaponHelp(int shooter, int LOSstop)
 		//put the explode anim where it hit
 		LoadAnimationEX("bullethit.png", 8, 8, LOSXstop, LOSYstop, "T1 F0 W15 F1 W15 F2 W15 F3 W15 D");
 	}	
+}
+
+void PlayerShootAnimation()
+{
+	if(entity.face[nPlayerEnt] == ENTITY_FACE_UP)
+	{
+		AnimatePlayer("Z29 W10 Z30 W10");
+	}
+	else if(entity.face[nPlayerEnt] == ENTITY_FACE_LEFT)
+	{
+		AnimatePlayer("Z27 W10 Z28 W10");
+	}
+	else if(entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
+	{
+		AnimatePlayer("Z25 W10 Z26 W10");
+	}
+	else if(entity.face[nPlayerEnt] == ENTITY_FACE_RIGHT)
+	{
+		AnimatePlayer("Z31 W10 Z32 W10");
+	}
 }
 
 void SwitchWeaponUp()
