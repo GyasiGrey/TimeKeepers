@@ -105,6 +105,14 @@ void ShootWeapon()
 	}
 }
 
+//Shoot function for the sniper rifle. Calls ShootWeaponXY() and then shakes the screen
+void ShootSniper()
+{
+	ShootWeaponXY();
+	
+	StartShake(5, 20);
+}
+
 void ShootWeaponXY()
 {
 	if(nAmmo[nEquipedWeapon] == 0)
