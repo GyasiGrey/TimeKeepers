@@ -153,13 +153,11 @@ void MenuPDALogic()
 	//do the logic
 	if(up)
 	{
-		SoundKeyboardRand();
 		ScrollingTextWindowInput(nTerminalFont, 100);
 	}
 	
 	if(down)
 	{
-		SoundKeyboardRand();
 		ScrollingTextWindowInput(nTerminalFont, 100);
 	}
 
