@@ -80,32 +80,17 @@ void ShootWeapon()
 {
 	int nEntity;
 	
-	//fire weapon
-	if(nAmmo[nEquipedWeapon] == 0)
+	if(strcmp(sEntitiesInRange, "")!=0)
 	{
-		//no ammo, play the out of ammo sound
-		//guards can hear the click
-		MakeSound(nPlayerEnt, 50);
-		SoundNoAmmo();
-		UnpressButtons();
-	}
-	else
-	{
-		if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
-		{
-			if(strcmp(sEntitiesInRange, "")!=0)
-			{
-				//let the player hold down the fire button on automatic weapons
-				if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_AUTO)
-					UnpressButtons();
+		//let the player hold down the fire button on automatic weapons
+		if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_AUTO)
+			UnpressButtons();
 
-				nEntity = Enemies[nTargetIndex].nEntity;
+		nEntity = Enemies[nTargetIndex].nEntity;
 
-				FireWeapon(nPlayerEnt, entity.x[nEntity], entity.y[nEntity], entity.hotw[nEntity], entity.hoth[nEntity]);
+		FireWeapon(nPlayerEnt, entity.x[nEntity], entity.y[nEntity], entity.hotw[nEntity], entity.hoth[nEntity]);
 
-				PlayerShootAnimation();
-			}
-		}
+		PlayerShootAnimation();
 	}
 }
 
@@ -113,31 +98,16 @@ void KnifeAttack()
 {
 	int nEntity;
 	
-	//fire weapon
-	if(nAmmo[nEquipedWeapon] == 0)
+	if(strcmp(sEntitiesInRange, "")!=0)
 	{
-		//no ammo, play the out of ammo sound
-		//guards can hear the click
-		MakeSound(nPlayerEnt, 50);
-		SoundNoAmmo();
 		UnpressButtons();
-	}
-	else
-	{
-		if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
-		{
-			if(strcmp(sEntitiesInRange, "")!=0)
-			{
-				UnpressButtons();
-				
-				nEntity = Enemies[nTargetIndex].nEntity;
 
-				if(Enemies[nTargetIndex].nMode != MODE_ALERT)
-					PlayerShootAnimation();
+		nEntity = Enemies[nTargetIndex].nEntity;
 
-				FireWeapon(nPlayerEnt, entity.x[nEntity], entity.y[nEntity], entity.hotw[nEntity], entity.hoth[nEntity]);
-			}
-		}
+		if(Enemies[nTargetIndex].nMode != MODE_ALERT)
+			PlayerShootAnimation();
+
+		FireWeapon(nPlayerEnt, entity.x[nEntity], entity.y[nEntity], entity.hotw[nEntity], entity.hoth[nEntity]);
 	}
 }
 
@@ -151,28 +121,10 @@ void ShootSniper()
 
 void ShootWeaponXY()
 {
-	if(nAmmo[nEquipedWeapon] == 0)
-	{
-		//no ammo, play the out of ammo sound
-		//guards can hear the click
-		MakeSound(nPlayerEnt, 50);
-		SoundNoAmmo();
-		UnpressButtons();
-	}
-	else
-	{
-		if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
-		{
-			//let the player hold down the fire button on automatic weapons
-			if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_AUTO)
-				UnpressButtons();
+	//TODO: remove magic numbers
+	FireWeapon(nPlayerEnt, nFreeAimX, nFreeAimY, 16, 16);
 
-			//TODO: remove magic numbers
-			FireWeapon(nPlayerEnt, nFreeAimX, nFreeAimY, 16, 16);
-			
-			PlayerShootAnimation();
-		}
-	}
+	PlayerShootAnimation();
 }
 
 int nDeltaX;
@@ -183,35 +135,19 @@ int nThrownAnim;
 
 void ThrowGrenade()
 {
-	if(nAmmo[nEquipedWeapon] == 0)
-	{
-		//no ammo, play the out of ammo sound
-		//guards can hear the click
-		MakeSound(nPlayerEnt, 50);
-		SoundNoAmmo();
-		UnpressButtons();
-	}
+	nDeltaX = oF_divFF(oF_Whole2Fixed(nFreeAimX - entity.x[nPlayerEnt]), oF_Whole2Fixed(Weapons[nEquipedWeapon].nFuseLength));
+	nDeltaY = oF_divFF(oF_Whole2Fixed(nFreeAimY - entity.y[nPlayerEnt]), oF_Whole2Fixed(Weapons[nEquipedWeapon].nFuseLength));
+
+	if(entity.face[nPlayerEnt] == ENTITY_FACE_UP || entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
+		nThrownAnim = LoadAnimationEX("grenadeUD.png", 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
 	else
-	{
-		PlaySoundStack(Weapons[nEquipedWeapon].sSound);
-		
-		if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
-		{
-			nDeltaX = oF_divFF(oF_Whole2Fixed(nFreeAimX - entity.x[nPlayerEnt]), oF_Whole2Fixed(Weapons[nEquipedWeapon].nFuseLength));
-			nDeltaY = oF_divFF(oF_Whole2Fixed(nFreeAimY - entity.y[nPlayerEnt]), oF_Whole2Fixed(Weapons[nEquipedWeapon].nFuseLength));
+		nThrownAnim = LoadAnimationEX("grenadeLR.png", 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
 
-			if(entity.face[nPlayerEnt] == ENTITY_FACE_UP || entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
-				nThrownAnim = LoadAnimationEX("grenadeUD.png", 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
-			else
-				nThrownAnim = LoadAnimationEX("grenadeLR.png", 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
+	CreateThrown(oF_Whole2Fixed(entity.x[nPlayerEnt]), oF_Whole2Fixed(entity.y[nPlayerEnt],) nDeltaX, nDeltaY, nThrownAnim, Weapons[nEquipedWeapon].nFuseLength, nEquipedWeapon, THROWN_COLLISION_REFLECT, Weapons[nEquipedWeapon].sDetFunction);
 
-			CreateThrown(oF_Whole2Fixed(entity.x[nPlayerEnt]), oF_Whole2Fixed(entity.y[nPlayerEnt],) nDeltaX, nDeltaY, nThrownAnim, Weapons[nEquipedWeapon].nFuseLength, nEquipedWeapon, THROWN_COLLISION_REFLECT, Weapons[nEquipedWeapon].sDetFunction);
-			
-			nAmmo[nEquipedWeapon]--;
+	nAmmo[nEquipedWeapon]--;
 
-			UnpressButtons();
-		}
-	}
+	UnpressButtons();
 }
 
 void NullAim()

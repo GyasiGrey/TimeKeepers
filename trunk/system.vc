@@ -589,7 +589,27 @@ void ProcessInput()
 			
 			if(BUTTON_SHOOT)
 			{
-				CallFunction(Weapons[nEquipedWeapon].sShootFunction);
+				if(nAmmo[nEquipedWeapon] == 0)
+				{
+					//no ammo, play the out of ammo sound
+					//guards can hear the click
+					MakeSound(nPlayerEnt, 50);
+					SoundNoAmmo();
+					UnpressButtons();
+				}
+				else
+				{
+					if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
+					{
+						PlaySoundStack(Weapons[nEquipedWeapon].sSound);
+						
+						//let the player hold down the fire button on automatic weapons
+						if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_AUTO)
+							UnpressButtons();
+						
+						CallFunction(Weapons[nEquipedWeapon].sShootFunction);
+					}
+				}
 			}
 			
 			bAimingLastTick = 1;
