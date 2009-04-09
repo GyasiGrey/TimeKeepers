@@ -288,11 +288,6 @@ void FireWeapon(int shooter, int targetX, int targetY, int targetW, int targetH)
 		if(Weapons[nEquipedWeapon].nMaxAmmo > 0)
 			nAmmo[nEquipedWeapon]--;
 			
-		//only silent weapons can miss, and therfore sometimes won't play there sound
-		//non silent always play the sound
-		if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_SILENT)
-			PlaySoundStack(Weapons[nEquipedWeapon].sSound);
-			
 		eqweapon = nEquipedWeapon;
 		enemyindex = shooter;
 	}

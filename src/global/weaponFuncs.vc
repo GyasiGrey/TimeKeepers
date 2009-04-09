@@ -91,6 +91,8 @@ void ShootWeapon()
 		FireWeapon(nPlayerEnt, entity.x[nEntity], entity.y[nEntity], entity.hotw[nEntity], entity.hoth[nEntity]);
 
 		PlayerShootAnimation();
+		
+		PlaySoundStack(Weapons[nEquipedWeapon].sSound);
 	}
 }
 
@@ -105,7 +107,10 @@ void KnifeAttack()
 		nEntity = Enemies[nTargetIndex].nEntity;
 
 		if(Enemies[nTargetIndex].nMode != MODE_ALERT)
+		{
 			PlayerShootAnimation();
+			PlaySoundStack(Weapons[nEquipedWeapon].sSound);
+		}
 
 		FireWeapon(nPlayerEnt, entity.x[nEntity], entity.y[nEntity], entity.hotw[nEntity], entity.hoth[nEntity]);
 	}
@@ -125,6 +130,8 @@ void ShootWeaponXY()
 	FireWeapon(nPlayerEnt, nFreeAimX, nFreeAimY, 16, 16);
 
 	PlayerShootAnimation();
+	
+	PlaySoundStack(Weapons[nEquipedWeapon].sSound);
 }
 
 int nDeltaX;
@@ -148,6 +155,8 @@ void ThrowGrenade()
 	nAmmo[nEquipedWeapon]--;
 
 	UnpressButtons();
+	
+	PlaySoundStack(Weapons[nEquipedWeapon].sSound);
 }
 
 void NullAim()
