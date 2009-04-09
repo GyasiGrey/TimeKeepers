@@ -601,8 +601,6 @@ void ProcessInput()
 				{
 					if(timer > nShotAt+Weapons[nEquipedWeapon].nRecharge)
 					{
-						PlaySoundStack(Weapons[nEquipedWeapon].sSound);
-						
 						//let the player hold down the fire button on automatic weapons
 						if(Weapons[nEquipedWeapon].nType != WEAPON_TYPE_AUTO)
 							UnpressButtons();
