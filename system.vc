@@ -283,7 +283,7 @@ void NewGame()
 		AddHook("ProcessEnemies", 10);
 		
 	if(!isHooked("ProcessInput"))
-		AddHook("ProcessInput", 5);
+		AddHook("ProcessInput", 1030);
 		
 	EnableCameras();	//enable cameras if they were disabled
 	
