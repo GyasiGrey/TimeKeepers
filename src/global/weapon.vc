@@ -219,7 +219,7 @@ void InitWeapons()
 	Weapons[10].nDamageMin = 30;
 	Weapons[10].nDamageMax = 35;
 	Weapons[10].nRecharge = 150;
-	Weapons[10].nSoundRadius = 25;
+	Weapons[10].nSoundRadius = 300;
 	Weapons[10].nAccMin = 0;
 	Weapons[10].nAccMax = 0;
 	Weapons[10].nType = WEAPON_TYPE_SINGLE;
