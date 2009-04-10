@@ -195,7 +195,7 @@ void InitWeapons()
 	Weapons[9].nRange = 100;
 	Weapons[9].sName = "Flash Bang";
 	Weapons[9].sSound = "sounds\grenadeDrop.wav";
-	Weapons[9].nIcon = LoadImage("gfx\icons\grenade.png");
+	Weapons[9].nIcon = LoadImage("gfx\icons\flashbang.png");
 	Weapons[9].nMaxAmmo = 10;
 	Weapons[9].nDamageMin = 10;
 	Weapons[9].nDamageMax = 20;
