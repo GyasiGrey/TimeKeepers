@@ -6,15 +6,6 @@
 2) Put the door in the init door func of the map
 */
 
-#define MAX_DOORS 100	//you mean you can only have 100 doors per map?
-
-#define DOOR_LOCKPICK_DELAY 1			//time between decreasing lock sterength
-#define DOOR_LOCKPICK_SOUND_DELAY 120		//time between playing lock pick sounds
-#define DOOR_LOCKPICK_FADEOUT_DELAY 50		//time untill lockpick notice starts to fade out
-#define DOOR_LOCKPICK_FADEOUT_TIME 200		//time it takes lockpick notice to fade out
-
-#define PICK_LOCK_COLOR RGB(255, 255, 255)
-
 struct Door
 {
 	int nX;			//x y tile coords (this will be the tile that acts as an obstruction

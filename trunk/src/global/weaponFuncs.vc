@@ -1,7 +1,3 @@
-#define THROWN_COLLISION_REFLECT	0
-#define THROWN_COLLISION_DETONATE	1
-
-
 int nLastFreeAimTick;
 
 void AimWeapon()

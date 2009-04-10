@@ -10,17 +10,6 @@
 	-Medkits used
 	*/
 
-//this matches with the game id in the MySQL DB
-#define LEADERBOARD_GAME_ID				1
-
-//these match with the score id's in the MySQL DB
-#define LEADERBOARD_SCORE_LOOT			1
-#define LEADERBOARD_SCORE_KILLS			2
-#define LEADERBOARD_SCORE_TRANQS		3
-#define LEADERBOARD_SCORE_SILENT_KILLS		4
-#define LEADERBOARD_SCORE_TIME			5
-#define LEADERBOARD_SCORE_MEDKITS		6
-
 int nEnemiesKilled;
 int nEnemiesTranqd;
 int nSilentKills;

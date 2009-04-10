@@ -12,8 +12,6 @@ Whenever a sound that is already in the stack is played, it goes to the top of t
 is moved to the top of the stack, everything else shuffels down. If an item falls off the bottom of the stack
 if is unloaded from memory.
 */
-#define SOUND_STACK_SIZE	5	//number of sounds to load at once
-
 int nSoundVolume = 100;
 
 struct LoadedSound

@@ -1,5 +1,3 @@
-#define MAX_OBJECTIVES	10
-
 struct objective
 {
 	int bActive;

@@ -1,30 +1,3 @@
-#define DEBUG_MAKE_SOUND	0	//does the super funkorama effect to show where sounds are happening when set to 1
-#define MAX_ENEMIES 250
-#define WALK_SPEED_NORMAL 50
-#define WALK_SPEED_ALERT 75
-
-#define SOUND_TIME_OUT 1000	//how long an enemy will track a sound before giving up
-				//so they don't get hung up on obs. Take out if you fix pathfinding 
-				//so that they do go around obs
-				
-#define TRANQ_EFFECT_TIME 1000 //how long it takes for a tranq gun to take effect (10 seconds)
-#define TRANQ_SLEEP_TIME 6000  //how long it takes for an enemy to wake up (1 minute)
-
-#define SEARCH_WAIT_TIME 200	//how long to stay startled before searching
-
-#define ASTAR_DELAY 50		//how long to wait between calling the pathfinding func when alert
-
-
-#define CIVILIAN_SOUND_TIME		250	//time between civilian barks
-#define CAMERA_SOUND_DELAY		250	//time between camera klaxons
-#define CAMERA_WARN_TIME		150	//camera warns for 1.5 seconds before going into alert mode
-#define CAMERA_WARN_SOUND_DELAY 	75	//time between camera warn sounds
-#define CIVILIAN_WARN_TIME		400
-#define CIVILIAN_WARN_SOUND_DELAY	200
-
-
-#define ENEMY_MIN_SHOOT_RANGE		32
-
 struct Enemy
 {
 	int nHp;

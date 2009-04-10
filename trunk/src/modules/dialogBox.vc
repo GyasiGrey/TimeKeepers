@@ -1,22 +1,5 @@
 //dialogBox.vc - Holds code for the dialog box. Now in it's own file!
 
-//death to the magic numbers!!
-#define DIALOG_BOX_WIDTH	215
-#define DIALOG_BOX_HEIGHT	65
-#define DIALOG_BOX_TEXT_WIDTH	200
-#define DIALOG_BOX_X_POS	58
-#define DIALOG_BOX_Y_POS	155
-#define DIALOG_BOX_X_PADDING	5
-#define DIALOG_BOX_Y_PADDING	5
-#define DIALOG_BOX_BLINK_WAIT	80
-#define DIALOG_BOX_BLINK_WIDTH	4
-#define DIALOG_BOX_BLINK_HEIGHT	4
-
-#define COMM_END_WAIT 300	//how long to wait before closing the comm window
-#define COMM_LETTER_WAIT 2	//number of CS to wait between typing letters
-
-#define COMM_QUEUE_LEN	25	//queue up to 25 comm messages
-
 //int's pretending to be defines because a define can't reference a define
 int DIALOG_BOX_BLINK_X = DIALOG_BOX_X_POS+DIALOG_BOX_WIDTH-DIALOG_BOX_BLINK_WIDTH-DIALOG_BOX_X_PADDING;
 int DIALOG_BOX_BLINK_Y = DIALOG_BOX_Y_POS+DIALOG_BOX_HEIGHT-DIALOG_BOX_BLINK_HEIGHT-DIALOG_BOX_Y_PADDING;

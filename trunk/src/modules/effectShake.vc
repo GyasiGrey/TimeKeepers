@@ -1,7 +1,5 @@
 //effectShake.vc
 //shakes the screen for a bit. Only one shake can be active at a time. If a new one starts while one is active the new one takes over.
-#define EFFECT_SHAKE_TICKS_BETWEEN 5	//number of ticks before changing the shake direction
-
 int nShakeIntensity;
 int nShakeStop;
 int nShakeNextChange;

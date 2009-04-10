@@ -1,7 +1,3 @@
-#define QUEUE_LEN 384
-#define NUM_NODES 384
-#define INFINITY 65534
-
 int numGraphNodes;
 
 struct Node

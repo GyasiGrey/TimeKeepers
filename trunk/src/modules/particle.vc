@@ -1,8 +1,4 @@
 //particle.vc - Holds all the code for particles and particle emiters
-
-#define MAX_PARTICLES 500
-#define MAX_EMITTERS 500
-
 struct Particle
 {
 	int nX;		//xy coords

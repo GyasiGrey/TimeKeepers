@@ -3,12 +3,6 @@
 
 //note this does not effect guards ability to see you. It ain't Thief you know.....
 
-#define MAX_LIGHTS 100
-
-#define LIGHT_TYPE_ROUND 0
-#define LIGHT_TYPE_WINDOW 1
-#define LIGHT_TYPE_WINDOW_DOWN 2
-
 struct Light
 {
 	int nX;			//pixel coords of the center of the light

@@ -1,5 +1,3 @@
-#define MAX_MENUS 100
-
 struct Menu
 {
 	int nActive;

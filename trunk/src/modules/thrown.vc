@@ -1,5 +1,3 @@
-#define MAX_THROWN		30
-
 struct ThrownItem
 {
 	int nX;			//fixed point number

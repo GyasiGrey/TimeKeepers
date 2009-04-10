@@ -7,13 +7,7 @@
  * 
  * But for serious now. Stop looking up stupid comments on xkcd and write these damn functions.
  */
- 
-#define LEADERBOARD_NUM_MISSIONS	2
-#define LEADERBOARD_NUM_ARENAS		3
-#define LEADERBOARD_NUM_PER_WINDOW	10
-#define LEADERBOARD_NUM_SCORES		6
-
-string sLeaderboardData;
+ string sLeaderboardData;
 int nLeaderboardDirty;	//if ==1 we need to request data from the server again, otherwise party like it's 2k7
 
 int nConnectedToServer;	//if ==0 we are not connected. Write an error message to menu

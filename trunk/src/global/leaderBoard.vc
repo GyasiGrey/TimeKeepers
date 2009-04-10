@@ -1,10 +1,3 @@
-#define ERROR_NO_INTERNET "could not establish an internet connection."
-#define ERROR_NO_PAGE "couldn't open url"
-
-#define ERROR_INTERNAL_NO_INTERNET "NO_INTERNET"
-#define ERROR_INTERNAL_NO_PAGE "NO_PAGE"
-#define ERROR_INTERNAL_BAD_VERSION "BAD_VERSION"
-
 string LEADERBOARD_URL  = "http://localhost/vrgInet/";
 
 /*upload.php?data=1|1|1~1560~2~6|3000 <--Final Score

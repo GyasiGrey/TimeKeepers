@@ -1,7 +1,5 @@
 //Checkpoint! </crusin_usa>
 
-#define MAX_AUTOSAVE 100
-
 struct autosavePoint
 {
 	int nZone;		//zone for this savepoint
