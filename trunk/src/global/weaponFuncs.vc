@@ -4,6 +4,103 @@
 
 int nLastFreeAimTick;
 
+void AimWeapon()
+{
+	int i;
+
+	if(!bHasTargetList)
+	{
+		sEntitiesInRange = GenerateTargetList();
+		bHasTargetList = 1;
+
+		//if there are entities to aim at
+		if(strcmp(sEntitiesInRange, "")!=0)
+		{
+			//get enemy index of first enemy in the list
+			nTargetIndex = val(GetToken(sEntitiesInRange, " ", 0));
+		}
+		else
+		{
+			anims[nTargetPointerAnim].x = 0-16;
+			anims[nTargetPointerAnim].y = 0-16;
+			bHasTargetList = 0;
+
+			return;
+		}
+	}	
+
+	//target is in range
+	if(Enemies[nTargetIndex].nActive && Distance(nPlayerEnt, Enemies[nTargetIndex].nEntity) < Weapons[nEquipedWeapon].nRange)
+	{
+		//put the pointer on one
+		anims[nTargetPointerAnim].x = entity.x[Enemies[nTargetIndex].nEntity];
+		anims[nTargetPointerAnim].y = entity.y[Enemies[nTargetIndex].nEntity];
+
+		//face the enemy
+		EntityFace(nPlayerEnt, Enemies[nTargetIndex].nEntity);
+	}
+	else
+	{
+		anims[nTargetPointerAnim].x = 0-16;
+		anims[nTargetPointerAnim].y = 0-16;
+		bHasTargetList = 0;
+
+		return;	//nothing to target? exit out
+	}
+
+	//change targets
+	if(BUTTON_WEAPON_SWITCHUP)
+	{
+		sEntitiesInRange = GenerateTargetList();
+		//find the current target in the list
+		//no in_array() :(
+		for(i=0;i<TokenCount(sEntitiesInRange, " ");i++)
+		{
+			if(val(GetToken(sEntitiesInRange, " ", i)) == nTargetIndex)
+			{
+				if(i == TokenCount(sEntitiesInRange, " ")-1)
+				{
+					//if we are at the end of the list, change to the first in the list
+					nTargetIndex = val(GetToken(sEntitiesInRange, " ", 0));
+				}
+				else
+				{
+					//else go to the next in the list
+					nTargetIndex = val(GetToken(sEntitiesInRange, " ", i+1));
+				}
+				i = TokenCount(sEntitiesInRange, " "); //break;
+			}
+		}
+		UnpressWeaponSwitchButtons();
+	}
+
+	if(BUTTON_WEAPON_SWITCHDOWN)
+	{
+		sEntitiesInRange = GenerateTargetList();
+
+		//find the current target in the list
+		//no in_array() :(
+		for(i=0;i<TokenCount(sEntitiesInRange, " ");i++)
+		{
+			if(val(GetToken(sEntitiesInRange, " ", i)) == nTargetIndex)
+			{
+				if(i == 0)
+				{
+					//if we are at the front of the list, change to the last in the list
+					nTargetIndex = val(GetToken(sEntitiesInRange, " ", TokenCount(sEntitiesInRange, " ")-1));
+				}
+				else
+				{
+					//else go to the previous in the list
+					nTargetIndex = val(GetToken(sEntitiesInRange, " ", i-1));
+				}
+				i = TokenCount(sEntitiesInRange, " "); //break; also MDK
+			}
+		}
+		UnpressWeaponSwitchButtons();
+	}
+}
+
 void FreeAimWeapon()
 {
 	int theta;
