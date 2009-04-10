@@ -654,6 +654,15 @@ void ProcessEnemies()
 	}
 }
 
+//Returns true of the enemy is not moving at all, either from pathfinding of verge move scripts
+int EnemyIsStopped(int nEnemy)
+{
+	if(strcmp(Enemies[nEnemy].sNodePath, "") == 0 && entity.movecode[Enemies[nEnemy].nEntity] == 0)
+		return 1;
+	else
+		return 0;
+}
+
 void MakeSoundXY(int x, int y, int radius)
 {
 	Error("MakeSoundXY() x: " + str(x) + " y: " + str(y) + " radius: " + str(radius));
