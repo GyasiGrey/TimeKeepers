@@ -111,8 +111,11 @@ int findPath(int ent, int x1, int y1, int x2, int y2){
 //#2. add lowest open to closed list and set as current
 
 	//DEBUG
-		//line(activeList[openList[1]].x*(16*TILES)+8-xwin, activeList[openList[1]].y*(16*TILES)+8-ywin, node_parentX[activeList[openList[1]].x][activeList[openList[1]].y]*(16*TILES)+8-xwin, node_parentY[activeList[openList[1]].x][activeList[openList[1]].y]*(16*TILES)+8-ywin, RGB(0,0,255), screen);
-		//rect(activeList[openList[1]].x*(16*TILES)-xwin, activeList[openList[1]].y*(16*TILES)-ywin, activeList[openList[1]].x*(16*TILES)+(16*TILES)-xwin, activeList[openList[1]].y*(16*TILES)+(16*TILES)-ywin, RGB(255,0,0), screen);		
+		if(DEBUG_SHOW_ASTAR)
+		{
+			line(activeList[openList[1]].x*(16*TILES)+8-xwin, activeList[openList[1]].y*(16*TILES)+8-ywin, node_parentX[activeList[openList[1]].x][activeList[openList[1]].y]*(16*TILES)+8-xwin, node_parentY[activeList[openList[1]].x][activeList[openList[1]].y]*(16*TILES)+8-ywin, RGB(0,0,255), screen);
+			rect(activeList[openList[1]].x*(16*TILES)-xwin, activeList[openList[1]].y*(16*TILES)-ywin, activeList[openList[1]].x*(16*TILES)+(16*TILES)-xwin, activeList[openList[1]].y*(16*TILES)+(16*TILES)-ywin, RGB(255,0,0), screen);		
+		}
 	//DEBUG
 		
 		cur.x=activeList[openList[1]].x;
@@ -155,10 +158,13 @@ int findPath(int ent, int x1, int y1, int x2, int y2){
 
 				addOpenID(activeNodes);
 			//DEBUG
-				//line(temp.x*(16*TILES)+8, temp.y*(16*TILES)+8, cur.x*(16*TILES)+8, cur.y*(16*TILES)+8, RGB(0,0,255), screen);
-				//rect(temp.x*(16*TILES)-xwin,temp.y*(16*TILES)-ywin,temp.x*(16*TILES)+(16*TILES)-xwin,temp.y*(16*TILES)+(16*TILES)-ywin, RGB(0,255,0), screen);
-				//printstring(temp.x*(16*TILES)-xwin,temp.y*(16*TILES)-ywin,screen, font, str(node_cost[temp.x][temp.y]));
-				//showpage();
+				if(DEBUG_SHOW_ASTAR)
+				{
+					line(temp.x*(16*TILES)+8, temp.y*(16*TILES)+8, cur.x*(16*TILES)+8, cur.y*(16*TILES)+8, RGB(0,0,255), screen);
+					rect(temp.x*(16*TILES)-xwin,temp.y*(16*TILES)-ywin,temp.x*(16*TILES)+(16*TILES)-xwin,temp.y*(16*TILES)+(16*TILES)-ywin, RGB(0,255,0), screen);
+					printstring(temp.x*(16*TILES)-xwin,temp.y*(16*TILES)-ywin,screen, 0, str(node_cost[temp.x][temp.y]));
+					showpage();
+				}
 			//DEBUG
 			}
 		//Check already open adjacent nodes to see if current path is better

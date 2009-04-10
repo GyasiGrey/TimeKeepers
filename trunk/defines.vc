@@ -5,6 +5,8 @@
 #define DEBUG_MAKE_SOUND	0	//does the super funkorama effect to show where sounds are happening when set to 1
 //visually display LOS checks
 #define DEBUG_SHOW_LOS		0
+//visually display A* Pathfinding
+#define DEBUG_SHOW_ASTAR	0
 //</Debugging_defines>
 
 //Cheats on or off
