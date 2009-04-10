@@ -119,12 +119,15 @@ int LineOfSight(int x1, int y1, int x2, int y2, int ignoreent)
 		curpixel++;
 
 		//debug to draw the LoS to the screen
-		/*setpixel(x-xwin, y-ywin, RGB(255, 0, 255), screen);
-		deltaY = timer;
-		while(timer < deltaY+1)
+		if(DEBUG_SHOW_LOS)
 		{
-			ShowPage();
-		}*/
+			setpixel(x-xwin, y-ywin, RGB(255, 0, 255), screen);
+			deltaY = timer;
+			while(timer < deltaY+1)
+			{
+				ShowPage();
+			}
+		}
 	}
 
 	return 0-2;
