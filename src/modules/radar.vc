@@ -1,7 +1,3 @@
-#define RADAR_RANGE 100
-int RADAR_WIDTH = 60;
-int RADAR_HEIGHT = 40;
-
 int nRadarOn;
 
 //makes an image of the local enemies and plops them on the screen

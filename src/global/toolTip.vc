@@ -1,11 +1,4 @@
 //tool tips! Idea stolen from HL2! Header comment!
-
-#define TOOLTIP_FADEOUT_TIME	1000	//amount of time a tooltip will stay on the screen
-#define TOOLTIP_FADEOUT_SPEED	200	//amount of time it takes a tool tip to fade in out out
-#define TOOLTIP_WIDTH		80
-#define TOOLTIP_X		200
-#define TOOLTIP_Y		125
-
 int bToolTipOn = 0;
 int nToolTipStart;
 string sToolTipString;

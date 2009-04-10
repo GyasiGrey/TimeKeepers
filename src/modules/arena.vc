@@ -1,5 +1,3 @@
-#define ARENA_RESPAWN_TIME	1000
-
 //Span enemies every whatever ticks. Player lasts as long as possible
 int nArenaLastSpawn;
 int nArenaNumEnemies;

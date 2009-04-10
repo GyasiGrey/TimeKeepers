@@ -1,8 +1,6 @@
 //notes.vc
 //a log of notes kept for the current mission.
 
-#define MAX_NOTES	500	//should be more then enough for a single mission
-
 string sNotes[MAX_NOTES];	//a blank entry in this list denotes the end of the notes list
 
 void AddNote(string text)

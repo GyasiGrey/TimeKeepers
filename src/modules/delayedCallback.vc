@@ -1,7 +1,5 @@
 //delayedCallback.vc
 //waits for a set amount of time before calling a function
-#define DELAYED_CALLBACK_MAX	10
-
 struct delayedCallback
 {
 	int nTimeStamp;		//time stamp when the function should be run

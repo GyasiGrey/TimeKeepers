@@ -1,11 +1,4 @@
 //int nPDAMenuAnim;
-#define PDA_SCREEN_OBJECTIVES	0
-#define PDA_SCREEN_NOTES	1
-#define PDA_SCREEN_CONVERSATION	2
-#define PDA_SCREEN_STATS	3
-
-#define PDA_STRING_MAX_LEN	350
-
 int nPDAScreen;			//3 way toggle - shows Objectives, Notes or Conversations
 
 void OpenPDAMenu()

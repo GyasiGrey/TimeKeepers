@@ -1,9 +1,6 @@
 //sort of ugly one off file to hold Medkit stuff
 //still it's more clean this way then having it all in system.vc
 
-#define MEDKIT_RESTORE_AMT 25	//amount a medkit restors
-#define MEDKIT_MAX_NUM 9	//max number of medkits player can hold
-
 int nNumMedkits;
 
 void UseMedkit()

@@ -1,3 +1,13 @@
+//<Debugging_defines>
+//Error logging
+#define DEBUG 2			//==0 no debug output. ==1 log only. ==2 console, log. ==3 messagebox, console, log
+//visually display sounds made
+#define DEBUG_MAKE_SOUND	0	//does the super funkorama effect to show where sounds are happening when set to 1
+//</Debugging_defines>
+
+//Cheats on or off
+#define CHEATS_ENABLED 1
+
 //Enemy Defines
 #define ENTITY_FACE_UP			1
 #define ENTITY_FACE_DOWN		2
@@ -35,6 +45,7 @@
 
 #define ARENA_MISSION_OFFSET		9	//offset to start the arena mission indexes at
 
+//Weapons
 #define DAMAGE_TYPE_NORMAL		0
 #define DAMAGE_TYPE_TRANQ		1
 
@@ -42,6 +53,238 @@
 #define WEAPON_TYPE_SINGLE 1    //user must retrigger shoot button for every shot. Semi automatic weapons.
 #define WEAPON_TYPE_AUTO   2    //user can hold down shoot button to retrigger shots. Automatic weapons.
 #define WEAPON_TYPE_THROWN 3
+
+#define MAX_WEAPONS 15		//DO NOT CHANGE. WILL BREAK SAVE GAMES. (yeah, if I ever get around to implementing savegames)
 
+#define NUM_WEAPONS 10
 
+#define WEAPON_KNIFE		0
+#define WEAPON_PISTON		1
+#define WEAPON_SHOTGUN		2
+#define WEAPON_M4		3
+#define WEAPON_TRANQ		4
+#define WEAPON_GRENADE		5
+#define WEAPON_EMPTY		6
+#define WEAPON_AUTO_SHOTGUN	7
+#define WEAPON_ROCKET_LAUNCHER	8
+#define	WEAPON_FLASH_BANG	9
+
+//Thrown collision types
+#define THROWN_COLLISION_REFLECT	0
+#define THROWN_COLLISION_DETONATE	1
+
+//Colors
 #define COLOR_DEATH_MAGENTA RGB(255, 0, 255)
+#define PICK_LOCK_COLOR RGB(255, 255, 255)
+
+//Save
+#define SAVE_VERSION 1		//number that goes at the top of the save files, so that I can tell if someone is trying
+				//to load an out of data save file
+
+//Achievements
+#define ACHIVEMENT_1_SILENT_KILL	0
+#define ACHIVEMENT_5_PICKED_LOCKS	1
+#define ACHIVEMENT_LOST_MONEY_SLOTS	2
+#define ACHIVEMENT_SPEED_RUN1		3
+#define ACHIVEMENT_SPEED_RUN2		4
+
+#define ACHIVEMENT_NUM_ACHIVEMENTS	6
+
+//Buttons
+#define NUM_BUTTONS 8
+#define BUTTON_SHOOT key[nKeyButton[0]] || GetJoyButton(nJoyButton[0])
+#define BUTTON_MEDKIT key[nKeyButton[1]] || GetJoyButton(nJoyButton[1])
+#define BUTTON_AIM key[nKeyButton[2]] || GetJoyButton(nJoyButton[2])
+#define BUTTON_STEAL key[nKeyButton[3]] || GetJoyButton(nJoyButton[3])
+#define BUTTON_WEAPON_SWITCHUP key[nKeyButton[4]] || GetJoyButton(nJoyButton[4])
+#define BUTTON_WEAPON_SWITCHDOWN key[nKeyButton[5]] || GetJoyButton(nJoyButton[5])
+#define BUTTON_PAUSE key[nKeyButton[6]] || GetJoyButton(nJoyButton[6])
+#define BUTTON_PDA key[nKeyButton[7]] || GetJoyButton(nJoyButton[7])
+
+//HookRetrace
+#define NUM_HOOKS 45
+#define HOOK_MAX_PRIORITY 999999
+
+//Internet connection
+#define ERROR_NO_INTERNET "could not establish an internet connection."
+#define ERROR_NO_PAGE "couldn't open url"
+
+#define ERROR_INTERNAL_NO_INTERNET "NO_INTERNET"
+#define ERROR_INTERNAL_NO_PAGE "NO_PAGE"
+#define ERROR_INTERNAL_BAD_VERSION "BAD_VERSION"
+
+//Medkits
+#define MEDKIT_RESTORE_AMT 25	//amount a medkit restors
+#define MEDKIT_MAX_NUM 9	//max number of medkits player can hold
+
+//Node pathfinding
+#define QUEUE_LEN 384
+#define NUM_NODES 384
+#define INFINITY 65534
+
+//Scrolling text window
+#define SCROLLING_TEXT_WINDOW_MAX_LINES			100
+#define SCROLLING_TEXT_WINDOW_SCROLL_SPEED		3
+
+//Sound stack
+#define SOUND_STACK_SIZE	5	//number of sounds to load at once
+
+//Tool tips
+#define TOOLTIP_FADEOUT_TIME	1000	//amount of time a tooltip will stay on the screen
+#define TOOLTIP_FADEOUT_SPEED	200	//amount of time it takes a tool tip to fade in out out
+#define TOOLTIP_WIDTH		80
+#define TOOLTIP_X		200
+#define TOOLTIP_Y		125
+
+//Tracked stats on the leaderboard
+#define LEADERBOARD_GAME_ID				1	//this matches with the game id in the MySQL DB
+
+//these match with the score id's in the MySQL DB
+#define LEADERBOARD_SCORE_LOOT			1
+#define LEADERBOARD_SCORE_KILLS			2
+#define LEADERBOARD_SCORE_TRANQS		3
+#define LEADERBOARD_SCORE_SILENT_KILLS		4
+#define LEADERBOARD_SCORE_TIME			5
+#define LEADERBOARD_SCORE_MEDKITS		6
+
+#define MENU_LEADERBOARD_NUM_ROWS		10
+#define MENU_LEADERBOARD_NUM_ACHIVEMENTS	6
+
+#define MENU_LEADERBOARD_ROWS			2
+
+#define LEADERBOARD_NUM_MISSIONS	2
+#define LEADERBOARD_NUM_ARENAS		3
+#define LEADERBOARD_NUM_PER_WINDOW	10
+#define LEADERBOARD_NUM_SCORES		6
+
+//Save/Load <Home*>Saving and loading!</Home*> <SB>Saavee looad</SB>
+#define SAVE_SCREEN_SHOT_WIDTH	32
+#define SAVE_SCREEN_SHOT_HEIGHT 24
+
+//PDA
+#define PDA_SCREEN_OBJECTIVES	0
+#define PDA_SCREEN_NOTES	1
+#define PDA_SCREEN_CONVERSATION	2
+#define PDA_SCREEN_STATS	3
+
+#define PDA_STRING_MAX_LEN	350
+
+//Menus
+#define MAX_MENUS 100
+
+//Animations
+#define ANIMATION_OPS_PER_CYCLE 5 //let an animation do at most this many operatins before giving up control
+#define MAX_ANIMATIONS 	100	// Tweak this to your liking!
+#define NO_INDEX	65535	// This is just a sentinel.
+
+//Arena
+#define ARENA_RESPAWN_TIME	1000
+
+//Autosave
+#define MAX_AUTOSAVE 100
+
+//Comm logs
+#define MAX_COMM_LOGS	1000
+
+//Damage areas
+#define MAX_DAMAGE_AREA		30
+
+//Delayed callbacks
+#define DELAYED_CALLBACK_MAX	10
+
+//Dialog box
+#define DIALOG_BOX_WIDTH	215
+#define DIALOG_BOX_HEIGHT	65
+#define DIALOG_BOX_TEXT_WIDTH	200
+#define DIALOG_BOX_X_POS	58
+#define DIALOG_BOX_Y_POS	155
+#define DIALOG_BOX_X_PADDING	5
+#define DIALOG_BOX_Y_PADDING	5
+#define DIALOG_BOX_BLINK_WAIT	80
+#define DIALOG_BOX_BLINK_WIDTH	4
+#define DIALOG_BOX_BLINK_HEIGHT	4
+
+#define COMM_END_WAIT 300	//how long to wait before closing the comm window
+#define COMM_LETTER_WAIT 2	//number of CS to wait between typing letters
+
+#define COMM_QUEUE_LEN	25	//queue up to 25 comm messages
+
+//Doors
+#define MAX_DOORS 100	//you mean you can only have 100 doors per map?
+
+#define DOOR_LOCKPICK_DELAY 1			//time between decreasing lock sterength
+#define DOOR_LOCKPICK_SOUND_DELAY 120		//time between playing lock pick sounds
+#define DOOR_LOCKPICK_FADEOUT_DELAY 50		//time untill lockpick notice starts to fade out
+#define DOOR_LOCKPICK_FADEOUT_TIME 200		//time it takes lockpick notice to fade out
+
+//Shake effect
+#define EFFECT_SHAKE_TICKS_BETWEEN 5	//number of ticks before changing the shake direction
+
+//Enemies
+#define MAX_ENEMIES 250
+#define WALK_SPEED_NORMAL 50
+#define WALK_SPEED_ALERT 75
+
+#define SOUND_TIME_OUT 1000	//how long an enemy will track a sound before giving up
+				//so they don't get hung up on obs. Take out if you fix pathfinding 
+				//so that they do go around obs
+				
+#define TRANQ_EFFECT_TIME 1000 //how long it takes for a tranq gun to take effect (10 seconds)
+#define TRANQ_SLEEP_TIME 6000  //how long it takes for an enemy to wake up (1 minute)
+
+#define SEARCH_WAIT_TIME 200	//how long to stay startled before searching
+
+#define ASTAR_DELAY 50		//how long to wait between calling the pathfinding func when alert
+
+
+#define CIVILIAN_SOUND_TIME		250	//time between civilian barks
+#define CAMERA_SOUND_DELAY		250	//time between camera klaxons
+#define CAMERA_WARN_TIME		150	//camera warns for 1.5 seconds before going into alert mode
+#define CAMERA_WARN_SOUND_DELAY 	75	//time between camera warn sounds
+#define CIVILIAN_WARN_TIME		400
+#define CIVILIAN_WARN_SOUND_DELAY	200
+
+
+#define ENEMY_MIN_SHOOT_RANGE		32
+
+//Lighting
+#define MAX_LIGHTS 100
+
+#define LIGHT_TYPE_ROUND 0
+#define LIGHT_TYPE_WINDOW 1
+#define LIGHT_TYPE_WINDOW_DOWN 2
+
+//Low health alarm
+#define LOW_HEALTH_LEVEL 4	//the demoninator at which the alarm starts going off (25% health)
+#define LOW_HEALTH_DELAY 250 //delay between chirps
+
+//Notes
+#define MAX_NOTES	500	//should be more then enough for a single mission
+
+//Objectives
+#define MAX_OBJECTIVES	10
+
+//Particles
+#define MAX_PARTICLES 500
+#define MAX_EMITTERS 500
+
+//Radar
+#define RADAR_RANGE 100
+int RADAR_WIDTH = 60;
+int RADAR_HEIGHT = 40;
+
+//Thrown
+#define MAX_THROWN		30
+
+//Timers
+#define NUM_TIMERS	5
+
+#define TIMER_MISSION_TIME_SPENT	0	//holds the number of ticks spent on the current mission
+#define TIMER_ENEMY_LOGIC		1	//controls the enemy logic. Gets saved to save files and reset to 0 on level change.
+#define TIMER_ANIMATION_LOGIC		2
+
+//Game over ASM effect
+#define NUM_OPCODES		8
+#define NUM_REGISTERS		12
+#define NUM_CODES		30
+#define GAMEOVER_ASM_DELAY	10

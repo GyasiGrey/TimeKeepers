@@ -1,6 +1,3 @@
-#define SAVE_SCREEN_SHOT_WIDTH	32
-#define SAVE_SCREEN_SHOT_HEIGHT 24
-
 int nLoadMenuAnim;
 
 int iSaveImages[3];

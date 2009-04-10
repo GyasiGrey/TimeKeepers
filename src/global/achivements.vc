@@ -2,14 +2,6 @@
 
 //Code to send achivements to server. Hmmm...could calling them "Achivements" be taken as copyright infringemen?
 
-#define ACHIVEMENT_1_SILENT_KILL	0
-#define ACHIVEMENT_5_PICKED_LOCKS	1
-#define ACHIVEMENT_LOST_MONEY_SLOTS	2
-#define ACHIVEMENT_SPEED_RUN1		3
-#define ACHIVEMENT_SPEED_RUN2		4
-
-#define ACHIVEMENT_NUM_ACHIVEMENTS	6
-
 struct AchivementDef
 {
 	int nID;		//the server ID of this achivement

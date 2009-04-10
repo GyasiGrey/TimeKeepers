@@ -5,11 +5,6 @@
  * medals.
  *
  */
-
-#define MENU_LEADERBOARD_NUM_ROWS		10
-#define MENU_LEADERBOARD_NUM_ACHIVEMENTS	6
-
-#define MENU_LEADERBOARD_ROWS			2
  
 string sAchivementData;
 int nAchivementDirty;	//if ==1 we need to request data from the server again, otherwise party like it's 2k7
