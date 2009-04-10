@@ -470,15 +470,6 @@ void AimWeapon()
 {
 	int i;
 
-	//don't let the player shoot if they are dead or they are in a forced conversation
-	if(nHealth <= 0 || nHoldCommText)
-	{
-		anims[nTargetPointerAnim].x = 0-16;
-		anims[nTargetPointerAnim].y = 0-16;
-		bHasTargetList = 0;
-		return;
-	}
-
 	if(!bHasTargetList)
 	{
 		sEntitiesInRange = GenerateTargetList();
@@ -583,7 +574,7 @@ void ProcessInput()
 	if(!nGamePaused)		//can't do this stuff when the game is paused
 	{
 		//aim weapon
-		if(BUTTON_AIM)
+		if(BUTTON_AIM && !(nHealth <= 0 || nHoldCommText))
 		{
 			CallFunction(Weapons[nEquipedWeapon].sAimFunction);
 			
