@@ -59,6 +59,14 @@ void FreeAimWeapon()
 
 void PostFreeAim()
 {
+	PostAimWeapon();
+	cameratracking = 1;
+	entity.speed[nPlayerEnt] = 100;
+	bHasTargetList = 0;
+}
+
+void PostAimWeapon()
+{
 	anims[nTargetPointerAnim].x = 0-16;
 	anims[nTargetPointerAnim].y = 0-16;
 }

@@ -620,11 +620,6 @@ void ProcessInput()
 
 				CallFunction(Weapons[nEquipedWeapon].sPostAimFunction);
 				Error("Calling PostAimFunction: " + Weapons[nEquipedWeapon].sPostAimFunction);
-
-				//TODO: Refactor this logic into a weapon post aim kind of function. Having it all here is kinda ugly.
-				bHasTargetList = 0;
-				cameratracking = 1;
-				entity.speed[nPlayerEnt] = 100;
 			}
 		}
 
