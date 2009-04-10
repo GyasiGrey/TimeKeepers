@@ -614,13 +614,18 @@ void ProcessInput()
 		}
 		else
 		{
-			//TODO: Refactor this logic into a weapon post aim kind of function. Having it all here is kinda ugly.
-			anims[nTargetPointerAnim].x = 0-16;
-			anims[nTargetPointerAnim].y = 0-16;
-			bHasTargetList = 0;
-			bAimingLastTick = 0;
-			cameratracking = 1;
-			entity.speed[nPlayerEnt] = 100;
+			if(bAimingLastTick)
+			{
+				bAimingLastTick = 0;
+
+				CallFunction(Weapons[nEquipedWeapon].sPostAimFunction);
+				Error("Calling PostAimFunction: " + Weapons[nEquipedWeapon].sPostAimFunction);
+
+				//TODO: Refactor this logic into a weapon post aim kind of function. Having it all here is kinda ugly.
+				bHasTargetList = 0;
+				cameratracking = 1;
+				entity.speed[nPlayerEnt] = 100;
+			}
 		}
 
 		if(BUTTON_STEAL)
