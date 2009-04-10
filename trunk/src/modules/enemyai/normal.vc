@@ -79,7 +79,7 @@ void EnemyAINormal()
 		}
 
 		//were at the target, start searching
-		if(entity.x[nCurrentEnemy] == Enemies[nCurrentEnemy].nSoundX && entity.y[nCurrentEnemy] == Enemies[nCurrentEnemy].nSoundY)
+		if(entity.x[Enemies[nCurrentEnemy].nEntity] == Enemies[nCurrentEnemy].nSoundX && entity.y[Enemies[nCurrentEnemy].nEntity] == Enemies[nCurrentEnemy].nSoundY)
 		{
 			Search(nCurrentEnemy);
 		}
