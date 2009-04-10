@@ -61,6 +61,7 @@ void InitWeapons()
 	Weapons[0].nSpreadShots = 1;
 	Weapons[0].nType = WEAPON_TYPE_SILENT;
 	Weapons[0].sAimFunction = "AimWeapon";
+	Weapons[0].sPostAimFunction = "PostAimWeapon";
 	Weapons[0].sShootFunction = "KnifeAttack";
 
 	Weapons[1].nRange = 100;
@@ -77,6 +78,7 @@ void InitWeapons()
 	Weapons[1].nSpreadShots = 1;
 	Weapons[1].nType = WEAPON_TYPE_SINGLE;
 	Weapons[1].sAimFunction = "AimWeapon";
+	Weapons[1].sPostAimFunction = "PostAimWeapon";
 	Weapons[1].sShootFunction = "ShootWeapon";
 	
 	Weapons[2].nRange = 75;
@@ -93,6 +95,7 @@ void InitWeapons()
 	Weapons[2].nAccMax = 15;
 	Weapons[2].nType = WEAPON_TYPE_SINGLE;
 	Weapons[2].sAimFunction = "AimWeapon";
+	Weapons[2].sPostAimFunction = "PostAimWeapon";
 	Weapons[2].sShootFunction = "ShootWeapon";
 
 
@@ -110,6 +113,7 @@ void InitWeapons()
 	Weapons[3].nSpreadShots = 1;
 	Weapons[3].nType = WEAPON_TYPE_AUTO;
 	Weapons[3].sAimFunction = "AimWeapon";
+	Weapons[3].sPostAimFunction = "PostAimWeapon";
 	Weapons[3].sShootFunction = "ShootWeapon";
 
 	
@@ -128,6 +132,7 @@ void InitWeapons()
 	Weapons[4].nSpreadShots = 1;
 	Weapons[4].nNonLethal = 1;
 	Weapons[4].sAimFunction = "AimWeapon";
+	Weapons[4].sPostAimFunction = "PostAimWeapon";
 	Weapons[4].sShootFunction = "ShootWeapon";
 
 
@@ -180,6 +185,7 @@ void InitWeapons()
 	Weapons[7].nAccMax = 15;
 	Weapons[7].nType = WEAPON_TYPE_AUTO;
 	Weapons[7].sAimFunction = "AimWeapon";
+	Weapons[7].sPostAimFunction = "PostAimWeapon";
 	Weapons[7].sShootFunction = "ShootWeapon";
 
 	Weapons[8].nRange = 100;
