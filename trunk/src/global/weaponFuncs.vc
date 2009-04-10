@@ -57,6 +57,12 @@ void FreeAimWeapon()
 	anims[nTargetPointerAnim].y = nFreeAimY;
 }
 
+void PostFreeAim()
+{
+	anims[nTargetPointerAnim].x = 0-16;
+	anims[nTargetPointerAnim].y = 0-16;
+}
+
 void SniperAim()
 {
 	int nScreenMask = NewImage(ImageWidth(screen), ImageWidth(screen));
