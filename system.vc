@@ -152,7 +152,6 @@ int nMissionNum;	//the mission that the player is currently on
 int nPlayerAnimating;
 int nPlayerAnimWakeUp;
 int nPlayerAnimWaiting;
-int nPlayerBeforeAnimSpeed;
 int nPlayerAnimFrame;
 string sPlayerAnimationString;
 
