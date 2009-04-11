@@ -592,8 +592,7 @@ void ExitGame()
 	FreeImage(lightimg);
 	FreeImage(windowlightimg);
 	
-	FreeAnimation(nTargetPointerAnim);
-	FreeAnimation(nStealPointerAnim);
+	FreeAllAnimations();
 	
 	FreeWeapons();
 	
