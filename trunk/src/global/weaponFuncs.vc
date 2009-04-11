@@ -107,12 +107,6 @@ void FreeAimWeapon()
 	
 	entity.speed[nPlayerEnt] = 0;
 	
-	//free aim!
-	if(!bAimingLastTick)
-	{
-		nFreeAimX = entity.x[nPlayerEnt];
-		nFreeAimY = entity.y[nPlayerEnt];
-	}
 
 	if(up)
 	{
@@ -149,6 +143,14 @@ void FreeAimWeapon()
 	
 	anims[nTargetPointerAnim].x = nFreeAimX;
 	anims[nTargetPointerAnim].y = nFreeAimY;
+}
+
+void PreFreeAim()
+{
+	nLastFreeAimTick = timer;
+
+	nFreeAimX = entity.x[nPlayerEnt];
+	nFreeAimY = entity.y[nPlayerEnt];
 }
 
 void PostFreeAim()

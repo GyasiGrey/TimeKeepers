@@ -475,6 +475,12 @@ void ProcessInput()
 		//aim weapon
 		if(BUTTON_AIM && !(nHealth <= 0 || nHoldCommText))
 		{
+			if(!bAimingLastTick)
+			{
+				CallFunction(Weapons[nEquipedWeapon].sPreAimFunction);
+				Error("Calling PreAimFunction: " + Weapons[nEquipedWeapon].sPostAimFunction);
+			}
+
 			CallFunction(Weapons[nEquipedWeapon].sAimFunction);
 			
 			if(BUTTON_SHOOT)
