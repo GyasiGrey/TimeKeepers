@@ -27,6 +27,7 @@ struct Weapon
 	
 	string sAimFunction;
 	string sShootFunction;
+	string sPreAimFunction;		//called the first tick where the player is holding the aim button
 	string sPostAimFunction;	//called once the player releases the aim button
 }
 
@@ -138,6 +139,7 @@ void InitWeapons()
 	Weapons[5].sDetFunction = "GrenadeExplode";
 	Weapons[5].sAimFunction = "FreeAimWeapon";
 	Weapons[5].sPostAimFunction = "PostFreeAim";
+	Weapons[5].sPreAimFunction = "PreFreeAim";
 	Weapons[5].sShootFunction = "ThrowGrenade";
 
 	Weapons[6].nRange = 0;
@@ -189,6 +191,7 @@ void InitWeapons()
 	Weapons[8].nFuseLength = 150;
 	Weapons[8].sDetFunction = "GrenadeExplode";
 	Weapons[8].sAimFunction = "FreeAimWeapon";
+	Weapons[8].sPreAimFunction = "PreFreeAim";
 	Weapons[8].sPostAimFunction = "PostFreeAim";
 	Weapons[8].sShootFunction = "ShootRocket";
 	
@@ -208,6 +211,7 @@ void InitWeapons()
 	Weapons[9].nFuseLength = 150;
 	Weapons[9].sDetFunction = "FlashBangExplode";
 	Weapons[9].sAimFunction = "FreeAimWeapon";
+	Weapons[9].sPreAimFunction = "PreFreeAim";
 	Weapons[9].sPostAimFunction = "PostFreeAim";
 	Weapons[9].sShootFunction = "ThrowGrenade";
 	
@@ -225,6 +229,7 @@ void InitWeapons()
 	Weapons[10].nType = WEAPON_TYPE_SINGLE;
 	Weapons[10].nSpreadShots = 1;
 	Weapons[10].sAimFunction = "SniperAim";
+	Weapons[10].sPreAimFunction = "PreFreeAim";
 	Weapons[10].sPostAimFunction = "PostFreeAim";
 	Weapons[10].sShootFunction = "ShootSniper";
 }
