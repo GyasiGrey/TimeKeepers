@@ -62,7 +62,7 @@ void AllWeapons()
 		return;
 		
 	int i;
-	for(i=0;i<10/*MAX_WEAPONS*/;i++)
+	for(i=0;i<MAX_WEAPONS;i++)
 	{
 		nHasWeapon[i] = 1;
 		nAmmo[i] = 1000;
