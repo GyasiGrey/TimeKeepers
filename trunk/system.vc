@@ -506,7 +506,8 @@ void ProcessInput()
 			if(bAimingLastTick)
 			{
 				bAimingLastTick = 0;
-
+				bHasTargetList = 0;
+				
 				CallFunction(Weapons[nEquipedWeapon].sPostAimFunction);
 				Error("Calling PostAimFunction: " + Weapons[nEquipedWeapon].sPostAimFunction);
 			}
