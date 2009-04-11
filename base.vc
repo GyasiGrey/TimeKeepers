@@ -91,8 +91,8 @@ void start()
 	else if(nFlags[FLAG_MISSION2_NEWS_OVER] && !nFlags[FLAG_BASE_AFTER_NEWS_OVER])
 	{
 		cameratracking=1;
-		entity.x[0] = 57*16;
-		entity.y[0] = 45*16;
+		entity.x[Enemies[nFlags[FLAG_BASE_TECH]].nEntity] = 57*16;
+		entity.y[Enemies[nFlags[FLAG_BASE_TECH]].nEntity] = 45*16;
 		entity.x[nPlayerEnt] = 54*16;
 		entity.y[nPlayerEnt] = 45*16;
 		//sequence after the news broadcast, our heroes decide to knock over a casion.
@@ -119,8 +119,8 @@ void start()
 		CommText("Tech: Hey, someone has to do all the hard work of actually sending a person through time.");
 		CommText("Ghost: Yeah....I should get going shouldn't I.");
 		CommText("Tech: You should. I'll meet you at the crono tube when your ready to go.");
-		entity.obstructable[0] = 0;
-		EntityMove(0, "X54 Y42 X49 Y44 X38 Y39 X30 Y29 X32 U0");
+		entity.obstructable[Enemies[nFlags[FLAG_BASE_TECH]].nEntity] = 0;
+		EntityMove(Enemies[nFlags[FLAG_BASE_TECH]].nEntity, "X54 Y42 X49 Y44 X38 Y39 X30 Y29 X32 U0");
 		
 		SetEntitiesPaused(1);
 		WaitForCommText();
@@ -133,8 +133,8 @@ void start()
 	{
 		//sequence to start mission2
 		//move tech to his room
-		entity.x[0] = 57*16;
-		entity.y[0] = 45*16;
+		entity.x[Enemies[nFlags[FLAG_BASE_TECH]].nEntity] = 57*16;
+		entity.y[Enemies[nFlags[FLAG_BASE_TECH]].nEntity] = 45*16;
 		cameratracking=1;
 		SetEntitiesPaused(0);
 		FadeIn(100, RGB(0, 0, 0));
@@ -160,7 +160,7 @@ void start()
 	
 		RemoveHook("DoBlur");
 
-		EntityMove(0, "L0");
+		EntityMove(Enemies[nFlags[FLAG_BASE_TECH]].nEntity, "L0");
 		PlayerMove("Y29R0");
 		
 		nHoldCommText = 1;
@@ -193,6 +193,9 @@ void InitEnemies()
 	CreateEnemy(101, 74, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_PISTOL, "U0W200R0W200D0W200L0W200B", "guard.chr");
 	CreateEnemy(104, 74, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "Y59W200L0W200R0W200Y74W200L0W200R0W200B", "guard.chr");
 	CreateEnemy(92, 62, ENTITY_FACE_UP, ENEMY_TEMPLATE_PISTOL, "", "guard.chr");
+	
+	//Tech - he's an enemy now so you can shoot him without crashing the game. But don't do that...it's not nice.
+	nFlags[FLAG_BASE_TECH] = CreateEnemy(32, 29, ENTITY_FACE_UP, ENEMY_TEMPLATE_DUMMY, "", "tech.chr");
 }
 
 void InitAmbientSounds()
@@ -407,9 +410,9 @@ void EnterChronoRoom()
 		nFlags[FLAG_COMM_TECH_GHOST_LASTTUTROOM] = 1;
 		
 		PlayerMove("X29Y29R0"); //move to and face ghost
-		EntityMove(0, "L0");
+		EntityMove(Enemies[nFlags[FLAG_BASE_TECH]].nEntity, "L0");
 		WaitForEntity(nPlayerEnt);
-		WaitForEntity(0);
+		WaitForEntity(Enemies[nFlags[FLAG_BASE_TECH]].nEntity);
 		
 		SetEntitiesPaused(1);	//hold the player where they are
 		nHoldCommText = 1;
@@ -432,7 +435,7 @@ void EnterChronoRoom()
 		WaitForCommText();
 		nHoldCommText = 0;
 		
-		EntityMove(0, "U0"); //make tech look at his computer again
+		EntityMove(Enemies[nFlags[FLAG_BASE_TECH]].nEntity, "U0"); //make tech look at his computer again
 		nFlags[FLAG_COMM_TECH_GHOST_CHRONO] = 1;
 	}
 }
