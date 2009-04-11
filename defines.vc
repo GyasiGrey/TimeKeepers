@@ -226,6 +226,9 @@
 //Shake effect
 #define EFFECT_SHAKE_TICKS_BETWEEN 5	//number of ticks before changing the shake direction
 
+//Player walk speed
+#define PLAYER_WALK_SPEED 100
+
 //Enemies
 #define MAX_ENEMIES 250
 #define WALK_SPEED_NORMAL 50
