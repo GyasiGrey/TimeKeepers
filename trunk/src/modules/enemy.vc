@@ -1026,7 +1026,7 @@ void PlayerRender()
 			else if(!strcmp(sPlayerAnimationString , "")) //empty anim string. We done ere. Gimmie tha detanator.
 			{
 				nPlayerAnimating = 0; //there done shooting, let them walk
-				entity.speed[event.entity] = nPlayerBeforeAnimSpeed; //reset the speed
+				entity.speed[event.entity] = PLAYER_WALK_SPEED; //reset the speed
 			}
 		}
 		else
@@ -1061,7 +1061,6 @@ void AnimatePlayer(string animstr)
 	if(nPlayerAnimating)
 		return;
 		
-	nPlayerBeforeAnimSpeed = entity.speed[nPlayerEnt];
 	entity.speed[nPlayerEnt] = 0;
 	nPlayerAnimating = 1;
 	sPlayerAnimationString = animstr;
