@@ -105,12 +105,13 @@ void FreeAimWeapon()
 	int nFreeAimTickDelta = oF_Whole2Fixed(timer - nLastFreeAimTick);
 	nLastFreeAimTick = timer;
 	
+	entity.speed[nPlayerEnt] = 0;
+	
 	//free aim!
 	if(!bAimingLastTick)
 	{
 		nFreeAimX = entity.x[nPlayerEnt];
 		nFreeAimY = entity.y[nPlayerEnt];
-		entity.speed[nPlayerEnt] = 0;
 	}
 
 	if(up)
