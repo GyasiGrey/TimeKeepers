@@ -585,6 +585,14 @@ void PlayerDeath()
 	OpenGameOverMenu();
 }
 
+void SpawnPlayer(int nX, int nY)
+{
+	nPlayerEnt = EntitySpawn(nX,nY,"ghost.chr");
+	SetPlayer(nPlayerEnt);
+	HookEntityRender(nPlayerEnt, "PlayerRender");
+	entity.speed[nPlayerEnt] = PLAYER_WALK_SPEED;
+}
+
 void ExitGame()
 {
 	FreeImage(nHealthIcn);
