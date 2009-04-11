@@ -4,10 +4,7 @@ void start()
 	
 	if(!nFlags[FLAG_MISSION1_COMPLETE] || nFlags[FLAG_MISSION2_START])
 	{
-		nPlayerEnt = EntitySpawn(20,185,"ghost.chr");
-		SetPlayer(nPlayerEnt);
-		HookEntityRender(nPlayerEnt, "PlayerRender");
-		entity.speed[nPlayerEnt] = PLAYER_WALK_SPEED;
+		SpawnPlayer(20, 185);
 	}
 	
 	sAreaName = "Mission 1";	

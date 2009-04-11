@@ -4,10 +4,7 @@ void start()
 	
 	int e1,e2,e3,e4;
 	
-	nPlayerEnt = EntitySpawn(40,58,"ghost.chr");
-	SetPlayer(nPlayerEnt);
-	HookEntityRender(nPlayerEnt, "PlayerRender");
-	entity.speed[nPlayerEnt] = PLAYER_WALK_SPEED;
+	SpawnPlayer(40, 58);
 	
 	sAreaName = "Home Base";
 
