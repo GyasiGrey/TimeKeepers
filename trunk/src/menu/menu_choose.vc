@@ -102,5 +102,5 @@ void CloseChoiceMenu()
 	//CloseMenu(nCurrentMenu);
 	CloseTopMenu();
 	
-	entity.speed[nPlayerEnt] = 100;
+	entity.speed[nPlayerEnt] = PLAYER_WALK_SPEED;
 }
