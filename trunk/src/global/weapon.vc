@@ -24,6 +24,8 @@ struct Weapon
 	
 	int nFuseLength;	//thrown weapons. How long before they explode.
 	string sDetFunction;	//thrown weapons. Function called when the explode.
+	string sThrownAnimUD;	//thrown weapons. Filename of the up/down animation.
+	string sThrownAnimLR;	//thrown weapons. Filename of the left/right animation.
 	
 	string sAimFunction;
 	string sShootFunction;
@@ -141,6 +143,9 @@ void InitWeapons()
 	Weapons[5].sPostAimFunction = "PostFreeAim";
 	Weapons[5].sPreAimFunction = "PreFreeAim";
 	Weapons[5].sShootFunction = "ThrowGrenade";
+	Weapons[5].sThrownAnimUD = "grenadeUD.png";
+	Weapons[5].sThrownAnimLR = "grenadeLR.png";
+
 
 	Weapons[6].nRange = 0;
 	Weapons[6].sName = "Empty";
@@ -214,6 +219,8 @@ void InitWeapons()
 	Weapons[9].sPreAimFunction = "PreFreeAim";
 	Weapons[9].sPostAimFunction = "PostFreeAim";
 	Weapons[9].sShootFunction = "ThrowGrenade";
+	Weapons[9].sThrownAnimUD = "flashbangUD.png";
+	Weapons[9].sThrownAnimLR = "flashbangLR.png";
 	
 	Weapons[10].nRange = 200;
 	Weapons[10].sName = "Sniper";
