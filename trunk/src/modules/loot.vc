@@ -94,13 +94,13 @@ void Steal()
 	if(strcmp(sLootInRange, "")!=0)
 	{
 		//put the pointer on one
-		anims[nTargetPointerAnim].x = Loots[val(GetToken(sLootInRange, " ", nTargetIndex))].nX;
-		anims[nTargetPointerAnim].y = Loots[val(GetToken(sLootInRange, " ", nTargetIndex))].nY;
+		anims[nStealPointerAnim].x = Loots[val(GetToken(sLootInRange, " ", nTargetIndex))].nX;
+		anims[nStealPointerAnim].y = Loots[val(GetToken(sLootInRange, " ", nTargetIndex))].nY;
 	}
 	else
 	{
-		anims[nTargetPointerAnim].x = 0-16;
-		anims[nTargetPointerAnim].y = 0-16;
+		anims[nStealPointerAnim].x = 0-16;
+		anims[nStealPointerAnim].y = 0-16;
 	}
 	
 	//try to take the item

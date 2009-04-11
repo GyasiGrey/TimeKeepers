@@ -129,6 +129,7 @@ int nPlayerEnt;
 int nTargetIndex;
 
 int nTargetPointerAnim;
+int nStealPointerAnim;
 
 string sEntitiesInRange; //space seperated ints of entities in the range of players weapon/skill
 string sLootInRange;	//same as above except for loot
@@ -357,6 +358,7 @@ void InitMap(int missionNumber)
 
 	//load the target anim
 	nTargetPointerAnim = LoadAnimationEX("targetpointer.png", 16, 16, 0-16, 0-16, "T1 F0, W20, F1, W20, F2, W20, F3, W20, F2, W20, F1, W20, F0, R");
+	nStealPointerAnim = LoadAnimationEX("targetpointer.png", 16, 16, 0-16, 0-16, "T1 F0, W20, F1, W20, F2, W20, F3, W20, F2, W20, F1, W20, F0, R");
 	
 	//SystemVC Functions
 	ClearAmbientSounds();
@@ -521,8 +523,8 @@ void ProcessInput()
 		{
 			//clear the steal targeting animation
 			sLootInRange = "";
-			anims[nTargetPointerAnim].x = 0-16;
-			anims[nTargetPointerAnim].y = 0-16;
+			anims[nStealPointerAnim].x = 0-16;
+			anims[nStealPointerAnim].y = 0-16;
 		}
 
 		if(BUTTON_SHOOT)
@@ -591,6 +593,7 @@ void ExitGame()
 	FreeImage(windowlightimg);
 	
 	FreeAnimation(nTargetPointerAnim);
+	FreeAnimation(nStealPointerAnim);
 	
 	FreeWeapons();
 	
