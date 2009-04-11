@@ -517,6 +517,13 @@ void ProcessInput()
 		{
 			Steal();
 		}
+		else
+		{
+			//clear the steal targeting animation
+			sLootInRange = "";
+			anims[nTargetPointerAnim].x = 0-16;
+			anims[nTargetPointerAnim].y = 0-16;
+		}
 
 		if(BUTTON_SHOOT)
 		{
