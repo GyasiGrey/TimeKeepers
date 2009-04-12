@@ -160,7 +160,7 @@ void EnemyAINormal()
 		}
 
 		//enemies entity is done moving
-		if(!entity.movecode[Enemies[nCurrentEnemy].nEntity] && entity.x[Enemies[nCurrentEnemy].nEntity] == Enemies[nCurrentEnemy].nOriginalX && entity.y[Enemies[nCurrentEnemy].nEntity] == Enemies[nCurrentEnemy].nOriginalY)
+		if(EnemyIsStopped(nCurrentEnemy))
 		{
 			StopEnemy(nCurrentEnemy);
 			Enemies[nCurrentEnemy].nMode = MODE_NORMAL;
