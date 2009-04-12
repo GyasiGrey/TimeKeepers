@@ -642,6 +642,8 @@ void ProcessEnemies()
 					Error("Enemy " + str(i) + " A*'ing to final coord: " + str(Enemies[i].nTargetX/16) + "*" + str(Enemies[i].nTargetY/16) + ".");
 					//A* the enemy to their final destination
 					findPath(Enemies[i].nEntity, entity.x[Enemies[i].nEntity]/16, entity.y[Enemies[i].nEntity]/16, Enemies[i].nTargetX/16, Enemies[i].nTargetY/16);
+
+					SnapEnemyToGrid(Enemies[i].nEntity);
 				}
 				else
 				{
@@ -1220,4 +1222,26 @@ void StopEnemy(int i)
 	Enemies[i].sNodeIndex = 0;
 	Enemies[i].sNodePath = "";
 
+}
+
+//snaps an enemy to the 16*16 grid to make them ready to A*
+void SnapEnemyToGrid(int nEntityID)
+{
+	int nTemp;
+	
+	if(entity.x[nEntityID] % 16 != 0)
+	{
+		nTemp = entity.x[nEntityID] / 16;
+		entity.x[nEntityID] = nTemp * 16;
+
+		Error("setting entity " + str(nEntityID) + " x:" + str(entity.x[nEntityID]));
+	}
+
+	if(entity.y[nEntityID] % 16 != 0)
+	{
+		nTemp = entity.y[nEntityID] / 16;
+		entity.y[nEntityID] = nTemp * 16;
+
+		Error("setting entity " + str(nEntityID) + " y:" + str(entity.y[nEntityID]));
+	}
 }
