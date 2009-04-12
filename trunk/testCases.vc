@@ -202,3 +202,15 @@ void test_ClearScrollingText()
 		assertTrue(strcmp(sTextLines[i], "") == 0);
 	}
 }
+
+void test_EntityAt()
+{
+	int nTestEnt = EntitySpawn(1, 1, "tech.chr");
+	
+	assertTrue(EntityAt(16, 16) == nTestEnt);
+	assertTrue(EntityAt(16, 32) == nTestEnt);
+	assertTrue(EntityAt(32, 16) == nTestEnt);
+	assertTrue(EntityAt(32, 32) == nTestEnt);
+	
+	assertTrue(EntityAt(33, 16) != nTestEnt);
+}
