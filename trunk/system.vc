@@ -18,7 +18,7 @@
 #include "src\global\trackedStats.vc"
 #include "src\global\achivements.vc"	//Achivement Unlocked: "Copyright Infringement" 30G
 #include "src\global\blur.vc"		//Rages blur lib
-#include "src\global\AStar.vh"		//Rages A*
+#include "src\global\AStar.vc"		//Rages A*
 #include "src\global\hook.vc"		//watchout for the hook
 #include "src\global\sounds.vc"		//sounds functions (like sully simple)
 #include "src\global\flags.vc"		//where all the flags are defined
