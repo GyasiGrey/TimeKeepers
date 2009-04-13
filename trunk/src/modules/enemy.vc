@@ -642,8 +642,6 @@ void ProcessEnemies()
 					Error("Enemy " + str(i) + " A*'ing to final coord: " + str(Enemies[i].nTargetX/16) + "*" + str(Enemies[i].nTargetY/16) + ".");
 					//A* the enemy to their final destination
 					findPath(Enemies[i].nEntity, entity.x[Enemies[i].nEntity]/16, entity.y[Enemies[i].nEntity]/16, Enemies[i].nTargetX/16, Enemies[i].nTargetY/16);
-
-					SnapEnemyToGrid(Enemies[i].nEntity);
 				}
 				else
 				{

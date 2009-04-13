@@ -16,7 +16,7 @@
 //----A* Algorithm specific Variables
 
 //width and height in tiles +1
-#define TIMEOUT 100
+#define TIMEOUT 10
 #define MAP_WIDTH 1001
 #define MAP_HEIGHT 1001
 #define MAX_OPEN 9999
@@ -65,13 +65,16 @@ int timeTrack;
 
 int findPath(int ent, int x1, int y1, int x2, int y2){
 	int i, chkValue, foundPath, tempIndex, tempCost;
+	
+	SnapEnemyToGrid(ent);
+	
 //Check for immediate errors in path
 	Error("Enemy " + str(GetEnemyIndex(ent)) + " pathing to " + str(x2) + "*" +str(y2));
 	if(x1 == x2 && y1 == y2){
 		error("EXIT: already at target position");
 		return 0;
 	}
-	if(chkObs(x2,y2,0)){
+	if(chkObs(x2,y2,-1)){
 		error("EXIT: target is an obstruction");
 		return 0;
 	}
@@ -126,10 +129,10 @@ int findPath(int ent, int x1, int y1, int x2, int y2){
 
 //#3. find adjacent squares and add to open list
 		for(temp.y=cur.y-1;temp.y<=cur.y+1;temp.y++)
-		if( !chkObs(cur.x,temp.y,1) ) //diagonal correction (top/bottom)
+		if( !chkObs(cur.x,temp.y,ent) ) //diagonal correction (top/bottom)
 		for(temp.x=cur.x-1;temp.x<=cur.x+1;temp.x++)
-		if( !chkObs(temp.x, temp.y-(temp.y-cur.y), 1) ) //diagonal correction
-		if(!chkObs(temp.x, temp.y, 1)){
+		if( !chkObs(temp.x, temp.y-(temp.y-cur.y), ent) ) //diagonal correction
+		if(!chkObs(temp.x, temp.y, ent)){
 		
 		//look up node type
 			chkValue=activeChk(temp.x, temp.y);
@@ -248,19 +251,25 @@ int openListChk(int x, int y){
 }
 
 
-//note: include entities and map restrictions in obstruction chk
+//Checks if the coord x/y is an obstruction. If ignoreEnt is -1 entities will not be counted as obstructions. 
+//If ignoreEnt is not -1 the entity passed will be not counted as an obstruction.
 int chkObs(int x, int y, int ignoreEnt){
-	int tx,ty;
+	int tx,ty,ent;
 	x=x*TILES;
 	y=y*TILES;
 	if (temp.x >= 0 && temp.y >= 0 && temp.x != MAP_WIDTH && temp.y != MAP_HEIGHT){
 		for(ty=y;ty<=y+TILES-1;ty++)
 		for(tx=x;tx<=x+TILES-1;tx++)
 			if(getObs(tx,ty)){
-				//rect(tx*(16)-xwin,ty*(16)-ywin,tx*(16)-xwin+(16),ty*(16)-ywin+(16),RGB(255,255,255),screen);
+				if(DEBUG_SHOW_ASTAR)
+					rectfill(tx*(16)-xwin,ty*(16)-ywin,tx*(16)-xwin+(16),ty*(16)-ywin+(16),RGB(255,255,255),screen);
 				return(1);
 			}
-			if(ignoreEnt==1 && entityAt(tx,ty)!=-1){
+
+			ent = entityAt(tx*16,ty*16);
+			if(ignoreEnt!=-1 && ent!=ignoreEnt && ent!=-1){
+				if(DEBUG_SHOW_ASTAR)
+					rectfill(tx*(16)-xwin,ty*(16)-ywin,tx*(16)-xwin+(16),ty*(16)-ywin+(16),RGB(255,0,0),screen);
 				return(1);
 			}
 			//else rect(tx*(16)-xwin,ty*(16)-ywin,tx*(16)-xwin+(16),ty*(16)-ywin+(16),0,screen);
