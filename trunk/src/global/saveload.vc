@@ -382,11 +382,6 @@ void MoveLoadedData()
 			entity.y[Enemies[e].nEntity] = LoadedEnemies[i].nSaveY;
 			Enemies[e].nWeapon = LoadedEnemies[i].nWeapon;
 			Enemies[e].nMode = LoadedEnemies[i].nMode;
-			Enemies[e].nCoolDownStart = LoadedEnemies[i].nCoolDownStart;
-			Enemies[e].nAlertStart = LoadedEnemies[i].nAlertStart;
-			Enemies[e].nSearchStart = LoadedEnemies[i].nSearchStart;
-			Enemies[e].nTranqEnd = LoadedEnemies[i].nTranqEnd;
-			Enemies[e].nSoundStart = LoadedEnemies[i].nSoundStart;
 			Enemies[e].nActive = LoadedEnemies[i].nActive;
 			Enemies[e].sAIFunc = LoadedEnemies[i].sAIFunc;
 
@@ -395,6 +390,12 @@ void MoveLoadedData()
 				MakeAlert(e);
 			}
 			
+			Enemies[e].nCoolDownStart = LoadedEnemies[i].nCoolDownStart;
+			Enemies[e].nAlertStart = LoadedEnemies[i].nAlertStart;
+			Enemies[e].nSearchStart = LoadedEnemies[i].nSearchStart;
+			Enemies[e].nTranqEnd = LoadedEnemies[i].nTranqEnd;
+			Enemies[e].nSoundStart = LoadedEnemies[i].nSoundStart;
+
 			//prevent dead enemies from moving or obstructing
 			if(!Enemies[e].nActive)
 			{
