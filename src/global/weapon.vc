@@ -253,10 +253,14 @@ void InitWeapons()
 	Weapons[11].nAccMax = 0;
 	Weapons[11].nType = WEAPON_TYPE_SINGLE;
 	Weapons[11].nSpreadShots = 1;
+	Weapons[11].nFuseLength = -1;
 	Weapons[11].sAimFunction = "FreeAimWeapon";
 	Weapons[11].sPreAimFunction = "PreFreeAim";
 	Weapons[11].sPostAimFunction = "PostFreeAim";
 	Weapons[11].sShootFunction = "ThrowC4";
+	Weapons[11].sThrownAnimUD = "flashbangUD.png";
+	Weapons[11].sThrownAnimLR = "flashbangLR.png";
+	
 
 	Weapons[12].nRange = 0;
 	Weapons[12].sName = "Det Box";
