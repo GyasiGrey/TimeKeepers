@@ -30,7 +30,10 @@ int CreateThrown(int x, int y, int dx, int dy, int anim, int dtimer, int nweapon
 			ThrownItems[i].nDeltaX = dx;
 			ThrownItems[i].nDeltaY = dy;
 			ThrownItems[i].nAnim = anim;
-			ThrownItems[i].nDetonateTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + dtimer;
+			if(dtimer == -1)
+				ThrownItems[i].nDetonateTimer = -1;
+			else
+				ThrownItems[i].nDetonateTimer = vcTimer[TIMER_ENEMY_LOGIC].nTick + dtimer;
 			ThrownItems[i].nWeapon = nweapon;
 			ThrownItems[i].nCollisionType = collisiontype;
 			ThrownItems[i].sDetonateFunc = func;
@@ -105,13 +108,16 @@ void ProcessesThrown()
 				Anims[ThrownItems[i].nAnim].x = oF_Fixed2Int(ThrownItems[i].nX);
 				Anims[ThrownItems[i].nAnim].y = oF_Fixed2Int(ThrownItems[i].nY);
 
-				if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nDetonateTimer)
+				if(ThrownItems[i].nDetonateTimer != -1)
 				{
-					nCurrentThrown = i;
-					CallFunction(ThrownItems[i].sDetonateFunc);
-					nCurrentThrown = -1;
+					if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nDetonateTimer)
+					{
+						nCurrentThrown = i;
+						CallFunction(ThrownItems[i].sDetonateFunc);
+						nCurrentThrown = -1;
 
-					KillThrown(i);
+						KillThrown(i);
+					}
 				}
 			}
 		}

@@ -240,7 +240,7 @@ void InitWeapons()
 	Weapons[10].sPostAimFunction = "PostFreeAim";
 	Weapons[10].sShootFunction = "ShootSniper";
 
-	Weapons[11].nRange = 25;
+	Weapons[11].nRange = 0;
 	Weapons[11].sName = "C4";
 	Weapons[11].sSound = "sounds\sniper.wav";
 	Weapons[11].nIcon = LoadImage("gfx\icons\grenade.png");
