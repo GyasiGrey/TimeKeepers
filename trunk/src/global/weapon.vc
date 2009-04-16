@@ -254,6 +254,7 @@ void InitWeapons()
 	Weapons[11].nType = WEAPON_TYPE_SINGLE;
 	Weapons[11].nSpreadShots = 1;
 	Weapons[11].nFuseLength = -1;
+	Weapons[11].sDetFunction = "GrenadeExplode";
 	Weapons[11].sAimFunction = "FreeAimWeapon";
 	Weapons[11].sPreAimFunction = "PreFreeAim";
 	Weapons[11].sPostAimFunction = "PostFreeAim";
