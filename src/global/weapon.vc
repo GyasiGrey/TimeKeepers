@@ -239,6 +239,40 @@ void InitWeapons()
 	Weapons[10].sPreAimFunction = "PreFreeAim";
 	Weapons[10].sPostAimFunction = "PostFreeAim";
 	Weapons[10].sShootFunction = "ShootSniper";
+
+	Weapons[11].nRange = 25;
+	Weapons[11].sName = "C4";
+	Weapons[11].sSound = "sounds\sniper.wav";
+	Weapons[11].nIcon = LoadImage("gfx\icons\grenade.png");
+	Weapons[11].nMaxAmmo = 5;
+	Weapons[11].nDamageMin = 40;
+	Weapons[11].nDamageMax = 45;
+	Weapons[11].nRecharge = 100;
+	Weapons[11].nSoundRadius = 0;
+	Weapons[11].nAccMin = 0;
+	Weapons[11].nAccMax = 0;
+	Weapons[11].nType = WEAPON_TYPE_SINGLE;
+	Weapons[11].nSpreadShots = 1;
+	Weapons[11].sAimFunction = "FreeAimWeapon";
+	Weapons[11].sPreAimFunction = "PreFreeAim";
+	Weapons[11].sPostAimFunction = "PostFreeAim";
+	Weapons[11].sShootFunction = "ThrowC4";
+
+	Weapons[12].nRange = 0;
+	Weapons[12].sName = "Det Box";
+	Weapons[12].sSound = "sounds\sniper.wav";
+	Weapons[12].nIcon = LoadImage("gfx\icons\grenade.png");
+	Weapons[12].nMaxAmmo = -1;
+	Weapons[12].nDamageMin = 0;
+	Weapons[12].nDamageMax = 0;
+	Weapons[12].nRecharge = 50;
+	Weapons[12].nSoundRadius = 0;
+	Weapons[12].nAccMin = 0;
+	Weapons[12].nAccMax = 0;
+	Weapons[12].nType = WEAPON_TYPE_SINGLE;
+	Weapons[12].nSpreadShots = 1;
+	Weapons[12].sAimFunction = "NullAim";
+	Weapons[12].sShootFunction = "ShootDetBox";
 }
 
 void FreeWeapons()
