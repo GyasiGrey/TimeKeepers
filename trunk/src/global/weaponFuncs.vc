@@ -269,6 +269,27 @@ void ThrowGrenade()
 	PlaySoundStack(Weapons[nEquipedWeapon].sSound);
 }
 
+//throw a block of C4 - TODO: find a way of refactoring this into ThrowGrenade()
+void ThrowC4()
+{
+	//throw C4 at a set speed - TODO: remove magic number
+	nDeltaX = oF_divFF(oF_Whole2Fixed(nFreeAimX - entity.x[nPlayerEnt]), oF_Whole2Fixed(200));
+	nDeltaY = oF_divFF(oF_Whole2Fixed(nFreeAimY - entity.y[nPlayerEnt]), oF_Whole2Fixed(200));
+
+	if(entity.face[nPlayerEnt] == ENTITY_FACE_UP || entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
+		nThrownAnim = LoadAnimationEX(Weapons[nEquipedWeapon].sThrownAnimUD, 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
+	else
+		nThrownAnim = LoadAnimationEX(Weapons[nEquipedWeapon].sThrownAnimLR, 8, 8, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W20 F1 W20 R");
+
+	CreateThrown(oF_Whole2Fixed(entity.x[nPlayerEnt]), oF_Whole2Fixed(entity.y[nPlayerEnt],) nDeltaX, nDeltaY, nThrownAnim, Weapons[nEquipedWeapon].nFuseLength, nEquipedWeapon, THROWN_COLLISION_REFLECT, Weapons[nEquipedWeapon].sDetFunction);
+
+	nAmmo[nEquipedWeapon]--;
+
+	UnpressButtons();
+	
+	PlaySoundStack(Weapons[nEquipedWeapon].sSound);
+}
+
 void NullAim()
 {
 	anims[nTargetPointerAnim].x = -15;
