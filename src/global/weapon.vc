@@ -259,8 +259,8 @@ void InitWeapons()
 	Weapons[11].sPreAimFunction = "PreFreeAim";
 	Weapons[11].sPostAimFunction = "PostFreeAim";
 	Weapons[11].sShootFunction = "ThrowC4";
-	Weapons[11].sThrownAnimUD = "flashbangUD.png";
-	Weapons[11].sThrownAnimLR = "flashbangLR.png";
+	Weapons[11].sThrownAnimUD = "c4.png";
+	Weapons[11].sThrownAnimLR = "c4.png";
 	
 
 	Weapons[12].nRange = 0;
