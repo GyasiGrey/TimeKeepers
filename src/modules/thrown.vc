@@ -112,16 +112,21 @@ void ProcessesThrown()
 				{
 					if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= ThrownItems[i].nDetonateTimer)
 					{
-						nCurrentThrown = i;
-						CallFunction(ThrownItems[i].sDetonateFunc);
-						nCurrentThrown = -1;
-
-						KillThrown(i);
+						DetonateThrown(i);
 					}
 				}
 			}
 		}
 	}
+}
+
+void DetonateThrown(int i)
+{
+	nCurrentThrown = i;
+	CallFunction(ThrownItems[i].sDetonateFunc);
+	nCurrentThrown = -1;
+
+	KillThrown(i);
 }
 
 void KillThrown(int i)
