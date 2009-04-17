@@ -269,19 +269,15 @@ void ThrowGrenade()
 	PlaySoundStack(Weapons[nEquipedWeapon].sSound);
 }
 
-//throw a block of C4 - TODO: find a way of refactoring this into ThrowGrenade()
-void ThrowC4()
+//place a throwable so it stays in one position but otherwise acts like a throwable
+void PlaceThrowable()
 {
-	//throw C4 at a set speed - TODO: remove magic number
-	nDeltaX = oF_divFF(oF_Whole2Fixed(nFreeAimX - entity.x[nPlayerEnt]), oF_Whole2Fixed(200));
-	nDeltaY = oF_divFF(oF_Whole2Fixed(nFreeAimY - entity.y[nPlayerEnt]), oF_Whole2Fixed(200));
-
 	if(entity.face[nPlayerEnt] == ENTITY_FACE_UP || entity.face[nPlayerEnt] == ENTITY_FACE_DOWN)
 		nThrownAnim = LoadAnimationEX(Weapons[nEquipedWeapon].sThrownAnimUD, 16, 16, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W40 F1 W40 R");
 	else
 		nThrownAnim = LoadAnimationEX(Weapons[nEquipedWeapon].sThrownAnimLR, 16, 16, entity.x[nPlayerEnt], entity.y[nPlayerEnt], "T1 F0 W40 F1 W40 R");
 
-	CreateThrown(oF_Whole2Fixed(entity.x[nPlayerEnt]), oF_Whole2Fixed(entity.y[nPlayerEnt],) nDeltaX, nDeltaY, nThrownAnim, Weapons[nEquipedWeapon].nFuseLength, nEquipedWeapon, THROWN_COLLISION_REFLECT, Weapons[nEquipedWeapon].sDetFunction);
+	CreateThrown(oF_Whole2Fixed(entity.x[nPlayerEnt]), oF_Whole2Fixed(entity.y[nPlayerEnt],) 0, 0, nThrownAnim, Weapons[nEquipedWeapon].nFuseLength, nEquipedWeapon, THROWN_COLLISION_REFLECT, Weapons[nEquipedWeapon].sDetFunction);
 
 	nAmmo[nEquipedWeapon]--;
 
