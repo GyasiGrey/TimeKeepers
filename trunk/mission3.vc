@@ -59,6 +59,8 @@ void InitDoors()
 	
 	CreateDoor(88, 141, LoadImage("gfx\misc\locker_door.png"), -1);
 	CreateDoor(65, 145, LoadImage("gfx\misc\locker_door.png"), -1);
+	
+	CreateDoor(97, 129, LoadImage("gfx\misc\locker_door.png"), -1);
 }
 
 void InitEnemies()
@@ -86,7 +88,7 @@ void InitLoot()
 	CreateLoot(42*16, (17*16)-8, "", 0, "", "JailElevatorButton", 1);
 	CreateLoot(85*16, 136*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
 	
-	CreateLoot((137*16)-8, 106*16, "Card", 0, "card.png", "GetKeyCard1", 0);
+	CreateLoot((137*16)-8, 106*16, "Card Rank 1", 0, "card.png", "GetKeyCard1", 0);
 }
 
 //ALWAYS flush
@@ -323,6 +325,8 @@ void CatwalkNoise()
 void GetKeyCard1()
 {
 	nFlags[FLAG_MISSION3_KEYCARD_1] = 1;
+	
+	//unlock the main armory door and the pistol room in the armory
 }
 
 void GetKeyCard2()
