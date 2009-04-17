@@ -57,10 +57,10 @@ void InitDoors()
 	nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID] = CreateDoor(111, 90, LoadImage("gfx\misc\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID] = CreateDoor(78, 15, LoadImage("gfx\misc\elevator_door.png"), -2);
 	
-	CreateDoor(88, 141, LoadImage("gfx\misc\locker_door.png"), -1);
+	nFlags[FLAG_MISSION3_DOOR_ARMORY_PISTOL] = CreateDoor(88, 141, LoadImage("gfx\misc\locker_door.png"), -2);
 	CreateDoor(65, 145, LoadImage("gfx\misc\locker_door.png"), -1);
 	
-	CreateDoor(97, 129, LoadImage("gfx\misc\locker_door.png"), -1);
+	nFlags[FLAG_MISSION3_DOOR_ARMORY_MAIN] = CreateDoor(97, 129, LoadImage("gfx\misc\locker_door.png"), -2);
 }
 
 void InitEnemies()
@@ -327,6 +327,8 @@ void GetKeyCard1()
 	nFlags[FLAG_MISSION3_KEYCARD_1] = 1;
 	
 	//unlock the main armory door and the pistol room in the armory
+	ManualUnlockDoor(nFlags[FLAG_MISSION3_DOOR_ARMORY_MAIN]);
+	ManualUnlockDoor(nFlags[FLAG_MISSION3_DOOR_ARMORY_PISTOL]);
 }
 
 void GetKeyCard2()
