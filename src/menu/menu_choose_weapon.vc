@@ -6,7 +6,7 @@ void OpenChooseWeapon()
 	//disable the menu
 	bCanOpenInGameMenu = 0;
 	
-	SwitchPause();
+	SetPause(1);		//pause the game
 	
 	CreateMenu(0, 0, GetMenuTemplateIndex("MenuChooseWeapon"));
 }
