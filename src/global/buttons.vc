@@ -70,6 +70,13 @@ void UnpressButtons()
 	nUnpress[nJoyButton[5]] = 1;
 	nUnpress[nJoyButton[6]] = 1;
 	nUnpress[nJoyButton[7]] = 1;
+	
+	nPreviousKeyButtons[0] = 0;
+	nPreviousKeyButtons[1] = 0;
+	nPreviousKeyButtons[4] = 0;
+	nPreviousKeyButtons[5] = 0;
+	nPreviousKeyButtons[6] = 0;
+	nPreviousKeyButtons[7] = 0;
 }
 
 void UnpressWeaponSwitchButtons()
@@ -79,6 +86,9 @@ void UnpressWeaponSwitchButtons()
 
 	nUnpress[nJoyButton[3]] = 1;
 	nUnpress[nJoyButton[4]] = 1;
+	
+	nPreviousKeyButtons[3] = 0;
+	nPreviousKeyButtons[4] = 0;
 }
 
 void UnpressAllButtons()
@@ -89,6 +99,7 @@ void UnpressAllButtons()
 	{
 		key[nKeyButton[i]] = 0;
 		nUnpress[nJoyButton[i]] = 1;
+		nPreviousKeyButtons[i] = 0;
 	}
 }
 
