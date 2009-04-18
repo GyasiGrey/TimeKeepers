@@ -1,0 +1,49 @@
+void OpenChooseWeapon()
+{
+	if(!MenuCanOpen())
+		return;
+
+	SwitchPause();
+	
+	CreateMenu(0, 0, GetMenuTemplateIndex("MenuChooseWeapon"));
+}
+
+
+void MenuChooseWeaponDraw()
+{
+	//darken the screen
+	//draw the players weapons
+}
+
+void MenuChooseWeaponLogic()
+{
+	if(left)
+	{
+		//move the weapon selector left
+		SoundKeyboardRand();
+		
+		if(nPointerPos > 0)
+			nPointerPos--;
+		else 
+			nPointerPos = 4;
+			
+		unpress(5);
+	}
+	else if(right)
+	{
+		//move the weapon selector right
+		SoundKeyboardRand();
+		
+		if(nPointerPos < 4)
+			nPointerPos++;
+		else
+			nPointerPos = 0;
+			
+		unpress(6);
+	}
+}
+
+void MenuChooseWeaponClose()
+{
+	SetPause(0);	//unpause the game
+}
