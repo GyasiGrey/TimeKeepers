@@ -34,10 +34,8 @@ void MenuChooseWeaponLogic()
 		//move the weapon selector left
 		SoundKeyboardRand();
 		
-		if(nPointerPos > 0)
-			nPointerPos--;
-		else 
-			nPointerPos = 4;
+		if(nEquipedWeapon > 0)
+			nEquipedWeapon--;
 			
 		unpress(5);
 	}
@@ -46,10 +44,8 @@ void MenuChooseWeaponLogic()
 		//move the weapon selector right
 		SoundKeyboardRand();
 		
-		if(nPointerPos < 4)
-			nPointerPos++;
-		else
-			nPointerPos = 0;
+		if(nEquipedWeapon < 4)
+			nEquipedWeapon++;
 			
 		unpress(6);
 	}
