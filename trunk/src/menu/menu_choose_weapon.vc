@@ -53,6 +53,7 @@ void MenuChooseWeaponLogic()
 
 void MenuChooseWeaponClose()
 {
+	UnpressWeaponSwitchButtons();
 	bCanOpenInGameMenu = 1;	//enable the menu
 	SetPause(0);	//unpause the game
 }
