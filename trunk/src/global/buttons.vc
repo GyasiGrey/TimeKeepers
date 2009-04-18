@@ -4,6 +4,13 @@ int nKeyButton[NUM_BUTTONS];
 int nJoyButton[NUM_BUTTONS];
 string sButtonNames[NUM_BUTTONS];	//human readable button names
 
+int nPreviousKeyButtons[NUM_BUTTONS];	//state of the buttons last tick
+int nKeyHoldTime[NUM_BUTTONS];
+
+string sKeyDownHook[NUM_BUTTONS];
+string sKeyUpHook[NUM_BUTTONS];
+string sKeyHoldHook[NUM_BUTTONS];
+
 //to mark joy.button[i] as unpressed
 int nUnpress[32];
 
@@ -177,4 +184,62 @@ void SaveButtonConfig()
 	}
 		
 	FileClose(hndl);
+}
+
+void PollButtons()
+{
+	int i;
+
+	//track how long a button has been held down
+	for(i=0;i<NUM_BUTTONS;i++)
+	{
+		if(nPreviousKeyButtons[i] && (key[nKeyButton[i]] || GetJoyButton(nJoyButton[i])))
+		{
+			nKeyHoldTime[i] += nTimeSinceLastTick;
+		}
+		else
+		{
+			nKeyHoldTime[i] = 0;
+		}
+	}
+
+	//track the buttons previous states
+	for(i=0;i<NUM_BUTTONS;i++)
+	{
+		nPreviousKeyButtons[i] = (key[nKeyButton[i]] || GetJoyButton(nJoyButton[i]));
+	}
+}
+
+void ProcessInputHooks()
+{
+	int i;
+	
+	for(i=0;i<NUM_BUTTONS;i++)
+	{
+		//call key down hooks
+		if(key[nKeyButton[i]] || GetJoyButton(nJoyButton[i]))
+		{
+			if(FunctionExists(sKeyDownHook[i]))
+				CallFunction(sKeyDownHook[i]);
+		}
+		
+		//call key up hooks
+		if((!key[nKeyButton[i]] && !GetJoyButton(nJoyButton[i])) && nPreviousKeyButtons[i])
+		{
+			if(FunctionExists(sKeyUpHook[i]))
+				CallFunction(sKeyUpHook[i]);
+		}
+		
+		//call key hold hooks
+		if(nKeyHoldTime[i] > BUTTON_HOLD_TIME)
+		{
+			if(FunctionExists(sKeyHoldHook[i]))
+				CallFunction(sKeyHoldHook[i]);
+		}
+	}
+}
+
+void HeldSwitch()
+{
+	error("you held switch weapon! yay!");
 }
