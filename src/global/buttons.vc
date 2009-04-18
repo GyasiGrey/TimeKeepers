@@ -81,14 +81,14 @@ void UnpressButtons()
 
 void UnpressWeaponSwitchButtons()
 {
-	key[nKeyButton[3]] = 0;
 	key[nKeyButton[4]] = 0;
+	key[nKeyButton[5]] = 0;
 
-	nUnpress[nJoyButton[3]] = 1;
 	nUnpress[nJoyButton[4]] = 1;
+	nUnpress[nJoyButton[5]] = 1;
 	
-	nPreviousKeyButtons[3] = 0;
 	nPreviousKeyButtons[4] = 0;
+	nPreviousKeyButtons[5] = 0;
 }
 
 void UnpressAllButtons()
