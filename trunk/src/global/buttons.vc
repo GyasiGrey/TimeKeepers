@@ -239,7 +239,8 @@ void ProcessInputHooks()
 	}
 }
 
-void HeldSwitch()
+void HeldSwitchWeapon()
 {
-	error("you held switch weapon! yay!");
+	//Open the change weapon menu
+	OpenChooseWeapon();
 }

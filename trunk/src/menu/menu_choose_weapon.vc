@@ -3,6 +3,9 @@ void OpenChooseWeapon()
 	if(!MenuCanOpen())
 		return;
 
+	//disable the menu
+	bCanOpenInGameMenu = 0;
+	
 	SwitchPause();
 	
 	CreateMenu(0, 0, GetMenuTemplateIndex("MenuChooseWeapon"));
@@ -12,7 +15,14 @@ void OpenChooseWeapon()
 void MenuChooseWeaponDraw()
 {
 	//darken the screen
+	SetLucent(50);
+	
+	RectFill(0, 0, ImageWidth(screen), ImageHeight(screen), RGB(0, 0, 0), screen);
+	
 	//draw the players weapons
+	
+	//set lucency back to normal
+	SetLucent(0);
 }
 
 void MenuChooseWeaponLogic()
@@ -41,9 +51,16 @@ void MenuChooseWeaponLogic()
 			
 		unpress(6);
 	}
+	
+	//if the player let go of switch weapon, close the menu
+	if(!(BUTTON_WEAPON_SWITCHUP) && !(BUTTON_WEAPON_SWITCHDOWN))
+	{
+		CloseTopMenu();
+	}
 }
 
 void MenuChooseWeaponClose()
 {
+	bCanOpenInGameMenu = 1;	//enable the menu
 	SetPause(0);	//unpause the game
 }
