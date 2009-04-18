@@ -1,0 +1,8 @@
+int nTimeSinceLastTick;
+int nLastTick;
+
+void UpdateLastTick()
+{
+	nTimeSinceLastTick = timer - nLastTick;
+	nLastTick = timer;
+}

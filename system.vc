@@ -9,6 +9,7 @@
 
 //must be included first because of includes
 #include "src\modules\vcTimer.vc"
+#include "src\modules\lastTickTime.vc"
 
 //includes needed for the whole program
 #include "src\global\misc.vc"		//Funcs used all over the place (abs, strstr etc)
@@ -184,6 +185,8 @@ void autoexec()
 
 void AddDefaultHooks()
 {
+	//last hook update
+	AddHook("UpdateLastTick", 1);
 	//pause check
 	AddHook("PauseHook", 1);
 	//vcTimer
@@ -229,6 +232,16 @@ void AddDefaultHooks()
 	AddHook("ProcessEnemies", 10);
 	
 	AddPreHook("PlayerDeath", 5);
+	
+	AddHook("PollButtons", 5000);
+	AddHook("ProcessInputHooks", 1030);
+	
+	//Key hooks
+	sKeyUpHook[4] = "SwitchWeaponDown";
+	sKeyUpHook[5] = "SwitchWeaponUp";
+	
+	sKeyHoldHook[4] = "HeldSwitch";
+	sKeyHoldHook[5] = "HeldSwitch";
 	
 	//*DEBUG* - call the debug window initer
 	dbgwin_Init();
@@ -542,19 +555,6 @@ void ProcessInput()
 			}
 		}
 
-		//switch weapon up
-		if(BUTTON_WEAPON_SWITCHUP)
-		{
-			SwitchWeaponUp();
-			UnpressButtons();
-		}
-
-		if(BUTTON_WEAPON_SWITCHDOWN)
-		{
-			SwitchWeaponDown();
-			UnpressButtons();
-		}
-		
 		if(BUTTON_MEDKIT)
 		{
 			UseMedkit();
