@@ -19,10 +19,12 @@ void MenuChooseWeaponDraw()
 	
 	RectFill(0, 0, ImageWidth(screen), ImageHeight(screen), RGB(0, 0, 0), screen);
 	
-	//draw the players weapons
-	
 	//set lucency back to normal
 	SetLucent(0);
+	
+	//draw the players weapons
+	TScaleBlit((ImageWidth(screen)/2)-16, (ImageHeight(screen)/2)-16, 32, 32, Weapons[nEquipedWeapon].nIcon, screen);
+	PrintCenter(160, 140, screen, nTinyFont, Weapons[nEquipedWeapon].sName);
 }
 
 void MenuChooseWeaponLogic()
