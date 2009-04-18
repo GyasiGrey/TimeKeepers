@@ -32,22 +32,16 @@ void MenuChooseWeaponLogic()
 	if(left)
 	{
 		//move the weapon selector left
-		SoundKeyboardRand();
+		SwitchWeaponDown();
 		
-		if(nEquipedWeapon > 0)
-			nEquipedWeapon--;
-			
-		unpress(5);
+		unpress(7);
 	}
 	else if(right)
 	{
 		//move the weapon selector right
-		SoundKeyboardRand();
-		
-		if(nEquipedWeapon < 4)
-			nEquipedWeapon++;
-			
-		unpress(6);
+		SwitchWeaponUp();
+
+		unpress(8);
 	}
 	
 	//if the player let go of switch weapon, close the menu

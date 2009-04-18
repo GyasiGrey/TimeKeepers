@@ -473,8 +473,6 @@ void SwitchWeaponUp()
 		if(nEquipedWeapon > NUM_WEAPONS)
 			nEquipedWeapon = 0;
 	}
-				
-	UnpressButtons();
 }
 
 void SwitchWeaponDown()
@@ -495,8 +493,6 @@ void SwitchWeaponDown()
 		if(nEquipedWeapon < 0)
 			nEquipedWeapon = NUM_WEAPONS;
 	}
-
-	UnpressButtons();
 }
 
 void GetWeaponAmmoLoot(int i)
