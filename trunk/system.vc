@@ -238,11 +238,7 @@ void AddDefaultHooks()
 	AddHook("ProcessInputHooks", 1030);
 	
 	//Key hooks
-	sKeyUpHook[4] = "SwitchWeaponDown";
-	sKeyUpHook[5] = "SwitchWeaponUp";
-	
-	sKeyHoldHook[4] = "HeldSwitchWeapon";
-	sKeyHoldHook[5] = "HeldSwitchWeapon";
+	InitWeaponSwitchHooks();
 	
 	//*DEBUG* - call the debug window initer
 	dbgwin_Init();
@@ -679,4 +675,22 @@ void ChangeRString(string newr)
 	curmap.rstring = newr;
 
 	StartDualRetraceMode();
+}
+
+void InitWeaponSwitchHooks()
+{
+	sKeyUpHook[4] = "SwitchWeaponDown";
+	sKeyUpHook[5] = "SwitchWeaponUp";
+	
+	sKeyHoldHook[4] = "HeldSwitchWeapon";
+	sKeyHoldHook[5] = "HeldSwitchWeapon";
+}
+
+void ClearWeaponSwitchHooks()
+{
+	sKeyUpHook[4] = "";
+	sKeyUpHook[5] = "";
+	
+	sKeyHoldHook[4] = "";
+	sKeyHoldHook[5] = "";
 }
