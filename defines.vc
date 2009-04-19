@@ -109,7 +109,7 @@
 #define BUTTON_PAUSE key[nKeyButton[6]] || GetJoyButton(nJoyButton[6])
 #define BUTTON_PDA key[nKeyButton[7]] || GetJoyButton(nJoyButton[7])
 
-#define BUTTON_HOLD_TIME	25	//how long before a button is considered held to call its hold hook
+#define BUTTON_HOLD_TIME	12	//how long before a button is considered held to call its hold hook
 
 //HookRetrace
 #define NUM_HOOKS 45
