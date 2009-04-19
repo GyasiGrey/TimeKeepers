@@ -3,6 +3,9 @@ void OpenChooseWeapon()
 	if(!MenuCanOpen())
 		return;
 
+	//stop the weapon switch hooks from firing
+	ClearWeaponSwitchHooks();
+	
 	//disable the menu
 	bCanOpenInGameMenu = 0;
 	
@@ -53,6 +56,7 @@ void MenuChooseWeaponLogic()
 
 void MenuChooseWeaponClose()
 {
+	InitWeaponSwitchHooks();	//restore the weapon switch hooks
 	UnpressWeaponSwitchButtons();
 	bCanOpenInGameMenu = 1;	//enable the menu
 	SetPause(0);	//unpause the game

@@ -233,7 +233,7 @@ void ProcessInputHooks()
 			if(FunctionExists(sKeyDownHook[i]))
 				CallFunction(sKeyDownHook[i]);
 		}
-		
+
 		//call key up hooks
 		if((!key[nKeyButton[i]] && !GetJoyButton(nJoyButton[i])) && nPreviousKeyButtons[i])
 		{
