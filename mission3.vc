@@ -92,7 +92,7 @@ void InitLoot()
 	CreateLoot(42*16, (17*16)-8, "", 0, "", "JailElevatorButton", 1);
 	CreateLoot(85*16, 136*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
 	
-	CreateLoot((137*16)-8, 106*16, "Card Rank 1", 0, "card.png", "GetKeyCard1", 0);
+	CreateLoot(166*16, 113*16, "Card Rank 1", 0, "card.png", "GetKeyCard1", 0);
 }
 
 //ALWAYS flush
