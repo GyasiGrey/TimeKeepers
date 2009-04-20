@@ -62,6 +62,8 @@ void InitDoors()
 	CreateDoor(88, 155, LoadImage("gfx\misc\locker_door.png"), -2);
 	CreateDoor(73, 155, LoadImage("gfx\misc\locker_door.png"), -2);
 	CreateDoor(73, 141, LoadImage("gfx\misc\locker_door.png"), -2);
+	
+	CreateDoor(150, 113, LoadImage("gfx\misc\locker_door.png"), -1);
 }
 
 void InitEnemies()
