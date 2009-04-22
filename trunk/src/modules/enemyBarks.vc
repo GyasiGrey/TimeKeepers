@@ -1,48 +1,46 @@
-struct EnemyBark
-{
-	int dVisualBark;		//said when an enemy first sees the player
-	int dHearBark;			//said when an enemy hears something
-	int dHurtBark;			//said when an enemy is shot
-	int dLostBark;			//said when an enemy looses sight of the player
-	int dAlertBark;			//said at regular intervals while alert
-}
+int dNormalVisualBark;		//said when an enemy first sees the player
+int dNormalHearBark;		//said when an enemy hears something
+int dNormalHurtBark;		//said when an enemy is shot
+int dNormalLostBark;		//said when an enemy looses sight of the player
 
-EnemyBark ebNormalEnemyBarks;
-EnemyBark ebCivilianBarks;
-EnemyBark ebCautiousCivilianBarks;
+int dCivilianHurtBark;
+int dCivilianAlertBark;		//said at regular intervals while alert
+
+int dCautiousCivilianVisualBark;
+
 
 void InitBarks()
 {
-	ebNormalEnemyBarks.dVisualBark = DictNew();
-	ebNormalEnemyBarks.dHearBark = DictNew();
-	ebNormalEnemyBarks.dHurtBark = DictNew();
-	ebNormalEnemyBarks.dAlertBark = DictNew();
+	dNormalVisualBark = DictNew();
+	dNormalHearBark = DictNew();
+	dNormalHurtBark = DictNew();
+	dNormalLostBark = DictNew();
 	
-	DictSetString(ebNormalEnemyBarks.dVisualBark, "1", "Target acquired!");
-	DictSetString(ebNormalEnemyBarks.dVisualBark, "2", "I see him!");
-	DictSetString(ebNormalEnemyBarks.dVisualBark, "3", "There he is!");
+	dCivilianHurtBark = DictNew();
+	dCivilianAlertBark = DictNew();
+	
+	dCautiousCivilianVisualBark = DictNew();
+	
+	DictSetString(dNormalVisualBark, "1", "Target acquired!");
+	DictSetString(dNormalVisualBark, "2", "I see him!");
+	DictSetString(dNormalVisualBark, "3", "There he is!");
 
-	DictSetString(ebNormalEnemyBarks.dHearBark, "1", "What was that noise?");
-	DictSetString(ebNormalEnemyBarks.dHearBark, "2", "Quiet! I heard something!");
-	DictSetString(ebNormalEnemyBarks.dHearBark, "3", "Thought I heard something.");
+	DictSetString(dNormalHearBark, "1", "What was that noise?");
+	DictSetString(dNormalHearBark, "2", "Quiet! I heard something!");
+	DictSetString(dNormalHearBark, "3", "Thought I heard something.");
 
-	DictSetString(ebNormalEnemyBarks.dHurtBark, "1", "I'm hit!");
-	DictSetString(ebNormalEnemyBarks.dHurtBark, "2", "I'm under heavy fire!");
-	DictSetString(ebNormalEnemyBarks.dHurtBark, "3", "Take cover!");
+	DictSetString(dNormalHurtBark, "1", "I'm hit!");
+	DictSetString(dNormalHurtBark, "2", "I'm under heavy fire!");
+	DictSetString(dNormalHurtBark, "3", "Take cover!");
 
-	DictSetString(ebNormalEnemyBarks.dLostBark, "1", "Crap! Lost him.");
-	DictSetString(ebNormalEnemyBarks.dLostBark, "2", "Where'd he go?!");
-	DictSetString(ebNormalEnemyBarks.dLostBark, "3", "He has to be here somewhere...");
+	DictSetString(dNormalLostBark, "1", "Crap! Lost him.");
+	DictSetString(dNormalLostBark, "2", "Where'd he go?!");
+	DictSetString(dNormalLostBark, "3", "He has to be here somewhere...");
 	
-	ebCivilianBarks.dVisualBark = DictNew();
-	ebCivilianBarks.dHearBark = DictNew();
-	ebCivilianBarks.dHurtBark = DictNew();
-	ebCivilianBarks.dAlertBark = DictNew();
+	DictSetString(dCivilianHurtBark, "1", "Ahh! AHHH!");
 	
-	DictSetString(ebCivilianBarks.dHurtBark, "1", "Ahh! AHHH!");
-	
-	DictSetString(ebCivilianBarks.dAlertBark, "1", "AHHHHHHHHHHHHHHH!!");
-	DictSetString(ebCivilianBarks.dAlertBark, "1", "Help!!!");
-	DictSetString(ebCivilianBarks.dAlertBark, "1", "Help me!!");
-	DictSetString(ebCivilianBarks.dAlertBark, "1", "Get me out of here!");
+	DictSetString(dCivilianAlertBark, "1", "AHHHHHHHHHHHHHHH!!");
+	DictSetString(dCivilianAlertBark, "2", "Help!!!");
+	DictSetString(dCivilianAlertBark, "3", "Help me!!");
+	DictSetString(dCivilianAlertBark, "4", "Get me out of here!");
 }
