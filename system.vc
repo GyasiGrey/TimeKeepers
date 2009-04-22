@@ -79,6 +79,7 @@
 #include "src\modules\x86.vc"
 #include "src\modules\thrown.vc"
 #include "src\modules\damageArea.vc"
+#include "src\modules\enemyBarks.vc"
 
 //menu stuff
 #include "src\menu\menu_system.vc"
@@ -351,6 +352,7 @@ void Init()
 	CreateEnemyTemplates(); //load the enemy templates
 	CreateMenuTemplates();	//menu templates
 	nMenuFocus = 0-1;	//no menu with the focus
+	InitBarks();		//init enemy barks
 }
 
 //systemVC function called at the start of any map to make it
