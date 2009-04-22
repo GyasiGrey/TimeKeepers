@@ -1069,117 +1069,20 @@ void AnimatePlayer(string animstr)
 //makes text appear across the bottom for a set period of time
 //for things like guards talking
 //ent is an ENEMY index
-void BottomText(int ent, int state)
+void BottomText(int ent, int nBarkDictionary)
 {
-	int rndval;
+	int rndval, nDictLen, nBarkID;
 	
-	Error("BottomText called - enemy: " + str(ent) + " state: " + str(state));
+	Error("BottomText called - enemy: " + str(ent));
 
-	if(state == BOTTOM_TEXT_SOUND)
-	{
-		rndval = Random(0, 2);
-		
-		if(rndval == 0)
-			Enemies[ent].sBottomText = "What was that noise?";
-		else if(rndval == 1)
-			Enemies[ent].sBottomText = "Quiet! I heard something!";
-		else if(rndVal == 2)
-			Enemies[ent].sBottomText = "Thought I heard something.";
-		//else if(rndval == 3)
-		//	Enemies[ent].sBottomText = ""; //guard heard you but is keeping quiet about it
-		
-		if(rndval != 3)
-			SoundWhaRand();
-	}
-	else if(state == BOTTOM_TEXT_SPOTED)
-	{
-		rndval = Random(0, 2);
-		
-		if(rndval == 0)
-			Enemies[ent].sBottomText = "Target acquired!";
-		else if(rndval == 1)
-			Enemies[ent].sBottomText = "I see him!";
-		else if(rndVal == 2)
-			Enemies[ent].sBottomText = "There he is!";
-		//else if(rndval == 3)
-		//	Enemies[ent].sBottomText = ""; //guard saw you but is keeping quiet about it
-
-		if(rndval != 3)
-			SoundWhaRand();
-	}
-	else if(state == BOTTOM_TEXT_LOST)
-	{
-		rndval = Random(0, 2);
-		
-		if(rndval == 0)
-			Enemies[ent].sBottomText = "Crap! Lost him.";
-		else if(rndval == 1)
-			Enemies[ent].sBottomText = "Where'd he go?!";
-		else if(rndVal == 2)
-			Enemies[ent].sBottomText = "He has to be here somewhere...";
-		//else if(rndval == 3)
-		//	Enemies[ent].sBottomText = ""; //guard lost you but is to embarased to say anything 
-		
-	}
-	else if(state == BOTTOM_TEXT_SHOT)
-	{
-		rndval = Random(0, 5);
-		
-		if(rndval == 0)
-			Enemies[ent].sBottomText = "I'm hit!";
-		else if(rndval == 1)
-			Enemies[ent].sBottomText = "I'm under heavy fire!";
-		else if(rndVal == 2)
-			Enemies[ent].sBottomText = "Take cover!";
-		else
-			Enemies[ent].sBottomText = "";	//don't say something EVERY time your shot, just every now and then
-			
-		if(rndval != 3)
-			SoundUghRand();
-		
-			
-		//sound of the enemy speaking
-		if(rndval < 3)
-			MakeSound(Enemies[ent].nEntity, 100);	//FOUND YOU STUPID BUG. ent != entity index
-
-	}
-	else if(state == BOTTOM_TEXT_CIVILIAN)
-	{
-		//text for civilians
-		rndval = Random(0, 3);
-		
-		if(rndval == 0)
-			Enemies[ent].sBottomText = "AHHHHHHHHHHHHHHH!!";
-		else if(rndval == 1)
-			Enemies[ent].sBottomText = "Help!!!";
-		else if(rndval == 2)
-			Enemies[ent].sBottomText = "Help me!!";
-		else if(rndval == 3)
-			Enemies[ent].sBottomText = "Get me out of here!";
-			
-		//civilian noise
-		MakeSound(Enemies[ent].nEntity, 100);	//same bug as MakeSound line above
-	}
-	else if(state == BOTTOM_TEXT_CAUTION_CIVILIAN)
-	{
-		//text for civilians
-		rndval = Random(0, 3);
-		
-		if(rndval == 0)
-			Enemies[ent].sBottomText = "Um..excuse me?";
-		else if(rndval == 1)
-			Enemies[ent].sBottomText = "Are you supposed to be here?";
-		else if(rndval == 2)
-			Enemies[ent].sBottomText = "What are you doing?";
-		else if(rndval == 3)
-			Enemies[ent].sBottomText = "Leave me alone!";
-			
-		if(rndval != 3)
-			SoundWhaRand();
-
-		//civilian noise
-		MakeSound(Enemies[ent].nEntity, 100);	//same bug as MakeSound line above
-	}
+	//get a count of all items in the dictionary
+	nDictLen = DictSize(nBarkDictionary);
+	//get a random string from the dictionary and put it in the enemies bottom text
+	nBarkID = random(0, nDictLen-1);
+	
+	Enemies[ent].sBottomText = DictGetString(nBarkDictionary, str(nBarkID));
+	
+	MakeSound(Enemies[ent].nEntity, 100);
 	
 	BottomTextHelper(ent, Enemies[ent].sBottomText);
 }
