@@ -465,6 +465,7 @@ int CreateEnemy(int x, int y, int face, int template, string movestring, string 
 	Enemies[nNumEnemies].nAnimationWakeup = 0;
 	Enemies[nNumEnemies].nAStarStart = 0;
 	
+	Enemies[nNumEnemies].nVisualBark = EnemyTemplates[template].nVisualBark;
 	Enemies[nNumEnemies].nHearBark = EnemyTemplates[template].nHearBark;
 	Enemies[nNumEnemies].nHurtBark = EnemyTemplates[template].nHurtBark;
 	Enemies[nNumEnemies].nLostBark = EnemyTemplates[template].nLostBark;
@@ -589,7 +590,7 @@ void DamageEnemy(int damage, int entityindex, int nDamageType)
 				Search(enemyindex);
 				//you got shot - say something!
 				if(Enemies[enemyindex].bCanSpeak)	//dummies can't talk, civilians talk a different way
-					BottomText(enemyindex, BOTTOM_TEXT_SHOT);
+					BottomText(enemyindex, Enemies[enemyindex].nHurtBark);
 				Enemies[enemyindex].nTranqHit = 1;
 			}
 			else
@@ -634,7 +635,7 @@ void DamageEnemy(int damage, int entityindex, int nDamageType)
 			else if (Enemies[enemyindex].bCanSpeak)
 			{
 				//you got shot - say something!
-				BottomText(enemyindex, BOTTOM_TEXT_SHOT);
+				BottomText(enemyindex, Enemies[enemyindex].nHurtBark);
 			}
 	
 			if(Enemies[enemyindex].nMode != MODE_ALERT && Enemies[enemyindex].nHp > 0)
@@ -794,7 +795,7 @@ void MakeSoundHelp(int i, int sourceX, int sourceY)
 		else if(Enemies[i].nMode != MODE_ALERT && Enemies[i].nMode != MODE_TRANQ)
 		{
 			if(Enemies[i].bCanSpeak && Enemies[i].nMode != MODE_SOUND)
-				BottomText(i, BOTTOM_TEXT_SOUND);
+				BottomText(i, Enemies[i].nHearBark);
 
 			//stop an enemy, so they can path to the sound
 			if(Enemies[i].nMode != MODE_SOUND)
@@ -1138,16 +1139,20 @@ void BottomText(int ent, int nBarkDictionary)
 {
 	int rndval, nDictLen, nBarkID;
 	
-	Error("BottomText called - enemy: " + str(ent));
+	Error("BottomText called - enemy: " + str(ent) + " bark dictionary: " + str(nBarkDictionary));
+
+	if(nBarkDictionary == -1)
+		return;
 
 	//get a count of all items in the dictionary
 	nDictLen = DictSize(nBarkDictionary);
+
 	//get a random string from the dictionary and put it in the enemies bottom text
-	nBarkID = random(0, nDictLen-1);
-	
+	nBarkID = random(1, nDictLen);
+
 	Enemies[ent].sBottomText = DictGetString(nBarkDictionary, str(nBarkID));
-	
-	MakeSound(Enemies[ent].nEntity, 100);
+
+//	MakeSound(Enemies[ent].nEntity, 100);
 	
 	BottomTextHelper(ent, Enemies[ent].sBottomText);
 }

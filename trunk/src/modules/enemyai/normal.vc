@@ -6,7 +6,7 @@ void EnemyAINormal()
 		if(CanSeePlayer(nCurrentEnemy))
 		{
 			if(Enemies[nCurrentEnemy].bCanSpeak)
-				BottomText(nCurrentEnemy, BOTTOM_TEXT_SPOTED);
+				BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark);
 
 			MakeAlert(nCurrentEnemy);
 		}
@@ -62,7 +62,7 @@ void EnemyAINormal()
 			Search(nCurrentEnemy);
 
 			if(Enemies[nCurrentEnemy].bCanSpeak)
-				BottomText(nCurrentEnemy, BOTTOM_TEXT_LOST);
+				BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nLostBark);
 		}
 
 
@@ -73,7 +73,7 @@ void EnemyAINormal()
 		if(CanSeePlayer(nCurrentEnemy))
 		{
 			if(Enemies[nCurrentEnemy].bCanSpeak)
-				BottomText(nCurrentEnemy, BOTTOM_TEXT_SPOTED);
+				BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark);
 
 			MakeAlert(nCurrentEnemy);
 		}
@@ -97,7 +97,7 @@ void EnemyAINormal()
 		if(CanSeePlayer(nCurrentEnemy))
 		{
 			if(Enemies[nCurrentEnemy].bCanSpeak)
-				BottomText(nCurrentEnemy, BOTTOM_TEXT_SPOTED);
+				BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark);
 
 			MakeAlert(nCurrentEnemy);
 		}
@@ -137,7 +137,7 @@ void EnemyAINormal()
 		if(CanSeePlayer(nCurrentEnemy))
 		{
 			if(Enemies[nCurrentEnemy].bCanSpeak)
-				BottomText(nCurrentEnemy, BOTTOM_TEXT_SPOTED);
+				BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark);
 
 			MakeAlert(nCurrentEnemy);
 		}
@@ -154,7 +154,7 @@ void EnemyAINormal()
 		if(CanSeePlayer(nCurrentEnemy))
 		{
 			if(Enemies[nCurrentEnemy].bCanSpeak)
-				BottomText(nCurrentEnemy, BOTTOM_TEXT_SPOTED);
+				BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark);
 
 			MakeAlert(nCurrentEnemy);
 		}
