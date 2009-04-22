@@ -94,6 +94,8 @@ struct Enemy
 	int nHurtBark;
 	int nLostBark;
 	int nAlertBark;
+	
+	int nLastHeardSound;		//tick when this enemy last heard a sound
 }
 
 Enemy Enemies[MAX_ENEMIES];
@@ -470,6 +472,8 @@ int CreateEnemy(int x, int y, int face, int template, string movestring, string 
 	Enemies[nNumEnemies].nHurtBark = EnemyTemplates[template].nHurtBark;
 	Enemies[nNumEnemies].nLostBark = EnemyTemplates[template].nLostBark;
 	Enemies[nNumEnemies].nAlertBark = EnemyTemplates[template].nAlertBark;
+	
+	Enemies[nNumEnemies].nLastHeardSound = 0;
 
 	Error("CreateEnemy called x: " + str(x) +" y: " + str(y) + " enemyindex: " + str(nNumEnemies) + " hp: " + str(Enemies[nNumEnemies].nMaxHp) + " weapon: " + Weapons[Enemies[nNumEnemies].nWeapon].sName);
 
@@ -737,7 +741,7 @@ void MakeSoundXY(int x, int y, int radius)
 	
 	for(i=0;i<nNumEnemies;i++)
 	{
-		if(Enemies[i].nActive && DistanceXY(x, y, entity.x[Enemies[i].nEntity], entity.y[Enemies[i].nEntity]) < radius)
+		if(Enemies[i].nActive && DistanceXY(x, y, entity.x[Enemies[i].nEntity], entity.y[Enemies[i].nEntity]) < radius && Enemies[i].nLastHeardSound > vcTimer[TIMER_ENEMY_LOGIC].nTick + ENEMY_SOUND_IGNORE_TIME)
 		{
 			MakeSoundHelp(i, x, y);
 		}
@@ -764,7 +768,7 @@ void MakeSound(int shooter, int radius)
 	
 	for(i=0;i<nNumEnemies;i++)
 	{
-		if(/*i != nPlayerEnt && */shooter != Enemies[i].nEntity && Enemies[i].nActive && Distance(shooter, Enemies[i].nEntity) < radius)
+		if(/*i != nPlayerEnt && */shooter != Enemies[i].nEntity && Enemies[i].nActive && Distance(shooter, Enemies[i].nEntity) < radius && Enemies[i].nLastHeardSound > vcTimer[TIMER_ENEMY_LOGIC].nTick + ENEMY_SOUND_IGNORE_TIME)
 		{
 			MakeSoundHelp(i, entity.x[shooter], entity.y[shooter]);
 		}
@@ -785,6 +789,8 @@ void MakeSound(int shooter, int radius)
 //i is an ENEMY index
 void MakeSoundHelp(int i, int sourceX, int sourceY)
 {
+	Enemies[i].nLastHeardSound = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+	
 	if(Enemies[i].bCanHear)
 	{
 		if(Enemies[i].nAIType == ENEMY_AI_TYPE_CIVILIAN)
@@ -1152,7 +1158,7 @@ void BottomText(int ent, int nBarkDictionary)
 
 	Enemies[ent].sBottomText = DictGetString(nBarkDictionary, str(nBarkID));
 
-//	MakeSound(Enemies[ent].nEntity, 100);
+	MakeSound(Enemies[ent].nEntity, 100);
 	
 	BottomTextHelper(ent, Enemies[ent].sBottomText);
 }
