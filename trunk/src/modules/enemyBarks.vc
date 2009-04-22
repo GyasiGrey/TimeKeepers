@@ -43,4 +43,9 @@ void InitBarks()
 	DictSetString(dCivilianAlertBark, "2", "Help!!!");
 	DictSetString(dCivilianAlertBark, "3", "Help me!!");
 	DictSetString(dCivilianAlertBark, "4", "Get me out of here!");
+	
+	DictSetString(dCautiousCivilianVisualBark, "1", "Um..excuse me?");
+	DictSetString(dCautiousCivilianVisualBark, "2", "Are you supposed to be here?");
+	DictSetString(dCautiousCivilianVisualBark, "3", "What are you doing?");
+	DictSetString(dCautiousCivilianVisualBark, "4", "Leave me alone!");
 }
