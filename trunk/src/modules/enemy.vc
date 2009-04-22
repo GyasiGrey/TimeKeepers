@@ -88,6 +88,12 @@ struct Enemy
 	int nTargetPriority;		//priority this enemy has on the target list. Lower number is higher priority.
 	
 	string sAIFunc;
+	
+	int nVisualBark;
+	int nHearBark;
+	int nHurtBark;
+	int nLostBark;
+	int nAlertBark;
 }
 
 Enemy Enemies[MAX_ENEMIES];
@@ -121,6 +127,12 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].bCanHear = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nTargetPriority = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sAIFunc = "EnemyAINormal";
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nVisualBark = dNormalVisualBark;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nHearBark = dNormalHearBark;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nHurtBark = dNormalHurtBark;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nLostBark = dNormalLostBark;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAlertBark = -1;
+
 
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nHp = 35;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nMaxHp = 35;
@@ -143,6 +155,12 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].bCanHear = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nTargetPriority = 100;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sAIFunc = "EnemyAINormal";
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nVisualBark = dNormalVisualBark;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nHearBark = dNormalHearBark;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nHurtBark = dNormalHurtBark;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nLostBark = dNormalLostBark;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nAlertBark = -1;
+
 	
 	//training dummy
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nHp = 10000;
@@ -166,6 +184,12 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].bCanHear = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nTargetPriority = 500;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sAIFunc = "EnemyAIDummy";
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nVisualBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nHearBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nHurtBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nLostBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nAlertBark = -1;
+	
 	
 	//civilian
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nHp = 15;
@@ -189,6 +213,12 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].bCanHear = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nTargetPriority = 400;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sAIFunc = "EnemyAICivilian";
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nVisualBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nHearBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nHurtBark = dCivilianHurtBark;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nLostBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nAlertBark = dCivilianAlertBark;
+
 	
 	//cautious civilian - acts like a camera untill they go alert. they then run around like a normal civilian
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nHp = 15;
@@ -212,6 +242,12 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].bCanHear = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nTargetPriority = 400;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sAIFunc = "EnemyAICautiousCivilian";
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nVisualBark = dCautiousCivilianVisualBark;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nHearBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nHurtBark = dCivilianHurtBark;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nLostBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nAlertBark = dCivilianAlertBark;
+
 	
 	//big guard
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nHp = 300;
@@ -235,7 +271,12 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].bCanHear = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nTargetPriority = 50;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sAIFunc = "EnemyAIBigGuard";	
-	
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nVisualBark = dCautiousCivilianVisualBark;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nHearBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nHurtBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nLostBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nAlertBark = -1;	
+
 	//camera
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nHp = 25;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nMaxHp = 25;
@@ -258,6 +299,11 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].bCanHear = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nTargetPriority = 305;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sAIFunc = "EnemyAICamera";
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nHearBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nHurtBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nLostBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nAlertBark = -1;	
+	
 	
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nHp = 25;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nMaxHp = 25;
@@ -280,6 +326,11 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].bCanHear = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nTargetPriority = 300;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sAIFunc = "EnemyAICamera";
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nHearBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nHurtBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nLostBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nAlertBark = -1;	
+	
 	
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nHp = 150;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nMaxHp = 150;
@@ -302,6 +353,11 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].bCanHear = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nTargetPriority = 300;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sAIFunc = "EnemyAINormal";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nHearBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nHurtBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nLostBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nAlertBark = -1;	
+
 
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nHp = 25;
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nMaxHp = 25;
@@ -324,6 +380,10 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].bCanHear = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nTargetPriority = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sAIFunc = "EnemyAISleepy";
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nHearBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nHurtBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nLostBark = -1;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nAlertBark = -1;	
 }
 
 void ClearEnemies()
@@ -404,6 +464,11 @@ int CreateEnemy(int x, int y, int face, int template, string movestring, string 
 	Enemies[nNumEnemies].nBottomTextStart = 0;
 	Enemies[nNumEnemies].nAnimationWakeup = 0;
 	Enemies[nNumEnemies].nAStarStart = 0;
+	
+	Enemies[nNumEnemies].nHearBark = EnemyTemplates[template].nHearBark;
+	Enemies[nNumEnemies].nHurtBark = EnemyTemplates[template].nHurtBark;
+	Enemies[nNumEnemies].nLostBark = EnemyTemplates[template].nLostBark;
+	Enemies[nNumEnemies].nAlertBark = EnemyTemplates[template].nAlertBark;
 
 	Error("CreateEnemy called x: " + str(x) +" y: " + str(y) + " enemyindex: " + str(nNumEnemies) + " hp: " + str(Enemies[nNumEnemies].nMaxHp) + " weapon: " + Weapons[Enemies[nNumEnemies].nWeapon].sName);
 
