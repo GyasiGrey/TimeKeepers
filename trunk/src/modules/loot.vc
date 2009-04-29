@@ -83,7 +83,7 @@ void Steal()
 	{
 		//if the item wasn't taken
 		//it's in range
-		if(Loots[i].nStolen==0 && DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], Loots[i].nX, Loots[i].nY) < LOOT_RANGE)// && LineOfSight(entity.x[nPlayerEnt], entity.y[nPlayerEnt], Loots[i].nX, Loots[i].nY, nPlayerEnt) == 0-2)
+		if(Loots[i].nStolen==0 && DistanceXY(entity.x[nPlayerEnt], entity.y[nPlayerEnt], Loots[i].nX, Loots[i].nY) < LOOT_RANGE && LineOfSight(entity.x[nPlayerEnt], entity.y[nPlayerEnt], Loots[i].nX, Loots[i].nY, nPlayerEnt) == -2)
 		{
 			//be able to steal it
 			sLootInRange = sLootInRange + str(i) + " ";
