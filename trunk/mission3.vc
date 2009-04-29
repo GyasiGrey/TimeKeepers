@@ -325,7 +325,7 @@ void CatwalkNoise()
 	{
 		//make noise as the player walks over the cat walk
 		nFlags[FLAG_MISSION3_CATWALK_NOISE] = vcTimer[TIMER_ENEMY_LOGIC].nTick + 50;
-		MakeSound(nPlayerEnt, 100);
+		MakeSound(nPlayerEnt, 200);
 		SoundMetalStep();
 	}
 }
