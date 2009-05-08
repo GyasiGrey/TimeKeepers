@@ -78,6 +78,7 @@ struct Enemy
 	/*Used for Save/Load see saveload.vc::LoadEnemy() and such*/
 	int nSaveX;
 	int nSaveY;
+	int nSaveFace;
 	
 	int nOriginalLookDirection;
 	

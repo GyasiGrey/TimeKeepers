@@ -328,6 +328,7 @@ void SaveEnemy(int hndl, int i)
 	FileWriteWord(hndl, Enemies[i].bCanBeTranqd);
 	FileWriteWord(hndl, Enemies[i].bCanHear);
 	FileWriteWord(hndl, Enemies[i].nTargetPriority);
+	FileWriteByte(hndl, entity.face[Enemies[i].nEntity]);
 }
 
 //load enemy data into a temp array. Will be put into real array after the call to map();
@@ -354,8 +355,8 @@ void LoadEnemy(int hndl, int i)
 	LoadedEnemies[i].bCanBeTranqd = FileReadWord(hndl);
 	LoadedEnemies[i].bCanHear = FileReadWord(hndl);
 	LoadedEnemies[i].nTargetPriority = FileReadWord(hndl);
+	LoadedEnemies[i].nSaveFace = FileReadByte(hndl);
 
-	
 	nNumLoadedEnemies++;
 }
 
@@ -397,6 +398,9 @@ void MoveLoadedData()
 			Enemies[e].nSearchStart = LoadedEnemies[i].nSearchStart;
 			Enemies[e].nTranqEnd = LoadedEnemies[i].nTranqEnd;
 			Enemies[e].nSoundStart = LoadedEnemies[i].nSoundStart;
+
+			//set the entity facing
+			entity.face[Enemies[e].nEntity] = LoadedEnemies[i].nSaveFace;
 
 			//prevent dead enemies from moving or obstructing
 			if(!Enemies[e].nActive)
