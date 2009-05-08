@@ -387,6 +387,8 @@ void MoveLoadedData()
 
 			if(Enemies[e].nMode == MODE_ALERT)
 			{
+				//call StopEnemy to prevent an enemy from trying to do their normal move script if they should be chasing the player
+				StopEnemy(e);
 				MakeAlert(e);
 			}
 			
