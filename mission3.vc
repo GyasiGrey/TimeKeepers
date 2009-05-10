@@ -305,7 +305,7 @@ void ExitElevator()
 			Warp(43, 18);
 		//if the player is at the main level
 		case 1:
-			Warp(111, 91);
+			Warp(110, 115);
 	}
 
 	FadeInExclusive(50, RGB(0, 0, 0));
