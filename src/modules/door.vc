@@ -8,14 +8,16 @@
 
 struct Door
 {
-	int nX;			//x y tile coords (this will be the tile that acts as an obstruction
-	int nY;			//so the bottom of the door image will be drawn 16 pixels below this point
-	int nImage;		//the index of the door image
-	int nOpen;		//==1 if the door is open ==0 if closed
-	int nLockStr;		//how long in centiseconds it would take to unlock the door. 0-1 if unlocked
-	int nLockStrStart;	//where the lock str of the door started
-	int nLastPick;		//timer when nLockStr was last decreased
-	int nLastSound;		//timer when a sound was last triggered
+	int nX;					//x y tile coords (this will be the tile that acts as an obstruction
+	int nY;					//so the bottom of the door image will be drawn 16 pixels below this point
+	int nObstructionTileWidth;		//the tile height of the obstruction for the door
+	int nObstructionTileHeight;		//the tile width for the obstruction of the door
+	int nImage;				//the index of the door image
+	int nOpen;				//==1 if the door is open ==0 if closed
+	int nLockStr;				//how long in centiseconds it would take to unlock the door. 0-1 if unlocked
+	int nLockStrStart;			//where the lock str of the door started
+	int nLastPick;				//timer when nLockStr was last decreased
+	int nLastSound;				//timer when a sound was last triggered
 	int nActive;
 }
 
@@ -56,6 +58,17 @@ int CreateDoor(int x, int y, int image, int lockstr)
 			return i;
 		}
 	}
+}
+
+int CreateDoorEX(int x, int y, int image, int lockstr, int obsWidth, int obsHeight)
+{
+	int nNewDoor = CreateDoor(x, y, image, lockstr);
+	
+	Doors[nNewDoor].nObstructionTileWidth = obsWidth;
+	Doors[nNewDoor].nObstructionTileHeight = obsHeight;
+	
+	//create all obstructions for the door
+	
 }
 
 //returns 1 if there is a closed active door at this x, y coord
