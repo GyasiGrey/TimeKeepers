@@ -355,5 +355,10 @@ void GetKeyCard5()
 
 void TrapDoor()
 {
-	MessageBox("TODO: Implement me. plx");
+	Warp(150, 302);
+}
+
+void stub1()
+{
+	MessageBox("Do some crap to let the player spy on the hallway just south off the computer room");
 }
