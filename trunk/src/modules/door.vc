@@ -49,6 +49,8 @@ int CreateDoor(int x, int y, int image, int lockstr)
 		{
 			Doors[i].nX = x;
 			Doors[i].nY = y;
+			Doors[i].nObstructionTileWidth = 1;
+			Doors[i].nObstructionTileHeight = 1;
 			Doors[i].nImage = image;
 			Doors[i].nOpen = 0;
 			Doors[i].nLockStr = lockstr;
@@ -72,23 +74,29 @@ int CreateDoorEX(int x, int y, int image, int lockstr, int obsWidth, int obsHeig
 	SetDoorObstructions(nNewDoor, 1);
 }
 
-//returns 1 if there is a closed active door at this x, y coord
+//returns 1 if there is a active door at this x, y coord
 //the part of the door that acts as an obstruction is always
 //16 * 16
 //x and y are pixel coords
 int DoorAt(int x, int y)
 {
 	int i;
-	
+
 
 	for(i=0;i<MAX_DOORS;i++)
 	{
-		if(x > Doors[i].nX*16 && x < (Doors[i].nX*16) + (Doors[i].nObstructionTileWidth * 16))
-			if(y > Doors[i].nY*16 && y < (Doors[i].nY*16)  + (Doors[i].nObstructionTileHeight * 16))
-				if(Doors[i].nActive)
-					return 1;
+		if(Doors[i].nActive)
+		{
+			if(x >= Doors[i].nX*16 && x <= (Doors[i].nX*16) + (Doors[i].nObstructionTileWidth*16))
+			{
+				if(y >= Doors[i].nY*16 && y <= (Doors[i].nY*16) + (Doors[i].nObstructionTileHeight*16))
+				{
+					return i;
+				}
+			}
+		}
 	}
-	
+
 	return -1;
 }
 
