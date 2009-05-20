@@ -62,13 +62,21 @@ int CreateDoor(int x, int y, int image, int lockstr)
 
 int CreateDoorEX(int x, int y, int image, int lockstr, int obsWidth, int obsHeight)
 {
+	int i,j;
 	int nNewDoor = CreateDoor(x, y, image, lockstr);
 	
 	Doors[nNewDoor].nObstructionTileWidth = obsWidth;
 	Doors[nNewDoor].nObstructionTileHeight = obsHeight;
 	
 	//create all obstructions for the door
-	
+	for(i=0;i<Doors[nNewDoor].nObstructionTileWidth;i++)
+	{
+		for(j=0;j<Doors[nNewDoor].nObstructionTileHeight;j++)
+		{
+		error(str(i) + " " + str(j));
+			setObs(Doors[nNewDoor].nX + i, Doors[nNewDoor].nY + j, 1);
+		}
+	}
 }
 
 //returns 1 if there is a closed active door at this x, y coord
