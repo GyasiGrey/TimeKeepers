@@ -69,13 +69,7 @@ int CreateDoorEX(int x, int y, int image, int lockstr, int obsWidth, int obsHeig
 	Doors[nNewDoor].nObstructionTileHeight = obsHeight;
 	
 	//create all obstructions for the door
-	for(i=0;i<Doors[nNewDoor].nObstructionTileWidth;i++)
-	{
-		for(j=0;j<Doors[nNewDoor].nObstructionTileHeight;j++)
-		{
-			setObs(Doors[nNewDoor].nX + i, Doors[nNewDoor].nY + j, 1);
-		}
-	}
+	SetDoorObstructions(nNewDoor, 1);
 }
 
 //returns 1 if there is a closed active door at this x, y coord
@@ -145,7 +139,7 @@ void ManualOpenDoor(int i)
 	if(Doors[i].nActive)
 	{
 		Doors[i].nOpen = 1;
-		SetObs(Doors[i].nX, Doors[i].nY, 0);
+		SetDoorObstructions(i, 0);
 	}
 }
 
@@ -154,7 +148,7 @@ void ManualCloseDoor(int i)
 	if(Doors[i].nActive)
 	{
 		Doors[i].nOpen = 0;
-		SetObs(Doors[i].nX, Doors[i].nY, 1);
+		SetDoorObstructions(i, 1);
 	}
 }
 
@@ -224,6 +218,19 @@ void OpenCloseDoor(int i)
 		lucentTextFade((Doors[i].nX*16)-16, (Doors[i].nY*16)-16, "Locked", nTinyFont, RGB(255, 255, 255), 1);
 		SoundLocked();
 		UnpressButtons();
+	}
+}
+
+void SetDoorObstructions(int nDoor, int nState)
+{
+	int i, j;
+	
+	for(i=0;i<Doors[nDoor].nObstructionTileWidth;i++)
+	{
+		for(j=0;j<Doors[nDoor].nObstructionTileHeight;j++)
+		{
+			setObs(Doors[nDoor].nX + i, Doors[nDoor].nY + j, nState);
+		}
 	}
 }
 
