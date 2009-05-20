@@ -73,7 +73,6 @@ int CreateDoorEX(int x, int y, int image, int lockstr, int obsWidth, int obsHeig
 	{
 		for(j=0;j<Doors[nNewDoor].nObstructionTileHeight;j++)
 		{
-		error(str(i) + " " + str(j));
 			setObs(Doors[nNewDoor].nX + i, Doors[nNewDoor].nY + j, 1);
 		}
 	}
