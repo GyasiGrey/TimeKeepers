@@ -83,13 +83,13 @@ int DoorAt(int x, int y)
 
 	for(i=0;i<MAX_DOORS;i++)
 	{
-		if(x > Doors[i].nX*16 && x < (Doors[i].nX*16) + 16)
-			if(y > Doors[i].nY*16 && y < (Doors[i].nY*16) +16)
-				if(Doors[i].nActive && !Doors[i].nOpen)
+		if(x > Doors[i].nX*16 && x < (Doors[i].nX*16) + (Doors[i].nObstructionTileWidth * 16))
+			if(y > Doors[i].nY*16 && y < (Doors[i].nY*16)  + (Doors[i].nObstructionTileHeight * 16))
+				if(Doors[i].nActive)
 					return 1;
 	}
 	
-	return 0;
+	return -1;
 }
 
 //blit the 'Locked: num' message and wait bar - do a lucent fade when inactive
@@ -293,19 +293,5 @@ int TryDoor()
 		//targety = entity.y[nPlayerEnt]+(entity.hoth[nPlayerEnt]/2);
 	}
 
-	for(i=0;i<MAX_DOORS;i++)
-	{
-		if(Doors[i].nActive)
-		{
-			if(targetx >= Doors[i].nX*16 && targetx <= (Doors[i].nX*16)+16)
-			{
-				if(targety >= Doors[i].nY*16 && targety <= (Doors[i].nY*16)+16)
-				{
-					return i;
-				}
-			}
-		}
-	}
-	
-	return 0-1;
+	return DoorAt(targetx, targety);
 }
