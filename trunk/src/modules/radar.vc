@@ -91,6 +91,8 @@ void DrawRadar()
 
 			if(Enemies[i].nMode == MODE_ALERT)
 				nTriangleColor = RGB(255, 0, 0);
+			else if(Enemies[i].nMode == MODE_SOUND || Enemies[i].nMode == MODE_SEARCH || Enemies[i].nMode == MODE_BEFORE_SEARCH)
+				nTriangleColor = RGB(255, 165, 0);
 			else if(Enemies[i].nPassive == 1)
 				nTriangleColor = RGB(0, 0, 255);
 			else
