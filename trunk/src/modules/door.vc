@@ -206,15 +206,13 @@ void OpenCloseDoor(int i)
 		if(!Doors[i].nOpen)
 		{
 			//open it
-			Doors[i].nOpen = 1;
-			SetObs(Doors[i].nX, Doors[i].nY, 0);
+			ManualOpenDoor(i);
 			SoundDoorOpen();
 		}
 		else
 		{
 			//close it
-			Doors[i].nOpen = 0;
-			SetObs(Doors[i].nX, Doors[i].nY, 1);
+			ManualCloseDoor(i);
 			SoundDoorClose();
 		}
 		UnpressButtons();
