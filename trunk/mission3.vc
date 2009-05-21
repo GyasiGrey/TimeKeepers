@@ -355,7 +355,13 @@ void GetKeyCard5()
 
 void TrapDoor()
 {
-	Warp(150, 302);
+	Warp(147, 300);
+	Loots[nCurrentLoot].nStolen = 0;
+}
+
+void SewerToComputerRoom()
+{
+	Warp(165, 113);
 }
 
 void stub1()
