@@ -92,6 +92,9 @@ void InitLoot()
 	CreateLoot(150*16, 113*16, "Card Rank 1", 0, "card.png", "GetKeyCard1", 0);
 	
 	CreateLoot(165*16, 112*16, "", 0, "", "TrapDoor", 0);
+	
+	CreateLoot(87*16, 98*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
+	CreateLoot(88*16, 98*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
 }
 
 //ALWAYS flush
