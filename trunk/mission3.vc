@@ -361,7 +361,7 @@ void TrapDoor()
 
 void SewerToComputerRoom()
 {
-	Warp(165, 113);
+	Warp(166, 112);
 }
 
 void stub1()
