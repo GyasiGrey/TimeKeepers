@@ -9,7 +9,12 @@ void MenuComputerDraw()
 	int img;
 	
 	img = CreateWindow("Terminal", 100, 100, nTerminalFont);
+	//TODO: take this crap out, and put in the real logic
+	PrintString(0, 16, img, nTerminalFont, WrapText(nTerminalFont, "Armory key is in the locker Explosives are in the southern section of the armory. Because they're explosive The sewer lets you walk around undetected", 90));
+
 	Blit(nMenuX, nMenuY, img, screen);
+	
+	
 	FreeImage(img);
 }
 
