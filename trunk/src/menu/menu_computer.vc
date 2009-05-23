@@ -1,0 +1,28 @@
+void OpenComputerMenu()
+{
+	SetPause(1);
+	CreateMenu(100, 100, GetMenuTemplateIndex("MenuComputer"));
+}
+
+void MenuComputerDraw()
+{
+	int img;
+	
+	img = CreateWindow("Terminal", 100, 100, nTerminalFont);
+	Blit(nMenuX, nMenuY, img, screen);
+	FreeImage(img);
+}
+
+void MenuComputerLogic()
+{
+	//on weapon key press, close the menu
+	if(BUTTON_SHOOT)
+	{
+		CloseTopMenu();
+	}
+}
+
+void MenuComputerClose()
+{
+	SetPause(0);
+}

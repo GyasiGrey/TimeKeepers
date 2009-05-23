@@ -97,6 +97,8 @@ void InitLoot()
 	CreateLoot(88*16, 98*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
 	
 	CreateLoot(70*16, 150*16, "", 0, "", "ArmoryToSewer", 0);
+	
+	CreateLoot(153*16, (99*16)+8, "", 0, "", "ComputerRoomComputer", 1);
 }
 
 //ALWAYS flush
@@ -385,4 +387,10 @@ void SewerToArmory()
 void stub1()
 {
 	MessageBox("Do some crap to let the player spy on the hallway just south off the computer room");
+}
+
+void ComputerRoomComputer()
+{
+	OpenComputerMenu();
+	Loots[nCurrentLoot].nStolen = 0;
 }
