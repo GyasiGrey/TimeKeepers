@@ -65,6 +65,10 @@ void InitDoors()
 	CreateDoor(73, 141, LoadImage("gfx\misc\locker_door.png"), -2);
 	
 	CreateDoor(150, 113, LoadImage("gfx\misc\locker_door.png"), -1);
+	
+	CreateDoorEX(68, 163, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2);
+	
+	CreateDoor(97, 171, LoadImage("gfx\misc\locker_door.png"), -2);
 }
 
 void InitEnemies()
@@ -99,6 +103,8 @@ void InitLoot()
 	CreateLoot(70*16, 150*16, "", 0, "", "ArmoryToSewer", 0);
 	
 	CreateLoot(153*16, (99*16)+8, "", 0, "", "ComputerRoomComputer", 1);
+	
+	CreateLoot(77*16, 166*16, "C4", 0, "pistol.png", "GetC4", 0);
 }
 
 //ALWAYS flush
