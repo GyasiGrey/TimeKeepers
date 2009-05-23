@@ -19,6 +19,7 @@ struct Door
 	int nLastPick;				//timer when nLockStr was last decreased
 	int nLastSound;				//timer when a sound was last triggered
 	int nActive;
+	int nKeyFlag;				//the flag that acts as this doors key. If this flag is true, the door will open regardless of the lock strength. Set to -1 for no key
 }
 
 Door Doors[MAX_DOORS];
@@ -56,19 +57,21 @@ int CreateDoor(int x, int y, int image, int lockstr)
 			Doors[i].nLockStr = lockstr;
 			Doors[i].nLockStrStart = lockstr;
 			Doors[i].nActive = 1;
+			Doors[i].nKeyFlag = -1;
 			SetObs(x, y, 1);
 			return i;
 		}
 	}
 }
 
-int CreateDoorEX(int x, int y, int image, int lockstr, int obsWidth, int obsHeight)
+int CreateDoorEX(int x, int y, int image, int lockstr, int obsWidth, int obsHeight, int nKeyFlag)
 {
 	int i,j;
 	int nNewDoor = CreateDoor(x, y, image, lockstr);
 	
 	Doors[nNewDoor].nObstructionTileWidth = obsWidth;
 	Doors[nNewDoor].nObstructionTileHeight = obsHeight;
+	Doors[nNewDoor].nKeyFlag = nKeyFlag;
 	
 	//create all obstructions for the door
 	SetDoorObstructions(nNewDoor, 1);
@@ -205,6 +208,23 @@ void OpenCloseDoor(int i)
 	else if(Doors[i].nLockStr > 0-2)
 	{
 		//door is closed, but the lock can be picked
+		if(!Doors[i].nOpen)
+		{
+			//open it
+			ManualOpenDoor(i);
+			SoundDoorOpen();
+		}
+		else
+		{
+			//close it
+			ManualCloseDoor(i);
+			SoundDoorClose();
+		}
+		UnpressButtons();
+	}
+	else if(Doors[i].nKeyFlag != -1 && nFlags[Doors[i].nKeyFlag] > 0)
+	{
+		//if this door has a key flag, and that flag is set, open the door
 		if(!Doors[i].nOpen)
 		{
 			//open it
