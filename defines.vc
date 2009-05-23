@@ -76,8 +76,9 @@
 #define WEAPON_AUTO_SHOTGUN	7
 #define WEAPON_ROCKET_LAUNCHER	8
 #define	WEAPON_FLASH_BANG	9
-#define	WEAPON_C4		10	//planted explosive
-#define	WEAPON_DET_BOX		11	//detonator for the planted explosive
+#define	WEAPON_SNIPER		10
+#define	WEAPON_C4		11	//planted explosive
+#define	WEAPON_DET_BOX		12	//detonator for the planted explosive
 
 //Thrown collision types
 #define THROWN_COLLISION_REFLECT	0

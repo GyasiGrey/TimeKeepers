@@ -65,6 +65,27 @@ void AllWeapons()
 	for(i=0;i<MAX_WEAPONS;i++)
 	{
 		nHasWeapon[i] = 1;
-		nAmmo[i] = 1000;
+		
+		if(nAmmo[i] != -1)
+			nAmmo[i] = 1000;
 	}
+}
+
+void NoWeapons()
+{
+	if(!CHEATS_ENABLED)
+		return;
+		
+	int i;
+	for(i=0;i<MAX_WEAPONS;i++)
+	{
+		nHasWeapon[i] = 0;
+		
+		if(nAmmo[i] != -1)
+			nAmmo[i] = 0;
+	}
+	
+	//give the player no weapon
+	nHasWeapon[WEAPON_EMPTY] = 1;
+	nEquipedWeapon = WEAPON_EMPTY;
 }

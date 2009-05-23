@@ -528,3 +528,11 @@ void GetM4()
 {
 	GetWeaponAmmoLoot(WEAPON_M4);
 }
+
+void GetC4()
+{
+	GetWeaponLoot(WEAPON_C4);
+	GetWeaponLoot(WEAPON_DET_BOX);
+	
+	GetAmmoLoot(WEAPON_C4);
+}
