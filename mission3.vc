@@ -57,16 +57,16 @@ void InitDoors()
 	nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID] = CreateDoor(110, 114, LoadImage("gfx\misc\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID] = CreateDoor(78, 15, LoadImage("gfx\misc\elevator_door.png"), -2);
 	
-	nFlags[FLAG_MISSION3_DOOR_ARMORY_PISTOL] = CreateDoor(88, 141, LoadImage("gfx\misc\locker_door.png"), -2);
-	nFlags[FLAG_MISSION3_DOOR_ARMORY_MAIN] = CreateDoorEX(96, 128, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2);
-	CreateDoorEX(99, 113, LoadImage("gfx\misc\blastdoor_closed.png"), 0, 4, 2);
+	nFlags[FLAG_MISSION3_DOOR_ARMORY_PISTOL] = CreateDoorEX(88, 141, LoadImage("gfx\misc\locker_door.png"), -2, 1, 1, FLAG_MISSION3_KEYCARD_1);
+	nFlags[FLAG_MISSION3_DOOR_ARMORY_MAIN] = CreateDoorEX(96, 128, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
+	CreateDoorEX(99, 113, LoadImage("gfx\misc\blastdoor_closed.png"), 0, 4, 2, -1);
 	CreateDoor(88, 155, LoadImage("gfx\misc\locker_door.png"), -2);
 	CreateDoor(73, 155, LoadImage("gfx\misc\locker_door.png"), -2);
 	CreateDoor(73, 141, LoadImage("gfx\misc\locker_door.png"), -2);
 	
 	CreateDoor(150, 113, LoadImage("gfx\misc\locker_door.png"), -1);
 	
-	CreateDoorEX(68, 163, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2);
+	CreateDoorEX(68, 163, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_2);
 	
 	CreateDoor(97, 171, LoadImage("gfx\misc\locker_door.png"), -2);
 }
@@ -341,10 +341,6 @@ void CatwalkNoise()
 void GetKeyCard1()
 {
 	nFlags[FLAG_MISSION3_KEYCARD_1] = 1;
-	
-	//unlock the main armory door and the pistol room in the armory
-	ManualUnlockDoor(nFlags[FLAG_MISSION3_DOOR_ARMORY_MAIN]);
-	ManualUnlockDoor(nFlags[FLAG_MISSION3_DOOR_ARMORY_PISTOL]);
 }
 
 void GetKeyCard2()
