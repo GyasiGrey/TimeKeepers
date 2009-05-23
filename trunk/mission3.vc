@@ -95,6 +95,8 @@ void InitLoot()
 	
 	CreateLoot(87*16, 98*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
 	CreateLoot(88*16, 98*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
+	
+	CreateLoot(70*16, 150*16, "", 0, "", "ArmoryToSewer", 0);
 }
 
 //ALWAYS flush
@@ -367,6 +369,18 @@ void SewerToComputerRoom()
 {
 	Warp(166, 112);
 }
+
+void ArmoryToSewer()
+{
+	Warp(74, 312);
+	Loots[nCurrentLoot].nStolen = 0;
+}
+
+void SewerToArmory()
+{
+	Warp(71, 150);
+}
+
 
 void stub1()
 {
