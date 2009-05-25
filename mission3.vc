@@ -366,8 +366,12 @@ void GetKeyCard5()
 
 void TrapDoor()
 {
-	Warp(147, 300);
 	Loots[nCurrentLoot].nStolen = 0;
+	
+	if(!nFlags[FLAG_MISSION3_TRAP_DOOR_LOCKED])
+		return;
+		
+	Warp(147, 300);
 }
 
 void SewerToComputerRoom()
