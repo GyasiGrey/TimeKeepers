@@ -89,7 +89,7 @@ void InitLoot()
 {
 	nFlags[FLAG_MISSION3_TOILET_ID] = CreateLoot(37*16, 18*16, "", 0, "", "Flush", 0);
 	CreateLoot(77*16, (15*16)-8, "", 0, "", "MainElevatorButton", 1);
-	CreateLoot(110*16, (90*16)-8, "", 0, "", "LobbyElevatorButton", 1);
+	CreateLoot(109*16, (114*16)-8, "", 0, "", "LobbyElevatorButton", 1);
 	CreateLoot(42*16, (17*16)-8, "", 0, "", "JailElevatorButton", 1);
 	CreateLoot(85*16, 136*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
 	
