@@ -59,7 +59,7 @@ void InitDoors()
 	
 	nFlags[FLAG_MISSION3_DOOR_ARMORY_PISTOL] = CreateDoorEX(88, 141, LoadImage("gfx\misc\locker_door.png"), -2, 1, 1, FLAG_MISSION3_KEYCARD_1);
 	nFlags[FLAG_MISSION3_DOOR_ARMORY_MAIN] = CreateDoorEX(96, 128, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
-	CreateDoorEX(99, 113, LoadImage("gfx\misc\blastdoor_closed.png"), 0, 4, 2, -1);
+	CreateDoorEX(99, 113, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
 	CreateDoor(88, 155, LoadImage("gfx\misc\locker_door.png"), -2);
 	CreateDoor(73, 155, LoadImage("gfx\misc\locker_door.png"), -2);
 	CreateDoor(73, 141, LoadImage("gfx\misc\locker_door.png"), -2);
