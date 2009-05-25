@@ -285,7 +285,7 @@
 #define MAX_EMITTERS 500
 
 //Radar
-#define RADAR_RANGE 100
+#define RADAR_RANGE 200
 int RADAR_WIDTH = 60;
 int RADAR_HEIGHT = 40;
 
