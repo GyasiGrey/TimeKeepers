@@ -398,6 +398,11 @@ void stub1()
 
 void ComputerRoomComputer()
 {
-	OpenComputerMenu();
 	Loots[nCurrentLoot].nStolen = 0;
+	
+	if(!nFlags[FLAG_MISSION3_KEYCARD_1])
+		return;
+		
+	OpenComputerMenu();
+	nFlags[FLAG_MISSION3_TRAP_DOOR_LOCKED] =  1;
 }
