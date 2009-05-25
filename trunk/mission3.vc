@@ -105,6 +105,7 @@ void InitLoot()
 	CreateLoot(153*16, (99*16)+8, "", 0, "", "ComputerRoomComputer", 1);
 	
 	CreateLoot(77*16, 166*16, "C4", 0, "pistol.png", "GetC4", 0);
+	Createloot(75*16, 150*16, "Card Rank 2", 0, "card.png", "GetKeyCard2", 0);
 }
 
 //ALWAYS flush
