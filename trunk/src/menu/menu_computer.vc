@@ -10,7 +10,7 @@ void MenuComputerDraw()
 	
 	img = CreateWindow("Terminal", 100, 100, nTerminalFont);
 	//TODO: take this crap out, and put in the real logic
-	PrintString(0, 16, img, nTerminalFont, WrapText(nTerminalFont, "Armory key is in the locker Explosives are in the southern section of the armory. Because they're explosive The sewer lets you walk around undetected", 90));
+	PrintString(0, 16, img, nTerminalFont, WrapText(nTerminalFont, "Armory key is in the locker Explosives are in the southern section of the armory. Because they're explosive The sewer lets you walk around undetected. Sewer access unlocked. Go walk around in filth. - GLaDOS", 90));
 
 	Blit(nMenuX, nMenuY, img, screen);
 	
