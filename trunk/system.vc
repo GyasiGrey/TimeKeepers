@@ -216,6 +216,8 @@ void AddDefaultHooks()
 	//particles
 	AddHook("ProcessEmitters", 5);
 	AddHook("ProcessParticles", 1025);
+	//lucent color effect
+	AddHook("EffectDrawLucentColor", 1050);
 	//radar
 	AddHook("DrawRadar", 1520);
 	//lock pick notification
@@ -363,6 +365,7 @@ void InitMap(int missionNumber)
 	NewGame();
 
 	nRadarOn=1;
+	nEffectLucentLucency = 100;
 	
 	nMissionNum = missionNumber;
 	

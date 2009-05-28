@@ -46,3 +46,13 @@ void CrossFade(int _dur)
 		ShowPage();
 	}
 }
+
+int nEffectLucentLucency = 100;
+int nEffectLucentColor;
+
+void EffectDrawLucentColor()
+{
+	SetLucent(nEffectLucentLucency);
+	RectFill(0, 0, 320, 240, nEffectLucentColor, screen);
+	SetLucent(0);
+}
