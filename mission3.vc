@@ -406,3 +406,13 @@ void ComputerRoomComputer()
 	OpenComputerMenu();
 	nFlags[FLAG_MISSION3_TRAP_DOOR_LOCKED] =  1;
 }
+
+void StartSewerTrap()
+{
+	if(!nFlags[FLAG_MISSION3_SEWER_TRAP])
+	{
+		//Put a locked door at the entrance to the sewer
+		CreateDoor(90, 297, LoadImage("gfx\misc\jail_door.png"), -2);
+		nFlags[FLAG_MISSION3_SEWER_TRAP] = 1;
+	}
+}
