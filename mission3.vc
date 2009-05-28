@@ -414,5 +414,33 @@ void StartSewerTrap()
 		//Put a locked door at the entrance to the sewer
 		CreateDoor(90, 297, LoadImage("gfx\misc\jail_door.png"), -2);
 		nFlags[FLAG_MISSION3_SEWER_TRAP] = 1;
+		
+		//now get comfortable.....while I warm up the neuro toxin
+		nFlags[FLAG_MISSION3_GAS_LEVEL] = MISSION_3_GAS_TRAP_TIME/100;
+		
+		CreateDelayedCallback(50, "IncreaseGasLevel");
+	}
+}
+
+void IncreaseGasLevel()
+{
+	//increment the gas flag
+	nFlags[FLAG_MISSION3_GAS_LEVEL]--;
+		
+	int fGasTime = oF_Whole2Fixed(MISSION_3_GAS_TRAP_TIME);
+	int fOneHundred = oF_Whole2Fixed(100);
+	int fGasLevel = oF_Whole2Fixed(nFlags[FLAG_MISSION3_GAS_LEVEL]);
+	
+	nEffectLucentLucency = oF_Fixed2Int(oF_multiFF(oF_divFF(fGasLevel, oF_divFF(fGasTime, fOneHundred)), fOneHundred));
+	nEffectLucentColor = RGB(128, 255, 0);
+
+	if(nEffectLucentLucency > 0)
+	{
+		//reinit the callback so this function happens again in 100 ticks
+		CreateDelayedCallback(100, "IncreaseGasLevel");
+	}
+	else
+	{
+		nHealth = 0;
 	}
 }
