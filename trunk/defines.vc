@@ -67,7 +67,7 @@
 #define NUM_WEAPONS 13
 
 #define WEAPON_KNIFE		0
-#define WEAPON_PISTON		1
+#define WEAPON_PISTOL		1
 #define WEAPON_SHOTGUN		2
 #define WEAPON_M4		3
 #define WEAPON_TRANQ		4

@@ -294,27 +294,27 @@ void EnterFirstTutorialRoom()
 void GotPistol()
 {
 	CommText("Tech: That's a pistol. It has good range and rate of fire, but lacks in the 'killing stuff' department. Don't trust your life to it.");
-	nHasWeapon[1] = 1;
+	GetWeaponLoot(WEAPON_PISTOL);
 }
 
 void GotShotgun()
 {
 	CommText("Tech: That's a shotgun. It's a very powerfull weapon at close range, but it's slow to reload and has a wide spread when used at range.");
 	CommText("Tech: It's also very loud, so if you use it expect company.");
-	nHasWeapon[2] = 1;
+	GetWeaponLoot(WEAPON_SHOTGUN);
 }
 
 void GotM4()
 {
 	CommText("Tech: Ahh the M4. High rate of fire, good range. It's only real downfall is a limited ammo supply.");
-	nHasWeapon[3] = 1;
+	GetWeaponLoot(WEAPON_M4);
 }
 
 void GotTranq()
 {
 	CommText("Tech: And the Tranq Gun. This gun is fitted with a silencer so your target won't hear it.");
 	CommText("Tech: It also has the added bonus of not killing said target, just giving them enough tranqualizers to be out for a while.");
-	nHasWeapon[4] = 1;
+	GetWeaponLoot(WEAPON_TRANQ);
 }
 
 void GetMedkitBase()
@@ -326,14 +326,12 @@ void GetMedkitBase()
 
 void GotGrenade()
 {
-	nHasWeapon[5] = 1;
-	nAmmo[5] = 10;
+	GetWeaponLoot(WEAPON_GRENADE);
 }
 
 void GotFlashBang()
 {
-	nHasWeapon[9] = 1;
-	nAmmo[9] = 10;
+	GetWeaponLoot(WEAPON_FLASH_BANG);
 }
 
 

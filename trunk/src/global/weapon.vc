@@ -516,7 +516,7 @@ void GetAmmoLoot(int i)
 
 void GetPistol()
 {
-	GetWeaponAmmoLoot(WEAPON_PISTON);
+	GetWeaponAmmoLoot(WEAPON_PISTOL);
 }
 
 void GetShotgun()
