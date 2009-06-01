@@ -79,7 +79,7 @@ void MainMenuLogic()
 			//AchivementSyncDown();
 			//AchivementSyncUp();
 		
-			map("base.map");
+			TimeWarpNoTrans("0|", "base.map");
 		}
 		else if(nPointerPos == 1)
 		{
