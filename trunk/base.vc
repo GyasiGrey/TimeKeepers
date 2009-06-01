@@ -14,20 +14,6 @@ void start()
 	
 	MusicSwitch("base.s3m", 15);
 	
-	//do stuff only if we are not loading a game
-	if(!bLoadingGame)
-	{
-		//give the player weapons
-		nHasWeapon[0] = 1;
-		nHasWeapon[1] = 0;
-		nHasWeapon[2] = 0;
-		nHasWeapon[3] = 0;
-		nHasWeapon[4] = 0;
-		
-		//equip the players weapon
-		nEquipedWeapon = 0;
-	}
-
 	if(nFlags[FLAG_MISSION2_COMPLETE])
 	{
 		//back at base after run in with TK for the first time
