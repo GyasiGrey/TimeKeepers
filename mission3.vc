@@ -69,6 +69,10 @@ void InitDoors()
 	CreateDoorEX(68, 163, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_2);
 	
 	CreateDoor(97, 171, LoadImage("gfx\misc\locker_door.png"), -2);
+	
+	//door to the trap room
+	nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP] = CreateDoor(90, 297, LoadImage("gfx\misc\locker_door.png"), -2);
+	ManualOpenDoor(nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP]);
 }
 
 void InitEnemies()
@@ -412,7 +416,8 @@ void StartSewerTrap()
 	if(!nFlags[FLAG_MISSION3_SEWER_TRAP])
 	{
 		//Put a locked door at the entrance to the sewer
-		CreateDoor(90, 297, LoadImage("gfx\misc\jail_door.png"), -2);
+		ManualCloseDoor(nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP]);
+		
 		nFlags[FLAG_MISSION3_SEWER_TRAP] = 1;
 		
 		//now get comfortable.....while I warm up the neuro toxin
