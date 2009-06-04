@@ -73,6 +73,9 @@ void InitDoors()
 	//door to the trap room
 	nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP] = CreateDoor(90, 297, LoadImage("gfx\misc\locker_door.png"), -2);
 	ManualOpenDoor(nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP]);
+	
+	CreateDoor(75, 301, LoadImage("gfx\misc\locker_door.png"), 200);
+	CreateDoor(87, 309, LoadImage("gfx\misc\locker_door.png"), 200);
 }
 
 void InitEnemies()
@@ -110,6 +113,10 @@ void InitLoot()
 	
 	CreateLoot(77*16, 166*16, "C4", 0, "pistol.png", "GetC4", 0);
 	Createloot(75*16, 150*16, "Card Rank 2", 0, "card.png", "GetKeyCard2", 0);
+	
+	CreateLoot(74*16, (297*16)-8, "", 0, "", "SewerTrapButton1", 1);
+	CreateLoot(93*16, (305*16)-8, "", 0, "", "SewerTrapButton2", 1);
+	CreateLoot(77*16, (311*16)-8, "", 0, "", "SewerTrapButton3", 1);
 }
 
 //ALWAYS flush
@@ -447,5 +454,35 @@ void IncreaseGasLevel()
 	else
 	{
 		nHealth = 0;
+	}
+}
+
+void SewerTrapButton1()
+{
+	nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_1] = 1;
+	
+	CheckSpawnSewerTrapKey();
+}
+
+void SewerTrapButton2()
+{
+	nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_2] = 1;
+	
+	CheckSpawnSewerTrapKey();
+}
+
+void SewerTrapButton3()
+{
+	if(nFlags[FLAG_MISSION3_SEWER_TRAP_KEY])
+	{
+		messagebox("TODO: spawn the ladder out of the sewer");
+	}
+}
+
+void CheckSpawnSewerTrapKey()
+{
+	if(nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_1] && nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_2])
+	{
+		messagebox("TODO: spawn the key/wheel/think to make the ladder come down");
 	}
 }
