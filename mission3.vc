@@ -99,7 +99,7 @@ void InitLoot()
 	nFlags[FLAG_MISSION3_TOILET_ID] = CreateLoot(37*16, 18*16, "", 0, "", "Flush", 0);
 	CreateLoot(77*16, (15*16)-8, "", 0, "", "MainElevatorButton", 1);
 	CreateLoot(109*16, (114*16)-8, "", 0, "", "LobbyElevatorButton", 1);
-	CreateLoot(42*16, (17*16)-8, "", 0, "", "JailElevatorButton", 1);
+	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_BUTTON] = CreateLoot(42*16, (17*16)-8, "", 0, "", "JailElevatorButton", 1);
 	CreateLoot(85*16, 136*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
 	
 	CreateLoot(150*16, 113*16, "Card Rank 1", 0, "card.png", "GetKeyCard1", 0);
@@ -183,6 +183,9 @@ void EscapeCell()
 {
 	if(!nFlags[FLAG_MISSION3_ESCAPE_FLOOD])
 	{
+		//flag the elevator button so the player can't leave the jail
+		Loots[nFlags[FLAG_MISSION3_JAIL_ELEVATOR_BUTTON]].nStolen = 1;
+		
 		//called from map zone when the player escapes the jail cell by flooding it
 
 		//cripple the player
@@ -218,8 +221,17 @@ void EscapeCell()
 		
 		nFlags[FLAG_MISSION3_ESCAPE_FLOOD] = 1;
 		
-		CreateDelayedCallback(1000, "SpawnJailSquad");
+		//make the now jailed guard call for backup
+		CreateDelayedCallback(250, "JailGuardCallBackup");
+
 	}
+}
+
+void JailGuardCallBackup()
+{
+	CommText("Guard: Central, I need backup in the cell block!");
+	CommText("Central: Understood. Backup is en route.");
+	CreateDelayedCallback(1000, "SpawnJailSquad");	
 }
 
 //spawn two guards 
@@ -232,6 +244,8 @@ void SpawnJailSquad()
 	spawnedGuard1 = CreateEnemy(43, 15, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "", "tk.chr");
 	
 	Goto(Enemies[spawnedGuard1].nEntity, 38*16, 24*16);
+	
+	Loots[nFlags[FLAG_MISSION3_JAIL_ELEVATOR_BUTTON]].nStolen = 0;
 }
 
 void WarpToElevator()
