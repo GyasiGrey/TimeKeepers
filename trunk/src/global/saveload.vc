@@ -421,6 +421,10 @@ void MoveLoadedData()
 				//make sure the doors obs is off
 				ManualOpenDoor(i);
 			}
+			else
+			{
+				ManualCloseDoor(i);
+			}
 		}
 		
 		//loot
