@@ -202,6 +202,8 @@ void EscapeCell()
 		CommText("Guard: Huh?...ahhh crap.");
 		WaitForCommText();
 		nHoldCommText = 0;
+		
+		Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nPassive = 0;
 
 		//close the door
 		ManualCloseDoor(nFlags[FLAG_MISSION3_JAIL_DOOR_ID]);
