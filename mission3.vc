@@ -119,6 +119,9 @@ void InitLoot()
 	CreateLoot(74*16, (297*16)-8, "", 0, "", "SewerTrapButton1", 1);
 	CreateLoot(93*16, (305*16)-8, "", 0, "", "SewerTrapButton2", 1);
 	CreateLoot(77*16, (311*16)-8, "", 0, "", "SewerTrapButton3", 1);
+	
+	CreateLoot(39*16, 18*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
+	CreateLoot(46*16, 18*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
 }
 
 //ALWAYS flush
@@ -249,7 +252,7 @@ void SpawnJailSquad()
 	
 	Loots[nFlags[FLAG_MISSION3_JAIL_ELEVATOR_BUTTON]].nStolen = 0;
 	
-	CreateDelayedCallback(250, "SpawnJailSquad2");	
+	CreateDelayedCallback(250, "SpawnJailSquad2");
 }
 
 //spawn second guard
