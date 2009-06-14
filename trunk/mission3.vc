@@ -236,7 +236,7 @@ void JailGuardCallBackup()
 	CreateDelayedCallback(1000, "SpawnJailSquad");	
 }
 
-//spawn two guards 
+//spawn first guard
 void SpawnJailSquad()
 {
 	int spawnedGuard1;
@@ -245,9 +245,21 @@ void SpawnJailSquad()
 	ManualOpenDoor(nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID]);
 	spawnedGuard1 = CreateEnemy(43, 15, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "", "tk.chr");
 	
-	Goto(Enemies[spawnedGuard1].nEntity, 38*16, 24*16);
+	Goto(Enemies[spawnedGuard1].nEntity, 37*16, 24*16);
 	
 	Loots[nFlags[FLAG_MISSION3_JAIL_ELEVATOR_BUTTON]].nStolen = 0;
+	
+	CreateDelayedCallback(250, "SpawnJailSquad2");	
+}
+
+//spawn second guard
+void SpawnJailSquad2()
+{
+	int spawnedGuard1;
+	
+	spawnedGuard1 = CreateEnemy(43, 15, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "", "tk.chr");
+	
+	Goto(Enemies[spawnedGuard1].nEntity, 37*16, 24*16);
 }
 
 void WarpToElevator()
