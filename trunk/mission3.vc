@@ -57,6 +57,7 @@ void InitDoors()
 	nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID] = CreateDoor(110, 114, LoadImage("gfx\misc\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID] = CreateDoor(78, 15, LoadImage("gfx\misc\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_TO_OFFICE_DOOR_ID] = CreateDoor(115, 114, LoadImage("gfx\misc\elevator_door.png"), -2);
+	nFlags[FLAG_MISSION3_OFFICE_TO_MAIN_FLOOR_DOOR_ID] = CreateDoor(162, 375, LoadImage("gfx\misc\elevator_door.png"), -2);
 	
 	nFlags[FLAG_MISSION3_DOOR_ARMORY_PISTOL] = CreateDoorEX(88, 141, LoadImage("gfx\misc\locker_door.png"), -2, 1, 1, FLAG_MISSION3_KEYCARD_1);
 	nFlags[FLAG_MISSION3_DOOR_ARMORY_MAIN] = CreateDoorEX(96, 128, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
@@ -103,6 +104,7 @@ void InitLoot()
 	CreateLoot(109*16, (114*16)-8, "", 0, "", "LobbyElevatorButton", 1);
 	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_BUTTON] = CreateLoot(42*16, (17*16)-8, "", 0, "", "JailElevatorButton", 1);
 	CreateLoot(114*16, (114*16)-8, "", 0, "", "LobbyToOfficeElevatorButton", 1);
+	CreateLoot(161*16, (375*16)-8, "", 0, "", "OfficeToLobbyElevatorButton", 1);
 	
 	
 	CreateLoot(85*16, 136*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
@@ -293,6 +295,16 @@ void WarpToElevatorForOffice()
 	nFlags[FLAG_MISSION3_ELEVATOR_FLOOR] = 2;
 }
 
+void OfficeToLobbyElevatorButton()
+{
+	Loots[nCurrentLoot].nStolen = 0;
+
+	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0 || IsDelayedCallbackActive("OfficeToLobyElevatorArrived") || IsDelayedCallbackActive("CloseOfficeToLobyElevatorDoor"))
+		return;
+
+	CreateDelayedCallback(500, "OfficeToLobyElevatorArrived");
+}
+
 void LobbyToOfficeElevatorButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
@@ -321,10 +333,19 @@ void MainElevatorButton()
 		//if the player is at the main level going to the office, send them to the office
 		case 2:
 			nFlags[FLAG_MISSION3_ELEVATOR_FLOOR] = 3;
+		case 3:
+			nFlags[FLAG_MISSION3_ELEVATOR_FLOOR] = 2;
 	}
 	
 	StartShake(1, 20);
 	CreateDelayedCallback(500, "InnerElevatorArrived");
+}
+
+void OfficeToLobyElevatorArrived()
+{
+	ManualOpenDoor(nFlags[FLAG_MISSION3_OFFICE_TO_MAIN_FLOOR_DOOR_ID]);
+	StartShake(1, 20);
+	CreateDelayedCallback(500, "CloseOfficeToLobyElevatorDoor");
 }
 
 void LobyToOfficeElevatorArrived()
@@ -393,9 +414,14 @@ void CloseJailElevatorDoor()
 	ManualCloseDoor(nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID]);
 }
 
-Void CloseLobyToOfficeElevatorDoor()
+void CloseLobyToOfficeElevatorDoor()
 {
 	ManualCloseDoor(nFlags[FLAG_MISSION3_MAIN_ELEVATOR_TO_OFFICE_DOOR_ID]);
+}
+
+void CloseOfficeToLobyElevatorDoor()
+{
+	ManualCloseDoor(nFlags[FLAG_MISSION3_OFFICE_TO_MAIN_FLOOR_DOOR_ID]);
 }
 
 void ExitElevator()
