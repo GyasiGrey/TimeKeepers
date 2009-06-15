@@ -56,6 +56,7 @@ void InitDoors()
 	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID] = CreateDoor(43, 17, LoadImage("gfx\misc\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID] = CreateDoor(110, 114, LoadImage("gfx\misc\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID] = CreateDoor(78, 15, LoadImage("gfx\misc\elevator_door.png"), -2);
+	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_TO_OFFICE_DOOR_ID] = CreateDoor(115, 114, LoadImage("gfx\misc\elevator_door.png"), -2);
 	
 	nFlags[FLAG_MISSION3_DOOR_ARMORY_PISTOL] = CreateDoorEX(88, 141, LoadImage("gfx\misc\locker_door.png"), -2, 1, 1, FLAG_MISSION3_KEYCARD_1);
 	nFlags[FLAG_MISSION3_DOOR_ARMORY_MAIN] = CreateDoorEX(96, 128, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
@@ -97,9 +98,13 @@ void InitEnemies()
 void InitLoot()
 {
 	nFlags[FLAG_MISSION3_TOILET_ID] = CreateLoot(37*16, 18*16, "", 0, "", "Flush", 0);
+	
 	CreateLoot(77*16, (15*16)-8, "", 0, "", "MainElevatorButton", 1);
 	CreateLoot(109*16, (114*16)-8, "", 0, "", "LobbyElevatorButton", 1);
 	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_BUTTON] = CreateLoot(42*16, (17*16)-8, "", 0, "", "JailElevatorButton", 1);
+	CreateLoot(114*16, (114*16)-8, "", 0, "", "LobbyToOfficeElevatorButton", 1);
+	
+	
 	CreateLoot(85*16, 136*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
 	
 	CreateLoot(150*16, 113*16, "Card Rank 1", 0, "card.png", "GetKeyCard1", 0);
@@ -275,8 +280,27 @@ void WarpToElevator()
 	FadeInExclusive(50, RGB(0, 0, 0));
 	
 	CloseLobbyElevatorDoor();
+	CloseLobbyToOfficeElevatorDoor();
 	CloseInnerElevatorDoor();
 	CloseJailElevatorDoor();
+}
+
+//for the elevator that goes from the main floor to the office
+void WarpToElevatorForOffice()
+{
+	WarpToElevator();
+	
+	nFlags[FLAG_MISSION3_ELEVATOR_FLOOR] = 2;
+}
+
+void LobbyToOfficeElevatorButton()
+{
+	Loots[nCurrentLoot].nStolen = 0;
+
+	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0 || IsDelayedCallbackActive("LobyToOfficeElevatorArrived") || IsDelayedCallbackActive("CloseLobyToOfficeElevatorDoor"))
+		return;
+
+	CreateDelayedCallback(500, "LobyToOfficeElevatorArrived");
 }
 
 void MainElevatorButton()
@@ -294,10 +318,20 @@ void MainElevatorButton()
 		//if the player is at the main level, send them to the jail
 		case 1:
 			nFlags[FLAG_MISSION3_ELEVATOR_FLOOR] = 0;
+		//if the player is at the main level going to the office, send them to the office
+		case 2:
+			nFlags[FLAG_MISSION3_ELEVATOR_FLOOR] = 3;
 	}
 	
 	StartShake(1, 20);
 	CreateDelayedCallback(500, "InnerElevatorArrived");
+}
+
+void LobyToOfficeElevatorArrived()
+{
+	ManualOpenDoor(nFlags[FLAG_MISSION3_MAIN_ELEVATOR_TO_OFFICE_DOOR_ID]);
+	StartShake(1, 20);
+	CreateDelayedCallback(500, "CloseLobyToOfficeElevatorDoor");
 }
 
 void InnerElevatorArrived()
@@ -344,6 +378,11 @@ void CloseLobbyElevatorDoor()
 	ManualCloseDoor(nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID]);
 }
 
+void CloseLobbyToOfficeElevatorDoor()
+{
+	ManualCloseDoor(nFlags[FLAG_MISSION3_MAIN_ELEVATOR_TO_OFFICE_DOOR_ID]);
+}
+
 void CloseInnerElevatorDoor()
 {
 	ManualCloseDoor(nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID]);
@@ -352,6 +391,11 @@ void CloseInnerElevatorDoor()
 void CloseJailElevatorDoor()
 {
 	ManualCloseDoor(nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID]);
+}
+
+Void CloseLobyToOfficeElevatorDoor()
+{
+	ManualCloseDoor(nFlags[FLAG_MISSION3_MAIN_ELEVATOR_TO_OFFICE_DOOR_ID]);
 }
 
 void ExitElevator()
@@ -367,6 +411,10 @@ void ExitElevator()
 		//if the player is at the main level
 		case 1:
 			Warp(110, 115);
+		case 2:
+			Warp(115, 115);
+		case 3:
+			Warp(161, 376);
 	}
 
 	FadeInExclusive(50, RGB(0, 0, 0));
