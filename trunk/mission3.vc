@@ -94,6 +94,9 @@ void InitEnemies()
 	CreateEnemy(96, 209, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_ROBOT, "", "robot.chr");
 	
 	CreateEnemy(79, 305, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_GUN_CAMERA, "", "camera.chr");
+	
+	CreateEnemy(99, 424, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_GUN_CAMERA, "", "camera.chr");
+	CreateEnemy(112, 424, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_GUN_CAMERA, "", "camera.chr");
 }
 
 void InitLoot()

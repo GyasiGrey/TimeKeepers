@@ -64,7 +64,7 @@
 
 #define MAX_WEAPONS 15		//DO NOT CHANGE. WILL BREAK SAVE GAMES. (yeah, if I ever get around to implementing savegames)
 
-#define NUM_WEAPONS 13
+#define NUM_WEAPONS 14
 
 #define WEAPON_KNIFE		0
 #define WEAPON_PISTOL		1
@@ -79,6 +79,7 @@
 #define	WEAPON_SNIPER		10
 #define	WEAPON_C4		11	//planted explosive
 #define	WEAPON_DET_BOX		12	//detonator for the planted explosive
+#define WEAPON_AI_M4		13	//long range machine gun. Only for the computer controled enemies.
 
 //Thrown collision types
 #define THROWN_COLLISION_REFLECT	0

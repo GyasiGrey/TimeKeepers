@@ -278,6 +278,23 @@ void InitWeapons()
 	Weapons[12].nSpreadShots = 1;
 	Weapons[12].sAimFunction = "NullAim";
 	Weapons[12].sShootFunction = "ShootDetBox";
+	
+	Weapons[WEAPON_AI_M4].nRange = 300;
+	Weapons[WEAPON_AI_M4].sName = "M4";
+	Weapons[WEAPON_AI_M4].sSound = "sounds\mgun.wav";
+	Weapons[WEAPON_AI_M4].nIcon = LoadImage("gfx\icons\mgunicn.png");
+	Weapons[WEAPON_AI_M4].nMaxAmmo = 45;
+	Weapons[WEAPON_AI_M4].nDamageMin = 5;
+	Weapons[WEAPON_AI_M4].nDamageMax = 10;
+	Weapons[WEAPON_AI_M4].nRecharge = 6;
+	Weapons[WEAPON_AI_M4].nSoundRadius = 250;
+	Weapons[WEAPON_AI_M4].nAccMin = 0-15;
+	Weapons[WEAPON_AI_M4].nAccMax = 15;
+	Weapons[WEAPON_AI_M4].nSpreadShots = 1;
+	Weapons[WEAPON_AI_M4].nType = WEAPON_TYPE_AUTO;
+	Weapons[WEAPON_AI_M4].sAimFunction = "AimWeapon";
+	Weapons[WEAPON_AI_M4].sPostAimFunction = "PostAimWeapon";
+	Weapons[WEAPON_AI_M4].sShootFunction = "ShootWeapon";
 }
 
 void FreeWeapons()
