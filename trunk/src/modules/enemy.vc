@@ -886,28 +886,28 @@ int CanSeePlayer(int i)
 	{
 		if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_UP)
 		{
-			ang = ANGLE_UP;
+			ang = 270;
 			
 			nYStart = entity.y[Enemies[i].nEntity];
 			nXStart = entity.x[Enemies[i].nEntity] + (entity.hotw[Enemies[i].nEntity]/2);
 		}
 		else if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_DOWN)
 		{
-			ang = ANGLE_DOWN;
+			ang = 90;
 
 			nYStart = entity.y[Enemies[i].nEntity] + entity.hoth[Enemies[i].nEntity];
 			nXStart = entity.x[Enemies[i].nEntity] + (entity.hotw[Enemies[i].nEntity]/2);
 		}
 		else if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_LEFT)
 		{
-			ang = ANGLE_LEFT;
+			ang = 180;
 
 			nYStart = entity.y[Enemies[i].nEntity] + (entity.hoth[Enemies[i].nEntity]/2);
 			nXStart = entity.x[Enemies[i].nEntity];
 		}
 		else if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_RIGHT)
 		{
-			ang = ANGLE_RIGHT;
+			ang = 0;
 
 			nYStart = entity.y[Enemies[i].nEntity] + (entity.hoth[Enemies[i].nEntity]/2);
 			nXStart = entity.x[Enemies[i].nEntity] + entity.hotw[Enemies[i].nEntity];
@@ -915,7 +915,7 @@ int CanSeePlayer(int i)
 			
 
 		//am I looking in your direction?
-		if(FoV(nXStart, nYStart, entity.x[nPlayerEnt], entity.y[nPlayerEnt], entity.hotw[nPlayerEnt], entity.hoth[nPlayerEnt], Enemies[i].nSightAngle, Enemies[i].nSightRange, ang))
+		if(FoV(nXStart, nYStart, entity.x[nPlayerEnt], entity.y[nPlayerEnt], entity.hotw[nPlayerEnt], entity.hoth[nPlayerEnt], Enemies[i].nSightAngle, ang))
 		{
 			//can I get a line of sight to you? (no obs in the way)
 			if(LineOfSight(entity.x[Enemies[i].nEntity], entity.y[Enemies[i].nEntity], entity.x[nPlayerEnt], entity.y[nPlayerEnt], Enemies[i].nEntity) == nPlayerEnt)
