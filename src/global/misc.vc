@@ -800,8 +800,8 @@ int pnpoly(int nvert, int testx, int testy)
 	{
 		if ( ((fVerticesX[i]>testy) != (fVerticesY[j]>testy)) && (testx < (fVerticesY[j]-fVerticesX[i]) * (testy-fVerticesY[i]) / (fVerticesY[j]-fVerticesY[i]) + fVerticesX[i]) )
 			c = !c;
-			
-		j = i+1;
+
+		j = i;
 	}
 	return c;
 }
