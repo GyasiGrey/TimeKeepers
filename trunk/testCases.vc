@@ -93,7 +93,10 @@ void test_FoV()
 	//target is inside the source's FoV - source is facing left	
 	assertTrue(FoV(10, 10, 5, 10, 5, 5, 45, 180));
 	
-	//target is inside the source's FoV - source is facing right
+	//testing top half of right facing source
+	assertTrue(FoV(1600, 6792, 1700, 6670, 16, 16, 45, 0));
+	
+	//target is inside the source's FoV - source is facing right - bottom half of right facing source
 	assertTrue(FoV(10, 10, 15, 10, 5, 5, 45, 0));
 	
 	//target is inside the source's FoV - source is facing up
@@ -101,8 +104,6 @@ void test_FoV()
 	
 	//target is inside the source's FoV - source is facing down
 	assertTrue(FoV(10, 10, 10, 15, 5, 5, 45, 90));
-	
-	assertTrue(FoV(1600, 6792, 1700, 6670, 16, 16, 45, 0));
 }
 
 void test_MakeScrollBar()
