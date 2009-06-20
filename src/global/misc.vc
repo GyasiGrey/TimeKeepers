@@ -28,12 +28,12 @@ int DistanceXY(int x1, int y1, int x2, int y2)
 int zatan2(int y, int x)
 {
 	int t;
-	if(x = 0)
+	if(x == 0)
 	{
 		if(y>0) return 90;
 		else return 270;
 	}
-	if(y = 0)
+	if(y == 0)
 	{
 		if(x < 0) return 180;
 		else return 0;
