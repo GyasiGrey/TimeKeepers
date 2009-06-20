@@ -783,26 +783,3 @@ int CalculateRatio(int y1, int x2, int y2)
 	
 	return oF_Fixed2Int(oF_multiFF(oF_divFF(fixX2, fixY2), fixY1));
 }
-
-
-//http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html#The%20C%20Code
-
-int fVerticesX[PIP_MAX_VERTICES];
-int fVerticesY[PIP_MAX_VERTICES];
-
-int pnpoly(int nvert, int testx, int testy)
-{
-	int i;
-	int c = 0;
-	int j = nvert-1;
-	
-	for (i = 0; i < nvert; i++)
-	{
-		if ( ((fVerticesX[i]>testy) != (fVerticesY[j]>testy)) && (testx < (fVerticesY[j]-fVerticesX[i]) * (testy-fVerticesY[i]) / (fVerticesY[j]-fVerticesY[i]) + fVerticesX[i]) )
-			c = !c;
-
-		j = i;
-	}
-	return c;
-}
-

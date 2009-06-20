@@ -85,26 +85,23 @@ void test_XYCollision()
 	assertTrue(CheckCollisionXY(7, 3, 2, 7, 5, 5, 10, 10) == 4);
 }
 
-/*void test_FoV()
+void test_FoV()
 {
 	//target is outside the source's FoV
-	assertFalse(FoV(10, 10, 5, 5, 5, 5, 45, 100, ANGLE_UP));
+	assertFalse(FoV(10, 10, 5, 5, 5, 5, 45, 90));
 
 	//target is inside the source's FoV - source is facing left	
-	assertTrue(FoV(10, 10, 5, 10, 5, 5, 45, 100, ANGLE_LEFT));
+	assertTrue(FoV(10, 10, 5, 10, 5, 5, 45, 180));
 	
 	//target is inside the source's FoV - source is facing right
-	assertTrue(FoV(10, 10, 15, 10, 5, 5, 45, 100, ANGLE_RIGHT));
+	assertTrue(FoV(10, 10, 15, 10, 5, 5, 45, 0));
 	
 	//target is inside the source's FoV - source is facing up
-	assertTrue(FoV(10, 10, 10, 5, 5, 5, 45, 100, ANGLE_UP));
+	assertTrue(FoV(10, 10, 10, 5, 5, 5, 45, 270));
 	
 	//target is inside the source's FoV - source is facing down
-	assertTrue(FoV(10, 10, 10, 15, 5, 5, 45, 100, ANGLE_DOWN));
-
-	//Testing some weird math on mission3
-	assertTrue(FoV(1600, 6792, 1700, 6670, 16, 16, 45, 100, ANGLE_RIGHT));
-}*/
+	assertTrue(FoV(10, 10, 10, 15, 5, 5, 45, 90));
+}
 
 void test_MakeScrollBar()
 {
