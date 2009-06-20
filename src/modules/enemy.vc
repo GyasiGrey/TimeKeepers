@@ -915,7 +915,7 @@ int CanSeePlayer(int i)
 			
 
 		//am I looking in your direction?
-		if(FoV(nXStart, nYStart, entity.x[nPlayerEnt], entity.y[nPlayerEnt], entity.hotw[nPlayerEnt], entity.hoth[nPlayerEnt], Enemies[i].nSightAngle, ang))
+		if(FoV(nXStart, nYStart, entity.x[nPlayerEnt], entity.y[nPlayerEnt], entity.hotw[nPlayerEnt], entity.hoth[nPlayerEnt], Enemies[i].nSightAngle, Enemies[i].nSightRange, ang))
 		{
 			//can I get a line of sight to you? (no obs in the way)
 			if(LineOfSight(entity.x[Enemies[i].nEntity], entity.y[Enemies[i].nEntity], entity.x[nPlayerEnt], entity.y[nPlayerEnt], Enemies[i].nEntity) == nPlayerEnt)
