@@ -886,28 +886,28 @@ int CanSeePlayer(int i)
 	{
 		if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_UP)
 		{
-			ang = 270;
+			ang = ANGLE_UP;
 			
 			nYStart = entity.y[Enemies[i].nEntity];
 			nXStart = entity.x[Enemies[i].nEntity] + (entity.hotw[Enemies[i].nEntity]/2);
 		}
 		else if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_DOWN)
 		{
-			ang = 90;
+			ang = ANGLE_DOWN;
 
 			nYStart = entity.y[Enemies[i].nEntity] + entity.hoth[Enemies[i].nEntity];
 			nXStart = entity.x[Enemies[i].nEntity] + (entity.hotw[Enemies[i].nEntity]/2);
 		}
 		else if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_LEFT)
 		{
-			ang = 180;
+			ang = ANGLE_LEFT;
 
 			nYStart = entity.y[Enemies[i].nEntity] + (entity.hoth[Enemies[i].nEntity]/2);
 			nXStart = entity.x[Enemies[i].nEntity];
 		}
 		else if(entity.face[Enemies[i].nEntity] == ENTITY_FACE_RIGHT)
 		{
-			ang = 0;
+			ang = ANGLE_RIGHT;
 
 			nYStart = entity.y[Enemies[i].nEntity] + (entity.hoth[Enemies[i].nEntity]/2);
 			nXStart = entity.x[Enemies[i].nEntity] + entity.hotw[Enemies[i].nEntity];

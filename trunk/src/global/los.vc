@@ -160,17 +160,18 @@ int FoV(int x1, int y1, int x2, int y2, int w2, int h2, int sightwidth, int sigh
 	int xt4 = x2+w2;
 	int yt4 = yt2+h2;
 
-	
 	int top = direction+sightwidth;
 	int bot = direction-sightwidth;
 	
-	fVerticesX[0] = oF_Whole2Fixed(x2);
-	fVerticesX[1] = oF_Whole2Fixed(x2+(sightdistance * cos(top)));
-	fVerticesX[2] = oF_Whole2Fixed(x2+(sightdistance * cos(bot)));
+	fVerticesX[0] = oF_Whole2Fixed(x1);
+	fVerticesX[1] = oF_Whole2Fixed(x1-((sightdistance * cos(top)/65535)));
+	fVerticesX[2] = oF_Whole2Fixed(x1-((sightdistance * cos(bot)/65535)));
 	
-	fVerticesY[0] = oF_Whole2Fixed(y2);
-	fVerticesY[1] = oF_Whole2Fixed(y2+(sightdistance * sin(top)));
-	fVerticesY[2] = oF_Whole2Fixed(y2+(sightdistance * sin(bot)));
+	fVerticesY[0] = oF_Whole2Fixed(y1);
+	fVerticesY[1] = oF_Whole2Fixed(y1-((sightdistance * sin(top)/65535)));
+	fVerticesY[2] = oF_Whole2Fixed(y1-((sightdistance * sin(bot)/65535)));
+	
+	triangle(oF_Fixed2Int(fVerticesX[0])-xwin, oF_Fixed2Int(fVerticesY[0])-ywin, oF_Fixed2Int(fVerticesX[1])-xwin, oF_Fixed2Int(fVerticesY[1])-ywin, oF_Fixed2Int(fVerticesX[2])-xwin, oF_Fixed2Int(fVerticesY[2])-ywin, RGB(255, 0, 0), screen);
 	
 	if(pnpoly(3, oF_Whole2Fixed(xt1), oF_Whole2Fixed(yt1)) == 1)
 		return 1;
