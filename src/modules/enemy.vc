@@ -310,8 +310,8 @@ void CreateEnemyTemplates()
 	
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nHp = 25;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nMaxHp = 25;
-	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nWeapon = 3;
-	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nSightRange = 150;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nWeapon = WEAPON_AI_M4;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nSightRange = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nSightAngle = 45;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nWeapon].nRecharge*2;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nAlertTime = 1000;
