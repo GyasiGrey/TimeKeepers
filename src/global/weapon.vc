@@ -553,3 +553,8 @@ void GetC4()
 	
 	GetAmmoLoot(WEAPON_C4);
 }
+
+void GetSniper()
+{
+	GetWeaponAmmoLoot(WEAPON_SNIPER);
+}
