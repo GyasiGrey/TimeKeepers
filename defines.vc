@@ -45,6 +45,7 @@
 #define ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN	7
 #define ENEMY_TEMPLATE_ROBOT		8
 #define ENEMY_TEMPLATE_SLEEP		9	//sleeping guard
+#define ENEMY_TARGET			10	//target that can be hit by gun fire. Effectively a dummy that can die.
 
 #define ENEMY_SOUND_IGNORE_TIME		50	//time after a enemy hears a sound untill they will hear another sound
 
