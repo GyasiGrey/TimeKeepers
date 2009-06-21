@@ -100,10 +100,10 @@ void InitEnemies()
 	CreateEnemy(99, 424, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_GUN_CAMERA, "", "camera.chr");
 	CreateEnemy(112, 424, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_GUN_CAMERA, "", "camera.chr");
 	
-	CreateEnemy(100, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "guard.chr");
-	CreateEnemy(104, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "guard.chr");
-	CreateEnemy(108, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "guard.chr");
-	CreateEnemy(112, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "guard.chr");
+	CreateEnemy(100, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	CreateEnemy(104, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	CreateEnemy(108, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	CreateEnemy(112, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 }
 
 void InitLoot()
