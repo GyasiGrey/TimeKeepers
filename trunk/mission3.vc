@@ -78,6 +78,8 @@ void InitDoors()
 	
 	CreateDoor(75, 301, LoadImage("gfx\misc\locker_door.png"), 200);
 	CreateDoor(87, 309, LoadImage("gfx\misc\locker_door.png"), 200);
+	
+	CreateDoorEX(104, 408, LoadImage("gfx\misc\blastdoor_closed.png"), -1, 4, 2, -1);
 }
 
 void InitEnemies()
@@ -132,6 +134,8 @@ void InitLoot()
 	
 	CreateLoot(39*16, 18*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
 	CreateLoot(46*16, 18*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
+	
+	CreateLoot(112*16, 398*16, "Sniper", 0, "sniper.png", "GetSniper", 0);
 }
 
 //ALWAYS flush
