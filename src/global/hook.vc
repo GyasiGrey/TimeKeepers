@@ -14,7 +14,10 @@ int hook_priorities[NUM_HOOKS];
 
 int nDualCounter; //==0 if on the first retrace, ==1 on the second
 
+int nTick;
+
 void HookSetup() {
+	nTick = 0;
 	HookRetrace("HookCaller");
 }
 
@@ -173,6 +176,8 @@ void PrintHooks() {
 void HookCaller()
 {
 	int i;
+	
+	nTick++;
 	//messagebox("nDualCounter " + str(nDualCounter));
 	for(i=0;i<NUM_HOOKS;i++)
 	{

@@ -644,6 +644,7 @@ void RemoveGui()
 //if 3 messagebox, console (and log by extension)
 void Error(string err)
 {
+	err += " Tick: " + str(nTick);
 	if(DEBUG == 1)
 	{
 		log(err);
