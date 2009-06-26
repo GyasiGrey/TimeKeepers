@@ -1083,7 +1083,10 @@ void EnemyRender()
 
 
 	//DEBUG - Print the enemies index and priority
-	//PrintString(par_xh, par_yh, screen, 0, str(enemyindex) + " - " + str(Enemies[enemyindex].nTargetPriority));
+	if(DEBUG_SHOW_ENEMY_INFO)
+	{
+		PrintString(par_xh, par_yh, screen, 0, "Enemy ID: " + str(enemyindex));
+	}
 }
 
 //TODO: Why the hell did I make a copy of this for just the player? REMOVE ME. UNSUBSCRIBE.
