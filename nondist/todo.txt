@@ -49,7 +49,6 @@ MD5 the password stored in profile.sav
 
 Release 2.5
 ***********
-If the player holds one of the weapon switch buttons, bring up a menu that pauses the game and shows all their weapons - like MGS
 
 Intro scene
 	-How the bad lands were created
@@ -131,6 +130,8 @@ give the punch an anim without muzzle flare
 
 DONE
 *********
+*DONE* If the player holds one of the weapon switch buttons, bring up a menu that pauses the game and shows all their weapons - like MGS
+
 *DONE* Add test cases for FoV()
 	Expected return values
 		If any point between the targets x, y, w, h are inside the triangle, return true
