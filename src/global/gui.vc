@@ -1,6 +1,5 @@
 //holy shit, this file is a ugly cow
 #define BOTTOM_TEXT_TIME 300	//text stays on the bottom for 3 seconds
-#define BOTTOM_TEXT_FADEOUT_TIME 245 //time it takes for a generic fade out anim to fade out. Minus a 5cs as timer work is a bit fuzzy.
 
 void DrawGui()
 {
