@@ -20,9 +20,6 @@ void StartSong(string filename)
 //does an active cross fade to the song passed
 void MusicSwitch(string filename, int speed)
 {
-//todo :((
-StartSong(filename);
-return;
 	string fullFilename = "music/"+filename;
 	
 	if(IsHooked("MusicSwitchHook"))
