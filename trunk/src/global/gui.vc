@@ -2,13 +2,6 @@
 #define BOTTOM_TEXT_TIME 300	//text stays on the bottom for 3 seconds
 #define BOTTOM_TEXT_FADEOUT_TIME 245 //time it takes for a generic fade out anim to fade out. Minus a 5cs as timer work is a bit fuzzy.
 
-#define BOTTOM_TEXT_SOUND 0	//used for BottomText sound is when guard hears player
-#define BOTTOM_TEXT_SPOTED 1	//spoted is when guard sees player
-#define BOTTOM_TEXT_LOST 2	//lost is when guard gets bored chasing the player
-#define BOTTOM_TEXT_SHOT 3	//player just shot me
-#define BOTTOM_TEXT_CIVILIAN 4	//shot a civilian
-#define BOTTOM_TEXT_CAUTION_CIVILIAN 5
-
 void DrawGui()
 {
 	int healthmeter, ammometer;
