@@ -283,7 +283,7 @@ void InitWeapons()
 	Weapons[WEAPON_AI_M4].sName = "M4";
 	Weapons[WEAPON_AI_M4].sSound = "sounds\mgun.wav";
 	Weapons[WEAPON_AI_M4].nIcon = LoadImage("gfx\icons\mgunicn.png");
-	Weapons[WEAPON_AI_M4].nMaxAmmo = 45;
+	Weapons[WEAPON_AI_M4].nMaxAmmo = -1;
 	Weapons[WEAPON_AI_M4].nDamageMin = 5;
 	Weapons[WEAPON_AI_M4].nDamageMax = 10;
 	Weapons[WEAPON_AI_M4].nRecharge = 6;
