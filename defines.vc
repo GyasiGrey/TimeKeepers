@@ -65,7 +65,7 @@
 
 #define MAX_WEAPONS 15		//DO NOT CHANGE. WILL BREAK SAVE GAMES. (yeah, if I ever get around to implementing savegames)
 
-#define NUM_WEAPONS 14
+#define NUM_WEAPONS 13
 
 #define WEAPON_KNIFE		0
 #define WEAPON_PISTOL		1
