@@ -4,7 +4,6 @@
 void DrawGui()
 {
 	int healthmeter, ammometer;
-	int i, y, luc;
 	
 	//*********DRAW THE TEXT OF THE GUI************//
 	//draw the health stuff
