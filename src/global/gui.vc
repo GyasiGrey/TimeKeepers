@@ -1,9 +1,7 @@
-//holy shit, this file is a ugly cow
 void DrawGui()
 {
 	int healthmeter, ammometer;
 	
-	//*********DRAW THE TEXT OF THE GUI************//
 	//draw the health stuff
 	healthmeter = MakeWaitBar(60, 7, nHealth, nMaxHealth);
 	TBlit(20, 225, healthmeter, screen);
