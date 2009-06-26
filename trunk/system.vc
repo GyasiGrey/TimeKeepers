@@ -3,7 +3,7 @@
 #include "vctest.vc"
 #include "testCases.vc"
 
-#include "defines.vc"
+#include "src\global\defines.vc"
 
 #include "splash.vc"		//Splash screen fufujuju
 
