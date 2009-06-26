@@ -1075,14 +1075,15 @@ void EnemyRender()
 		anims[Enemies[enemyindex].nBottomTextAnim].y = entity.y[event.entity]-16;
 	}
 			
-	//if enough time has passed, release this enemies animation so they don't corupt others
-	if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[enemyindex].nBottomTextStart+BOTTOM_TEXT_FADEOUT_TIME)
+	//don't track the animation tied to this enemy if it is no longer active
+	if(Enemies[enemyindex].nBottomTextAnim != -1 && !anims[Enemies[enemyindex].nBottomTextAnim].active)
 	{
+		Error("Releasing animation " + str(Enemies[enemyindex].nBottomTextAnim) + " from enemy " + str(enemyindex));
 		Enemies[enemyindex].nBottomTextAnim = -1;
 	}
 
 
-	//DEBUG - Print the enemies index and priority
+	//DEBUG - Print the enemies info
 	if(DEBUG_SHOW_ENEMY_INFO)
 	{
 		PrintString(par_xh, par_yh, screen, 0, "Enemy ID: " + str(enemyindex));
