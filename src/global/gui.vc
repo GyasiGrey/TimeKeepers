@@ -1,6 +1,4 @@
 //holy shit, this file is a ugly cow
-#define BOTTOM_TEXT_TIME 300	//text stays on the bottom for 3 seconds
-
 void DrawGui()
 {
 	int healthmeter, ammometer;
