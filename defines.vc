@@ -9,6 +9,8 @@
 #define DEBUG_SHOW_ASTAR	0
 //draw all pathfinding nodes to the screen
 #define DEBUG_SHOW_NODES	0
+//draw the enemies ID on top of their sprite
+#define DEBUG_SHOW_ENEMY_INFO	0
 //</Debugging_defines>
 
 //Cheats on or off
