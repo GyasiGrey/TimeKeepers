@@ -1067,6 +1067,20 @@ void EnemyRender()
 	
 	// Chuck the player onto the screen!
 	BlitEntityFrame(par_xh, par_yh, event.entity, Enemies[enemyindex].nAnimationFrame, screen);
+	
+	//position the the enemies speach animation over top of their sprite
+	if(Enemies[enemyindex].nActive && Enemies[enemyindex].nBottomTextAnim >= 0 && anims[Enemies[enemyindex].nBottomTextAnim].active)
+	{
+		anims[Enemies[enemyindex].nBottomTextAnim].x = entity.x[event.entity]+(entity.hotw[event.entity]/2)-(textwidth(nFont, Enemies[enemyindex].sBottomText)/2);
+		anims[Enemies[enemyindex].nBottomTextAnim].y = entity.y[event.entity]-16;
+	}
+			
+	//if enough time has passed, release this enemies animation so they don't corupt others
+	if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[enemyindex].nBottomTextStart+BOTTOM_TEXT_FADEOUT_TIME)
+	{
+		Enemies[enemyindex].nBottomTextAnim = -1;
+	}
+
 
 	//DEBUG - Print the enemies index and priority
 	//PrintString(par_xh, par_yh, screen, 0, str(enemyindex) + " - " + str(Enemies[enemyindex].nTargetPriority));
