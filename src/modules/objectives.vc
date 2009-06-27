@@ -46,7 +46,7 @@ int createObjective(string name, string title)
 			objectives[i].sName = name;
 			objectives[i].bComplete = 0;
 			
-			lucentTextFade(160-(TextWidth(nTinyFont, floattext)/2), 60-(FontHeight(nTinyFont)/2), floattext, nTinyFont, RGB(255, 255, 255), 0);
+			lucentTextFade(160-(TextWidth(nTinyFont, floattext)/2), 120-(FontHeight(nTinyFont)/2), floattext, nTinyFont, RGB(255, 255, 255), 0);
 			
 			return i;
 		}
@@ -62,6 +62,6 @@ void completeObjective(string name)
 	{
 		objectives[i].bComplete = 1;
 	
-		lucentTextFade(160-(TextWidth(nTinyFont, floattext)/2), 60-(FontHeight(nTinyFont)/2), floattext, nTinyFont, RGB(255, 255, 255), 0);
+		lucentTextFade(160-(TextWidth(nTinyFont, floattext)/2), 100-(FontHeight(nTinyFont)/2), floattext, nTinyFont, RGB(255, 255, 255), 0);
 	}
 }
