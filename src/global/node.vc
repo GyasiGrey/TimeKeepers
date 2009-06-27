@@ -317,7 +317,7 @@ void SaveGraph(string filename)
 	
 	FileWriteQuad(hnd, numGraphNodes);
 
-	
+
 	for(i=0;i<numGraphNodes;i++)
 	{
 		FileWriteQuad(hnd, Nodes[i].nX);
@@ -325,12 +325,12 @@ void SaveGraph(string filename)
 		
 		//get the number of child nodes
 		j=0;
-		while(j<NUM_NODES)
+		while(j<numGraphNodes)
 		{
 			if(Nodes[i].nChildNodes[j] == -1)
 			{
-				numChildren = j-1;
-				
+				numChildren = j;
+
 				if(numChildren < 0)
 					numChildren = 0;
 				
