@@ -1,0 +1,575 @@
+#define WAIT_AMT 1
+#define SCROLL_SPEED 2
+#define sGraphLoaded left(sMapLoaded, len(sMapLoaded)-4) + ".pth"
+
+int mouseimg;
+int nodeimg;
+int snodeimg;
+int rnodeimg;
+
+int linesshown;
+int nodesshown;
+int helpshown;
+
+//int numNodes;
+
+int selectednode;
+int rselectednode;
+
+string sMapLoaded = "test.map";
+
+void EditNodes(string sMap)
+{
+	int i,j;
+	
+	sMapLoaded = sMap;
+
+	mouseimg = LoadImage("mouse.png");
+	nodeimg = LoadImage("node.png");
+	snodeimg = LoadImage("selectednode.png");
+	rnodeimg = LoadImage("selectednode2.png");
+	
+	linesshown = 1;
+	nodesshown = 1;
+	helpshown = 1;
+	
+	HookKey(SCAN_L, "ShowHideLine");
+	HookKey(SCAN_N, "ShowHideNode");
+	HookKey(SCAN_H, "ShowHideHelp");
+	HookKey(SCAN_I, "InsertNode");
+	HookKey(SCAN_S, "SaveGraphLocal");
+	HookKey(SCAN_O, "OpenMenu");
+	HookKey(SCAN_Z, "SnapNode");
+	HookKey(SCAN_T, "SwapTracking");
+	
+	cameratracking = 0;
+	
+	selectednode = 0-1;
+	rselectednode = 0-1;
+	
+	ClearGraph();
+	
+	HookRetrace("DoLogic");
+
+	LoadMap(sMapLoaded);
+}
+
+int scrollwait;
+
+void DoLogic()
+{
+	int i,j;
+
+	
+	//blit the nodes
+	for(i=0;i<numGraphNodes;i++)
+	{
+		if(nodesshown)
+		{
+			if(selectednode == i)
+			{
+				TBlit(Nodes[i].nX-xwin, Nodes[i].nY-ywin, snodeimg, screen);
+			}
+			else if(rselectednode == i)
+			{
+				TBlit(Nodes[i].nX-xwin, Nodes[i].nY-ywin, rnodeimg, screen);
+			}
+			else
+			{
+				TBlit(Nodes[i].nX-xwin, Nodes[i].nY-ywin, nodeimg, screen);
+			}
+			PrintString(Nodes[i].nX-xwin+5, Nodes[i].nY-ywin+4, screen, 0, str(i));
+		}
+
+		if(linesshown)
+		{
+			for(j=0;j<NUM_NODES;j++)
+			{
+				if(Nodes[i].nChildNodes[j] > 0)
+				{
+					//blit the rays between the nodes
+					Line(Nodes[i].nX-xwin+5, Nodes[i].nY-ywin+4, Nodes[Nodes[i].nChildNodes[j]].nX-xwin+5, Nodes[Nodes[i].nChildNodes[j]].nY-ywin+4, RGB(255, 255, 255), screen);
+				}
+			}
+		}
+	}
+
+	//scroll the window if the mouse is within 25 pixels of the edge
+
+	if(timer > scrollwait+WAIT_AMT)
+
+	{
+		if(mouse.x <= 25)
+		{
+			xwin-=SCROLL_SPEED;
+			scrollwait = timer;
+		}
+
+		if(mouse.y <= 25)
+		{
+			ywin-=SCROLL_SPEED;
+			scrollwait = timer;
+		}
+
+		if(mouse.x >= 295)
+		{
+			xwin+=SCROLL_SPEED;
+			scrollwait = timer;
+		}
+		
+		if(mouse.y >= 215)
+		{
+			ywin+=SCROLL_SPEED;
+			scrollwait = timer;
+		}
+	}
+	
+	//blit the mouse
+	TBlit(mouse.x, mouse.y, mouseimg, screen);
+	
+	PrintRight(320, 0, screen, 0, "X: " + str(xwin/32) + " Y: " + str(ywin/32));
+	//blit the help text on top
+	if(helpshown)
+	{
+		PrintString(0, 0, screen, 0, "N - Hide/Show nodes");
+		PrintString(0, 8, screen, 0, "L - Hide/Show lines");
+		PrintString(0, 16, screen, 0, "Left Drag - Move node");
+		PrintString(0, 24, screen, 0, "Right Click - Select/Connect nodes");
+		PrintString(0, 32, screen, 0, "D - Delete selected node");
+		PrintString(0, 40, screen, 0, "I - Insert node at mouse xy");
+		PrintString(0, 48, screen, 0, "S - Save");
+		PrintString(0, 56, screen, 0, "O - Open");
+		PrintString(0, 64, screen, 0, "H - Hide/Show this text");
+//		PrintString(0, 72, screen, 0, "G - Goto selected node");
+		PrintString(0, 80, screen, 0, "Z - Snap node to grid");
+		PrintString(0, 88, screen, 0, "T - Toggles tracking");
+	}
+	
+	//do the mouse checking
+	if(mouse.l)
+	{
+		//no node selected, so try and grab one
+		if(selectednode < 0)
+		{
+			for(i=0;i<numGraphNodes;i++)
+			{
+				if(mouse.x+xwin >= Nodes[i].nX && mouse.x+xwin <= Nodes[i].nX + ImageWidth(nodeimg))
+				{
+					if(mouse.y+ywin > Nodes[i].nY && mouse.y+ywin <= Nodes[i].nY + ImageHeight(nodeimg))
+					{
+						selectednode = i;
+					}
+				}
+			}
+		}
+		else
+		{
+			//move the selected node to this spot
+			Nodes[selectednode].nX = mouse.x+xwin;
+			Nodes[selectednode].nY = mouse.y+ywin;
+		}
+		//mouse.l = 0;
+	}
+	else
+	{
+		selectednode = 0-1;
+	}
+	
+	if(mouse.r)
+	{
+		//rselectednode = 0-1;
+		//no node selected, so try and grab one
+		if(rselectednode < 0)
+		{
+			for(i=0;i<numGraphNodes;i++)
+			{
+				if(mouse.x+xwin >= Nodes[i].nX && mouse.x+xwin <= Nodes[i].nX + ImageWidth(nodeimg))
+				{
+					if(mouse.y+ywin > Nodes[i].nY && mouse.y+ywin <= Nodes[i].nY + ImageHeight(nodeimg))
+					{
+						rselectednode = i;
+					}
+				}
+			}
+		}
+		else
+		{
+			for(i=0;i<numGraphNodes;i++)
+			{
+				if(rselectednode != i)
+				{
+					if(mouse.x+xwin >= Nodes[i].nX && mouse.x+xwin <= Nodes[i].nX + ImageWidth(nodeimg))
+					{
+						if(mouse.y+ywin > Nodes[i].nY && mouse.y+ywin <= Nodes[i].nY + ImageHeight(nodeimg))
+						{
+							//node selected, so connect the two
+							ConnectNode(rselectednode, i);
+							rselectednode = 0-1;
+						}
+					}
+				}
+			}
+			
+		}
+		
+		mouse.r = 0;
+	}
+	
+	//minihack to release the rselectednode at the press of ESC
+
+	if(KEY[SCAN_ESC])
+	{
+		rselectednode = 0-1;
+		KEY[SCAN_ESC] = 0;
+	}
+	
+	if(KEY[SCAN_D])
+	{
+		DeleteNode(rselectednode);
+		rselectednode = 0-1;
+		KEY[SCAN_D] = 0;
+	}
+	
+/*	if(KEY[SCAN_G])
+	{
+		if(entity.movecode[0] == 0)
+			Goto(0, Nodes[rselectednode].nX, Nodes[rselectednode].nY);
+			
+		KEY[SCAN_G] = 0;
+	}*/
+}
+
+void ShowHideLine()
+{
+	if(linesshown)
+	{
+		linesshown = 0;
+	}
+	else
+	{
+		linesshown = 1;
+	}
+}
+
+void ShowHideNode()
+{
+	if(Nodesshown)
+	{
+		nodesshown = 0;
+	}
+	else
+	{
+		nodesshown = 1;
+	}
+}
+
+void ShowHideHelp()
+{
+	if(helpshown)
+	{
+		helpshown = 0;
+	}
+	else
+	{
+		helpshown = 1;
+	}
+}
+
+void SnapNode()
+{
+	Nodes[rselectednode].nX = (Nodes[rselectednode].nX/16)*16;
+	Nodes[rselectednode].nY = (Nodes[rselectednode].nY/16)*16;
+}
+
+void SwapTracking()
+{
+	cameratracker = 0;
+
+	if(cameratracking == 0)
+		cameratracking = 2;
+	else
+		cameratracking = 0;
+}
+
+//insert a node at the mouse xy
+//if you already have max nodes, just return out
+void InsertNode()
+{
+	int i,j;
+
+	
+	if(numGraphNodes == NUM_NODES)
+		return;
+		
+	Nodes[numGraphNodes].nX = mouse.x+xwin;
+	Nodes[numGraphNodes].nY = mouse.y+ywin;
+		
+	for(j=0;j<NUM_NODES;j++)
+	{
+		Nodes[numGraphNodes].nChildNodes[j] = 0-1;
+	}
+			
+	numGraphNodes++;
+}
+
+void DeleteNode(int n)
+{
+	int i,j,k,tmp;
+	
+	if(n<0)
+		return;
+		
+	//set it's x and y to -1 as a formality
+	Nodes[n].nX = 0-1;
+	Nodes[n].nY = 0-1;
+	
+	//kill the nodes connections
+	for(i=0;i<NUM_NODES;i++)
+	{
+		Nodes[n].nChildNodes[i] = 0-1;
+	}
+	
+	//kill any connections to this node
+	for(i=0;i<numGraphNodes;i++)
+	{
+		for(j=0;j<NUM_NODES;j++)
+		{
+			if(Nodes[i].nChildNodes[j] == n)
+			{
+				Nodes[i].nChildNodes[j] = 0-1;
+			}
+		}
+	}
+	
+	//sort the child nodes
+	//this will cause all the -1's to filter to the bottom
+	for(k=0; k<numGraphNodes;k++)
+	{
+		for(i=0; i<NUM_NODES-1; i++)
+		{
+			for(j=0; j<NUM_NODES-1-i; j++)
+			{
+				if(Nodes[k].nChildNodes[j+1] > Nodes[k].nChildNodes[j])
+				{
+					tmp = Nodes[k].nChildNodes[j];
+					Nodes[k].nChildNodes[j] = Nodes[k].nChildNodes[j+1];
+					Nodes[k].nChildNodes[j+1] = tmp;
+				}
+			}
+		}
+	}
+	
+	//cycle the Nodes[] list from n+1 down up one spot
+	for(i=n;i<numGraphNodes-1;i++)
+	{
+		Nodes[i].nX = Nodes[i+1].nX;
+		Nodes[i].nY = Nodes[i+1].nY;
+		
+		for(j=0;j<NUM_NODES;j++)
+		{
+			Nodes[i].nChildNodes[j] = Nodes[i+1].nChildNodes[j];
+		}
+	}
+	
+	//decrement all the connections greater then n
+	for(i=0;i<numGraphNodes;i++)
+	{
+		for(j=0;j<NUM_NODES;j++)
+		{
+			if(Nodes[i].nChildNodes[j] > n)
+				Nodes[i].nChildNodes[j]--;
+		}
+	}
+	
+	numGraphNodes--;
+}
+
+void ConnectNode(int node1, int node2)
+{
+	int i;
+	
+	//only connect the nodes if they aren't already conencted
+	if(!NodesAreConnected(node1, node2))
+	{
+		//cycle through node1's conenctions till theres a -1
+		//put node2 there
+		for(i=0;i<NUM_NODES;i++)
+		{
+			if(Nodes[node1].nChildNodes[i] < 0)
+			{
+				Nodes[node1].nChildNodes[i] = node2;
+				i = NUM_NODES;
+			}
+		}
+
+		//do the same for node 2
+		for(i=0;i<NUM_NODES;i++)
+		{
+			if(Nodes[node2].nChildNodes[i] < 0)
+			{
+				Nodes[node2].nChildNodes[i] = node1;
+				i = NUM_NODES;
+			}
+		}
+	}
+	else
+	{
+		//if the nodes are connected, disconnect them
+		DisconnectNode(node1, node2);
+	}
+}
+
+void DisconnectNode(int node1, int node2)
+{
+	int i,j,k,tmp;
+	
+	if(NodesAreConnected(node1, node2))
+	{
+		//cycle through node1's conenctions till theres a -1
+		//put node2 there
+		for(i=0;i<NUM_NODES;i++)
+		{
+			if(Nodes[node1].nChildNodes[i] == node2)
+			{
+				Nodes[node1].nChildNodes[i] = 0-1;
+				i = NUM_NODES;
+			}
+		}
+
+		//do the same for node 2
+		for(i=0;i<NUM_NODES;i++)
+		{
+			if(Nodes[node2].nChildNodes[i] == node1)
+			{
+				Nodes[node2].nChildNodes[i] = 0-1;
+				i = NUM_NODES;
+			}
+		}
+	}
+	
+	//sort the child nodes
+	//this will cause all the -1's to filter to the bottom
+	for(k=0; k<numGraphNodes;k++)
+	{
+		for(i=0; i<NUM_NODES-1; i++)
+		{
+			for(j=0; j<NUM_NODES-1-i; j++)
+			{
+				if(Nodes[k].nChildNodes[j+1] > Nodes[k].nChildNodes[j])
+				{
+					tmp = Nodes[k].nChildNodes[j];
+					Nodes[k].nChildNodes[j] = Nodes[k].nChildNodes[j+1];
+					Nodes[k].nChildNodes[j+1] = tmp;
+				}
+			}
+		}
+	}
+}
+
+//returns 1 if node1 connects to node2 and vice versa
+int NodesAreConnected(int node1, int node2)
+{
+	int i;
+
+	int node1connected, node2connected;
+	
+	node1connected = 0;
+	node2connected = 0;
+	
+	for(i=0;i<NUM_NODES;i++)
+	{
+		if(Nodes[node1].nChildNodes[i] == node2)
+		{
+			node1connected = 1;
+		}
+		
+		if(Nodes[node2].nChildNodes[i] == node1)
+		{
+			node2connected = 1;
+		}
+	}
+	
+	if(node1connected && node2connected)
+		return 1;
+	else
+		return 0;
+	
+}
+
+void LoadGraphLocal()
+{
+	LoadGraph(sGraphLoaded);
+}
+
+
+void SaveGraphLocal()
+{
+	SaveGraph(sGraphLoaded);
+}
+
+void OpenMenu()
+{
+	int nLoadMenuWidth = 100;
+	int nLoadMenuHeight = 200;
+	string sMaps = ListFilePattern("*.map");
+	int nMenuImg = NewImage(nLoadMenuWidth, nLoadMenuHeight);
+	int nMenuPointer = NewImage(nLoadMenuWidth, 8);
+	int nMenuPointerIndex = 0;
+	int nLoadMenuOpen = 1;
+	int i;
+	
+	Unpress(1);
+	
+	while(nLoadMenuOpen)
+	{
+		if(up)
+		{
+			nMenuPointerIndex--;
+
+			if(nMenuPointerIndex < 0)
+				nMenuPointerIndex = 0;
+
+			Unpress(5);
+		}
+		
+		if(down)
+		{
+			nMenuPointerIndex++;
+
+			if(nMenuPointerIndex > TokenCount(sMaps, "|"))
+				nMenuPointerIndex = TokenCount(sMaps, "|");
+
+			Unpress(6);
+		}
+			
+			
+		if(b1)
+		{
+			LoadMap(GetToken(sMaps, "|", nMenuPointerIndex));
+			nLoadMenuOpen = 0;
+			Unpress(1);
+		}
+		
+		RectFill(0, 0, nLoadMenuWidth, nLoadMenuHeight, RGB(20, 20, 20), nMenuImg);
+		//pointer
+		RectFill(0, 8*nMenuPointerIndex, nLoadMenuWidth-1, (8*nMenuPointerIndex)+8, RGB(60, 60, 60), nMenuImg);
+		//border
+		Rect(0, 0, nLoadMenuWidth-1, nLoadMenuHeight-1, RGB(255, 255, 255), nMenuImg);
+
+		for(i=0;i<TokenCount(sMaps, "|");i++)
+		{
+			PrintString(8, 8*i, nMenuImg, 0, GetToken(sMaps, "|", i));
+		}
+		
+		Render();
+		blit(10, 10, nMenuImg, screen);
+		ShowPage();
+	}
+}
+
+void LoadMap(string sMap)
+{
+	sMapLoaded = sMap;
+	LoadGraphLocal();
+	Map(sMapLoaded);
+}
