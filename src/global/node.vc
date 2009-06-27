@@ -329,11 +329,12 @@ void SaveGraph(string filename)
 		{
 			if(Nodes[i].nChildNodes[j] == -1)
 			{
-				numChildren = j;
+				numChildren = j-1;
 				
 				if(numChildren < 0)
 					numChildren = 0;
-					
+				
+				//break;
 				j = NUM_NODES;
 			}
 			j++;
