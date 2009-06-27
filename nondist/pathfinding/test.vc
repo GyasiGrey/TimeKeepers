@@ -1,4 +1,0 @@
-void start()
-{
-	EntitySpawn(22,17,"chicken.chr");
-}
