@@ -1,2 +1,0 @@
-Add an option "Snap node to grid" - That align's the selected node to the tile grid
-Implement someway of selecting the map to edit
