@@ -12,7 +12,7 @@ void EnemyAICautiousCivilian()
 		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nSoundStart + CIVILIAN_WARN_SOUND_DELAY && CanSeePlayer(nCurrentEnemy))
 		{
 			//make warning sound
-			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark);
+			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark, Enemies[nCurrentEnemy].sVisualSound);
 
 			Enemies[nCurrentEnemy].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
 		}
