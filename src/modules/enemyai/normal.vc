@@ -5,7 +5,7 @@ void EnemyAINormal()
 		//see if the enemy can see the player
 		if(CanSeePlayer(nCurrentEnemy))
 		{
-			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark);
+			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark, Enemies[nCurrentEnemy].sVisualSound);
 
 			MakeAlert(nCurrentEnemy);
 		}
@@ -60,7 +60,7 @@ void EnemyAINormal()
 			//start searching
 			Search(nCurrentEnemy);
 
-			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nLostBark);
+			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nLostBark, Enemies[nCurrentEnemy].sLostSound);
 		}
 
 
@@ -70,7 +70,7 @@ void EnemyAINormal()
 		//see if the enemy can see the player
 		if(CanSeePlayer(nCurrentEnemy))
 		{
-			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark);
+			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark, Enemies[nCurrentEnemy].sVisualSound);
 
 			MakeAlert(nCurrentEnemy);
 		}
@@ -93,7 +93,7 @@ void EnemyAINormal()
 		//see if the enemy can see the player
 		if(CanSeePlayer(nCurrentEnemy))
 		{
-			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark);
+			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark, Enemies[nCurrentEnemy].sVisualSound);
 
 			MakeAlert(nCurrentEnemy);
 		}
@@ -132,7 +132,7 @@ void EnemyAINormal()
 		//can I see you?
 		if(CanSeePlayer(nCurrentEnemy))
 		{
-			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark);
+			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark, Enemies[nCurrentEnemy].sVisualSound);
 
 			MakeAlert(nCurrentEnemy);
 		}
@@ -148,7 +148,7 @@ void EnemyAINormal()
 	{
 		if(CanSeePlayer(nCurrentEnemy))
 		{
-			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark);
+			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark, Enemies[nCurrentEnemy].sVisualSound);
 
 			MakeAlert(nCurrentEnemy);
 		}

@@ -98,6 +98,7 @@ struct Enemy
 	
 	//functions to call when an certan enemy events occur. These should be set to functions that call sounds
 	string sVisualSound;
+	string sHearSound;
 	string sHurtSound;
 	string sLostSound;
 	string sAlertSound;
@@ -142,6 +143,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nLostBark = dNormalLostBark;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAlertBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sVisualSound = "SoundWhaRand";
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sHearSound = "SoundWhaRand";
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sHurtSound = "SoundUghRand";
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sAlertSound = "SoundWhaRand";
@@ -174,6 +176,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nLostBark = dNormalLostBark;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nAlertBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sVisualSound = "SoundWhaRand";
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sHearSound = "SoundWhaRand";
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sHurtSound = "SoundUghRand";
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sAlertSound = "SoundWhaRand";
@@ -206,6 +209,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nLostBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nAlertBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sVisualSound = "";
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sHearSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sHurtSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sAlertSound = "";
@@ -239,6 +243,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nLostBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nAlertBark = dCivilianAlertBark;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sVisualSound = "SoundWhaRand";
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sHearSound = "SoundWhaRand";
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sHurtSound = "SoundUghRand";
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sAlertSound = "SoundWhaRand";
@@ -272,6 +277,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nLostBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nAlertBark = dCivilianAlertBark;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sVisualSound = "SoundWhaRand";
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sHearSound = "SoundWhaRand";
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sHurtSound = "SoundUghRand";
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sAlertSound = "SoundWhaRand";
@@ -306,6 +312,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nLostBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nAlertBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sVisualSound = "SoundWhaRand";
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sHearSound = "SoundWhaRand";
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sHurtSound = "SoundUghRand";
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sAlertSound = "SoundWhaRand";
@@ -338,6 +345,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nLostBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nAlertBark = -1;	
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sVisualSound = "";
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sHearSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sHurtSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sAlertSound = "";
@@ -370,6 +378,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nLostBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nAlertBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sVisualSound = "";
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sHearSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sHurtSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sAlertSound = "";
@@ -402,6 +411,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nLostBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nAlertBark = -1;	
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sVisualSound = "";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sHearSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sHurtSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sAlertSound = "";
@@ -433,6 +443,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nLostBark = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nAlertBark = -1;	
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sVisualSound = "";
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sHearSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sHurtSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sAlertSound = "";
@@ -465,6 +476,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TARGET].nLostBark = -1;
 	EnemyTemplates[ENEMY_TARGET].nAlertBark = -1;
 	EnemyTemplates[ENEMY_TARGET].sVisualSound = "";
+	EnemyTemplates[ENEMY_TARGET].sHearSound = "";
 	EnemyTemplates[ENEMY_TARGET].sHurtSound = "";
 	EnemyTemplates[ENEMY_TARGET].sLostSound = "";
 	EnemyTemplates[ENEMY_TARGET].sAlertSound = "";
@@ -681,7 +693,7 @@ void DamageEnemy(int damage, int entityindex, int nDamageType)
 				//start searching
 				Search(enemyindex);
 				//you got shot - say something!
-				BottomText(enemyindex, Enemies[enemyindex].nHurtBark);
+				BottomText(enemyindex, Enemies[enemyindex].nHurtBark, Enemies[enemyindex].sHurtSound);
 				Enemies[enemyindex].nTranqHit = 1;
 			}
 			else
@@ -726,7 +738,7 @@ void DamageEnemy(int damage, int entityindex, int nDamageType)
 			else
 			{
 				//you got shot - say something!
-				BottomText(enemyindex, Enemies[enemyindex].nHurtBark);
+				BottomText(enemyindex, Enemies[enemyindex].nHurtBark, Enemies[enemyindex].sHurtSound);
 			}
 	
 			if(Enemies[enemyindex].nMode != MODE_ALERT && Enemies[enemyindex].nHp > 0)
@@ -888,7 +900,7 @@ void MakeSoundHelp(int i, int sourceX, int sourceY)
 		else if(Enemies[i].nMode != MODE_ALERT && Enemies[i].nMode != MODE_TRANQ)
 		{
 			if(Enemies[i].nMode != MODE_SOUND)
-				BottomText(i, Enemies[i].nHearBark);
+				BottomText(i, Enemies[i].nHearBark, Enemies[i].sHearSound);
 
 			//stop an enemy, so they can path to the sound
 			if(Enemies[i].nMode != MODE_SOUND)
@@ -1246,11 +1258,14 @@ void AnimatePlayer(string animstr)
 //makes text appear across the bottom for a set period of time
 //for things like guards talking
 //ent is an ENEMY index
-void BottomText(int ent, int nBarkDictionary)
+void BottomText(int ent, int nBarkDictionary, string sSoundFunction)
 {
 	int rndval, nDictLen, nBarkID;
 	
-	Error("BottomText called - enemy: " + str(ent) + " bark dictionary: " + str(nBarkDictionary));
+	Error("BottomText called - enemy: " + str(ent) + " bark dictionary: " + str(nBarkDictionary) + " sound function " + sSoundFunction);
+	
+	if(FunctionExists(sSoundFunction))
+		CallFunction(sSoundFunction);
 	
 	if(!Enemies[ent].bCanSpeak)
 		return;
