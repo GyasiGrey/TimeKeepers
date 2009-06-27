@@ -1,3 +1,7 @@
+#define QUEUE_LEN 384
+#define NUM_NODES 384
+#define INFINITY 65534
+
 int numGraphNodes;
 
 struct Node
@@ -13,7 +17,10 @@ int nDistances[NUM_NODES];
 int nPrevious[NUM_NODES];
 
 //Create a queue P
-int queue[QUEUE_LEN];
+string queue[QUEUE_LEN];
+
+int bGraphNodesShown = 0;
+int bGraphLinesShown = 0;
 
 /*
 From Wikipedia
@@ -69,30 +76,22 @@ string Dijkstra(int startNode, int destNode)
 	//enqueue all nodes
 	for(i=0;i<numGraphNodes;i++)
 	{
-		Enqueue(i);
+		Enqueue(str(i));
 	}
 
 	while(!IsQueueEmpty())
 	{
 		u = NodeWithShortestDistance();
-		DequeueValue(u);
-
-		if(u == destNode)
+		DequeueValue(str(u));
+		
+		for(v=0;v<NUM_NODES && Nodes[u].nChildNodes[v] != -1;v++)
 		{
-			//we have the shortest path. Shortcut out.
-			EmptyQueue();
-		}
-		else
-		{		
-			for(v=0;v<NUM_NODES && Nodes[u].nChildNodes[v] != -1;v++)
+			alt = nDistances[u] + DistanceXY(Nodes[u].nX, Nodes[u].nY, Nodes[Nodes[u].nChildNodes[v]].nX, Nodes[Nodes[u].nChildNodes[v]].nY);
+			
+			if(alt < nDistances[Nodes[u].nChildNodes[v]])
 			{
-				alt = nDistances[u] + DistanceXY(Nodes[u].nX, Nodes[u].nY, Nodes[Nodes[u].nChildNodes[v]].nX, Nodes[Nodes[u].nChildNodes[v]].nY);
-
-				if(alt < nDistances[Nodes[u].nChildNodes[v]])
-				{
-					nDistances[Nodes[u].nChildNodes[v]] = alt;
-					nPrevious[Nodes[u].nChildNodes[v]] = u;
-				}
+				nDistances[Nodes[u].nChildNodes[v]] = alt;
+				nPrevious[Nodes[u].nChildNodes[v]] = u;
 			}
 		}
 	}
@@ -117,32 +116,29 @@ int NodeWithShortestDistance()
 	shortestNode = -1;
 	shortestDistance = INFINITY+1;
 	
-	for(i=0;i<QUEUE_LEN && queue[i] != -1 ;i++)
+	for(i=0;i<QUEUE_LEN && strcmp(queue[i], "") != 0 ;i++)
 	{
-		if(nDistances[queue[i]] < shortestDistance)
+		if(nDistances[val(queue[i])] < shortestDistance)
 		{
-			shortestNode = queue[i];
-			shortestDistance = nDistances[queue[i]];
+			shortestNode = val(queue[i]);
+			shortestDistance = nDistances[val(queue[i])];
 		}
 	}
 	
 	return shortestNode;
-
-	/*string nodesSort = "";
-	string nodesSortDistances = "";
-	int i=0;
-	
-	for(i=0;i<QUEUE_LEN && queue[i] != -1 ;i++)
-	{
-		nodesSort += str(queue[i]) + " ";
-		nodesSortDistances += str(nDistances[queue[i]]) + " ";
-	}
-
-	nodesSort = qsortbyother(nodesSort, nodesSortDistances, 0, TokenCount(nodesSort, " ")-1);
-
-	return val(GetToken(nodesSort, " ", 0));*/
 }
 
+int DistanceXY(int x1, int y1, int x2, int y2)
+{
+	//square and get the abs val of the x and y distances
+	int xdist = Abs((x1 - x2)*(x1 - x2));
+
+	int ydist = Abs((y1 - y2)*(y1 - y2));
+	
+	//return the final value
+
+	return sqrt(xdist + ydist);
+}
 //finds the node closest to xy
 int ClosestNode(int x, int y)
 {
@@ -169,33 +165,34 @@ void Goto(int e, int x, int y)
 {
 	int start, end, j;
 	int enemyIndex;
+	string sPath;
 
 	//find the node closest to you
 	start = ClosestNode(entity.x[e], entity.y[e]);
-	
 	//find the node closest the target
 	end = ClosestNode(x, y);
+	
+	sPath = Dijkstra(start, end);
+log(sPath);
 
-	enemyIndex = GetEnemyIndex(e);
-	
-	Enemies[enemyIndex].nTargetX = x;
-	Enemies[enemyIndex].nTargetY = y;
-	
-	//if start node == end node 
-	//if the distance between the enemy and the target X,Y is less then the distance between the enemy and the start node
-	//just A* to the target
-	if(start == end || DistanceXY(entity.x[e], entity.y[e], x, y) < DistanceXY(entity.x[e], entity.y[e], Nodes[start].nX, Nodes[start].nY))
-		findPath(e, entity.x[e]/16, entity.y[e]/16, Enemies[enemyIndex].nTargetX/16, Enemies[enemyIndex].nTargetY/16);
-	
-	Enemies[enemyIndex].sNodePath = Dijkstra(start, end);
-	Enemies[enemyIndex].sNodeIndex = 0;
-	
-	Error("Enemy " + str(enemyIndex) + " now has node path " + Enemies[enemyIndex].sNodePath);
+
+	for(j=0;j<TokenCount(sPath, " ");j++)
+	{
+		//move = move + "x" + str(Nodes[val(GetToken(path, " ", j))].nX/16) + "y" + str(Nodes[val(GetToken(path, " ", j))].nY/16);
+//messagebox("I'm going to node " + GetToken(sPath, " ", j) + "!");
+		findPath(0, entity.x[0]/16, entity.y[0]/16, Nodes[val(GetToken(sPath, " ", j))].nX/16, Nodes[val(GetToken(sPath, " ", j))].nY/16);
+
+		while (entity.movecode[0])
+		{
+			Render();
+			ShowPage();
+		}
+	}
 }
 
 int IsQueueEmpty()
 {
-	if(queue[0] == -1)
+	if(strcmp(queue[0], "") == 0)
 		return 1;
 	else
 		return 0;
@@ -207,18 +204,18 @@ void EmptyQueue()
 	
 	for(i=0;i<QUEUE_LEN;i++)
 	{
-		queue[i] = -1;
+		queue[i] = "";
 	}
 }
 
-void Enqueue(int s)
+void Enqueue(string s)
 {
 	int i;
 	
 	//look for the first blank item in the list
 	for(i=0;i<QUEUE_LEN;i++)
 	{
-		if(queue[i] == -1)
+		if(strcmp(queue[i], "") == 0)
 		{
 			queue[i] = s;
 			return;
@@ -228,9 +225,9 @@ void Enqueue(int s)
 	exit("node.vc: Queue to small - Increase QUEUE_LEN");
 }
 
-int Dequeue()
+string Dequeue()
 {
-	int retval;
+	string retval;
 	int i;
 	
 	//grab the first item off the list
@@ -246,16 +243,16 @@ int Dequeue()
 	return retval;
 }
 
-int DequeueValue(int value)
+string DequeueValue(string value)
 {
-	int retval;
+	string retval;
 	int i, j;
 	//find item where value = value
 	//then cycle everything up one to remove it
 
 	for(j=0;j<QUEUE_LEN;j++)
 	{
-		if(queue[j] == value)
+		if(strcmp(queue[j], value) == 0)
 		{
 			retval = queue[j];
 
@@ -268,7 +265,7 @@ int DequeueValue(int value)
 		}
 	}
 	
-	return -1;
+	return "";
 }
 
 void LoadGraph(string file)
@@ -283,9 +280,6 @@ void LoadGraph(string file)
 	{
 
 		numGraphNodes = FileReadQuad(hnd);
-		
-		if(numGraphNodes > NUM_NODES)
-			FatialError("NUM_NODES too small. Expecting < " + str(NUM_NODES) + ". Got " + str(numGraphNodes) + ".");
 
 		for(i=0;i<numGraphNodes;i++)
 		{
@@ -305,7 +299,7 @@ void LoadGraph(string file)
 	else
 	{
 		numGraphNodes = 0;
-		Error("Could not find pathfinding graph file - " + file);
+		messagebox("Could not find pathfinding graph file - " + file);
 	}
 }
 
@@ -329,10 +323,12 @@ void SaveGraph(string filename)
 		{
 			if(Nodes[i].nChildNodes[j] == -1)
 			{
-				numChildren = j-1;
+				numChildren = j;
 				
 				if(numChildren < 0)
 					numChildren = 0;
+					
+				j = NUM_NODES;
 			}
 			j++;
 		}
@@ -354,18 +350,24 @@ void DrawGraphNodes()
 	
 	for(i=0;i<numGraphNodes;i++)
 	{
-		for(j=0;j<NUM_NODES;j++)
+		if(bGraphLinesShown)
 		{
-			if(Nodes[i].nChildNodes[j] > 0)
+			for(j=0;j<NUM_NODES;j++)
 			{
-				//blit the rays between the nodes
-				Line(Nodes[i].nX-xwin+5, Nodes[i].nY-ywin+4, Nodes[Nodes[i].nChildNodes[j]].nX-xwin+5, Nodes[Nodes[i].nChildNodes[j]].nY-ywin+4, RGB(0, 0, 255), screen);
+				if(Nodes[i].nChildNodes[j] > 0)
+				{
+					//blit the rays between the nodes
+					Line(Nodes[i].nX-xwin+5, Nodes[i].nY-ywin+4, Nodes[Nodes[i].nChildNodes[j]].nX-xwin+5, Nodes[Nodes[i].nChildNodes[j]].nY-ywin+4, RGB(0, 0, 255), screen);
+				}
 			}
 		}
 
-		circleFill(Nodes[i].nX-xwin+5, Nodes[i].nY-ywin+4, 5, 4, RGB(0, 0, 0), screen);
-		circle(Nodes[i].nX-xwin+5, Nodes[i].nY-ywin+4, 5, 4, RGB(255, 0, 0), screen);
-		PrintString(Nodes[i].nX-xwin, Nodes[i].nY-ywin, screen, 0, str(i));
+		if(bGraphNodesShown)
+		{
+			circleFill(Nodes[i].nX-xwin+5, Nodes[i].nY-ywin+4, 5, 4, RGB(0, 0, 0), screen);
+			circle(Nodes[i].nX-xwin+5, Nodes[i].nY-ywin+4, 5, 4, RGB(255, 0, 0), screen);
+			PrintString(Nodes[i].nX-xwin, Nodes[i].nY-ywin, screen, 0, str(i));
+		}
 	}
 }
 
