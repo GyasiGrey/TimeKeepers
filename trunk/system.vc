@@ -118,6 +118,7 @@
 /*THINGS TO BE REMOVED*/
 #include "cheat.vc"
 #include "debug_win.vc"
+#include "nodeEdit.vc"
 
 int nHealth;
 int nMaxHealth = 100;
