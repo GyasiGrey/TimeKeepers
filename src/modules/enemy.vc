@@ -681,8 +681,7 @@ void DamageEnemy(int damage, int entityindex, int nDamageType)
 				//start searching
 				Search(enemyindex);
 				//you got shot - say something!
-				if(Enemies[enemyindex].bCanSpeak)	//dummies can't talk, civilians talk a different way
-					BottomText(enemyindex, Enemies[enemyindex].nHurtBark);
+				BottomText(enemyindex, Enemies[enemyindex].nHurtBark);
 				Enemies[enemyindex].nTranqHit = 1;
 			}
 			else
@@ -724,7 +723,7 @@ void DamageEnemy(int damage, int entityindex, int nDamageType)
 					MakeSound(entityindex, 100);
 				}
 			}
-			else if (Enemies[enemyindex].bCanSpeak)
+			else
 			{
 				//you got shot - say something!
 				BottomText(enemyindex, Enemies[enemyindex].nHurtBark);
@@ -888,7 +887,7 @@ void MakeSoundHelp(int i, int sourceX, int sourceY)
 		}
 		else if(Enemies[i].nMode != MODE_ALERT && Enemies[i].nMode != MODE_TRANQ)
 		{
-			if(Enemies[i].bCanSpeak && Enemies[i].nMode != MODE_SOUND)
+			if(Enemies[i].nMode != MODE_SOUND)
 				BottomText(i, Enemies[i].nHearBark);
 
 			//stop an enemy, so they can path to the sound
@@ -1252,6 +1251,9 @@ void BottomText(int ent, int nBarkDictionary)
 	int rndval, nDictLen, nBarkID;
 	
 	Error("BottomText called - enemy: " + str(ent) + " bark dictionary: " + str(nBarkDictionary));
+	
+	if(!Enemies[ent].bCanSpeak)
+		return;
 	
 	if(nBarkDictionary == -1)
 		return;
