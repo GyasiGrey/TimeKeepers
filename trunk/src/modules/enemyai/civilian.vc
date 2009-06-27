@@ -12,8 +12,7 @@ void EnemyAICivilian()
 
 		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nSoundStart+CIVILIAN_SOUND_TIME)
 		{
-			if(Enemies[nCurrentEnemy].bCanSpeak)
-				BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nAlertBark);
+			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nAlertBark);
 
 			Enemies[nCurrentEnemy].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
 		}
