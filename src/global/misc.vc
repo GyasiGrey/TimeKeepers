@@ -193,6 +193,11 @@ string GetTime12String()
 		hour = str(systime.hour-12);
 		ampm = "PM";
 	}
+	else if(systime.hour == 0)
+	{
+		hour = "12";
+		ampm = "AM";
+	}
 	else
 	{
 		hour = str(systime.hour);
