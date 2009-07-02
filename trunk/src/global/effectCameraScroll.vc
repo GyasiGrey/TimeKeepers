@@ -48,9 +48,20 @@ void ProcessCameraScroll()
 
 void WaitForCameraScroll()
 {
+	int bStore = 0;
+	
+	if(nDualCounter == 1)
+		bStore = 1;
+
+	if(bStore)
+		nDualCounter = 0;
+		
 	while(IsHooked("ProcessCameraScroll"))
 	{
 		Render();
 		ShowPage();
 	}
+
+	if(bStore)
+		nDualCounter = 1;
 }
