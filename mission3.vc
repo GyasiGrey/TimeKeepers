@@ -161,10 +161,24 @@ void Flush()
 		{
 			bCanSave = 0;
 			
+			//camera scroll to the guard
+			StoreDualCounter();	//keep dual retrace sane
+			
+			StopEnemy(nFlags[FLAG_MISSION3_JAIL_GUARD_ID]);
+			CameraScroll(Entity.x[Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity] - (ImageWidth(screen)/2), Entity.y[Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity] - (ImageHeight(screen)/2), 100);
+			
 			CommText("Guard: Oh what in the...");
 			
 			//keep the player from moving
 			CripplePlayer();
+			
+			WaitForCameraScroll();
+			
+			RestoreDualCounter();
+			
+			//make the camera follow the guard
+			cameratracking = 2;
+			cameratracker = Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity;
 			
 			//make the enemy passive so they won't shoot the player
 			Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nPassive = 1;
@@ -175,7 +189,6 @@ void Flush()
 			//flood the cell
 			
 			//walk the guard over to the door
-			StopEnemy(nFlags[FLAG_MISSION3_JAIL_GUARD_ID]);
 			Goto(Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity, 34*16, 23*16);
 			WaitForEnemy(nFlags[FLAG_MISSION3_JAIL_GUARD_ID]);
 
@@ -191,6 +204,11 @@ void Flush()
 			WaitForEnemy(nFlags[FLAG_MISSION3_JAIL_GUARD_ID]);
 			
 			WaitTimer(50);
+			
+			//move the cammera back to the player
+			CameraScroll(Entity.x[nPlayerEnt] - (ImageWidth(screen)/2), Entity.y[nPlayerEnt] - (ImageHeight(screen)/2), 100);
+			WaitForCameraScroll();
+			CameraTracker = 1;	//tie to the camera back to the player
 			
 			//let the player move again
 			UnCripplePlayer();
