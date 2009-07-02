@@ -160,6 +160,7 @@ void Flush()
 		if(nFlags[FLAG_MISSION3_TOILET_FLUSHES] >= 5)
 		{
 			bCanSave = 0;
+			bCanOpenInGameMenu = 0;
 			
 			//camera scroll to the guard
 			StopEnemy(nFlags[FLAG_MISSION3_JAIL_GUARD_ID]);
@@ -209,6 +210,8 @@ void Flush()
 			
 			//let the player move again
 			UnCripplePlayer();
+			bCanOpenInGameMenu = 1;
+			bCanSave = 1;
 		}
 	}
 }
