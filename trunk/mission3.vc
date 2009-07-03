@@ -46,8 +46,8 @@ void start()
 void InitDoors()
 {
 	//jail doors
-	nFlags[FLAG_MISSION3_JAIL_DOOR_ID] = CreateDoor(34, 22, LoadImage("gfx\misc\jail_door.png"), -2);
-	CreateDoor(22, 22, LoadImage("gfx\misc\jail_door.png"), -2);
+	nFlags[FLAG_MISSION3_JAIL_DOOR_ID] = CreateDoorEX(33, 22, LoadImage("gfx\misc\wide_jail_door.png"), -2, 3, 1, -1);
+	CreateDoorEX(21, 22, LoadImage("gfx\misc\wide_jail_door.png"), -2, 3, 1, -1);
 	
 	CreateDoor(22, 29, LoadImage("gfx\misc\jail_door.png"), -2);
 	CreateDoor(34, 29, LoadImage("gfx\misc\jail_door.png"), -2);
@@ -179,7 +179,6 @@ void Flush()
 			
 			//make the enemy passive so they won't shoot the player
 			Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nPassive = 1;
-			Entity.obstructable[Enemies[nFlags[FLAG_MISSION3_JAIL_GUARD_ID]].nEntity] = 0;
 			
 			AchivementUnlocked(5);
 			
