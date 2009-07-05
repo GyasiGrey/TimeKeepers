@@ -33,7 +33,7 @@ void AlertSongChecker()
 		{
 			if(Enemies[i].nMode == MODE_ALERT)
 			{
-				MusicSwitch(sAlertSong, 5);
+				StartSong(sAlertSong);
 				nAlertSong = 1;
 				return;
 			}
