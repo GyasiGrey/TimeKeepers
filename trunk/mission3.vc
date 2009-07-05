@@ -11,7 +11,7 @@ void start()
 	InitMap(3);
 	
 	MusicSwitch("mission3.ogg", 15);
-	SetupAlertMusic("mission3.ogg", "alert_mgs2.mp3");
+	SetupAlertMusic("mission3.ogg", "alert.ogg");
 
 	if(!nFlags[FLAG_MISSION3_TECH_GHOST_START])
 	{
