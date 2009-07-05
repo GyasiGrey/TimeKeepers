@@ -8,8 +8,15 @@ int nNextMusicVol;
 int nNextMusicSwitch;		//timer when we should change the volume
 int nMusicSwitchSpeed;
 
+string sCurrentMusicFilename;
+
 void StartSong(string filename)
 {
+	if(strcmp(filename, sCurrentMusicFilename) == 0)
+		return;
+		
+	sCurrentMusicFilename = filename;
+	
 	StopSong(nCurrentMusic);
 	FreeSong(nCurrentMusic);
 	
@@ -21,6 +28,12 @@ void StartSong(string filename)
 void MusicSwitch(string filename, int speed)
 {
 	string fullFilename = "music/"+filename;
+	
+	if(strcmp(filename, sCurrentMusicFilename) == 0)
+		return;
+
+	
+	sCurrentMusicFilename = filename;
 	
 	if(IsHooked("MusicSwitchHook"))
 	{
