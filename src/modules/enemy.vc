@@ -608,6 +608,7 @@ void MakeAlert(int ene)
 	Enemies[ene].nAlertStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
 	
 	//crazy timer stuff for civilians - so ugly....
+	//TODO: clean up this timer code
 	if(Enemies[ene].nAIType == ENEMY_AI_TYPE_CIVILIAN)
 	{
 		Enemies[ene].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
