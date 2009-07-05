@@ -80,6 +80,7 @@
 #include "src\modules\thrown.vc"
 #include "src\modules\damageArea.vc"
 #include "src\modules\enemyBarks.vc"
+#include "src\modules\alertMusic.vc"
 
 //menu stuff
 #include "src\menu\menu_system.vc"

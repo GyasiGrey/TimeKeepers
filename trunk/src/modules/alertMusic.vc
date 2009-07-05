@@ -1,0 +1,60 @@
+string sNormalSong = "";
+string sAlertSong = "";
+int nAlertSong = 0;
+
+//setups the variables and hook to do song changing when an enemy goes alert
+void SetupAlertMusic(string normalSong, string alertSong)
+{
+	sAlertSong = alertSong;
+	sNormalSong = normalSong;
+	nAlertSong = 0;
+
+	if(!IsHooked("AlertSongChecker"))
+		AddHook("AlertSongChecker", 5);
+}
+
+//removes the hook to change songs when an enemy goes alert
+void ShutdownAlertMusic()
+{
+	RemoveHook("AlertSongChecker");
+}
+
+//checks every tick to see if there are any alert enemies and the alert music is not playing. If both of these conditions meet, change to alert music
+//if the alert music is playing it checks if all enemies are not alert. If so, change to the normal music
+void AlertSongChecker()
+{
+	int i;
+	int bEnemiesAreAlert = 0;
+	
+	//normal mode
+	if(nAlertSong == 0)
+	{
+		for(i=0;i<nNumEnemies;i++)
+		{
+			if(Enemies[i].nMode == MODE_ALERT)
+			{
+				MusicSwitch(sAlertSong, 5);
+				nAlertSong = 1;
+				return;
+			}
+		}
+	}
+	else	//alert mode
+	{
+		for(i=0;i<nNumEnemies;i++)
+		{
+			if(Enemies[i].nMode == MODE_ALERT)
+			{
+				bEnemiesAreAlert = 1;
+				i = nNumEnemies + 1;	//break;
+			}
+		}
+		
+		if(!bEnemiesAreAlert)
+		{
+			MusicSwitch(sNormalSong, 5);
+			nAlertSong = 0;
+			return;
+		}
+	}
+}
