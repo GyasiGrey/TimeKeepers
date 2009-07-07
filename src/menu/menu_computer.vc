@@ -1,12 +1,14 @@
 int nComputerHackingCertainty;
 int nComputerHackingCertaintyDelay = 75;
+string sComputerHackingRandomPassword = "";
 
 void OpenComputerMenu()
 {
 	SetPause(1);
 	CreateMenu(100, 100, GetMenuTemplateIndex("MenuComputer"));
 	
-	CreateDelayedCallbackEx(nComputerHackingCertaintyDelay, "ComputerHackingCalculateCertainty", 1);
+	ComputerHackingCalculateCertainty();
+	ComputerHackingCalculateRandomPassword();
 }
 
 void MenuComputerDraw()
@@ -15,7 +17,8 @@ void MenuComputerDraw()
 	
 	img = CreateWindow("Terminal", 100, 100, nTerminalFont);
 	//TODO: take this crap out, and put in the real logic
-	PrintString(8, 16, img, nDigitalFont, str(nComputerHackingCertainty) + "%");
+	PrintString(8, 16, img, nTerminalFont, sComputerHackingRandomPassword);
+	PrintString(16, 28, img, nDigitalFont, str(nComputerHackingCertainty) + "%");
 
 	Blit(nMenuX, nMenuY, img, screen);
 	
@@ -42,4 +45,18 @@ void ComputerHackingCalculateCertainty()
 	nComputerHackingCertainty = random(1, 100);
 	
 	CreateDelayedCallbackEx(nComputerHackingCertaintyDelay, "ComputerHackingCalculateCertainty", 1);
+}
+
+void ComputerHackingCalculateRandomPassword()
+{
+	int i;
+	
+	sComputerHackingRandomPassword = "";
+	
+	for(i=0;i<6;i++)
+	{
+		sComputerHackingRandomPassword += chr(random(33, 122));
+	}
+	
+	CreateDelayedCallbackEx(nComputerHackingCertaintyDelay, "ComputerHackingCalculateRandomPassword", 1);
 }
