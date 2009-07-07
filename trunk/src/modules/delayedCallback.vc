@@ -5,6 +5,7 @@ struct delayedCallback
 	int nTimeStamp;		//time stamp when the function should be run
 	string sFunction;	//function to be called
 	int nActive;
+	int bObeyPause;
 }
 
 delayedCallback delayedCallbacks[DELAYED_CALLBACK_MAX];
@@ -67,25 +68,61 @@ int CreateDelayedCallback(int delayAmt, string func)
 	delayedCallbacks[retval].nTimeStamp = vcTimer[TIMER_ENEMY_LOGIC].nTick + delayAmt;
 	delayedCallbacks[retval].sFunction = func;
 	delayedCallbacks[retval].nActive = 1;
+	delayedCallbacks[retval].bObeyPause = 0;
 	
 	error("Delayed callback created. i:" + str(retval) + " function:" + func + " stamp:" + str(vcTimer[TIMER_ENEMY_LOGIC].nTick + delayAmt) + " timer:" + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
+	
+	return retval;
 }
 
+int CreateDelayedCallbackEx(int delayAmt, string func, int obeyPause)
+{
+	int nRetval = CreateDelayedCallback(delayAmt, func);
+	
+	
+	delayedCallbacks[nRetval].bObeyPause = obeyPause;
+
+	if(delayedCallbacks[nRetval].bObeyPause)
+		delayedCallbacks[nRetval].nTimeStamp = vcTimer[TIMER_MISSION_TIME_SPENT].nTick + delayAmt;
+		
+	return nRetval;
+}
+
+//TODO: CLEAN ME :(( You WISH you function was this dirty.
 void ProcessDelayedCallbacks()
 {
 	int i;
 
 	for(i=0;i<DELAYED_CALLBACK_MAX;i++)
 	{
-		if(delayedCallbacks[i].nActive && vcTimer[TIMER_ENEMY_LOGIC].nTick >= delayedCallbacks[i].nTimeStamp)
+		if(delayedCallbacks[i].nActive)
 		{
-			Error("Running callback: " + str(i) + " func: " + delayedCallbacks[i].sFunction);
+			if(delayedCallbacks[i].bObeyPause)
+			{
+				if(vcTimer[TIMER_MISSION_TIME_SPENT].nTick >= delayedCallbacks[i].nTimeStamp)
+				{
+					Error("Running callback: " + str(i) + " func: " + delayedCallbacks[i].sFunction);
 
-			//free this call back
-			FreeDelayedCallback(i);
+					//free this call back
+					FreeDelayedCallback(i);
 
-			//call the callback's function
-			CallFunction(delayedCallbacks[i].sFunction);
+					//call the callback's function
+					CallFunction(delayedCallbacks[i].sFunction);
+				}
+			}
+			else
+			{
+				if(vcTimer[TIMER_ENEMY_LOGIC].nTick >= delayedCallbacks[i].nTimeStamp)
+				{
+					Error("Running callback: " + str(i) + " func: " + delayedCallbacks[i].sFunction);
+
+					//free this call back
+					FreeDelayedCallback(i);
+
+					//call the callback's function
+					CallFunction(delayedCallbacks[i].sFunction);
+				}
+			}
 		}
 	}
 }
