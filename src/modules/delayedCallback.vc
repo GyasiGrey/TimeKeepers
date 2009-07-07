@@ -5,7 +5,7 @@ struct delayedCallback
 	int nTimeStamp;		//time stamp when the function should be run
 	string sFunction;	//function to be called
 	int nActive;
-	int bObeyPause;
+	int bIgnorePause;
 }
 
 delayedCallback delayedCallbacks[DELAYED_CALLBACK_MAX];
@@ -68,21 +68,21 @@ int CreateDelayedCallback(int delayAmt, string func)
 	delayedCallbacks[retval].nTimeStamp = vcTimer[TIMER_ENEMY_LOGIC].nTick + delayAmt;
 	delayedCallbacks[retval].sFunction = func;
 	delayedCallbacks[retval].nActive = 1;
-	delayedCallbacks[retval].bObeyPause = 0;
+	delayedCallbacks[retval].bIgnorePause = 0;
 	
 	error("Delayed callback created. i:" + str(retval) + " function:" + func + " stamp:" + str(vcTimer[TIMER_ENEMY_LOGIC].nTick + delayAmt) + " timer:" + str(vcTimer[TIMER_ENEMY_LOGIC].nTick));
 	
 	return retval;
 }
 
-int CreateDelayedCallbackEx(int delayAmt, string func, int obeyPause)
+int CreateDelayedCallbackEx(int delayAmt, string func, int ignorePause)
 {
 	int nRetval = CreateDelayedCallback(delayAmt, func);
 	
 	
-	delayedCallbacks[nRetval].bObeyPause = obeyPause;
+	delayedCallbacks[nRetval].bIgnorePause = ignorePause;
 
-	if(delayedCallbacks[nRetval].bObeyPause)
+	if(delayedCallbacks[nRetval].bIgnorePause)
 		delayedCallbacks[nRetval].nTimeStamp = vcTimer[TIMER_MISSION_TIME_SPENT].nTick + delayAmt;
 		
 	return nRetval;
@@ -97,7 +97,7 @@ void ProcessDelayedCallbacks()
 	{
 		if(delayedCallbacks[i].nActive)
 		{
-			if(delayedCallbacks[i].bObeyPause)
+			if(delayedCallbacks[i].bIgnorePause)
 			{
 				if(vcTimer[TIMER_MISSION_TIME_SPENT].nTick >= delayedCallbacks[i].nTimeStamp)
 				{
