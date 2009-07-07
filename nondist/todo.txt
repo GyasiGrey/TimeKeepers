@@ -41,6 +41,10 @@ Put the key to the control center in a foot locker of one of the beds in the bar
 **********
 Priority 1
 **********
+In mission 3 you get a device used by the TK sys admins to reset passwords (a Token of somesort). When plugged into a computer it starts a lost password thing.
+	-It starts with a scramble of letters/numbers and narrows them down one at a time untill it gets the correct password. Visually looks like 		the kinda scrambled text in Assassians Creed.
+
+
 Add watch's to the debug window. Use the get variable by name function to add a list of variables at runtime. Variable display will be updated every refresh
 
 
