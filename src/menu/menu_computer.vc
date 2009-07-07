@@ -1,11 +1,12 @@
 int nComputerHackingCertainty;
+int nComputerHackingCertaintyDelay = 75;
 
 void OpenComputerMenu()
 {
 	SetPause(1);
 	CreateMenu(100, 100, GetMenuTemplateIndex("MenuComputer"));
 	
-	CreateDelayedCallbackEx(25, "ComputerHackingCalculateCertainty", 1);
+	CreateDelayedCallbackEx(nComputerHackingCertaintyDelay, "ComputerHackingCalculateCertainty", 1);
 }
 
 void MenuComputerDraw()
@@ -40,5 +41,5 @@ void ComputerHackingCalculateCertainty()
 {
 	nComputerHackingCertainty = random(1, 100);
 	
-	CreateDelayedCallbackEx(25, "ComputerHackingCalculateCertainty", 1);
+	CreateDelayedCallbackEx(nComputerHackingCertaintyDelay, "ComputerHackingCalculateCertainty", 1);
 }
