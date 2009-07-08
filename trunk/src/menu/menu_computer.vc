@@ -28,7 +28,7 @@ void MenuComputerDraw()
 		PrintString(8, 16 + (i*FontHeight(nTerminalFont)), img, nTerminalFont, sComputerHackingRandomPassword[i]);
 	}
 		
-	PrintString(50, 70, img, nDigitalFont, str(nComputerHackingCertainty) + "%");
+	PrintString(40, 70, img, nDigitalFont, ThreeDigit(nComputerHackingCertainty) + "%");
 
 	Blit(nMenuX, nMenuY, img, screen);
 	
