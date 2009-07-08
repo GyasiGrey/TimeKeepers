@@ -561,7 +561,12 @@ void ComputerRoomComputer()
 	if(!nFlags[FLAG_MISSION3_KEYCARD_1])
 		return;
 		
-	OpenHackingMenu();
+	OpenHackingMenu("UnlockSewer");
+}
+
+void UnlockSewer()
+{
+	messagebox("you unlocked the sewer. good job.");
 	nFlags[FLAG_MISSION3_TRAP_DOOR_LOCKED] =  1;
 }
 

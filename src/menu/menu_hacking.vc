@@ -2,10 +2,14 @@ int nHackingCertainty;
 int nHackingCertaintyDelay = 75;
 string sHackingRandomPassword[5];
 int nHackingRandomPasswordIndex;	//must always be less then sHackingRandomPassword.Length
+string sHackingCompleteFunction;	//the function to run once a hack is successfull
 
-void OpenHackingMenu()
+void OpenHackingMenu(string sCompleteFunc)
 {
 	SetPause(1);
+	
+	sHackingCompleteFunction = sCompleteFunc;
+	
 	CreateMenu(100, 100, GetMenuTemplateIndex("MenuHacking"));
 	
 	nHackingRandomPasswordIndex = -1;
@@ -87,5 +91,9 @@ void HackingIncrementPasswordIndex()
 	else
 	{
 		nHackingRandomPasswordIndex = 4;
+		
+		//hack complete. Close this menu and run the function passed to OpenHackingMenu().
+		CloseTopMenu();
+		CallFunction(sHackingCompleteFunction);
 	}
 }
