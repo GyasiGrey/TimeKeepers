@@ -1,21 +1,21 @@
-int nComputerHackingCertainty;
-int nComputerHackingCertaintyDelay = 75;
-string sComputerHackingRandomPassword[5];
-int nComputerHackingRandomPasswordIndex;	//must always be less then sComputerHackingRandomPassword.Length
+int nHackingCertainty;
+int nHackingCertaintyDelay = 75;
+string sHackingRandomPassword[5];
+int nHackingRandomPasswordIndex;	//must always be less then sHackingRandomPassword.Length
 
-void OpenComputerMenu()
+void OpenHackingMenu()
 {
 	SetPause(1);
-	CreateMenu(100, 100, GetMenuTemplateIndex("MenuComputer"));
+	CreateMenu(100, 100, GetMenuTemplateIndex("MenuHacking"));
 	
-	nComputerHackingRandomPasswordIndex = -1;
+	nHackingRandomPasswordIndex = -1;
 	
-	ComputerHackingIncrementPasswordIndex();
-	ComputerHackingCalculateCertainty();
-	ComputerHackingCalculateRandomPassword();
+	HackingIncrementPasswordIndex();
+	HackingCalculateCertainty();
+	HackingCalculateRandomPassword();
 }
 
-void MenuComputerDraw()
+void MenuHackingDraw()
 {
 	int img;
 	int i;
@@ -23,19 +23,19 @@ void MenuComputerDraw()
 	img = CreateWindow("Terminal", 100, 100, nTerminalFont);
 	//TODO: take this crap out, and put in the real logic
 	
-	for(i=0;i<=nComputerHackingRandomPasswordIndex;i++)
+	for(i=0;i<=nHackingRandomPasswordIndex;i++)
 	{
-		PrintString(8, 16 + (i*FontHeight(nTerminalFont)), img, nTerminalFont, sComputerHackingRandomPassword[i]);
+		PrintString(8, 16 + (i*FontHeight(nTerminalFont)), img, nTerminalFont, sHackingRandomPassword[i]);
 	}
 		
-	PrintString(40, 70, img, nDigitalFont, ThreeDigit(nComputerHackingCertainty) + "%");
+	PrintString(40, 70, img, nDigitalFont, ThreeDigit(nHackingCertainty) + "%");
 
 	Blit(nMenuX, nMenuY, img, screen);
 	
 	FreeImage(img);
 }
 
-void MenuComputerLogic()
+void MenuHackingLogic()
 {
 	//on weapon key press, close the menu
 	if(BUTTON_SHOOT)
@@ -44,23 +44,23 @@ void MenuComputerLogic()
 	}
 }
 
-void MenuComputerClose()
+void MenuHackingClose()
 {
-	FreeDelayedCallbackByFunction("ComputerHackingCalculateCertainty");
-	FreeDelayedCallbackByFunction("ComputerHackingCalculateRandomPassword");
-	FreeDelayedCallbackByFunction("ComputerHackingIncrementPasswordIndex");
+	FreeDelayedCallbackByFunction("HackingCalculateCertainty");
+	FreeDelayedCallbackByFunction("HackingCalculateRandomPassword");
+	FreeDelayedCallbackByFunction("HackingIncrementPasswordIndex");
 	
 	SetPause(0);
 }
 
-void ComputerHackingCalculateCertainty()
+void HackingCalculateCertainty()
 {
-	nComputerHackingCertainty = random(1, 100);
+	nHackingCertainty = random(1, 100);
 	
-	CreateDelayedCallbackEx(nComputerHackingCertaintyDelay, "ComputerHackingCalculateCertainty", 1);
+	CreateDelayedCallbackEx(nHackingCertaintyDelay, "HackingCalculateCertainty", 1);
 }
 
-void ComputerHackingCalculateRandomPassword()
+void HackingCalculateRandomPassword()
 {
 	int i;
 	string sTempPassword = "";
@@ -71,21 +71,21 @@ void ComputerHackingCalculateRandomPassword()
 		sTempPassword += chr(random(33, 122));
 	}
 	
-	sComputerHackingRandomPassword[nComputerHackingRandomPasswordIndex] = sTempPassword;
+	sHackingRandomPassword[nHackingRandomPasswordIndex] = sTempPassword;
 	
-	CreateDelayedCallbackEx(nComputerHackingCertaintyDelay, "ComputerHackingCalculateRandomPassword", 1);
+	CreateDelayedCallbackEx(nHackingCertaintyDelay, "HackingCalculateRandomPassword", 1);
 }
 
-void ComputerHackingIncrementPasswordIndex()
+void HackingIncrementPasswordIndex()
 {
-	nComputerHackingRandomPasswordIndex++;
+	nHackingRandomPasswordIndex++;
 	
-	if(nComputerHackingRandomPasswordIndex < 5)
+	if(nHackingRandomPasswordIndex < 5)
 	{
-		CreateDelayedCallbackEx(nComputerHackingCertaintyDelay*4, "ComputerHackingIncrementPasswordIndex", 1);
+		CreateDelayedCallbackEx(nHackingCertaintyDelay*4, "HackingIncrementPasswordIndex", 1);
 	}
 	else
 	{
-		nComputerHackingRandomPasswordIndex = 4;
+		nHackingRandomPasswordIndex = 4;
 	}
 }
