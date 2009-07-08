@@ -55,7 +55,7 @@ void CreateMenuTemplates()
 	CreateMenuTemplate("MenuScore", "MenuScoreDraw", "MenuScoreLogic", "MenuScoreClose");
 	CreateMenuTemplate("MenuMessageChoice", "MenuMessageChoiceDraw", "MenuMessageChoiceLogic", "MenuMessageChoiceClose");
 	CreateMenuTemplate("MenuChooseWeapon", "MenuChooseWeaponDraw", "MenuChooseWeaponLogic", "MenuChooseWeaponClose");
-	CreateMenuTemplate("MenuComputer", "MenuComputerDraw", "MenuComputerLogic", "MenuComputerClose");
+	CreateMenuTemplate("MenuHacking", "MenuHackingDraw", "MenuHackingLogic", "MenuHackingClose");
 	
 	//init the menu stack here because I can
 	for(i=0;i<MAX_MENUS;i++)

@@ -561,7 +561,7 @@ void ComputerRoomComputer()
 	if(!nFlags[FLAG_MISSION3_KEYCARD_1])
 		return;
 		
-	OpenComputerMenu();
+	OpenHackingMenu();
 	nFlags[FLAG_MISSION3_TRAP_DOOR_LOCKED] =  1;
 }
 
