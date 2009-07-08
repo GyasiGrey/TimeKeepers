@@ -1,12 +1,16 @@
 int nComputerHackingCertainty;
 int nComputerHackingCertaintyDelay = 75;
-string sComputerHackingRandomPassword = "";
+string sComputerHackingRandomPassword[5];
+int nComputerHackingRandomPasswordIndex;	//must always be less then sComputerHackingRandomPassword.Length
 
 void OpenComputerMenu()
 {
 	SetPause(1);
 	CreateMenu(100, 100, GetMenuTemplateIndex("MenuComputer"));
 	
+	nComputerHackingRandomPasswordIndex = -1;
+	
+	ComputerHackingIncrementPasswordIndex();
 	ComputerHackingCalculateCertainty();
 	ComputerHackingCalculateRandomPassword();
 }
@@ -14,11 +18,17 @@ void OpenComputerMenu()
 void MenuComputerDraw()
 {
 	int img;
+	int i;
 	
 	img = CreateWindow("Terminal", 100, 100, nTerminalFont);
 	//TODO: take this crap out, and put in the real logic
-	PrintString(8, 16, img, nTerminalFont, sComputerHackingRandomPassword);
-	PrintString(16, 28, img, nDigitalFont, str(nComputerHackingCertainty) + "%");
+	
+	for(i=0;i<=nComputerHackingRandomPasswordIndex;i++)
+	{
+		PrintString(8, 16 + (i*FontHeight(nTerminalFont)), img, nTerminalFont, sComputerHackingRandomPassword[i]);
+	}
+		
+	PrintString(50, 70, img, nDigitalFont, str(nComputerHackingCertainty) + "%");
 
 	Blit(nMenuX, nMenuY, img, screen);
 	
@@ -50,13 +60,29 @@ void ComputerHackingCalculateCertainty()
 void ComputerHackingCalculateRandomPassword()
 {
 	int i;
+	string sTempPassword = "";
 	
-	sComputerHackingRandomPassword = "";
 	
-	for(i=0;i<6;i++)
+	for(i=0;i<15;i++)
 	{
-		sComputerHackingRandomPassword += chr(random(33, 122));
+		sTempPassword += chr(random(33, 122));
 	}
 	
+	sComputerHackingRandomPassword[nComputerHackingRandomPasswordIndex] = sTempPassword;
+	
 	CreateDelayedCallbackEx(nComputerHackingCertaintyDelay, "ComputerHackingCalculateRandomPassword", 1);
+}
+
+void ComputerHackingIncrementPasswordIndex()
+{
+	nComputerHackingRandomPasswordIndex++;
+	
+	if(nComputerHackingRandomPasswordIndex < 5)
+	{
+		CreateDelayedCallbackEx(nComputerHackingCertaintyDelay*4, "ComputerHackingIncrementPasswordIndex", 1);
+	}
+	else
+	{
+		nComputerHackingRandomPasswordIndex = 4;
+	}
 }
