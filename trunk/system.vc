@@ -108,7 +108,7 @@
 #include "src\menu\menu_score.vc"
 #include "src\menu\menu_message_choice.vc"
 #include "src\menu\menu_choose_weapon.vc"
-#include "src\menu\menu_computer.vc"
+#include "src\menu\menu_hacking.vc"
 
 //must be included last to prevent undefined defines
 #include "src\global\saveload.vc"
