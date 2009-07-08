@@ -47,6 +47,9 @@ void MenuComputerLogic()
 void MenuComputerClose()
 {
 	FreeDelayedCallbackByFunction("ComputerHackingCalculateCertainty");
+	FreeDelayedCallbackByFunction("ComputerHackingCalculateRandomPassword");
+	FreeDelayedCallbackByFunction("ComputerHackingIncrementPasswordIndex");
+	
 	SetPause(0);
 }
 
