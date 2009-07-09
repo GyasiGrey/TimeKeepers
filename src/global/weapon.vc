@@ -516,9 +516,10 @@ void GetWeaponAmmoLoot(int i)
 {
 	//if the player has the empty weapon, remove it once the get a gun
 	if(nHasWeapon[WEAPON_EMPTY])
+	{
 		nHasWeapon[WEAPON_EMPTY] = 0;
-	
-	nEquipedWeapon = i;
+		nEquipedWeapon = i;
+	}
 		
 	GetWeaponLoot(i);
 	GetAmmoLoot(i);
