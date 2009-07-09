@@ -4,6 +4,9 @@ string sHackingRandomPassword[5];
 int nHackingRandomPasswordIndex;	//must always be less then sHackingRandomPassword.Length
 string sHackingCompleteFunction;	//the function to run once a hack is successfull
 
+string sHackingFirstMessage;
+string sHackingSecondMessage;
+
 void OpenHackingMenu(string sCompleteFunc)
 {
 	SetPause(1);
@@ -14,9 +17,10 @@ void OpenHackingMenu(string sCompleteFunc)
 	
 	nHackingRandomPasswordIndex = -1;
 	
-	HackingIncrementPasswordIndex();
-	HackingCalculateCertainty();
-	HackingCalculateRandomPassword();
+	sHackingFirstMessage = "";
+	sHackingSecondMessage = "";
+	
+	HackingFirstMessage();
 }
 
 void MenuHackingDraw()
@@ -24,15 +28,17 @@ void MenuHackingDraw()
 	int img;
 	int i;
 	
-	img = CreateWindow("Terminal", 100, 100, nTerminalFont);
-	//TODO: take this crap out, and put in the real logic
+	img = CreateWindow("Terminal", 130, 100, nTerminalFont);
+	
+	PrintString(8, 16, img, nTerminalFont, sHackingFirstMessage);
+	PrintString(8, 24, img, nTerminalFont, sHackingSecondMessage);
 	
 	for(i=0;i<=nHackingRandomPasswordIndex;i++)
 	{
-		PrintString(8, 16 + (i*FontHeight(nTerminalFont)), img, nTerminalFont, sHackingRandomPassword[i]);
+		PrintString(8, 32 + (i*FontHeight(nTerminalFont)), img, nTerminalFont, sHackingRandomPassword[i]);
 	}
 		
-	PrintString(40, 70, img, nDigitalFont, ThreeDigit(nHackingCertainty) + "%");
+	PrintString(60, 70, img, nDigitalFont, ThreeDigit(nHackingCertainty) + "%");
 
 	Blit(nMenuX, nMenuY, img, screen);
 	
@@ -96,4 +102,23 @@ void HackingIncrementPasswordIndex()
 		CloseTopMenu();
 		CallFunction(sHackingCompleteFunction);
 	}
+}
+
+void HackingFirstMessage()
+{
+	sHackingFirstMessage = "Scanning Binaries...";
+	CreateDelayedCallbackEx(300, "HackingSecondMessage", 1);
+}
+
+void HackingSecondMessage()
+{
+	sHackingSecondMessage = "Hash retrieved. Decoding...";
+	CreateDelayedCallbackEx(200, "HackingStart", 1);
+}
+
+void HackingStart()
+{
+	HackingIncrementPasswordIndex();
+	HackingCalculateCertainty();
+	HackingCalculateRandomPassword();
 }
