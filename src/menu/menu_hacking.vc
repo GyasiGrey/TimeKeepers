@@ -10,6 +10,8 @@ void OpenHackingMenu(string sCompleteFunc)
 {
 	SetPause(1);
 	
+	nHackingCertainty = 0;
+	
 	sHackingCompleteFunction = sCompleteFunc;
 	
 	CreateMenu(35, 25, GetMenuTemplateIndex("MenuHacking"));
@@ -46,7 +48,7 @@ void MenuHackingLogic()
 {
 	if(BUTTON_SHOOT)
 	{
-		if(nHackingCertainty >= 70)
+		if(nHackingRandomPasswordIndex > 0 && nHackingCertainty >= 70)
 			HackingIncrementPasswordIndex();
 	}
 	
