@@ -32,7 +32,7 @@ void MenuHackingDraw()
 	
 	for(i=0;i<=nHackingRandomPasswordIndex;i++)
 	{
-		PrintString(8, 52 + (i*FontHeight(nTerminalFont)), img, nTerminalFont, sHackingRandomPassword[i]);
+		PrintString(8, 42 + (i*FontHeight(nTerminalFont)), img, nTerminalFont, sHackingRandomPassword[i]);
 	}
 		
 	PrintString(175, 130, img, nDigitalFont, ThreeDigit(nHackingCertainty) + "%");
@@ -73,7 +73,7 @@ void HackingCalculateRandomPassword()
 	string sTempPassword = "";
 	
 	
-	for(i=0;i<15;i++)
+	for(i=0;i<50;i++)
 	{
 		sTempPassword += chr(random(33, 122));
 	}
@@ -111,8 +111,11 @@ void HackingStepFirstMessage()
 {
 	sHackingMessage += " .";
 	
-	if(len(sHackingMessage) >= 200)
+	if(len(sHackingMessage) >= 83)
+	{
+		sHackingMessage += chr('\n');
 		HackingSecondMessage();
+	}
 	else
 		CreateDelayedCallbackEx(5, "HackingStepFirstMessage", 1);
 }
@@ -127,8 +130,12 @@ void HackingStepSecondMessage()
 {
 	sHackingMessage += " .";
 	
-	if(len(sHackingMessage) >= 400)
+	if(len(sHackingMessage) >= 165)
+	{
+		sHackingMessage += chr('\n');
+		sHackingMessage += "Displaying possible passwords. Awating user input.";
 		HackingStart();
+	}
 	else
 		CreateDelayedCallbackEx(5, "HackingStepSecondMessage", 1);
 }
