@@ -44,11 +44,13 @@ void MenuHackingDraw()
 
 void MenuHackingLogic()
 {
-	//on weapon key press, close the menu
 	if(BUTTON_SHOOT)
 	{
-		CloseTopMenu();
+		if(nHackingCertainty >= 70)
+			HackingIncrementPasswordIndex();
 	}
+	
+	UnpressButtons();
 }
 
 void MenuHackingClose()
@@ -87,11 +89,7 @@ void HackingIncrementPasswordIndex()
 {
 	nHackingRandomPasswordIndex++;
 	
-	if(nHackingRandomPasswordIndex < 5)
-	{
-		CreateDelayedCallbackEx(nHackingCertaintyDelay*4, "HackingIncrementPasswordIndex", 1);
-	}
-	else
+	if(nHackingRandomPasswordIndex == 5)
 	{
 		nHackingRandomPasswordIndex = 4;
 		
@@ -142,7 +140,7 @@ void HackingStepSecondMessage()
 
 void HackingStart()
 {
-	HackingIncrementPasswordIndex();
+	nHackingRandomPasswordIndex = 1;
 	HackingCalculateCertainty();
 	HackingCalculateRandomPassword();
 }
