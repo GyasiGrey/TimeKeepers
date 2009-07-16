@@ -4,8 +4,7 @@ string sHackingRandomPassword[5];
 int nHackingRandomPasswordIndex;	//must always be less then sHackingRandomPassword.Length
 string sHackingCompleteFunction;	//the function to run once a hack is successfull
 
-string sHackingFirstMessage;
-string sHackingSecondMessage;
+string sHackingMessage;
 
 void OpenHackingMenu(string sCompleteFunc)
 {
@@ -17,8 +16,7 @@ void OpenHackingMenu(string sCompleteFunc)
 	
 	nHackingRandomPasswordIndex = -1;
 	
-	sHackingFirstMessage = "";
-	sHackingSecondMessage = "";
+	sHackingMessage = "";
 	
 	HackingFirstMessage();
 }
@@ -30,12 +28,11 @@ void MenuHackingDraw()
 	
 	img = CreateWindow("Terminal", 250, 160, nTerminalFont);
 	
-	PrintString(8, 16, img, nTerminalFont, WrapText(nTerminalFont, sHackingFirstMessage, 90));
-	PrintString(8, 40, img, nTerminalFont, WrapText(nTerminalFont, sHackingSecondMessage, 90));
+	PrintString(8, 16, img, nTerminalFont, WrapText(nTerminalFont, sHackingMessage, 230));
 	
 	for(i=0;i<=nHackingRandomPasswordIndex;i++)
 	{
-		PrintString(8, 72 + (i*FontHeight(nTerminalFont)), img, nTerminalFont, sHackingRandomPassword[i]);
+		PrintString(8, 52 + (i*FontHeight(nTerminalFont)), img, nTerminalFont, sHackingRandomPassword[i]);
 	}
 		
 	PrintString(175, 130, img, nDigitalFont, ThreeDigit(nHackingCertainty) + "%");
@@ -106,15 +103,15 @@ void HackingIncrementPasswordIndex()
 
 void HackingFirstMessage()
 {
-	sHackingFirstMessage = "Scanning Binaries.";
+	sHackingMessage += "Scanning Binaries.";
 	CreateDelayedCallbackEx(5, "HackingStepFirstMessage", 1);
 }
 
 void HackingStepFirstMessage()
 {
-	sHackingFirstMessage += " .";
+	sHackingMessage += " .";
 	
-	if(len(sHackingFirstMessage) >= 100)
+	if(len(sHackingMessage) >= 200)
 		HackingSecondMessage();
 	else
 		CreateDelayedCallbackEx(5, "HackingStepFirstMessage", 1);
@@ -122,15 +119,15 @@ void HackingStepFirstMessage()
 
 void HackingSecondMessage()
 {
-	sHackingSecondMessage = "Hash retrieved. Decoding.";
+	sHackingMessage += "Hash retrieved. Decoding.";
 	CreateDelayedCallbackEx(5, "HackingStepSecondMessage", 1);
 }
 
 void HackingStepSecondMessage()
 {
-	sHackingSecondMessage += " .";
+	sHackingMessage += " .";
 	
-	if(len(sHackingSecondMessage) >= 100)
+	if(len(sHackingMessage) >= 400)
 		HackingStart();
 	else
 		CreateDelayedCallbackEx(5, "HackingStepSecondMessage", 1);
