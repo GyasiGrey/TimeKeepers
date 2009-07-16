@@ -13,7 +13,7 @@ void OpenHackingMenu(string sCompleteFunc)
 	
 	sHackingCompleteFunction = sCompleteFunc;
 	
-	CreateMenu(100, 25, GetMenuTemplateIndex("MenuHacking"));
+	CreateMenu(35, 25, GetMenuTemplateIndex("MenuHacking"));
 	
 	nHackingRandomPasswordIndex = -1;
 	
@@ -28,7 +28,7 @@ void MenuHackingDraw()
 	int img;
 	int i;
 	
-	img = CreateWindow("Terminal", 130, 160, nTerminalFont);
+	img = CreateWindow("Terminal", 250, 160, nTerminalFont);
 	
 	PrintString(8, 16, img, nTerminalFont, WrapText(nTerminalFont, sHackingFirstMessage, 90));
 	PrintString(8, 40, img, nTerminalFont, WrapText(nTerminalFont, sHackingSecondMessage, 90));
@@ -38,7 +38,7 @@ void MenuHackingDraw()
 		PrintString(8, 72 + (i*FontHeight(nTerminalFont)), img, nTerminalFont, sHackingRandomPassword[i]);
 	}
 		
-	PrintString(60, 130, img, nDigitalFont, ThreeDigit(nHackingCertainty) + "%");
+	PrintString(175, 130, img, nDigitalFont, ThreeDigit(nHackingCertainty) + "%");
 
 	Blit(nMenuX, nMenuY, img, screen);
 	
