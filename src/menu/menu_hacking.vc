@@ -3,6 +3,8 @@ int nHackingCertaintyDelay = 75;
 string sHackingRandomPassword[5];
 int nHackingRandomPasswordIndex;	//must always be less then sHackingRandomPassword.Length
 string sHackingCompleteFunction;	//the function to run once a hack is successfull
+string sHackingAsseptPasswordText;
+int nHackingPointerAnimation;
 
 string sHackingMessage;
 
@@ -11,6 +13,7 @@ void OpenHackingMenu(string sCompleteFunc)
 	SetPause(1);
 	
 	nHackingCertainty = 0;
+	nHackingPointerAnimation = -1;
 	
 	sHackingCompleteFunction = sCompleteFunc;
 	
@@ -38,10 +41,15 @@ void MenuHackingDraw()
 	}
 		
 	PrintString(175, 130, img, nDigitalFont, ThreeDigit(nHackingCertainty) + "%");
-
+	
+	PrintString(20, 140, img, nTerminalFont, sHackingAsseptPasswordText);
+	
 	Blit(nMenuX, nMenuY, img, screen);
 	
 	FreeImage(img);
+	
+	if(nHackingPointerAnimation != -1)
+		DrawAnimation(nHackingPointerAnimation);
 }
 
 void MenuHackingLogic()
@@ -142,6 +150,11 @@ void HackingStepSecondMessage()
 
 void HackingStart()
 {
+	sHackingAsseptPasswordText = "Accept Password";
+
+	nHackingPointerAnimation = LoadAnimationEX("cursor.png", 8, 8, 43, 165, ANIMATION_CURSOR_ANIM_STRING);
+	anims[nHackingPointerAnimation].automatic = 0;
+
 	nHackingRandomPasswordIndex = 1;
 	HackingCalculateCertainty();
 	HackingCalculateRandomPassword();
