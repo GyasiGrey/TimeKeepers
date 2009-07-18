@@ -99,9 +99,6 @@ void HackingIncrementPasswordIndex()
 {
 	nHackingRandomPasswordIndex++;
 	
-	//Calculate a new password and certainty imediatly after the user accepts a password
-	HackingLogicTick();
-	
 	if(nHackingRandomPasswordIndex == 5)
 	{
 		nHackingRandomPasswordIndex = 4;
@@ -110,6 +107,9 @@ void HackingIncrementPasswordIndex()
 		CloseTopMenu();
 		CallFunction(sHackingCompleteFunction);
 	}
+
+	//Calculate a new password and certainty imediatly after the user accepts a password
+	HackingLogicTick();
 }
 
 void HackingFirstMessage()
