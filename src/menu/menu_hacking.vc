@@ -65,25 +65,17 @@ void MenuHackingLogic()
 
 void MenuHackingClose()
 {
-	FreeDelayedCallbackByFunction("HackingCalculateCertainty");
-	FreeDelayedCallbackByFunction("HackingCalculateRandomPassword");
+	FreeDelayedCallbackByFunction("HackingLogicTick");
 	
 	SetPause(0);
 }
 
-void HackingCalculateCertainty()
-{
-	nHackingCertainty = random(1, 100);
-	
-	CreateDelayedCallbackEx(nHackingCertaintyDelay, "HackingCalculateCertainty", 1);
-}
-
-void HackingCalculateRandomPassword()
+void HackingLogicTick()
 {
 	int i;
 	string sTempPassword = "";
 	
-	
+	//Generate a new password
 	for(i=0;i<50;i++)
 	{
 		sTempPassword += chr(random(33, 122));
@@ -91,12 +83,24 @@ void HackingCalculateRandomPassword()
 	
 	sHackingRandomPassword[nHackingRandomPasswordIndex] = sTempPassword;
 	
-	CreateDelayedCallbackEx(nHackingCertaintyDelay, "HackingCalculateRandomPassword", 1);
+	//Generate a certainty for this password
+	nHackingCertainty = random(1, 100);
+	
+	//Remove this function from the delayed callback list if it is there. 
+	//Could be caused by calling HackingLogicTick() directly instead of waiting for the tick.
+	//Keeps HackingLogicTick() from being added multiple times and causing lots of trouble
+	FreeDelayedCallbackByFunction("HackingLogicTick");
+	
+	//Re add this function to the delayed callback list so it will be called again in 1 tick
+	CreateDelayedCallbackEx(nHackingCertaintyDelay, "HackingLogicTick", 1);
 }
 
 void HackingIncrementPasswordIndex()
 {
 	nHackingRandomPasswordIndex++;
+	
+	//Calculate a new password and certainty imediatly after the user accepts a password
+	HackingLogicTick();
 	
 	if(nHackingRandomPasswordIndex == 5)
 	{
@@ -155,6 +159,5 @@ void HackingStart()
 	anims[nHackingPointerAnimation].automatic = 0;
 
 	nHackingRandomPasswordIndex = 1;
-	HackingCalculateCertainty();
-	HackingCalculateRandomPassword();
+	HackingLogicTick();
 }
