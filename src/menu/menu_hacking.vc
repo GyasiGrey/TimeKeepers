@@ -67,7 +67,6 @@ void MenuHackingClose()
 {
 	FreeDelayedCallbackByFunction("HackingCalculateCertainty");
 	FreeDelayedCallbackByFunction("HackingCalculateRandomPassword");
-	FreeDelayedCallbackByFunction("HackingIncrementPasswordIndex");
 	
 	SetPause(0);
 }
