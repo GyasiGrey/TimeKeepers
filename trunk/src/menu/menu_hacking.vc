@@ -107,9 +107,11 @@ void HackingIncrementPasswordIndex()
 		CloseTopMenu();
 		CallFunction(sHackingCompleteFunction);
 	}
-
-	//Calculate a new password and certainty imediatly after the user accepts a password
-	HackingLogicTick();
+	else
+	{
+		//Calculate a new password and certainty imediatly after the user accepts a password
+		HackingLogicTick();
+	}
 }
 
 void HackingFirstMessage()
