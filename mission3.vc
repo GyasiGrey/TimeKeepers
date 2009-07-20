@@ -144,6 +144,8 @@ void InitLoot()
 	CreateLoot(46*16, 18*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
 	
 	CreateLoot(112*16, 398*16, "Sniper", 0, "sniper.png", "GetSniper", 0);
+	
+	CreateLoot((134*16)+8, 406*16, "", 0, "", "OfficeLevelComputer", 1);
 }
 
 //ALWAYS flush
@@ -554,6 +556,14 @@ void stub1()
 	MessageBox("Do some crap to let the player spy on the hallway just south off the computer room");
 }
 
+void OfficeLevelComputer()
+{
+	Loots[nCurrentLoot].nStolen = 0;
+	
+
+	OpenHackingMenu("UnlockShootingRange");
+}
+
 void ComputerRoomComputer()
 {
 	Loots[nCurrentLoot].nStolen = 0;
@@ -562,6 +572,11 @@ void ComputerRoomComputer()
 		return;
 		
 	OpenHackingMenu("UnlockSewer");
+}
+
+void UnlockShootingRange()
+{
+	messagebox("Unlocked the shooting range. Queue sniper mini boss.");
 }
 
 void UnlockSewer()
