@@ -535,7 +535,7 @@ void QuickSave()
 			qsavetext = "Quick Save Failed!";
 	}
 		 
-	lucentTextFade(160-(TextWidth(nTinyFont, qsavetext)/2), 120-(FontHeight(nTinyFont)/2), qsavetext, nTinyFont, RGB(255, 255, 255), 0);
+	lucentTextFade(160-(TextWidth(nTinyFont, qsavetext)/2), 30-(FontHeight(nTinyFont)/2), qsavetext, nTinyFont, RGB(255, 255, 255), 0);
 }
 
 void QuickLoad()
@@ -546,7 +546,7 @@ void QuickLoad()
 	int numsaves = CountSaveGames();
 
 	string qsavetext = "Quick Load.";
-	lucentTextFade(160-(TextWidth(nTinyFont, qsavetext)/2), 120-(FontHeight(nTinyFont)/2), qsavetext, nTinyFont, RGB(255, 255, 255), 0);
+	lucentTextFade(160-(TextWidth(nTinyFont, qsavetext)/2), 30-(FontHeight(nTinyFont)/2), qsavetext, nTinyFont, RGB(255, 255, 255), 0);
 
 	LoadGame("save/save"+ThreeDigit(numsaves)+".sav");
 }
