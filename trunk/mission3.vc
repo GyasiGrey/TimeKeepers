@@ -82,7 +82,7 @@ void InitDoors()
 	CreateDoor(75, 301, LoadImage("gfx\misc\locker_door.png"), 200);
 	CreateDoor(87, 309, LoadImage("gfx\misc\locker_door.png"), 200);
 	
-	CreateDoorEX(104, 408, LoadImage("gfx\misc\blastdoor_closed.png"), -1, 4, 2, -1);
+	CreateDoorEX(104, 408, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY);
 }
 
 void InitEnemies()
@@ -577,6 +577,7 @@ void ComputerRoomComputer()
 void UnlockShootingRange()
 {
 	messagebox("Unlocked the shooting range. Queue sniper mini boss.");
+	nFlags[FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY] = 1;
 }
 
 void UnlockSewer()
