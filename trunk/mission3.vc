@@ -581,10 +581,7 @@ void UnlockShootingRange()
 	messagebox("Unlocked the shooting range. Queue sniper mini boss.");
 	nFlags[FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY] = 1;
 	
-	ent = CreateEnemy(105, 383, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "", "guard.chr");
-	Enemies[ent].sAIFunc = "EnemyAIWandering";
-	Enemies[ent].nMaxHP = 300;
-	Enemies[ent].nHP = 300;
+	ent = CreateEnemy(105, 383, ENTITY_FACE_DOWN, ENEMY_MISSION3_BOSS, "", "guard.chr");
 }
 
 void UnlockSewer()
