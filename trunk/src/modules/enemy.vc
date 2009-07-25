@@ -501,7 +501,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_MISSION3_BOSS].bCanSpeak = 1;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].bCanHear = 1;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nTargetPriority = 1;
-	EnemyTemplates[ENEMY_MISSION3_BOSS].sAIFunc = "EnemyAIWandering";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sAIFunc = "EnemyAIMission3Miniboss";
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nVisualBark = -1;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nHearBark = -1;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nHurtBark = -1;
