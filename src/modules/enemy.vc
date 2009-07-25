@@ -480,6 +480,38 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TARGET].sHurtSound = "";
 	EnemyTemplates[ENEMY_TARGET].sLostSound = "";
 	EnemyTemplates[ENEMY_TARGET].sAlertSound = "";
+	
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nHp = 300;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nMaxHp = 300;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nWeapon = WEAPON_PISTOL;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightRange = 250;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightAngle = 35;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nCoolDown = 0;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nAlertTime = 0;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nSearchTime = 0;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nAIType = ENEMY_AI_TYPE_NORMAL;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sShootUpAnim = "";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sShootLeftAnim = "";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sShootDownAnim = "";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sShootRightAnim = "";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sDeathAnim = "";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sDeathSound = "sounds\cameradeath.wav";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nDeadFrame = 1;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].bCanBeTranqd = 0;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].bCanSpeak = 1;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].bCanHear = 1;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nTargetPriority = 1;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sAIFunc = "EnemyAIWandering";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nVisualBark = -1;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nHearBark = -1;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nHurtBark = -1;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nLostBark = -1;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nAlertBark = -1;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sVisualSound = "";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sHearSound = "";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sHurtSound = "";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sLostSound = "";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].sAlertSound = "";
 }
 
 void ClearEnemies()
