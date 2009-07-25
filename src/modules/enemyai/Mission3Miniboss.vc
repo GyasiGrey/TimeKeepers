@@ -25,7 +25,7 @@ void EnemyAIMission3Miniboss()
 					nY = 395;
 			}
 
-			Goto(Enemies[nCurrentEnemy].nEntity, nX, nY);
+			Goto(Enemies[nCurrentEnemy].nEntity, nX*16, nY*16);
 		}
 	}
 	else

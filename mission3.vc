@@ -82,7 +82,7 @@ void InitDoors()
 	CreateDoor(75, 301, LoadImage("gfx\misc\locker_door.png"), 200);
 	CreateDoor(87, 309, LoadImage("gfx\misc\locker_door.png"), 200);
 	
-	CreateDoorEX(104, 408, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY);
+	nFlags[FLAG_MISSION3_DOOR_SHOOTING_RANGE] = CreateDoorEX(104, 408, LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY);
 }
 
 void InitEnemies()
@@ -103,10 +103,10 @@ void InitEnemies()
 	CreateEnemy(99, 424, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_GUN_CAMERA, "", "camera.chr");
 	CreateEnemy(112, 424, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_GUN_CAMERA, "", "camera.chr");
 	
-	CreateEnemy(100, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
-	CreateEnemy(104, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
-	CreateEnemy(108, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
-	CreateEnemy(112, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	nFlags[FLAG_MISSION3_TARGET_1] = CreateEnemy(100, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	nFlags[FLAG_MISSION3_TARGET_2] = CreateEnemy(104, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	nFlags[FLAG_MISSION3_TARGET_3] = CreateEnemy(108, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	nFlags[FLAG_MISSION3_TARGET_4] = CreateEnemy(112, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 }
 
 void InitLoot()
@@ -576,12 +576,8 @@ void ComputerRoomComputer()
 
 void UnlockShootingRange()
 {
-	int ent;
-	
 	messagebox("Unlocked the shooting range. Queue sniper mini boss.");
 	nFlags[FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY] = 1;
-	
-	ent = CreateEnemy(105, 383, ENTITY_FACE_DOWN, ENEMY_MISSION3_BOSS, "", "guard.chr");
 }
 
 void UnlockSewer()
@@ -656,5 +652,28 @@ void CheckSpawnSewerTrapKey()
 	if(nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_1] && nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_2])
 	{
 		messagebox("TODO: spawn the key/wheel/think to make the ladder come down");
+	}
+}
+
+void SpawnMiniBoss()
+{
+	if(nFlags[FLAG_MISSION3_DOOR_MINIBOSS_SPAWNED] == 0)
+	{
+		//if the player killed all the targets, spawn the mini boss
+		if(Enemies[nFlags[FLAG_MISSION3_TARGET_1]].nHP <= 0 &&
+			Enemies[nFlags[FLAG_MISSION3_TARGET_2]].nHP <= 0 &&
+			Enemies[nFlags[FLAG_MISSION3_TARGET_3]].nHP <= 0 &&
+			Enemies[nFlags[FLAG_MISSION3_TARGET_4]].nHP <= 0)
+		{
+			CreateEnemy(105, 394, ENTITY_FACE_DOWN, ENEMY_MISSION3_BOSS, "", "guard.chr");
+
+			//close the door
+			ManualCloseDoor(nFlags[FLAG_MISSION3_DOOR_SHOOTING_RANGE]);
+			
+			nFlags[FLAG_MISSION3_DOOR_MINIBOSS_SPAWNED] = 1;
+			
+			//lock the door
+			nFlags[FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY] = 0;
+		}
 	}
 }
