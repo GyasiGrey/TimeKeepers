@@ -1,0 +1,36 @@
+void EnemyAIMission3Miniboss()
+{
+	int nPosition;
+	int nX, nY;
+	
+	if(Enemies[nCurrentEnemy].nMode == MODE_NORMAL)
+	{
+		//if the enemy is not moving, go to a new location
+		if(!EnemyIsStopped(nCurrentEnemy))
+		{
+			nPosition = Random(1, 3);
+
+			switch(nPosition)
+			{
+				case 1:
+					nX = 100;
+					nY = 395;
+
+				case 2:
+					nX = 105;
+					nY = 395;
+
+				case 3:
+					nX = 111;
+					nY = 395;
+			}
+
+			Goto(Enemies[nCurrentEnemy].nEntity, nX, nY);
+		}
+	}
+	else
+	{
+		//otherwise, act just like a normal enemy
+		EnemyAINormal();
+	}
+}
