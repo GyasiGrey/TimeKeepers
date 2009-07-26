@@ -209,7 +209,8 @@ void test_ClearScrollingText()
 void test_EntityAt()
 {
 	int nTestEnt = EntitySpawn(1, 1, "tech.chr");
-	
+	entity.obstruct[nTestEnt] = 1;
+
 	assertTrue(EntityAt(16, 16) == nTestEnt);
 	assertTrue(EntityAt(16, 32) == nTestEnt);
 	assertTrue(EntityAt(32, 16) == nTestEnt);

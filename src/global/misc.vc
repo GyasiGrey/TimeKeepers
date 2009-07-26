@@ -169,8 +169,11 @@ int EntityAt(int x, int y)
 		{
 			if(y >= entity.y[i] && y <= entity.y[i]+entity.hoth[i])
 			{
-				//good coding practice be damed!
-				return i;
+				if(entity.obstruct[i] != 0)
+				{
+					//good coding practice be damed!
+					return i;
+				}
 			}
 		}
 	}
