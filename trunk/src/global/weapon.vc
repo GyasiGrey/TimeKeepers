@@ -295,6 +295,24 @@ void InitWeapons()
 	Weapons[WEAPON_AI_M4].sAimFunction = "AimWeapon";
 	Weapons[WEAPON_AI_M4].sPostAimFunction = "PostAimWeapon";
 	Weapons[WEAPON_AI_M4].sShootFunction = "ShootWeapon";
+
+	Weapons[WEAPON_AI_SNIPER].nRange = 250;
+	Weapons[WEAPON_AI_SNIPER].sName = "Sniper";
+	Weapons[WEAPON_AI_SNIPER].sSound = "sounds\sniper.wav";
+	Weapons[WEAPON_AI_SNIPER].nIcon = LoadImage("gfx\icons\grenade.png");
+	Weapons[WEAPON_AI_SNIPER].nMaxAmmo = 25;
+	Weapons[WEAPON_AI_SNIPER].nDamageMin = 30;
+	Weapons[WEAPON_AI_SNIPER].nDamageMax = 35;
+	Weapons[WEAPON_AI_SNIPER].nRecharge = 150;
+	Weapons[WEAPON_AI_SNIPER].nSoundRadius = 300;
+	Weapons[WEAPON_AI_SNIPER].nAccMin = 0;
+	Weapons[WEAPON_AI_SNIPER].nAccMax = 0;
+	Weapons[WEAPON_AI_SNIPER].nType = WEAPON_TYPE_SINGLE;
+	Weapons[WEAPON_AI_SNIPER].nSpreadShots = 1;
+	Weapons[WEAPON_AI_SNIPER].sAimFunction = "SniperAim";
+	Weapons[WEAPON_AI_SNIPER].sPreAimFunction = "PreFreeAim";
+	Weapons[WEAPON_AI_SNIPER].sPostAimFunction = "PostFreeAim";
+	Weapons[WEAPON_AI_SNIPER].sShootFunction = "ShootSniper";
 }
 
 void FreeWeapons()

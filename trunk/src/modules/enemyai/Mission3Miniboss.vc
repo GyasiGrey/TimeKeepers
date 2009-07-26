@@ -13,7 +13,7 @@ void EnemyAIMission3Miniboss()
 		}
 			
 		//if the enemy is not moving, go to a new location
-		if(!EnemyIsStopped(nCurrentEnemy))
+		if(EnemyIsStopped(nCurrentEnemy))
 		{
 			nPosition = Random(1, 3);
 
