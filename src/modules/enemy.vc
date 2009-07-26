@@ -483,7 +483,7 @@ void CreateEnemyTemplates()
 	
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nHp = 300;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nMaxHp = 300;
-	EnemyTemplates[ENEMY_MISSION3_BOSS].nWeapon = WEAPON_PISTOL;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nWeapon = WEAPON_AI_SNIPER;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightRange = 275;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightAngle = 35;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nCoolDown = Weapons[EnemyTemplates[ENEMY_MISSION3_BOSS].nWeapon].nRecharge*2;
