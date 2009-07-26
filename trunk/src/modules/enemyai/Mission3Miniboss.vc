@@ -5,6 +5,13 @@ void EnemyAIMission3Miniboss()
 	
 	if(Enemies[nCurrentEnemy].nMode == MODE_NORMAL)
 	{
+		if(CanSeePlayer(nCurrentEnemy))
+		{
+			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark, Enemies[nCurrentEnemy].sVisualSound);
+
+			MakeAlert(nCurrentEnemy);
+		}
+			
 		//if the enemy is not moving, go to a new location
 		if(!EnemyIsStopped(nCurrentEnemy))
 		{
