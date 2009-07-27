@@ -603,6 +603,7 @@ void SpawnPlayer(int nX, int nY)
 	SetPlayer(nPlayerEnt);
 	HookEntityRender(nPlayerEnt, "PlayerRender");
 	entity.speed[nPlayerEnt] = PLAYER_WALK_SPEED;
+	entity.obstruct[nPlayerEnt] = 1;
 }
 
 void ExitGame()
