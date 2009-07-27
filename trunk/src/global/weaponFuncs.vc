@@ -183,6 +183,10 @@ void SniperAim()
 	
 	TBlit(0, 0, nScreenMask, screen);
 	
+	SetLucent(75);
+	CircleFill((ImageWidth(screen)/2), (ImageHeight(screen)/2), 35, 35, RGB(0, 255, 0), screen);
+	SetLucent(0);
+	
 	FreeImage(nScreenMask);
 }
 
