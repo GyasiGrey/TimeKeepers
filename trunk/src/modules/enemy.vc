@@ -487,8 +487,8 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightRange = 275;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightAngle = 35;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nCoolDown = Weapons[EnemyTemplates[ENEMY_MISSION3_BOSS].nWeapon].nRecharge*2;
-	EnemyTemplates[ENEMY_MISSION3_BOSS].nAlertTime = 0;
-	EnemyTemplates[ENEMY_MISSION3_BOSS].nSearchTime = 0;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nAlertTime = 500;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nSearchTime = 600;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nAIType = ENEMY_AI_TYPE_NORMAL;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].sShootUpAnim = "";
 	EnemyTemplates[ENEMY_MISSION3_BOSS].sShootLeftAnim = "";
