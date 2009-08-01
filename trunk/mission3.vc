@@ -665,7 +665,7 @@ void SpawnMiniBoss()
 			Enemies[nFlags[FLAG_MISSION3_TARGET_3]].nHP <= 0 &&
 			Enemies[nFlags[FLAG_MISSION3_TARGET_4]].nHP <= 0)
 		{
-			CreateEnemy(105, 394, ENTITY_FACE_DOWN, ENEMY_MISSION3_BOSS, "", "guard.chr");
+			CreateEnemy(137, 387, ENTITY_FACE_DOWN, ENEMY_MISSION3_BOSS, "", "guard.chr");
 
 			//close the door
 			ManualCloseDoor(nFlags[FLAG_MISSION3_DOOR_SHOOTING_RANGE]);
