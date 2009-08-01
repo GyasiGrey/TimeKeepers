@@ -15,33 +15,29 @@ void EnemyAIMission3Miniboss()
 		//if the enemy is not moving, go to a new location
 		if(EnemyIsStopped(nCurrentEnemy))
 		{
-			nPosition = Random(1, 6);
+			nPosition = Random(1, 5);
 
 			switch(nPosition)
 			{
 				case 1:
-					nX = 100;
-					nY = 395;
+					nX = 120;
+					nY = 389;
 
 				case 2:
-					nX = 105;
-					nY = 395;
+					nX = 117;
+					nY = 430;
 
 				case 3:
-					nX = 111;
-					nY = 395;
+					nX = 151;
+					nY = 385;
 
 				case 4:
-					nX = 100;
-					nY = 384;
+					nX = 151;
+					nY = 417;
 
 				case 5:
-					nX = 105;
-					nY = 384;
-
-				case 6:
-					nX = 111;
-					nY = 384;
+					nX = 129;
+					nY = 423;
 			}
 
 			Goto(Enemies[nCurrentEnemy].nEntity, nX*16, nY*16);
