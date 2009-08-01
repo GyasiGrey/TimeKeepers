@@ -222,7 +222,7 @@ void InitWeapons()
 	Weapons[9].sThrownAnimUD = "flashbangUD.png";
 	Weapons[9].sThrownAnimLR = "flashbangLR.png";
 	
-	Weapons[10].nRange = 200;
+	Weapons[10].nRange = 300;
 	Weapons[10].sName = "Sniper";
 	Weapons[10].sSound = "sounds\sniper.wav";
 	Weapons[10].nIcon = LoadImage("gfx\icons\grenade.png");
