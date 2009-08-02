@@ -144,6 +144,7 @@ void InitLoot()
 	CreateLoot(46*16, 18*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
 	
 	CreateLoot(112*16, 398*16, "Sniper", 0, "sniper.png", "GetSniper", 0);
+	CreateLoot(111*16, 398*16, "C4", 0, "c4.png", "GetC4", 0);
 	
 	CreateLoot((134*16)+8, 406*16, "", 0, "", "OfficeLevelComputer", 1);
 }
