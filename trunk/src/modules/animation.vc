@@ -95,6 +95,10 @@ void FreeAllAnimations()
 		if(anims[i].active)
 			FreeAnimation(i);
 	}
+	
+	_testPre("FreeAllAnimations_manual");
+	_test("FreeAllAnimations_manual");
+	_testPost("FreeAllAnimations_manual");
 }
 
 void FreeAnimation(int index)
