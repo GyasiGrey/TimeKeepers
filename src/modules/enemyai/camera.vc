@@ -44,7 +44,7 @@ void EnemyAICamera()
 		}
 
 		//if we have a gun, shoot at the player
-		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nCoolDownStart+Enemies[nCurrentEnemy].nCoolDown && Distance(nPlayerEnt, Enemies[nCurrentEnemy].nEntity) <= Weapons[Enemies[nCurrentEnemy].nWeapon].nRange && CanSeePlayer(nCurrentEnemy) && nHealth > 0 && !Enemies[nCurrentEnemy].nAnimating && Enemies[nCurrentEnemy].nWeapon >= 0)
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nCoolDownStart+CalculateEnemyCooldown(nCurrentEnemy) && Distance(nPlayerEnt, Enemies[nCurrentEnemy].nEntity) <= Weapons[Enemies[nCurrentEnemy].nWeapon].nRange && CanSeePlayer(nCurrentEnemy) && nHealth > 0 && !Enemies[nCurrentEnemy].nAnimating && Enemies[nCurrentEnemy].nWeapon >= 0)
 		{
 			StopEnemy(nCurrentEnemy);
 			Enemies[nCurrentEnemy].nCoolDownStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;

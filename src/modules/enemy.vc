@@ -4,7 +4,6 @@ struct Enemy
 	int nMaxHp;
 	int nWeapon;
 	//int nSightRange;
-	int nCoolDown;			//show long this enemy waits between shots
 /**/	int nCoolDownStart;		//timer when the enemy took it's last shot
 	int nSightRange;		//the radius they can see
 	int nSightAngle;		//the angle of the enemies field of view
@@ -121,7 +120,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nWeapon = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSightRange = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSightAngle = 35;
-	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nWeapon].nRecharge*2;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAlertTime = 1000;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nSearchTime = 600;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAIType = ENEMY_AI_TYPE_NORMAL;
@@ -154,7 +152,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nWeapon = 2;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nSightRange = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nSightAngle = 35;
-	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nWeapon].nRecharge*2;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nAlertTime = 500;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nSearchTime = 600;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nAIType = ENEMY_AI_TYPE_NORMAL;
@@ -187,7 +184,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nWeapon = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nSightRange = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nSightAngle = 0;
-	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nCoolDown = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nAlertTime = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nSearchTime = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nAIType = ENEMY_AI_TYPE_DUMMY;
@@ -221,7 +217,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nWeapon = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nSightRange = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nSightAngle = 65;
-	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nCoolDown = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nAlertTime = 1000;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nSearchTime = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nAIType = ENEMY_AI_TYPE_CIVILIAN;
@@ -255,7 +250,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nWeapon = -1;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nSightRange = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nSightAngle = 65;
-	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nCoolDown = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nAlertTime = 1000;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nSearchTime = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nAIType = ENEMY_AI_TYPE_CIVILIAN;
@@ -290,7 +284,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nWeapon = 2;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nSightRange = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nSightAngle = 45;
-	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nWeapon].nRecharge*2;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nAlertTime = 1000;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nSearchTime = 600;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nAIType = ENEMY_AI_TYPE_BIGGUARD;
@@ -324,7 +317,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nWeapon =-1;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nSightRange = 150;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nSightAngle = 45;
-	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nCoolDown = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nAlertTime = 1000;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nSearchTime = 600;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nAIType = ENEMY_AI_TYPE_CAMERA;
@@ -357,7 +349,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nWeapon = WEAPON_AI_M4;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nSightRange = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nSightAngle = 45;
-	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nWeapon].nRecharge*2;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nAlertTime = 1000;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nSearchTime = 600;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nAIType = ENEMY_AI_TYPE_CAMERA;
@@ -390,7 +381,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nWeapon = 3;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nSightRange = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nSightAngle = 45;
-	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nWeapon].nRecharge*2;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nAlertTime = 1000;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nSearchTime = 600;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nAIType = ENEMY_AI_TYPE_NORMAL;
@@ -422,7 +412,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nWeapon = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nSightRange = 200;
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nSightAngle = 35;
-	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nCoolDown = Weapons[EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nWeapon].nRecharge*2;
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nAlertTime = 1000;
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nSearchTime = 600;
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nAIType = ENEMY_AI_TYPE_NORMAL;
@@ -454,7 +443,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TARGET].nWeapon = -1;
 	EnemyTemplates[ENEMY_TARGET].nSightRange = 0;
 	EnemyTemplates[ENEMY_TARGET].nSightAngle = 0;
-	EnemyTemplates[ENEMY_TARGET].nCoolDown = 0;
 	EnemyTemplates[ENEMY_TARGET].nAlertTime = 0;
 	EnemyTemplates[ENEMY_TARGET].nSearchTime = 0;
 	EnemyTemplates[ENEMY_TARGET].nAIType = ENEMY_AI_TYPE_DUMMY;
@@ -486,7 +474,6 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nWeapon = WEAPON_AI_SNIPER;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightRange = 275;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightAngle = 35;
-	EnemyTemplates[ENEMY_MISSION3_BOSS].nCoolDown = Weapons[EnemyTemplates[ENEMY_MISSION3_BOSS].nWeapon].nRecharge*2;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nAlertTime = 700;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSearchTime = 600;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nAIType = ENEMY_AI_TYPE_NORMAL;
@@ -537,7 +524,6 @@ int CreateEnemy(int x, int y, int face, int template, string movestring, string 
 	Enemies[nNumEnemies].nWeapon = EnemyTemplates[template].nWeapon;
 	Enemies[nNumEnemies].nSightRange = EnemyTemplates[template].nSightRange;
 	Enemies[nNumEnemies].nSightAngle = EnemyTemplates[template].nSightAngle;
-	Enemies[nNumEnemies].nCoolDown = EnemyTemplates[template].nCoolDown;
 	Enemies[nNumEnemies].nAlertTime = EnemyTemplates[template].nAlertTime;
 	Enemies[nNumEnemies].nSearchTime = EnemyTemplates[template].nSearchTime;
 	Enemies[nNumEnemies].nOriginalX = x*16;
@@ -1377,4 +1363,12 @@ void SnapEnemyToGrid(int nEntityID)
 
 		Error("setting entity " + str(nEntityID) + " y:" + str(entity.y[nEntityID]));
 	}
+}
+
+int CalculateEnemyCooldown(int EnemyID)
+{
+	if(Enemies[EnemyID].nWeapon >= 0 && Enemies[EnemyID].nWeapon < MAX_WEAPONS)
+		return Weapons[Enemies[EnemyID].nWeapon].nRecharge;
+	else
+		return 0;
 }
