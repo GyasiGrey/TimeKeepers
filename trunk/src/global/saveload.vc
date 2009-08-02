@@ -307,7 +307,7 @@ int LoadGame(string filename)
 //save all the data about an enemy
 void SaveEnemy(int hndl, int i)
 {
-	FileWriteWord(hndl, Enemies[i].nHp);				//enemy health
+	FileWriteQuad(hndl, Enemies[i].nHp);				//enemy health
 	FileWriteWord(hndl, entity.x[Enemies[i].nEntity]);		//enemy x
 	FileWriteWord(hndl, entity.y[Enemies[i].nEntity]);		//enemy y
 	FileWriteQuad(hndl, Enemies[i].nWeapon);			//enemy weapon	(quad because the weapon could be -1)
@@ -334,7 +334,7 @@ void SaveEnemy(int hndl, int i)
 //load enemy data into a temp array. Will be put into real array after the call to map();
 void LoadEnemy(int hndl, int i)
 {
-	LoadedEnemies[i].nHp = FileReadWord(hndl);		//enemy health
+	LoadedEnemies[i].nHp = FileWriteQuad(hndl);		//enemy health
 	LoadedEnemies[i].nSaveX = FileReadWord(hndl);		//enemy x
 	LoadedEnemies[i].nSaveY = FileReadWord(hndl);		//enemy y
 	LoadedEnemies[i].nWeapon = FileReadQuad(hndl);		//enemy weapon
