@@ -334,7 +334,7 @@ void SaveEnemy(int hndl, int i)
 //load enemy data into a temp array. Will be put into real array after the call to map();
 void LoadEnemy(int hndl, int i)
 {
-	LoadedEnemies[i].nHp = FileWriteQuad(hndl);		//enemy health
+	LoadedEnemies[i].nHp = FileReadQuad(hndl);		//enemy health
 	LoadedEnemies[i].nSaveX = FileReadWord(hndl);		//enemy x
 	LoadedEnemies[i].nSaveY = FileReadWord(hndl);		//enemy y
 	LoadedEnemies[i].nWeapon = FileReadQuad(hndl);		//enemy weapon
