@@ -1,9 +1,9 @@
 //#include "debug_imgtrack.vc"	//must be included at the top to defines to work
 
+#include "src\global\defines.vc"
+
 #include "vctest.vc"
 #include "testCases.vc"
-
-#include "src\global\defines.vc"
 
 #include "splash.vc"		//Splash screen fufujuju
 

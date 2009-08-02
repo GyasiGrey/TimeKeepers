@@ -218,3 +218,15 @@ void test_EntityAt()
 	
 	assertTrue(EntityAt(33, 16) != nTestEnt);
 }
+
+void FreeAllAnimations_manual()
+{
+	int i=0;
+	
+	for(i=0;i<MAX_ANIMATIONS;i++)
+	{
+		assertTrue(anims[i].active == 0);
+		assertFalse(ImageValid(anims[i].image));
+		assertFalse(ImageValid(anims[i].bufimage));
+	}
+}
