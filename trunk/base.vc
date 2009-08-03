@@ -396,7 +396,7 @@ void EnterChronoRoom()
 		PlayerMove("X29Y29R0"); //move to and face ghost
 		EntityMove(Enemies[nFlags[FLAG_BASE_TECH]].nEntity, "L0");
 		WaitForEntity(nPlayerEnt);
-		WaitForEntity(Enemies[nFlags[FLAG_BASE_TECH]].nEntity);
+		//WaitForEntity(Enemies[nFlags[FLAG_BASE_TECH]].nEntity);
 		
 		SetEntitiesPaused(1);	//hold the player where they are
 		nHoldCommText = 1;
