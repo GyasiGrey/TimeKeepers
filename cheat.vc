@@ -13,6 +13,14 @@ void GotoNewGame()
 	map("base.map");
 }
 
+void GotoMission1()
+{
+	if(!CHEATS_ENABLED)
+		return;
+		
+	TimeWarp("0|1|4|2", "mission1.map");
+}
+
 //sets flags and things to do mission 2 from the intro point
 void GotoMission2Intro()
 {
