@@ -108,11 +108,11 @@ void InitEnemies()
 	nFlags[FLAG_MISSION3_TARGET_3] = CreateEnemy(108, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 	nFlags[FLAG_MISSION3_TARGET_4] = CreateEnemy(112, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 	
-	CreateEnemy(92, 383, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
-	CreateEnemy(92, 393, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
-	CreateEnemy(83, 399, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
-	CreateEnemy(84, 388, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
-	CreateEnemy(91, 403, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	nFlags[FLAG_MISSION3_TARGET_5] = CreateEnemy(92, 383, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	nFlags[FLAG_MISSION3_TARGET_6] = CreateEnemy(92, 393, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	nFlags[FLAG_MISSION3_TARGET_7] = CreateEnemy(83, 399, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	nFlags[FLAG_MISSION3_TARGET_8] = CreateEnemy(84, 388, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
+	nFlags[FLAG_MISSION3_TARGET_9] = CreateEnemy(91, 403, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 }
 
 void InitLoot()
@@ -670,7 +670,12 @@ void SpawnMiniBoss()
 		if(Enemies[nFlags[FLAG_MISSION3_TARGET_1]].nHP <= 0 &&
 			Enemies[nFlags[FLAG_MISSION3_TARGET_2]].nHP <= 0 &&
 			Enemies[nFlags[FLAG_MISSION3_TARGET_3]].nHP <= 0 &&
-			Enemies[nFlags[FLAG_MISSION3_TARGET_4]].nHP <= 0)
+			Enemies[nFlags[FLAG_MISSION3_TARGET_4]].nHP <= 0 &&
+			Enemies[nFlags[FLAG_MISSION3_TARGET_5]].nHP <= 0 &&
+			Enemies[nFlags[FLAG_MISSION3_TARGET_6]].nHP <= 0 &&
+			Enemies[nFlags[FLAG_MISSION3_TARGET_7]].nHP <= 0 &&
+			Enemies[nFlags[FLAG_MISSION3_TARGET_8]].nHP <= 0 &&
+			Enemies[nFlags[FLAG_MISSION3_TARGET_9]].nHP <= 0)
 		{
 			CreateEnemy(137, 387, ENTITY_FACE_DOWN, ENEMY_MISSION3_BOSS, "", "guard.chr");
 
