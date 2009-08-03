@@ -677,10 +677,28 @@ void SpawnMiniBoss()
 			Enemies[nFlags[FLAG_MISSION3_TARGET_8]].nHP <= 0 &&
 			Enemies[nFlags[FLAG_MISSION3_TARGET_9]].nHP <= 0)
 		{
-			CreateEnemy(137, 387, ENTITY_FACE_DOWN, ENEMY_MISSION3_BOSS, "", "guard.chr");
-
 			//close the door
 			ManualCloseDoor(nFlags[FLAG_MISSION3_DOOR_SHOOTING_RANGE]);
+
+			SetEntitiesPaused(1);
+			
+			//spawn the boss's
+			CreateEnemy(161, 378, ENTITY_FACE_DOWN, ENEMY_MISSION3_BOSS, "", "guard.chr");
+			CreateEnemy(163, 380, ENTITY_FACE_DOWN, ENEMY_MISSION3_BOSS, "", "guard.chr");
+			
+			//camera scroll over to the boss's
+			cameratracking = 0;
+			CameraScroll((161 * 16) - (ImageWidth(screen)/2), (378 * 16) - (ImageHeight(screen)/2), 400);
+			WaitForCameraScroll();
+			
+			SetEntitiesPaused(0);
+		
+			WaitTimer(200);
+
+			//camera scroll back to the player
+			CameraScroll(Entity.x[nPlayerEnt] - (ImageWidth(screen)/2), Entity.y[nPlayerEnt] - (ImageHeight(screen)/2), 400);
+			WaitForCameraScroll();
+			cameratracking = 1;
 			
 			nFlags[FLAG_MISSION3_DOOR_MINIBOSS_SPAWNED] = 1;
 			
