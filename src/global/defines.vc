@@ -70,21 +70,21 @@
 
 #define NUM_WEAPONS 14
 
-#define WEAPON_KNIFE		0
-#define WEAPON_PISTOL		1
-#define WEAPON_SHOTGUN		2
-#define WEAPON_M4		3
-#define WEAPON_TRANQ		4
-#define WEAPON_GRENADE		5
-#define WEAPON_EMPTY		6
-#define WEAPON_AUTO_SHOTGUN	7
-#define WEAPON_ROCKET_LAUNCHER	8
-#define	WEAPON_FLASH_BANG	9
-#define	WEAPON_SNIPER		10
-#define	WEAPON_C4		11	//planted explosive
-#define	WEAPON_DET_BOX		12	//detonator for the planted explosive
-#define WEAPON_AI_M4		13	//long range machine gun. Only for the computer controled enemies.
-#define WEAPON_AI_SNIPER	14
+#define WEAPON_KNIFE				0
+#define WEAPON_PISTOL				1
+#define WEAPON_SHOTGUN				2
+#define WEAPON_M4				3
+#define WEAPON_TRANQ				4
+#define WEAPON_GRENADE				5
+#define WEAPON_EMPTY				6
+#define WEAPON_AUTO_SHOTGUN			7
+#define WEAPON_ROCKET_LAUNCHER			8
+#define	WEAPON_FLASH_BANG			9
+#define	WEAPON_SNIPER				10
+#define	WEAPON_C4				11	//planted explosive
+#define	WEAPON_DET_BOX				12	//detonator for the planted explosive
+#define WEAPON_AI_M4				13	//long range machine gun. Only for the computer controled enemies.
+#define WEAPON_AI_MISSION_3_MINIBOSS_GUN	14
 
 //Thrown collision types
 #define THROWN_COLLISION_REFLECT	0
