@@ -103,6 +103,9 @@ struct Enemy
 	string sAlertSound;
 	
 	int nLastHeardSound;		//tick when this enemy last heard a sound
+	
+	int nNormalSpeed;
+	int nAlertSpeed;
 }
 
 Enemy Enemies[MAX_ENEMIES];
@@ -145,6 +148,8 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sHurtSound = "SoundUghRand";
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sAlertSound = "SoundWhaRand";
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nNormalSpeed = 50;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAlertSpeed = 75;
 
 
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nHp = 35;
@@ -177,6 +182,9 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sHurtSound = "SoundUghRand";
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sAlertSound = "SoundWhaRand";
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nNormalSpeed = 50;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nAlertSpeed = 75;
+
 	
 	//training dummy
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nHp = 10000;
@@ -209,6 +217,8 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sHurtSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sAlertSound = "";
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nNormalSpeed = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nAlertSpeed = 0;
 
 	
 	//civilian
@@ -242,6 +252,8 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sHurtSound = "SoundUghRand";
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sAlertSound = "SoundWhaRand";
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nNormalSpeed = 50;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nAlertSpeed = 75;
 
 	
 	//cautious civilian - acts like a camera untill they go alert. they then run around like a normal civilian
@@ -275,6 +287,9 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sHurtSound = "SoundUghRand";
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sAlertSound = "SoundWhaRand";
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nNormalSpeed = 50;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nAlertSpeed = 75;
+
 
 
 	
@@ -309,6 +324,9 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sHurtSound = "SoundUghRand";
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sAlertSound = "SoundWhaRand";
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nNormalSpeed = 50;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nAlertSpeed = 75;
+	
 
 
 	//camera
@@ -341,6 +359,9 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sHurtSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sAlertSound = "";
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nNormalSpeed = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nAlertSpeed = 0;
+	
 
 	
 	
@@ -373,6 +394,9 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sHurtSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sAlertSound = "";
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nNormalSpeed = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nAlertSpeed = 0;
+	
 
 	
 	
@@ -405,6 +429,9 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sHurtSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sAlertSound = "";
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nNormalSpeed = 50;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nAlertSpeed = 75;
+	
 
 
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nHp = 25;
@@ -436,6 +463,9 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sHurtSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sAlertSound = "";
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nNormalSpeed = 50;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nAlertSpeed = 75;
+	
 
 	
 	EnemyTemplates[ENEMY_TARGET].nHp = 1;
@@ -468,6 +498,9 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TARGET].sHurtSound = "";
 	EnemyTemplates[ENEMY_TARGET].sLostSound = "";
 	EnemyTemplates[ENEMY_TARGET].sAlertSound = "";
+	EnemyTemplates[ENEMY_TARGET].nNormalSpeed = 50;
+	EnemyTemplates[ENEMY_TARGET].nAlertSpeed = 75;
+	
 	
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nHp = 300;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nMaxHp = 300;
@@ -499,6 +532,8 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_MISSION3_BOSS].sHurtSound = "";
 	EnemyTemplates[ENEMY_MISSION3_BOSS].sLostSound = "";
 	EnemyTemplates[ENEMY_MISSION3_BOSS].sAlertSound = "";
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nNormalSpeed = 75;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nAlertSpeed = 100;
 }
 
 void ClearEnemies()
@@ -558,8 +593,11 @@ int CreateEnemy(int x, int y, int face, int template, string movestring, string 
 	
 	Enemies[nNumEnemies].sDeathSound = EnemyTemplates[template].sDeathSound;
 	
+	Enemies[nNumEnemies].nNormalSpeed = EnemyTemplates[template].nNormalSpeed;
+	Enemies[nNumEnemies].nAlertSpeed = EnemyTemplates[template].nAlertSpeed;
+	
 	Enemies[nNumEnemies].nEntity = EntitySpawn(x, y, chrfile);
-	entity.speed[Enemies[nNumEnemies].nEntity] = WALK_SPEED_NORMAL;
+	entity.speed[Enemies[nNumEnemies].nEntity] = EnemyTemplates[template].nNormalSpeed;
 	entity.obstruct[Enemies[nNumEnemies].nEntity] = 1;
 	entity.obstructable[Enemies[nNumEnemies].nEntity] = 1;
 	entity.face[Enemies[nNumEnemies].nEntity] = face;
@@ -620,8 +658,8 @@ void MakeAlert(int ene)
 {
 	if(Enemies[ene].nMode != MODE_ALERT)
 		StopEnemy(ene);
-		
-	entity.speed[Enemies[ene].nEntity] = WALK_SPEED_ALERT;
+
+	entity.speed[Enemies[ene].nEntity] = Enemies[ene].nAlertSpeed;
 	Enemies[ene].nMode = MODE_ALERT;
 	Enemies[ene].nAlertStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
 	
@@ -1049,7 +1087,7 @@ void ReturnToPosition(int i)
 {
 	StopEnemy(i);
 	Enemies[i].nMode = MODE_RETURN;
-	entity.speed[Enemies[i].nEntity] = WALK_SPEED_NORMAL;
+	entity.speed[Enemies[i].nEntity] = Enemies[i].nNormalSpeed;
 	Goto(Enemies[i].nEntity, Enemies[i].nOriginalX, Enemies[i].nOriginalY);
 }
 
