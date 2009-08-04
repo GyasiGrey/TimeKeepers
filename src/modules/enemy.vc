@@ -858,6 +858,7 @@ void ProcessEnemies()
 				error("No AI func found for " + str(Enemies[i].nAIType));
 			}
 			
+			//if the enemy has a nodepath, but is not moving
 			if(strcmp(Enemies[i].sNodePath, "") != 0 && entity.movecode[Enemies[i].nEntity] == 0)
 			{
 				if(Enemies[i].sNodeIndex >= TokenCount(Enemies[i].sNodePath, " "))
