@@ -877,6 +877,11 @@ void ProcessEnemies()
 						Enemies[i].sNodeIndex++;
 				}
 			}
+			else if(strcmp(Enemies[i].sNodePath, "") != 0 && entity.movecode[Enemies[i].nEntity] != 0 && vcTimer[TIMER_ENEMY_LOGIC].nTick-Enemies[i].nAStarStart > ASTAR_DELAY)
+			{
+				findPath(Enemies[i].nEntity, entity.x[Enemies[i].nEntity]/16, entity.y[Enemies[i].nEntity]/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nX/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nY/16);
+				Enemies[i].nAStarStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+			}
 		}
 	}
 }
