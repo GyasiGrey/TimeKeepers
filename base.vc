@@ -213,20 +213,20 @@ void InitEmitters()
 void InitDoors()
 {
 	//door to ghosts room
-	CreateDoor(33, 50, LoadImage("gfx\misc\door.png"), 0-1);
+	CreateDoor(33, 50, IS_LoadImage("gfx\misc\door.png"), 0-1);
 	
 	//door to tech's room
-	CreateDoor(49, 43, LoadImage("gfx\misc\door.png"), 0-1);
+	CreateDoor(49, 43, IS_LoadImage("gfx\misc\door.png"), 0-1);
 	
 	//door at the end of tutorial area
-	CreateDoor(98, 73, LoadImage("gfx\misc\door.png"), 200);
+	CreateDoor(98, 73, IS_LoadImage("gfx\misc\door.png"), 200);
 	
 	//locker doors in tutorial area
-	CreateDoor(58, 63, LoadImage("gfx\misc\locker_door.png"), -1);
-	CreateDoor(60, 63, LoadImage("gfx\misc\locker_door.png"), -1);
-	CreateDoor(62, 63, LoadImage("gfx\misc\locker_door.png"), -1);
-	CreateDoor(64, 63, LoadImage("gfx\misc\locker_door.png"), -1);
-	CreateDoor(66, 63, LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(58, 63, IS_LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(60, 63, IS_LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(62, 63, IS_LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(64, 63, IS_LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(66, 63, IS_LoadImage("gfx\misc\locker_door.png"), -1);
 }
 
 void InitLoot()

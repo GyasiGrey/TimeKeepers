@@ -1,5 +1,7 @@
 //#include "debug_imgtrack.vc"	//must be included at the top to defines to work
 
+int MoreMagic = IS_InitImageStack();
+
 #include "src\global\defines.vc"
 
 #include "vctest.vc"
@@ -12,6 +14,7 @@
 #include "src\modules\lastTickTime.vc"
 
 //includes needed for the whole program
+#include "src\global\imageStack.vc"
 #include "src\global\misc.vc"		//Funcs used all over the place (abs, strstr etc)
 #include "src\global\scrollingTextWindow.vc"
 #include "src\global\XMLParse.vc"	//My simple XML parser
@@ -148,7 +151,7 @@ int nDialogBoxFont = LoadFont("gfx\fonts\font1.png");	//lifted from Parallel 7
 int nTerminalFont = LoadFont("gfx\fonts\terminal_menu.png");
 int nTinyFont = LoadFont("gfx\fonts\tiny.png");
 int nDigitalFont = LoadFont("gfx\fonts\digital.png");
-int nHealthIcn = LoadImage("gfx\icons\health.png");
+int nHealthIcn = IS_LoadImage("gfx\icons\health.png");
 
 int nShotAt;		//the timer value when the player shot his weapon. for recharging weapons
 
@@ -608,14 +611,8 @@ void SpawnPlayer(int nX, int nY)
 
 void ExitGame()
 {
-	FreeImage(nHealthIcn);
-	
-	FreeImage(lightimg);
-	FreeImage(windowlightimg);
-	
+	IS_FreeAll();
 	FreeAllAnimations();
-	
-	FreeWeapons();
 	
 	Exit("");
 }
