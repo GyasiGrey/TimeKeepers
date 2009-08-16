@@ -56,14 +56,6 @@ int CreateLoot(int x, int y, string name, int amt, string icn, string func, int 
 
 void ClearLoot()
 {
-	int i;
-	
-	for(i=0;i<MAX_LOOT;i++)
-	{
-		if(ImageValid(Loots[i].nImage))
-			FreeImage(Loots[i].nImage);
-	}
-	
 	nNumLoot = 0;
 }
 
