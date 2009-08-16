@@ -1,6 +1,6 @@
 //#include "debug_imgtrack.vc"	//must be included at the top to defines to work
 
-int MoreMagic = IS_InitImageStack();
+int MoreMagic = IS_InitImageStack();	//Init the Image Stack. Called on declaration so that I can us IS_LoadImage() on declaration.
 
 #include "src\global\defines.vc"
 
