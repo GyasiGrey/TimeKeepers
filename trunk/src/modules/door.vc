@@ -33,8 +33,6 @@ void ClearDoors()
 	{
 		if(Doors[i].nActive)
 		{
-			if(ImageValid(Doors[i].nImage))
-				FreeImage(Doors[i].nImage);
 			Doors[i].nActive = 0;
 		}
 	}
