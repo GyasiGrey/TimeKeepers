@@ -88,6 +88,7 @@ void IS_DumpImageStack()
 	Error("Dump complete.");
 }
 
+//Inits the Image Stack. The return value is ignored. It only returns an int so that I can call it on integer declaration.
 int IS_InitImageStack()
 {
 	IS_FreeAll();
