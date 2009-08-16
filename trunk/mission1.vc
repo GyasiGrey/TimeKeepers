@@ -236,20 +236,20 @@ void InitLoot()
 void InitDoors()
 {
 	//north bed room door - 5 seconds to unlock
-	CreateDoor(48, 34, LoadImage("gfx\misc\door.png"), 500);
+	CreateDoor(48, 34, IS_LoadImage("gfx\misc\door.png"), 500);
 	//south bed room door - 5 seconds to unlock
-	CreateDoor(52, 44, LoadImage("gfx\misc\door.png"), 500);
+	CreateDoor(52, 44, IS_LoadImage("gfx\misc\door.png"), 500);
 	//bathroom  - unlocked
-	CreateDoor(43, 44, LoadImage("gfx\misc\door.png"), 0-1);
+	CreateDoor(43, 44, IS_LoadImage("gfx\misc\door.png"), 0-1);
 	//master bathroom door
 
-	CreateDoor(19, 29, LoadImage("gfx\misc\door.png"), 0-1);
+	CreateDoor(19, 29, IS_LoadImage("gfx\misc\door.png"), 0-1);
 	//master closet door
 
-	CreateDoor(30, 29, LoadImage("gfx\misc\door.png"), 0-1);
+	CreateDoor(30, 29, IS_LoadImage("gfx\misc\door.png"), 0-1);
 	//master bed room proper door
 
-	CreateDoor(32, 45, LoadImage("gfx\misc\door.png"), 500);
+	CreateDoor(32, 45, IS_LoadImage("gfx\misc\door.png"), 500);
 }
 
 void InitLights()

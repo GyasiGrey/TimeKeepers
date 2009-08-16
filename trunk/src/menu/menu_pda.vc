@@ -21,13 +21,13 @@ void MenuPDADraw()
 	int img = CreateWindow("PDA", 125, 150, nTerminalFont);
 	int i;
 	string allNotes="";	//the text of all the notes we are going to display cat'd together
-	int imgChkBoxOn = LoadImage("gfx/misc/chkbox_on.png");
-	int imgChkBoxOff = LoadImage("gfx/misc/chkbox_off.png");
+	int imgChkBoxOn = IS_LoadImage("gfx/misc/chkbox_on.png");
+	int imgChkBoxOff = IS_LoadImage("gfx/misc/chkbox_off.png");
 	
-	int imgButtonObjectives = LoadImage("gfx/misc/pda_objectives.png");
-	int imgButtonNotes = LoadImage("gfx/misc/pda_notes.png");
-	int imgButtonConversations = LoadImage("gfx/misc/pda_conversations.png");
-	int imgButtonStats = LoadImage("gfx/misc/pda_stats.png");
+	int imgButtonObjectives = IS_LoadImage("gfx/misc/pda_objectives.png");
+	int imgButtonNotes = IS_LoadImage("gfx/misc/pda_notes.png");
+	int imgButtonConversations = IS_LoadImage("gfx/misc/pda_conversations.png");
+	int imgButtonStats = IS_LoadImage("gfx/misc/pda_stats.png");
 	
 	int imgTmpScrollBar;
 	
@@ -131,13 +131,6 @@ void MenuPDADraw()
 	
 	Blit(nMenuX, nMenuY, img, screen);
 	FreeImage(img);
-	
-	FreeImage(imgChkBoxOn);
-	FreeImage(imgChkBoxOff);
-	FreeImage(imgButtonObjectives);
-	FreeImage(imgButtonNotes);
-	FreeImage(imgButtonConversations);
-	FreeImage(imgButtonStats);
 }
 
 void MenuPDALogic()

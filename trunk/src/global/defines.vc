@@ -148,6 +148,8 @@
 //Sound stack
 #define SOUND_STACK_SIZE	5	//number of sounds to load at once
 
+#define IMAGE_STACK_SIZE	200
+
 //Tool tips
 #define TOOLTIP_FADEOUT_TIME	1000	//amount of time a tooltip will stay on the screen
 #define TOOLTIP_FADEOUT_SPEED	200	//amount of time it takes a tool tip to fade in out out

@@ -7,9 +7,8 @@ void OpenMainLogo()
 void MenuMainLogoDraw()
 {
 	int img = CreateWindow("Logo", 165, 54, nTerminalFont);
-	int nLogo = LoadImage("gfx/ui/logo.png");
+	int nLogo = IS_LoadImage("gfx/ui/logo.png");
 	TBlit(8, 16, nLogo, img);
 	Blit(nMenuX, nMenuY, img, screen);
-	FreeImage(nLogo);
 	FreeImage(img);
 }

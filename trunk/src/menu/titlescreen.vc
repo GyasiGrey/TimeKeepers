@@ -4,13 +4,11 @@ void TitleScreen()
 	map("intro.map");
 }
 
-//the functions to hook to the renderer
+//Draws the background of the main menu. Hooked to the retrace.
 void TitleBkgRender()
 {
 	int nTitleImg;
-	nTitleImg = loadImage("gfx\ui\title.png");
-	//draw the background on the gui layer
+	nTitleImg = IS_LoadImage("gfx\ui\title.png");
 	Blit(0, 0, nTitleImg, screen);
-	FreeImage(nTitleImg);
 	DrawAnimation(nTitlecursorone);
 }

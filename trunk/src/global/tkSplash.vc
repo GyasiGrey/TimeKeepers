@@ -27,7 +27,7 @@ void tkSplashWait(int i)
 
 void tkSplash()
 {
-	ntkSplashLogo = LoadImage("gfx\ui\logo.png");
+	ntkSplashLogo = IS_LoadImage("gfx\ui\logo.png");
 	
 	//start static
 	ntkSplashStaticOn = 1;
@@ -103,6 +103,5 @@ void tkSplash()
 	}
 
 	//clean up
-	FreeImage(ntkSplashLogo);
 	ntkSplashStaticOn = 0;
 }

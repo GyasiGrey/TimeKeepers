@@ -1,0 +1,118 @@
+struct ImageObject
+{
+	string sFilename;
+	int nHndl;
+};
+
+ImageObject LoadedImages[IMAGE_STACK_SIZE];
+
+int IS_LoadImage(string sImageFilename)
+{
+	int nRetval;
+	
+	//find the image in the array
+	nRetval = IS_FindImage(sImageFilename);
+
+	//if not found
+	if(nRetval == -1)
+	{
+		//find open index in array
+		nRetval = IS_FindFreeIndex();
+		//load image to that index's nHndl
+		LoadedImages[nRetval].nHndl = LoadImage(sImageFilename);
+		//store the filename in that index's sFilename
+		LoadedImages[nRetval].sFilename = sImageFilename;
+	}
+
+	//return the image hndl
+	return LoadedImages[nRetval].nHndl;
+}
+
+//Finds an image by filename and returns it's index.in LoadedImages.
+//Returns -1 if the image was not found
+int IS_FindImage(string sImageFilename)
+{
+	int i;
+	int nRetval = -1;
+	
+	for(i=0;i<IMAGE_STACK_SIZE;i++)
+	{
+		if(strcmp(sImageFilename, LoadedImages[i].sFilename) == 0)
+		{
+			nRetval = i;
+			i = IMAGE_STACK_SIZE + 1;
+		}
+	}
+	
+	return nRetval;
+}
+
+//Steps through LoadedImages looking for an index that has not been taken. Returns that index.
+//If there is no free index, throws a fatal error.
+int IS_FindFreeIndex()
+{
+	int i;
+	int nRetval = -1;
+	
+	for(i=0;i<IMAGE_STACK_SIZE;i++)
+	{
+		if(LoadedImages[i].nHndl == -1)
+		{
+			nRetval = i;
+			i = IMAGE_STACK_SIZE + 1;
+		}
+	}
+	
+	if(nRetval == -1)
+	{
+		IS_DumpImageStack();
+		FatalError("Out of image space. Increase IMAGE_STACK_SIZE.");
+	}
+	else
+		return nRetval;
+}
+
+void IS_DumpImageStack()
+{
+	int i;
+	
+	Error("Dumping image stack:");
+	
+	for(i=0;i<IMAGE_STACK_SIZE;i++)
+	{
+		Error("Index: " + str(i));
+		Error("Filename " + LoadedImages[i].sFilename);
+		Error("Handle " + str(LoadedImages[i].nHndl));
+	}
+	
+	Error("Dump complete.");
+}
+
+int IS_InitImageStack()
+{
+	IS_FreeAll();
+	return 42;
+}
+
+//Frees all images loaded into the stack.
+//Call at the end of the game, or if you want to "clear the cache"
+void IS_FreeAll()
+{
+	int i;
+	
+	for(i=0;i<IMAGE_STACK_SIZE;i++)
+	{
+		LoadedImages[i].sFilename = "";
+		
+		if(ImageValid(LoadedImages[i].nHndl))
+			FreeImage(LoadedImages[i].nHndl);
+
+		LoadedImages[i].sFilename = "";
+		LoadedImages[i].nHndl = -1;
+	}
+	
+	_testPre("FreeAllImages_manual");
+	_test("FreeAllImages_manual");
+	_testPost("FreeAllImages_manual");
+
+}

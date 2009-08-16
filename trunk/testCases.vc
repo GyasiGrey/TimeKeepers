@@ -230,3 +230,15 @@ void FreeAllAnimations_manual()
 		assertFalse(ImageValid(anims[i].bufimage));
 	}
 }
+
+void FreeAllImages_manual()
+{
+	int i=0;
+	
+	for(i=0;i<IMAGE_STACK_SIZE;i++)
+	{
+		assertTrue(strcmp(LoadedImages[i].sFilename, "") == 0);
+		assertFalse(ImageValid(LoadedImages[i].nHndl));
+		assertTrue(LoadedImages[i].nHndl == -1);
+	}
+}
