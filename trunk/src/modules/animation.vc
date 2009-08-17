@@ -178,7 +178,6 @@ void TBlitFrame(int x, int y, int anim, int frame, int dest)
 void ProcessAnimations()
 {
 	int i;
-	int count;
 	int luctmp;
 	string tok;
 
@@ -187,8 +186,6 @@ void ProcessAnimations()
 	//loop through all animations
 	for(i=0;i<MAX_ANIMATIONS;i++)
 	{
-		count = 0;
-		
 		if(vcTimer[TIMER_ANIMATION_LOGIC].nTick > anims[i].wait + anims[i].startwait)
 		{
 			anims[i].wait = 0;
@@ -196,7 +193,7 @@ void ProcessAnimations()
 		}
 		
 		//while the animation is active and it's not waiting
-		while(anims[i].active && anims[i].ex && anims[i].wait <= 0 && count < ANIMATION_OPS_PER_CYCLE)
+		if(anims[i].active && anims[i].ex && anims[i].wait <= 0)
 		{
 			if(anims[i].nStrpos > TokenCount(anims[i].animstr, " "))
 			{
@@ -265,7 +262,6 @@ void ProcessAnimations()
 				}
 			}
 			
-			count++;	
 			anims[i].nStrpos++;
 		}
 
