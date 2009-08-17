@@ -194,7 +194,6 @@
 #define MAX_MENUS 100
 
 //Animations
-#define ANIMATION_OPS_PER_CYCLE 5 //let an animation do at most this many operatins before giving up control
 #define MAX_ANIMATIONS 	100	// Tweak this to your liking!
 #define NO_INDEX	65535	// This is just a sentinel.
 
