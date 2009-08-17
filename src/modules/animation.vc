@@ -153,9 +153,13 @@ void TBlitFrame(int x, int y, int anim, int frame, int dest)
 	GrabRegion(0, frametop, anims[anim].sizex-1, frametop+anims[anim].sizey-1, 0, 0, anims[anim].image, animationFrameImage);
 
 	//draw that frame to the destination
-	SetLucent(anims[anim].luc);
+	if(anims[anim].luc != 0)
+		SetLucent(anims[anim].luc);
+		
 	TBlit(x, y, animationFrameImage, dest);
-	SetLucent(0);
+
+	if(anims[anim].luc != 0)
+		SetLucent(0);
 	
 	FreeImage(animationFrameImage);
 }
