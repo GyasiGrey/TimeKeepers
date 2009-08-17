@@ -22,7 +22,7 @@ int lucentTextFade(int x, int y, string text, int font, int color, int tracking)
 
 	PrintStringCol(1, 1, animimg, font, text, RGB(0, 0, 0));
 	PrintStringCol(0, 0, animimg, font, text, color);
-	
+
 	//Sign that I've been doing to much PHP...I just had the urge to sanitize the variable tracking. 	
 	return LoadAnimationImg(animimg, animwidth, animheight, x, y, "T" + str(tracking) +" F0 W50 L0 W20 L10 W20 L20 W20 L30 W20 L40 W20 L50 W20 L60 W20 L70 W20 L80 W20 L90 W20 L100 D");
 }
