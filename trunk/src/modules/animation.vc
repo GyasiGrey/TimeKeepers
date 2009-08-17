@@ -15,7 +15,6 @@ struct anim_t
 	int numframes;
 	int active;
 	int image;
-	int bufimage, bufferedframe;
 	int x, y;
 	int frame;
 	int luc;
@@ -59,8 +58,6 @@ int LoadAnimationImg(int img, int sizex, int sizey, int _x, int _y, string _anim
 	anims[index].sizex = sizex;
 	anims[index].sizey = sizey;
 	anims[index].numframes = ImageHeight(anims[index].image) / sizey;
-	anims[index].bufimage = NewImage(sizex, sizey);
-	anims[index].bufferedframe = 65535;
 	
 	anims[index].x = _x;
 	anims[index].y = _y;
@@ -120,26 +117,17 @@ void FreeAnimation(int index)
 		FreeImage(anims[index].image);
 	}
 	
-	if(!ImageValid(anims[index].bufimage))
-	{
-		Error("FreeAnimation() - Requested animation has an invalid bufimage! (anim: " + str(index) + " image: " + str(anims[index].bufimage) + ")");
-	}
-	else
-	{
-		FreeImage(anims[index].bufimage);
-	}
 	anims[index].image = -1;
 	anims[index].sizex = 0;
 	anims[index].sizey = 0;
 	anims[index].numframes = 0;
 	anims[index].active = 0;
-	anims[index].bufimage = -1;
-	anims[index].bufferedframe = 65535;
 }
 
 void TBlitFrame(int x, int y, int anim, int frame, int dest)
 {
 	int frametop;
+	int animationFrameImage = NewImage(anims[anim].sizex, anims[anim].sizey);
 	
 	if (!anims[anim].active)
 	{
@@ -160,19 +148,16 @@ void TBlitFrame(int x, int y, int anim, int frame, int dest)
 		return;
 	}
 
-	if (frame != anims[anim].bufferedframe)
-	{
-		frametop = anims[anim].sizey * frame;
-		GrabRegion(0, frametop, anims[anim].sizex-1, frametop+anims[anim].sizey-1, 0, 0, anims[anim].image, anims[anim].bufimage);
-		anims[anim].bufferedframe = frame;
-	}
+	//grab the frame out of the animation strip
+	frametop = anims[anim].sizey * frame;
+	GrabRegion(0, frametop, anims[anim].sizex-1, frametop+anims[anim].sizey-1, 0, 0, anims[anim].image, animationFrameImage);
+
+	//draw that frame to the destination
+	SetLucent(anims[anim].luc);
+	TBlit(x, y, animationFrameImage, dest);
+	SetLucent(0);
 	
-	if (frame == anims[anim].bufferedframe)
-	{
-		SetLucent(anims[anim].luc);
-		TBlit(x, y, anims[anim].bufimage, dest);
-		SetLucent(0);
-	}
+	FreeImage(animationFrameImage);
 }
 
 void ProcessAnimations()

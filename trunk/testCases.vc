@@ -227,7 +227,6 @@ void FreeAllAnimations_manual()
 	{
 		assertTrue(anims[i].active == 0);
 		assertFalse(ImageValid(anims[i].image));
-		assertFalse(ImageValid(anims[i].bufimage));
 	}
 }
 
