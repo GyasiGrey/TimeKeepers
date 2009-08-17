@@ -265,15 +265,6 @@ void DrawAnimation(int anim)
 {
 	if(anims[anim].active && anims[anim].ex)
 	{
-		/*if(anims[anim].luc != 0)
-		{
-			//if were doing a trans blit use an ImageShell
-			//in an attempt to get a working trans blit
-			luctmp = ImageShell(anims[anim].x, anims[anim].y, anims[anim].sizex, anims[anim].sizey, screen);
-			Blit(anims[anim].x, anims[anim].y, luctmp, nAnimLayer);
-			FreeImage(luctmp);
-		}*/
-
 		//draw the frame of the anim at nX, nY, at lucency nLuc
 		if(anims[anim].tracking)
 			TBlitFrame(anims[anim].x-xwin, anims[anim].y-ywin, anim, anims[anim].frame, screen);
