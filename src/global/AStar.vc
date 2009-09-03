@@ -66,10 +66,11 @@ int timeTrack;
 int findPath(int ent, int x1, int y1, int x2, int y2){
 	int i, chkValue, foundPath, tempIndex, tempCost;
 	
+	int nEnemy = GetEnemyIndex(ent);
 	//SnapEnemyToGrid(ent);
 	
 //Check for immediate errors in path
-	Error("Enemy " + str(GetEnemyIndex(ent)) + " pathing to " + str(x2) + "*" +str(y2));
+	Error("Enemy " + str(nEnemy) + " pathing to " + str(x2) + "*" +str(y2));
 	if(x1 == x2 && y1 == y2){
 		error("EXIT: already at target position");
 		return 0;
@@ -78,8 +79,8 @@ int findPath(int ent, int x1, int y1, int x2, int y2){
 		error("EXIT: target is an obstruction");
 		return 0;
 	}
-	//timer=0;
-	nAStartStartTime = timer;
+
+	nAStartStartTime = systemtime;
 	
 //set-up initial variables
 	cur.x=x2;
@@ -107,7 +108,7 @@ int findPath(int ent, int x1, int y1, int x2, int y2){
 			error("EXIT: Couldent find another open node, no path.");
 			return(0); //No path
 		}
-		if(timer > TIMEOUT+nAStartStartTime){
+		if(systemtime > TIMEOUT+nAStartStartTime){
 			error("EXIT: Timeout.");
 			return(0);
 		}
@@ -218,9 +219,10 @@ int findPath(int ent, int x1, int y1, int x2, int y2){
 	
 //-DONE!
 	writePath();
-	timeTrack=timer;
+	timeTrack=systemtime;
 
-	entityMove(ent, entPath);
+	//store the path to walk for this enemy
+	Enemies[nEnemy].sPath = entPath;
 	
 	return(1);
 }

@@ -185,12 +185,16 @@ void Goto(int e, int x, int y)
 	//if the distance between the enemy and the target X,Y is less then the distance between the enemy and the start node
 	//just A* to the target
 	if(start == end || DistanceXY(entity.x[e], entity.y[e], x, y) < DistanceXY(entity.x[e], entity.y[e], Nodes[start].nX, Nodes[start].nY))
+	{
 		findPath(e, entity.x[e]/16, entity.y[e]/16, Enemies[enemyIndex].nTargetX/16, Enemies[enemyIndex].nTargetY/16);
-	
-	Enemies[enemyIndex].sNodePath = Dijkstra(start, end);
-	Enemies[enemyIndex].sNodeIndex = 0;
-	
-	Error("Enemy " + str(enemyIndex) + " now has node path " + Enemies[enemyIndex].sNodePath);
+	}
+	else
+	{
+		//otherwise, find notes to the destination
+		Enemies[enemyIndex].sNodePath = Dijkstra(start, end);
+		Enemies[enemyIndex].sNodeIndex = 0;
+		Enemies[enemyIndex].sPath = "";
+	}
 }
 
 int IsQueueEmpty()
