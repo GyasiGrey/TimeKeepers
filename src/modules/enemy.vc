@@ -914,6 +914,7 @@ void MoveEnemy(int i)
 		if(Enemies[i].sNodeIndex >= TokenCount(Enemies[i].sNodePath, " "))
 		{
 			//Enemy is done moving. Cleanup.
+//TODO: Make the enemy A* to nTargetX/nTargetY			
 			Error("Enemy " + str(i) + " done pathing");
 			StopEnemy(i);
 			Enemies[i].sNodePath = "";
