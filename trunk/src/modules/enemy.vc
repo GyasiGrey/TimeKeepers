@@ -29,6 +29,7 @@ struct Enemy
 	
 	string sPath;			//the path of nodes this ent is walking
 	string sNodePath;
+	
 	int sNodeIndex;
 	int nTargetX;
 	int nTargetY;
@@ -858,25 +859,51 @@ void ProcessEnemies()
 				error("No AI func found for " + str(Enemies[i].nAIType));
 			}
 			
-			//if the enemy has a nodepath, but is not moving
-			if(strcmp(Enemies[i].sNodePath, "") != 0 && entity.movecode[Enemies[i].nEntity] == 0)
-			{
-				if(Enemies[i].sNodeIndex >= TokenCount(Enemies[i].sNodePath, " "))
-				{
-					Error("Enemy " + str(i) + " done pathing.");
-					StopEnemy(i);
-					
-					Error("Enemy " + str(i) + " A*'ing to final coord: " + str(Enemies[i].nTargetX/16) + "*" + str(Enemies[i].nTargetY/16) + ".");
-					//A* the enemy to their final destination
-					findPath(Enemies[i].nEntity, entity.x[Enemies[i].nEntity]/16, entity.y[Enemies[i].nEntity]/16, Enemies[i].nTargetX/16, Enemies[i].nTargetY/16);
-				}
-				else
-				{
-					Error("Enemy " + str(i) + " pathing to node " + str(val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))));
-					if(findPath(Enemies[i].nEntity, entity.x[Enemies[i].nEntity]/16, entity.y[Enemies[i].nEntity]/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nX/16, Nodes[val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex))].nY/16) == 1)
-						Enemies[i].sNodeIndex++;
-				}
-			}
+			MoveEnemy(i);
+		}
+	}
+}
+
+void MoveEnemy(int i)
+{
+	int nodeIndex;
+
+	if(strcmp(Enemies[i].sPath, "") != 0 && entity.movecode[Enemies[i].nEntity] == 0)
+	{
+		Error("Enemy " + str(i) + " folling A* path: " + Enemies[i].sPath);
+		
+		//Enemy has a path to move. Feed it to EntityMove.
+		EntityMove(Enemies[i].nEntity, Enemies[i].sPath);
+		Enemies[i].sPath = "";
+	}
+
+	if(strcmp(Enemies[i].sNodePath, "") != 0 && entity.movecode[Enemies[i].nEntity] == 0)
+	{
+		nodeIndex = val(GetToken(Enemies[i].sNodePath, " ", Enemies[i].sNodeIndex));
+
+		error("**node path " + Enemies[i].sNodePath + " node index " + str(Enemies[i].sNodeIndex) + " node count " + str(TokenCount(Enemies[i].sNodePath, " ")));
+		
+		if(Enemies[i].sNodeIndex >= TokenCount(Enemies[i].sNodePath, " "))
+		{
+			//Enemy is done moving. Cleanup.
+			Error("Enemy " + str(i) + " done pathing");
+			StopEnemy(i);
+			Enemies[i].sNodePath = "";
+			Enemies[i].sPath = "";
+			Enemies[i].sNodeIndex = 0;
+		}
+		else
+		{
+			//Enemy has a node path. Calculate A* to the next node.
+			Error("Enemy " + str(i) + " calculating A* to node " + str(nodeIndex) + " at : " + str(Nodes[nodeIndex].nX/16) + " " + str(Nodes[nodeIndex].nY/16));
+			
+			findPath(Enemies[i].nEntity, 
+				entity.x[Enemies[i].nEntity]/16, 
+				entity.y[Enemies[i].nEntity]/16, 
+				Nodes[nodeIndex].nX/16, 
+				Nodes[nodeIndex].nY/16);
+
+			Enemies[i].sNodeIndex++;
 		}
 	}
 }
