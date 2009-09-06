@@ -299,20 +299,6 @@ void SpawnJailSquad()
 	Goto(Enemies[spawnedGuard1].nEntity, 37*16, 24*16);
 	
 	Loots[nFlags[FLAG_MISSION3_JAIL_ELEVATOR_BUTTON]].nStolen = 0;
-	
-	CreateDelayedCallback(250, "SpawnJailSquad2");
-}
-
-//spawn second guard
-void SpawnJailSquad2()
-{
-	int spawnedGuard1;
-	
-	spawnedGuard1 = CreateEnemy(43, 15, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "", "tk.chr");
-	
-	Goto(Enemies[spawnedGuard1].nEntity, 37*16, 24*16);
-	
-	CreateDelayedCallback(150, "OpenJailCell");
 }
 
 //the guard has the key and was able to open the cell door
