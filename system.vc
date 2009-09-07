@@ -113,6 +113,7 @@ int MoreMagic = IS_InitImageStack();	//Init the Image Stack. Called on declarati
 #include "src\menu\menu_message_choice.vc"
 #include "src\menu\menu_choose_weapon.vc"
 #include "src\menu\menu_hacking.vc"
+#include "src\menu\menu_computer.vc"
 
 //must be included last to prevent undefined defines
 #include "src\global\saveload.vc"
