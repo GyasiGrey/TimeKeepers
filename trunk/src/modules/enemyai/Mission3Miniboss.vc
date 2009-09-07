@@ -25,7 +25,7 @@ void EnemyAIMission3Miniboss()
 
 				case 2:
 					nX = 117;
-					nY = 430;
+					nY = 415;
 
 				case 3:
 					nX = 151;

@@ -100,9 +100,6 @@ void InitEnemies()
 	
 	CreateEnemy(79, 305, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_GUN_CAMERA, "", "camera.chr");
 	
-	CreateEnemy(99, 424, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_GUN_CAMERA, "", "camera.chr");
-	CreateEnemy(112, 424, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_GUN_CAMERA, "", "camera.chr");
-	
 	nFlags[FLAG_MISSION3_TARGET_1] = CreateEnemy(100, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 	nFlags[FLAG_MISSION3_TARGET_2] = CreateEnemy(104, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 	nFlags[FLAG_MISSION3_TARGET_3] = CreateEnemy(108, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
@@ -121,8 +118,6 @@ void InitLoot()
 	
 	
 	CreateLoot(85*16, 136*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
-	
-	CreateLoot(104*16, 429*16, "Card Rank 1", 0, "card.png", "GetKeyCard1", 0);
 	
 	CreateLoot(165*16, 112*16, "", 0, "", "TrapDoor", 0);
 	
