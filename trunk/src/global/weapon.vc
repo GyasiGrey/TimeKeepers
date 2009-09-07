@@ -279,7 +279,7 @@ void InitWeapons()
 	Weapons[12].sAimFunction = "NullAim";
 	Weapons[12].sShootFunction = "ShootDetBox";
 	
-	Weapons[WEAPON_AI_M4].nRange = 300;
+	Weapons[WEAPON_AI_M4].nRange = 100;
 	Weapons[WEAPON_AI_M4].sName = "M4";
 	Weapons[WEAPON_AI_M4].sSound = "sounds\mgun.wav";
 	Weapons[WEAPON_AI_M4].nIcon = IS_LoadImage("gfx\icons\mgunicn.png");
@@ -295,24 +295,6 @@ void InitWeapons()
 	Weapons[WEAPON_AI_M4].sAimFunction = "AimWeapon";
 	Weapons[WEAPON_AI_M4].sPostAimFunction = "PostAimWeapon";
 	Weapons[WEAPON_AI_M4].sShootFunction = "ShootWeapon";
-
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].nRange = 200;
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].sName = "Sniper";
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].sSound = "sounds\sniper.wav";
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].nIcon = IS_LoadImage("gfx\icons\grenade.png");
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].nMaxAmmo = 25;
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].nDamageMin = 10;
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].nDamageMax = 15;
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].nRecharge = 150;
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].nSoundRadius = 300;
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].nAccMin = 0;
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].nAccMax = 0;
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].nType = WEAPON_TYPE_SINGLE;
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].nSpreadShots = 1;
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].sAimFunction = "SniperAim";
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].sPreAimFunction = "PreFreeAim";
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].sPostAimFunction = "PostFreeAim";
-	Weapons[WEAPON_AI_MISSION_3_MINIBOSS_GUN].sShootFunction = "ShootSniper";
 }
 
 //fires the weapon at the target. It is a given that the target is in range

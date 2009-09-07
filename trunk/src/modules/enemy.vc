@@ -508,7 +508,7 @@ void CreateEnemyTemplates()
 	
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nHp = 100;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nMaxHp = 100;
-	EnemyTemplates[ENEMY_MISSION3_BOSS].nWeapon = WEAPON_AI_MISSION_3_MINIBOSS_GUN;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nWeapon = WEAPON_SHOTGUN;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightRange = 200;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightAngle = 35;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nAlertTime = 700;
@@ -520,7 +520,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_MISSION3_BOSS].sShootRightAnim = "";
 	EnemyTemplates[ENEMY_MISSION3_BOSS].sDeathAnim = "";
 	EnemyTemplates[ENEMY_MISSION3_BOSS].sDeathSound = "sounds\cameradeath.wav";
-	EnemyTemplates[ENEMY_MISSION3_BOSS].nDeadFrame = 1;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nDeadFrame = 24;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].bCanBeTranqd = 0;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].bCanSpeak = 1;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].bCanHear = 1;
