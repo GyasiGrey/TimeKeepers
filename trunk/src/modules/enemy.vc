@@ -506,8 +506,8 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TARGET].nAlertSpeed = 75;
 	
 	
-	EnemyTemplates[ENEMY_MISSION3_BOSS].nHp = 300;
-	EnemyTemplates[ENEMY_MISSION3_BOSS].nMaxHp = 300;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nHp = 100;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nMaxHp = 100;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nWeapon = WEAPON_AI_MISSION_3_MINIBOSS_GUN;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightRange = 200;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightAngle = 35;
