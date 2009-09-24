@@ -551,9 +551,6 @@ void ComputerRoomComputer()
 {
 	Loots[nCurrentLoot].nStolen = 0;
 	
-	if(!nFlags[FLAG_MISSION3_KEYCARD_1])
-		return;
-		
 	OpenHackingMenu("UnlockSewer");
 }
 
