@@ -391,7 +391,7 @@ void JailElevatorButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
 
-	if(nFlags[FLAG_MISSION3_KEYCARD_1] == 0 || IsDelayedCallbackActive("JailElevatorArrived") || IsDelayedCallbackActive("CloseJailElevatorDoor"))
+	if(IsDelayedCallbackActive("JailElevatorArrived") || IsDelayedCallbackActive("CloseJailElevatorDoor"))
 		return;
 
 	CreateDelayedCallback(500, "JailElevatorArrived");
