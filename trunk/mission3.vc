@@ -144,7 +144,7 @@ void InitLoot()
 	
 	CreateLoot((134*16)+8, 406*16, "", 0, "", "OfficeLevelComputer", 1);
 	
-	CreateLoot(72*16, 50*16, "Key Card 1", 0, "card.png", "GetKeyCard1", 0);
+	CreateLoot(72*16, 150*16, "Key Card 1", 0, "card.png", "GetKeyCard1", 0);
 }
 
 //ALWAYS flush
