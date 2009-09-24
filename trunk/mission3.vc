@@ -143,6 +143,8 @@ void InitLoot()
 	CreateLoot(112*16, 398*16, "Sniper", 0, "sniper.png", "GetSniper", 0);
 	
 	CreateLoot((134*16)+8, 406*16, "", 0, "", "OfficeLevelComputer", 1);
+	
+	CreateLoot(72*16, 50*16, "Key Card 1", 0, "card.png", "GetKeyCard1", 0);
 }
 
 //ALWAYS flush
@@ -299,8 +301,6 @@ void OpenJailCell()
 
 void WarpToElevator()
 {
-	nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] = 1;
-	
 	FadeOutExclusive(50, RGB(0, 0, 0));
 	ManualCloseDoor(nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID]);
 	Warp(78, 16);
@@ -324,7 +324,7 @@ void OfficeToLobbyElevatorButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
 
-	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0 || IsDelayedCallbackActive("OfficeToLobyElevatorArrived") || IsDelayedCallbackActive("CloseOfficeToLobyElevatorDoor"))
+	if(nFlags[FLAG_MISSION3_KEYCARD_1] == 0 || IsDelayedCallbackActive("OfficeToLobyElevatorArrived") || IsDelayedCallbackActive("CloseOfficeToLobyElevatorDoor"))
 		return;
 
 	CreateDelayedCallback(500, "OfficeToLobyElevatorArrived");
@@ -334,7 +334,7 @@ void LobbyToOfficeElevatorButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
 
-	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0 || IsDelayedCallbackActive("LobyToOfficeElevatorArrived") || IsDelayedCallbackActive("CloseLobyToOfficeElevatorDoor"))
+	if(nFlags[FLAG_MISSION3_KEYCARD_1] == 0 || IsDelayedCallbackActive("LobyToOfficeElevatorArrived") || IsDelayedCallbackActive("CloseLobyToOfficeElevatorDoor"))
 		return;
 
 	CreateDelayedCallback(500, "LobyToOfficeElevatorArrived");
@@ -344,7 +344,7 @@ void MainElevatorButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
 
-	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0 || IsDelayedCallbackActive("InnerElevatorArrived") || IsDelayedCallbackActive("CloseInnerElevatorDoor"))
+	if(IsDelayedCallbackActive("InnerElevatorArrived") || IsDelayedCallbackActive("CloseInnerElevatorDoor"))
 		return;
 
 	switch(nFlags[FLAG_MISSION3_ELEVATOR_FLOOR])
@@ -391,7 +391,7 @@ void JailElevatorButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
 
-	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0 || IsDelayedCallbackActive("JailElevatorArrived") || IsDelayedCallbackActive("CloseJailElevatorDoor"))
+	if(nFlags[FLAG_MISSION3_KEYCARD_1] == 0 || IsDelayedCallbackActive("JailElevatorArrived") || IsDelayedCallbackActive("CloseJailElevatorDoor"))
 		return;
 
 	CreateDelayedCallback(500, "JailElevatorArrived");
@@ -407,7 +407,7 @@ void LobbyElevatorButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
 
-	if(nFlags[FLAG_MISSION3_ELEVATOR_ACCESS] == 0 || IsDelayedCallbackActive("LobbyElevatorArrived") || IsDelayedCallbackActive("CloseLobbyElevatorDoor"))
+	if(nFlags[FLAG_MISSION3_KEYCARD_1] == 0 || IsDelayedCallbackActive("LobbyElevatorArrived") || IsDelayedCallbackActive("CloseLobbyElevatorDoor"))
 		return;
 
 	CreateDelayedCallback(500, "LobbyElevatorArrived");
