@@ -585,7 +585,10 @@ void StartSewerTrap()
 void IncreaseGasLevel()
 {
 	//increment the gas flag
-	nFlags[FLAG_MISSION3_GAS_LEVEL]--;
+	if(nFlags[FLAG_MISSION3_GAS_DIRECTION] == 0)
+		nFlags[FLAG_MISSION3_GAS_LEVEL]--;
+	else
+		nFlags[FLAG_MISSION3_GAS_LEVEL]++;
 		
 	int fGasTime = oF_Whole2Fixed(MISSION_3_GAS_TRAP_TIME);
 	int fOneHundred = oF_Whole2Fixed(100);
@@ -597,12 +600,25 @@ void IncreaseGasLevel()
 	if(nEffectLucentLucency > 0)
 	{
 		//reinit the callback so this function happens again in 100 ticks
-		CreateDelayedCallback(100, "IncreaseGasLevel");
+		if(nFlags[FLAG_MISSION3_GAS_DIRECTION] == 0)
+			CreateDelayedCallback(100, "IncreaseGasLevel");
+		else
+			CreateDelayedCallback(10, "IncreaseGasLevel");
+	}
+	else if (nEffectLucentLucency == 100)
+	{
+		FreeDelayedCallbackByFunction("IncreaseGasLevel");
 	}
 	else
 	{
 		nHealth = 0;
 	}
+}
+
+void StopSewerTrap()
+{
+	//set FLAG_MISSION3_GAS_DIRECTION to a non zero values so the gase will decrease
+	nFlags[FLAG_MISSION3_GAS_DIRECTION] = 1;
 }
 
 void SewerTrapButton1()
@@ -618,7 +634,7 @@ void SewerTrapButton2()
 	
 	CheckSpawnSewerTrapKey();
 }
-
+/*
 void SewerTrapButton3()
 {
 	if(nFlags[FLAG_MISSION3_SEWER_TRAP_KEY])
@@ -626,12 +642,12 @@ void SewerTrapButton3()
 		messagebox("TODO: spawn the ladder out of the sewer");
 	}
 }
-
+*/
 void CheckSpawnSewerTrapKey()
 {
 	if(nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_1] && nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_2])
 	{
-		messagebox("TODO: spawn the key/wheel/think to make the ladder come down");
+		StopSewerTrap();
 	}
 }
 
