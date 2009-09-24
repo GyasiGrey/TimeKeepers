@@ -67,7 +67,7 @@ void InitDoors()
 	
 	CreateDoorEX(99, 113, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
 	CreateDoor(88, 155, IS_LoadImage("gfx\misc\locker_door.png"), -2);
-	CreateDoor(73, 155, IS_LoadImage("gfx\misc\locker_door.png"), -2);
+	CreateDoorEX(73, 155, IS_LoadImage("gfx\misc\locker_door.png"), -2, 1, 2, FLAG_MISSION3_KEYCARD_1);
 	CreateDoor(73, 141, IS_LoadImage("gfx\misc\locker_door.png"), -2);
 	
 	CreateDoor(150, 113, IS_LoadImage("gfx\misc\locker_door.png"), -1);
@@ -85,7 +85,7 @@ void InitDoors()
 	
 	nFlags[FLAG_MISSION3_DOOR_SHOOTING_RANGE] = CreateDoorEX(104, 408, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY);
 	
-	CreateDoorEX(110, 124, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
+	CreateDoorEX(110, 124, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_2);
 }
 
 void InitEnemies()
