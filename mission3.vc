@@ -10,8 +10,8 @@ void start()
 
 	InitMap(3);
 	
-	MusicSwitch("mission3.ogg", 15);
-	SetupAlertMusic("mission3.ogg", "alert.ogg");
+	MusicSwitch("VersaLife.mp3", 15);
+	SetupAlertMusic("VersaLife.mp3", "VersaLife_Alert.mp3");
 
 	if(!nFlags[FLAG_MISSION3_TECH_GHOST_START])
 	{
