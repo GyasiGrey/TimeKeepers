@@ -44,6 +44,14 @@ void start()
 	}
 }
 
+void InitEmitters()
+{
+	CreateEmitter(137*16, 74*16, "gfx\misc\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
+	CreateEmitter(143*16, 74*16, "gfx\misc\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
+	CreateEmitter(153*16, 74*16, "gfx\misc\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
+	CreateEmitter(161*16, 74*16, "gfx\misc\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
+}
+
 void InitDoors()
 {
 	//jail doors
