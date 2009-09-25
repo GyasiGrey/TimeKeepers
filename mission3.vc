@@ -212,7 +212,6 @@ void Flush()
 			//let the player move again
 			UnCripplePlayer();
 			bCanOpenInGameMenu = 1;
-			bCanSave = 1;
 		}
 	}
 }
