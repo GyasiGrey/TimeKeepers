@@ -1,0 +1,23 @@
+void OpenComputerMenu()
+{
+	SwitchPause();
+
+	CreateMenu(92, 45, GetMenuTemplateIndex("MenuComputer"));
+}
+
+void MenuComputerDraw()
+{
+	int img = CreateWindow("Terminal", 125, 150, nTerminalFont);
+
+	Blit(nMenuX, nMenuY, img, screen);
+	FreeImage(img);
+}
+
+void MenuComputerLogic()
+{
+}
+
+void MenuComputerClose()
+{
+	SwitchPause();
+}
