@@ -10,11 +10,17 @@ void MenuComputerDraw()
 	int img = CreateWindow("Terminal", 125, 150, nTerminalFont);
 
 	Blit(nMenuX, nMenuY, img, screen);
+	
+	//TODO: draw the text for the current computer page
+	//Draw the commands for the current computer page
+
 	FreeImage(img);
 }
 
 void MenuComputerLogic()
 {
+	//TODO: step up and down through the commands on BUTTON_UP or BUTTON_DOWN
+	//call the correct function for the page and command on BUTTON_SHOOT
 }
 
 void MenuComputerClose()
