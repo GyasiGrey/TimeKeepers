@@ -1,19 +1,51 @@
-void OpenComputerMenu()
-{
-	SwitchPause();
+int nCurrentComputerPage;
+int nComputerCommandLength;
 
-	CreateMenu(92, 45, GetMenuTemplateIndex("MenuComputer"));
+string sComputerCommandDisplays[MAX_COMPUTER_COMMANDS];
+string sComputerCommands[MAX_COMPUTER_COMMANDS];
+
+void OpenComputerMenu(int _computerPage)
+{
+	int i, j;
+	
+	nComputerCommandLength = -1;
+	nCurrentComputerPage = _computerPage;
+	
+	j = MAX_COMPUTER_COMMANDS-1;
+	for(i=0;i<MAX_COMPUTER_COMMANDS;i++)
+	{
+		sComputerCommandDisplays[i] = ComputerPages[nCurrentComputerPage].sPageCommandDisplayNames[j];
+		sComputerCommands[i] = ComputerPages[nCurrentComputerPage].sPageCommandFunctions[j];
+		
+		if(nComputerCommandLength == -1 && strcmp(sComputerCommandDisplays[i], "") !=0)
+			nComputerCommandLength = i;
+
+		j--;
+	}
+
+	SwitchPause();
+	
+	CreateMenu(60, 45, GetMenuTemplateIndex("MenuComputer"));
 }
 
 void MenuComputerDraw()
 {
-	int img = CreateWindow("Terminal", 125, 150, nTerminalFont);
+	int i, j;
+	int img = CreateWindow("Terminal", 200, 100, nTerminalFont);
 
+	//draw the text for the current computer page
+	PrintString(8, 16, img, nTerminalFont, WrapText(nTerminalFont, ComputerPages[nCurrentComputerPage].sPageText, 190));
+	
+	j = 0;
+	//Draw the commands for the current computer page
+	for(i=MAX_COMPUTER_COMMANDS-1;i>=nComputerCommandLength;i--)
+	{
+		PrintString(16, 90 - (8 * j), img, nTerminalFont, sComputerCommandDisplays[i]);
+		j++;
+	}
+	
 	Blit(nMenuX, nMenuY, img, screen);
 	
-	//TODO: draw the text for the current computer page
-	//Draw the commands for the current computer page
-
 	FreeImage(img);
 }
 
