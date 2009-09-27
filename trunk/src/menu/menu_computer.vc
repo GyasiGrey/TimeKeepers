@@ -48,7 +48,7 @@ void MenuComputerLogic()
 	
 	if(BUTTON_SHOOT)
 	{
-		CallFunction(sComputerCommands[3]);
+		CallFunction(sComputerCommands[nPointerPos]);
 		UnpressButtons();
 	}
 
