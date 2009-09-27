@@ -21,6 +21,8 @@ void MenuComputerDraw()
 {
 	int i, j;
 	int img = CreateWindow("Terminal", 200, 100, nTerminalFont);
+	
+	anims[nComputerPointerAnim].y = 103 + (nPointerPos*8);
 
 	//draw the text for the current computer page
 	PrintString(8, 16, img, nTerminalFont, WrapText(nTerminalFont, ComputerPages[nCurrentComputerPage].sPageText, 190));
@@ -43,8 +45,6 @@ void MenuComputerDraw()
 
 void MenuComputerLogic()
 {
-	anims[nComputerPointerAnim].y = 103 + (nPointerPos*8);
-	
 	if(BUTTON_SHOOT)
 	{
 		CallFunction(sComputerCommands[nPointerPos]);
