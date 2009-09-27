@@ -635,17 +635,17 @@ void IncreaseGasLevel()
 	nEffectLucentLucency = oF_Fixed2Int(oF_multiFF(oF_divFF(fGasLevel, oF_divFF(fGasTime, fOneHundred)), fOneHundred));
 	nEffectLucentColor = RGB(128, 255, 0);
 
-	if(nEffectLucentLucency > 0)
+	if (nEffectLucentLucency >= 100)
+	{
+		FreeDelayedCallbackByFunction("IncreaseGasLevel");
+	}
+	else if(nEffectLucentLucency > 0)
 	{
 		//reinit the callback so this function happens again in 100 ticks
 		if(nFlags[FLAG_MISSION3_GAS_DIRECTION] == 0)
 			CreateDelayedCallback(100, "IncreaseGasLevel");
 		else
 			CreateDelayedCallback(10, "IncreaseGasLevel");
-	}
-	else if (nEffectLucentLucency == 100)
-	{
-		FreeDelayedCallbackByFunction("IncreaseGasLevel");
 	}
 	else
 	{
