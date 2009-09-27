@@ -314,3 +314,6 @@ int RADAR_HEIGHT = 40;
 #define GAMEOVER_ASM_DELAY	10
 
 #define MISSION_3_GAS_TRAP_TIME		12000
+
+#define MAX_COMPUTER_COMMANDS	5		//computer consoles can have up to 5 commands per page
+#define MAX_COMPUTER_PAGES	100

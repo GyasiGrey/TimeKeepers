@@ -1,0 +1,9 @@
+struct ComputerPage
+{
+	string sPageText;
+	string sPageCommandDisplayNames[MAX_COMPUTER_COMMANDS];
+	string sPageCommandFunctions[MAX_COMPUTER_COMMANDS];
+}
+
+ComputerPage ComputerPages[MAX_COMPUTER_PAGES];
+
