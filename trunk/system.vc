@@ -85,6 +85,7 @@ int MoreMagic = IS_InitImageStack();	//Init the Image Stack. Called on declarati
 #include "src\modules\damageArea.vc"
 #include "src\modules\enemyBarks.vc"
 #include "src\modules\alertMusic.vc"
+#include "src\modules\ComputerPage.vc"
 
 //menu stuff
 #include "src\menu\menu_system.vc"
