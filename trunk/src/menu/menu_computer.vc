@@ -9,7 +9,6 @@ void OpenComputerMenu(int _computerPage)
 {
 	SetComputerPage(_computerPage);
 	
-	nPointerPos = nComputerCommandLength;
 	nComputerPointerAnim = LoadAnimationEX("cursor.png", 8, 8, 68, 103, ANIMATION_CURSOR_ANIM_STRING);
 	anims[nComputerPointerAnim].automatic = 0;
 
@@ -95,6 +94,8 @@ void SetComputerPage(int newPage)
 
 		j--;
 	}
+	
+	nPointerPos = nComputerCommandLength;
 }
 
 void ComputerLogOut()
