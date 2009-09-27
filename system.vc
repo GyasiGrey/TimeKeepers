@@ -365,6 +365,7 @@ void Init()
 	CreateEnemyTemplates(); //load the enemy templates
 	CreateMenuTemplates();	//menu templates
 	nMenuFocus = 0-1;	//no menu with the focus
+	InitComputerPages();	//init the text for the computer pages
 }
 
 //systemVC function called at the start of any map to make it
