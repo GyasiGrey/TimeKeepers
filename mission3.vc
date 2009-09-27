@@ -109,8 +109,6 @@ void InitEnemies()
 	
 	CreateEnemy(96, 209, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_ROBOT, "", "robot.chr");
 	
-	CreateEnemy(79, 305, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_GUN_CAMERA, "", "camera.chr");
-	
 	nFlags[FLAG_MISSION3_TARGET_1] = CreateEnemy(100, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 	nFlags[FLAG_MISSION3_TARGET_2] = CreateEnemy(104, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 	nFlags[FLAG_MISSION3_TARGET_3] = CreateEnemy(108, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
