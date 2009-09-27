@@ -583,8 +583,8 @@ void OfficeLevelComputer()
 void ComputerRoomComputer()
 {
 	Loots[nCurrentLoot].nStolen = 0;
-	
-	OpenHackingMenu("UnlockSewer");
+MainComputerTerminal();
+//	OpenHackingMenu("MainComputerTerminal");
 }
 
 void UnlockShootingRange()
@@ -593,9 +593,13 @@ void UnlockShootingRange()
 	nFlags[FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY] = 1;
 }
 
-void UnlockSewer()
+void MainComputerTerminal()
 {
-	messagebox("you unlocked the sewer. good job.");
+	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER);
+}
+
+void Mission3UnlockSewer()
+{
 	nFlags[FLAG_MISSION3_TRAP_DOOR_LOCKED] =  1;
 }
 
