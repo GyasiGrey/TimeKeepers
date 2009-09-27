@@ -1,27 +1,17 @@
 int nCurrentComputerPage;
 int nComputerCommandLength;
+int nComputerPointerAnim;
 
 string sComputerCommandDisplays[MAX_COMPUTER_COMMANDS];
 string sComputerCommands[MAX_COMPUTER_COMMANDS];
 
 void OpenComputerMenu(int _computerPage)
 {
-	int i, j;
+	SetComputerPage(_computerPage);
 	
-	nComputerCommandLength = -1;
-	nCurrentComputerPage = _computerPage;
-	
-	j = MAX_COMPUTER_COMMANDS-1;
-	for(i=0;i<MAX_COMPUTER_COMMANDS;i++)
-	{
-		sComputerCommandDisplays[i] = ComputerPages[nCurrentComputerPage].sPageCommandDisplayNames[j];
-		sComputerCommands[i] = ComputerPages[nCurrentComputerPage].sPageCommandFunctions[j];
-		
-		if(nComputerCommandLength == -1 && strcmp(sComputerCommandDisplays[i], "") !=0)
-			nComputerCommandLength = i;
-
-		j--;
-	}
+	nPointerPos = nComputerCommandLength;
+	nComputerPointerAnim = LoadAnimationEX("cursor.png", 8, 8, 68, 103, ANIMATION_CURSOR_ANIM_STRING);
+	anims[nComputerPointerAnim].automatic = 0;
 
 	SwitchPause();
 	
@@ -46,16 +36,68 @@ void MenuComputerDraw()
 	
 	Blit(nMenuX, nMenuY, img, screen);
 	
+	//draw the pointer anim
+	DrawAnimation(nComputerPointerAnim);
+	
 	FreeImage(img);
 }
 
 void MenuComputerLogic()
 {
-	//TODO: step up and down through the commands on BUTTON_UP or BUTTON_DOWN
-	//call the correct function for the page and command on BUTTON_SHOOT
+	anims[nComputerPointerAnim].y = 103 + (nPointerPos*8);
+	
+	if(BUTTON_SHOOT)
+	{
+		CallFunction(sComputerCommands[3]);
+		UnpressButtons();
+	}
+
+	if(UP)
+	{
+		nPointerPos--;
+		unpress(5);
+		
+		if(nPointerPos < nComputerCommandLength)
+			nPointerPos = nComputerCommandLength;
+	}
+
+	if(DOWN)
+	{
+		nPointerPos++;
+		unpress(6);
+		
+		if(nPointerPos >= MAX_COMPUTER_COMMANDS)
+			nPointerPos = MAX_COMPUTER_COMMANDS-1;
+	}
 }
 
 void MenuComputerClose()
 {
+	FreeAnimation(nComputerPointerAnim);
 	SwitchPause();
+}
+
+void SetComputerPage(int newPage)
+{
+	int i, j;
+	
+	nComputerCommandLength = -1;
+	nCurrentComputerPage = newPage;
+	
+	j = MAX_COMPUTER_COMMANDS-1;
+	for(i=0;i<MAX_COMPUTER_COMMANDS;i++)
+	{
+		sComputerCommandDisplays[i] = ComputerPages[nCurrentComputerPage].sPageCommandDisplayNames[j];
+		sComputerCommands[i] = ComputerPages[nCurrentComputerPage].sPageCommandFunctions[j];
+		
+		if(nComputerCommandLength == -1 && strcmp(sComputerCommandDisplays[i], "") !=0)
+			nComputerCommandLength = i;
+
+		j--;
+	}
+}
+
+void ComputerLogOut()
+{
+	CloseTopMenu();
 }

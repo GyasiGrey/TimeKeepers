@@ -600,6 +600,7 @@ void MainComputerTerminal()
 
 void Mission3UnlockSewer()
 {
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER_SEWER_OPEN);
 	nFlags[FLAG_MISSION3_TRAP_DOOR_LOCKED] =  1;
 }
 

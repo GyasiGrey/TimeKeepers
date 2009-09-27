@@ -12,9 +12,13 @@ ComputerPage ComputerPages[MAX_COMPUTER_PAGES];
 
 void InitComputerPages()
 {
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER].sPageText = "***Sewer Acces System***" + chr('\n') + chr('\n') + chr('\n') + "Sewer access for maintence only. Caution: Gas cleansing system is in operating. In case of a gas exposure event use the Emergency Egress pannels to purge the system.";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER].sPageText = "***Sewer Access System***" + chr('\n') + chr('\n') + chr('\n') + "Sewer access for maintence only. Caution: Gas cleansing system is in operating. In case of a gas exposure event use the Emergency Egress pannels to purge the system.";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER].sPageCommandDisplayNames[0] = "Logout";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER].sPageCommandFunctions[0] = "ComputerLogOut";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER].sPageCommandDisplayNames[1] = "Unlock Sewer Access";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER].sPageCommandFunctions[1] = "Mission3UnlockSewer";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER_SEWER_OPEN].sPageText = "Sewer Access Unlocked.";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER_SEWER_OPEN].sPageCommandDisplayNames[0] = "Logout";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER_SEWER_OPEN].sPageCommandFunctions[0] = "ComputerLogOut";
 }
