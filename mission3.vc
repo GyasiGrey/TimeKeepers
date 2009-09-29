@@ -151,6 +151,8 @@ void InitLoot()
 	CreateLoot((134*16)+8, 406*16, "", 0, "", "OfficeLevelComputer", 1);
 	
 	CreateLoot(72*16, 150*16, "Key Card 1", 0, "card.png", "GetKeyCard1", 0);
+	
+	CreateLoot(80*16, 128*16, "", 0, "", "ArmoryComputer", 1);
 }
 
 //ALWAYS flush
@@ -747,4 +749,9 @@ void AfterEscapeDialog()
 
 		nFlags[FLAG_MISSION3_AFTER_ESCAPE_DIALOG] = 1;
 	}
+}
+
+void ArmoryComputer()
+{
+	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_ARMORY_MAIN);
 }

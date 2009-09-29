@@ -21,4 +21,11 @@ void InitComputerPages()
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER_SEWER_OPEN].sPageText = "Sewer Access Unlocked.";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER_SEWER_OPEN].sPageCommandDisplayNames[0] = "Logout";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER_SEWER_OPEN].sPageCommandFunctions[0] = "ComputerLogOut";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageText = "Armory text! wee!";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandDisplayNames[0] = "Pistol";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER].sPageCommandFunctions[0] = "";
+
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandDisplayNames[1] = "Shotgun";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER].sPageCommandFunctions[1] = "";
 }
