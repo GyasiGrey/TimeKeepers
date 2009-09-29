@@ -24,8 +24,8 @@ void InitComputerPages()
 	
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageText = "Armory text! wee!";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandDisplayNames[0] = "Pistol";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER].sPageCommandFunctions[0] = "";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[0] = "";
 
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandDisplayNames[1] = "Shotgun";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MAIN_COMPUTER].sPageCommandFunctions[1] = "";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[1] = "";
 }
