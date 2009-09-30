@@ -24,17 +24,64 @@ void InitComputerPages()
 	
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageText = "Welcome to the Automated Quartermaster System (AQS) operative." + chr('\n') + chr('\n') + chr('\n') + "Select an option to access that equipment. Remember: take equipment that fits your mission objectives. Don't bring a battering ram to a sniper fight.";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandDisplayNames[4] = "Pistol";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[4] = "";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[4] = "Mission3ArmoryComputerPistol";
 
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandDisplayNames[3] = "Shotgun";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[3] = "";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[3] = "Mission3ArmoryComputerShotgun";
 
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandDisplayNames[2] = "M4";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[2] = "";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[2] = "Mission3ArmoryComputerM4";
 
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandDisplayNames[1] = "Grenades/Flashbangs";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[1] = "";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[1] = "Mission3ArmoryComputerGrenades";
 
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandDisplayNames[0] = "C4";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[0] = "";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN].sPageCommandFunctions[0] = "Mission3ArmoryComputerC4";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_PISTOL].sPageText = "Pistols are available to operatives of Rank 1 and above.";
+
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_PISTOL].sPageCommandDisplayNames[1] = "Unlock Weapon Locker";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_PISTOL].sPageCommandFunctions[1] = "";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_PISTOL].sPageCommandDisplayNames[0] = "Logout";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_PISTOL].sPageCommandFunctions[0] = "ComputerLogOut";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageText = "Shotguns are available to operatives of Rank 2 and above.";
+
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageCommandDisplayNames[1] = "Unlock Weapon Locker";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageCommandFunctions[1] = "";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageCommandDisplayNames[0] = "Logout";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageCommandFunctions[0] = "ComputerLogOut";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_M4].sPageText = "M4 is available to operatives of Rank 2 and above.";
+
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_M4].sPageCommandDisplayNames[1] = "Unlock Weapon Locker";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_M4].sPageCommandFunctions[1] = "";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_M4].sPageCommandDisplayNames[0] = "Logout";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_M4].sPageCommandFunctions[0] = "ComputerLogOut";
+
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_GRENADES].sPageText = "Grenades and Flashbangs are available to operatives of Rank 3 and above.";
+
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_GRENADES].sPageCommandDisplayNames[1] = "Unlock Weapon Locker";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_GRENADES].sPageCommandFunctions[1] = "";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_GRENADES].sPageCommandDisplayNames[0] = "Logout";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_GRENADES].sPageCommandFunctions[0] = "ComputerLogOut";
+
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_C4].sPageText = "Access to C4 is restricted.";
+
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_C4].sPageCommandDisplayNames[0] = "Logout";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_C4].sPageCommandFunctions[0] = "ComputerLogOut";
+
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_DENIED].sPageText = "You no access site.";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_DENIED].sPageCommandDisplayNames[0] = "Logout";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_DENIED].sPageCommandFunctions[0] = "ComputerLogOut";
+
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_GRANTED].sPageText = "You access site.";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_GRANTED].sPageCommandDisplayNames[0] = "Logout";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_GRANTED].sPageCommandFunctions[0] = "ComputerLogOut";
 }

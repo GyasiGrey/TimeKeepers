@@ -753,5 +753,41 @@ void AfterEscapeDialog()
 
 void ArmoryComputer()
 {
+	Loots[nCurrentLoot].nStolen = 0;
 	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_ARMORY_MAIN);
+}
+
+void Mission3ArmoryComputerPistol()
+{
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_PISTOL);
+}
+
+void Mission3ArmoryComputerShotgun()
+{
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN);
+}
+
+void Mission3ArmoryComputerM4()
+{
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_M4);
+}
+
+void Mission3ArmoryComputerGrenades()
+{
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_GRENADES);
+}
+
+void Mission3ArmoryComputerC4()
+{
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_C4);
+}
+
+void Mission3ArmoryComputerDenied()
+{
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_DENIED);
+}
+
+void Mission3ArmoryComputerGranted()
+{
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_GRANTED);
 }
