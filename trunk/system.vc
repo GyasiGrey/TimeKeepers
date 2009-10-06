@@ -255,6 +255,7 @@ void AddDefaultHooks()
 	
 	//*DEBUG* - call the debug window initer
 	dbgwin_Init();
+	dbgwin_AddWatch("nFPS", "int");
 
 	//stuff to draw pathfinding nodes
 	if(DEBUG_SHOW_NODES)

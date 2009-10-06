@@ -1,8 +1,21 @@
 int nTimeSinceLastTick;
 int nLastTick;
 
+int nFPSDumpTimer=0;
+int nFPSPrime=0;
+int nFPS=0;
+
 void UpdateLastTick()
 {
 	nTimeSinceLastTick = timer - nLastTick;
 	nLastTick = timer;
+	
+	nFPSPrime++;
+	
+	if(timer - nFPSDumpTimer >= 100)
+	{
+		nFPS = nFPSPrime;
+		nFPSPrime = 0;
+		nFPSDumpTimer = timer;
+	}
 }
