@@ -7,15 +7,15 @@ int nFPS=0;
 
 void UpdateLastTick()
 {
-	nTimeSinceLastTick = timer - nLastTick;
-	nLastTick = timer;
+	nTimeSinceLastTick = systemtime - nLastTick;
+	nLastTick = systemtime;
 	
 	nFPSPrime++;
 	
-	if(timer - nFPSDumpTimer >= 100)
+	if(systemtime - nFPSDumpTimer >= 100)
 	{
 		nFPS = nFPSPrime;
 		nFPSPrime = 0;
-		nFPSDumpTimer = timer;
+		nFPSDumpTimer = systemtime;
 	}
 }
