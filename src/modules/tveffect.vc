@@ -25,6 +25,7 @@ void RemoveScanLine()
 }
 
 int nStaticLuc = 0;
+int nStaticImage;
 
 //this generates static over the screen
 //should be called after the game world, before the gui
@@ -33,38 +34,45 @@ void TVEffectStaticRetrace()
 	int x, y;
 	int screenwidth = ImageWidth(screen);
 	int screenheight = ImageHeight(screen);
-	int tmpImg = NewImage(screenwidth, screenheight);
 	
-	for(x=0;x<screenwidth;x++)
-	{
-		for(y=0;y<screenheight;y++)
+	//optimization - only draw static every 4 frames
+	if(nFPSPrime % 4 == 0)
+	{		
+		for(x=0;x<screenwidth;x++)
 		{
-			if(random(0, 1) == 0)
+			for(y=0;y<screenheight;y++)
 			{
-				SetPixel(x, y, RGB(0, 0, 0), tmpImg);
-			}
-			else
-			{
-				SetPixel(x, y, RGB(255, 255, 255), tmpImg);
+				if(random(0, 1) == 0)
+				{
+					SetPixel(x, y, RGB(0, 0, 0), nStaticImage);
+				}
+				else
+				{
+					SetPixel(x, y, RGB(255, 255, 255), nStaticImage);
+				}
 			}
 		}
 	}
 	
 	setlucent(nStaticLuc);
-	blit(0, 0, tmpImg, screen);
+	blit(0, 0, nStaticImage, screen);
 	setlucent(0);
-	
-	FreeImage(tmpImg);
 }
 
 void StartStatic()
 {
+	int screenwidth = ImageWidth(screen);
+	int screenheight = ImageHeight(screen);
+	nStaticImage = NewImage(screenwidth, screenheight);
+	
 	AddHook("TVEffectStaticRetrace", 1400);
 }
 
 void RemoveStatic()
 {
 	Removehook("TVEffectStaticRetrace");
+
+	FreeImage(nStaticImage);
 }
 
 int nVCRMode;		// ==0 for pause ( || ), ==1 for play ( |> )
