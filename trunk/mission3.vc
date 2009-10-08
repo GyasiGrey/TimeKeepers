@@ -88,8 +88,8 @@ void InitDoors()
 	nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP] = CreateDoor(90, 297, IS_LoadImage("gfx\misc\locker_door.png"), -2);
 	ManualOpenDoor(nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP]);
 	
-	CreateDoor(75, 301, IS_LoadImage("gfx\misc\locker_door.png"), 200);
-	CreateDoor(87, 309, IS_LoadImage("gfx\misc\locker_door.png"), 200);
+	CreateDoorEX(73, 304, IS_LoadImage("gfx\misc\blastdoor_closed.png"), 200, 4, 2, -1);
+	CreateDoorEX(86, 309, IS_LoadImage("gfx\misc\blastdoor_closed.png"), 200, 4, 2, -1);
 	
 	nFlags[FLAG_MISSION3_DOOR_SHOOTING_RANGE] = CreateDoorEX(104, 408, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY);
 	
