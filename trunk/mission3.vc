@@ -155,6 +155,8 @@ void InitLoot()
 	CreateLoot(72*16, 150*16, "Key Card 1", 0, "card.png", "GetKeyCard1", 0);
 	
 	CreateLoot(80*16, 129*16, "", 0, "", "ArmoryComputer", 1);
+	
+	CreateLoot((65*16)+8, (291*16)-8, "", 0, "", "SewerEmergencyComputer", 1);
 }
 
 //ALWAYS flush
@@ -797,4 +799,9 @@ void Mission3ArmoryComputerGranted()
 void Mission3ArmoryUnlockPistol()
 {
 	nFlags[FLAG_MISSION3_ARMORY_PISTOL] = 1;
+}
+
+void SewerEmergencyComputer()
+{
+	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY);
 }

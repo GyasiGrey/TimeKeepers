@@ -84,4 +84,9 @@ void InitComputerPages()
 	
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_GRANTED].sPageCommandDisplayNames[0] = "Logout";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_GRANTED].sPageCommandFunctions[0] = "ComputerLogOut";
+
+	//Computer in the little room next to the sewer trap. Added if only so I could use the word "egress" in the dialog somewhere
+	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY].sPageText = "WARNING: Cleansing cycle has started. Any personel inside the affected area must egress immediately.";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY].sPageCommandDisplayNames[0] = "OH NOOOO!! I'M TRAPPED!! HALP!!!";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY].sPageCommandFunctions[0] = "ComputerLogOut";
 }
