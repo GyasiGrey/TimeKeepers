@@ -94,6 +94,8 @@ void InitDoors()
 	nFlags[FLAG_MISSION3_DOOR_SHOOTING_RANGE] = CreateDoorEX(104, 408, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY);
 	
 	CreateDoorEX(110, 124, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_2);
+	
+	CreateDoor(66, 297, IS_LoadImage("gfx\misc\locker_door.png"), 350);
 }
 
 void InitEnemies()
