@@ -141,10 +141,6 @@ void InitLoot()
 	
 	CreateLoot(77*16, 166*16, "C4", 0, "pistol.png", "GetC4", 0);
 	
-	CreateLoot(74*16, (297*16)-8, "", 0, "", "SewerTrapButton1", 1);
-	CreateLoot(93*16, (305*16)-8, "", 0, "", "SewerTrapButton2", 1);
-	CreateLoot(77*16, (311*16)-8, "", 0, "", "SewerTrapButton3", 1);
-	
 	CreateLoot(39*16, 18*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
 	CreateLoot(46*16, 18*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
 	
@@ -663,36 +659,6 @@ void StopSewerTrap()
 {
 	//set FLAG_MISSION3_GAS_DIRECTION to a non zero values so the gase will decrease
 	nFlags[FLAG_MISSION3_GAS_DIRECTION] = 1;
-}
-
-void SewerTrapButton1()
-{
-	nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_1] = 1;
-	
-	CheckSpawnSewerTrapKey();
-}
-
-void SewerTrapButton2()
-{
-	nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_2] = 1;
-	
-	CheckSpawnSewerTrapKey();
-}
-/*
-void SewerTrapButton3()
-{
-	if(nFlags[FLAG_MISSION3_SEWER_TRAP_KEY])
-	{
-		messagebox("TODO: spawn the ladder out of the sewer");
-	}
-}
-*/
-void CheckSpawnSewerTrapKey()
-{
-	if(nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_1] && nFlags[FLAG_MISSION3_SEWER_TRAP_BUTTON_2])
-	{
-		StopSewerTrap();
-	}
 }
 
 void SpawnMiniBoss()
