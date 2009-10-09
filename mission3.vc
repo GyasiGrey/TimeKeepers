@@ -812,3 +812,9 @@ void Mission3SewerUnlockDoors()
 	nFlags[FLAG_MISSION3_SEWER_DOOR_1] = 1;
 	SetComputerPage(COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY_PAGE_2);
 }
+
+void SewerTrapLockedDoor()
+{
+	CommText("RAWR!! I'M A LOCKED DOOR!!!!");
+	CommText("Ghost: JEZUS! It's a locked door! GET IN THE CAR!!!");
+}
