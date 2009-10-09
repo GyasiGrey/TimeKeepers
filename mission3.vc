@@ -88,8 +88,8 @@ void InitDoors()
 	nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP] = CreateDoor(90, 297, IS_LoadImage("gfx\misc\locker_door.png"), -2);
 	ManualOpenDoor(nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP]);
 	
-	CreateDoorEX(73, 304, IS_LoadImage("gfx\misc\blastdoor_closed.png"), 200, 4, 2, -1);
-	CreateDoorEX(86, 310, IS_LoadImage("gfx\misc\blastdoor_closed.png"), 200, 4, 2, -1);
+	CreateDoorEX(73, 304, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SEWER_DOOR_1);
+	CreateDoorEX(86, 310, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SEWER_DOOR_2);
 	
 	nFlags[FLAG_MISSION3_DOOR_SHOOTING_RANGE] = CreateDoorEX(104, 408, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY);
 	
@@ -804,4 +804,11 @@ void Mission3ArmoryUnlockPistol()
 void SewerEmergencyComputer()
 {
 	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY);
+	Loots[nCurrentLoot].nStolen = 0;
+}
+
+void Mission3SewerUnlockDoors()
+{
+	nFlags[FLAG_MISSION3_SEWER_DOOR_1] = 1;
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY_PAGE_2);
 }
