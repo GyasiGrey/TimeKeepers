@@ -1,0 +1,20 @@
+void EnemyAITileWandering()
+{
+	if(Enemies[nCurrentEnemy].nMode == MODE_NORMAL)
+	{
+		//see if the enemy can see the player
+		if(CanSeePlayer(nCurrentEnemy))
+			MakeAlert(nCurrentEnemy);
+
+		if(entity.movecode[Enemies[nCurrentEnemy].nEntity]!=2)
+		{
+			EntitySetWanderDelay(Enemies[nCurrentEnemy].nEntity, 10);
+			EntitySetWanderRect(Enemies[nCurrentEnemy].nEntity, (entity.x[Enemies[nCurrentEnemy].nEntity]/16)-10, (entity.y[Enemies[nCurrentEnemy].nEntity]/16)-10, (entity.x[Enemies[nCurrentEnemy].nEntity]/16)+10, (entity.y[Enemies[nCurrentEnemy].nEntity]/16)+10);
+		}
+	}
+	else
+	{
+		//otherwise, act just like a normal enemy
+		EnemyAINormal();
+	}
+}
