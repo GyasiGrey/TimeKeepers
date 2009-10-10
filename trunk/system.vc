@@ -57,6 +57,7 @@ int MoreMagic = IS_InitImageStack();	//Init the Image Stack. Called on declarati
 #include "src\modules\enemyai\wanderingenemy.vc"
 #include "src\modules\enemyai\sleepyguard.vc"
 #include "src\modules\enemyai\Mission3Miniboss.vc"
+#include "src\modules\enemyai\tileWanderingEnemy.vc"
 
 #include "src\modules\musicswitch.vc"
 #include "src\modules\particle.vc"

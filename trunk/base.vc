@@ -180,6 +180,8 @@ void InitEnemies()
 	CreateEnemy(104, 74, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "Y59W200L0W200R0W200Y74W200L0W200R0W200B", "guard.chr");
 	CreateEnemy(92, 62, ENTITY_FACE_UP, ENEMY_TEMPLATE_PISTOL, "", "guard.chr");
 	
+	CreateEnemy(40, 55, ENTITY_FACE_UP, ENEMY_RAT, "", "rat.chr");
+	
 	//Tech - he's an enemy now so you can shoot him without crashing the game. But don't do that...it's not nice.
 	nFlags[FLAG_BASE_TECH] = CreateEnemy(32, 29, ENTITY_FACE_UP, ENEMY_TEMPLATE_DUMMY, "", "tech.chr");
 }
