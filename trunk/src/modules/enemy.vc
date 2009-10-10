@@ -542,8 +542,8 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_RAT].nHp = 10;
 	EnemyTemplates[ENEMY_RAT].nMaxHp = 10;
 	EnemyTemplates[ENEMY_RAT].nWeapon = WEAPON_EMPTY;
-	EnemyTemplates[ENEMY_RAT].nSightRange = 200;
-	EnemyTemplates[ENEMY_RAT].nSightAngle = 35;
+	EnemyTemplates[ENEMY_RAT].nSightRange = 0;
+	EnemyTemplates[ENEMY_RAT].nSightAngle = 0;
 	EnemyTemplates[ENEMY_RAT].nAlertTime = 700;
 	EnemyTemplates[ENEMY_RAT].nSearchTime = 600;
 	EnemyTemplates[ENEMY_RAT].nAIType = ENEMY_AI_TYPE_NORMAL;
@@ -553,7 +553,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_RAT].sShootRightAnim = "";
 	EnemyTemplates[ENEMY_RAT].sDeathAnim = "";
 	EnemyTemplates[ENEMY_RAT].sDeathSound = "sounds\cameradeath.wav";
-	EnemyTemplates[ENEMY_RAT].nDeadFrame = 9;
+	EnemyTemplates[ENEMY_RAT].nDeadFrame = 8;
 	EnemyTemplates[ENEMY_RAT].bCanBeTranqd = 1;
 	EnemyTemplates[ENEMY_RAT].bCanSpeak = 0;
 	EnemyTemplates[ENEMY_RAT].bCanHear = 1;
