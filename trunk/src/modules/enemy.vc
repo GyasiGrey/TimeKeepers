@@ -110,6 +110,8 @@ struct Enemy
 	
 	int nNormalSpeed;
 	int nAlertSpeed;
+	
+	int nRadarBlipColor;		//the color of this enemy on the radar
 }
 
 Enemy Enemies[MAX_ENEMIES];
@@ -154,6 +156,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].sAlertSound = "SoundWhaRand";
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nNormalSpeed = 50;
 	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nAlertSpeed = 75;
+	EnemyTemplates[ENEMY_TEMPLATE_PISTOL].nRadarBlipColor = RGB(255, 0, 0);
 
 
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nHp = 35;
@@ -188,6 +191,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].sAlertSound = "SoundWhaRand";
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nNormalSpeed = 50;
 	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nAlertSpeed = 75;
+	EnemyTemplates[ENEMY_TEMPLATE_SHOTGUN].nRadarBlipColor = RGB(255, 0, 0);
 
 	
 	//training dummy
@@ -223,6 +227,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].sAlertSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nNormalSpeed = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nAlertSpeed = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_DUMMY].nRadarBlipColor = RGB(255, 0, 0);
 
 	
 	//civilian
@@ -258,6 +263,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].sAlertSound = "SoundWhaRand";
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nNormalSpeed = 50;
 	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nAlertSpeed = 75;
+	EnemyTemplates[ENEMY_TEMPLATE_CIVILIAN].nRadarBlipColor = RGB(0, 0, 255);
 
 	
 	//cautious civilian - acts like a camera untill they go alert. they then run around like a normal civilian
@@ -293,6 +299,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].sAlertSound = "SoundWhaRand";
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nNormalSpeed = 50;
 	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nAlertSpeed = 75;
+	EnemyTemplates[ENEMY_TEMPLATE_CAUTIOUS_CIVILIAN].nRadarBlipColor = RGB(0, 0, 255);
 
 
 
@@ -330,6 +337,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].sAlertSound = "SoundWhaRand";
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nNormalSpeed = 50;
 	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nAlertSpeed = 75;
+	EnemyTemplates[ENEMY_TEMPLATE_BIGGUARD].nRadarBlipColor = RGB(255, 0, 0);
 	
 
 
@@ -365,6 +373,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].sAlertSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nNormalSpeed = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nAlertSpeed = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_CAMERA].nRadarBlipColor = RGB(255, 0, 0);
 	
 
 	
@@ -400,6 +409,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sAlertSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nNormalSpeed = 0;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nAlertSpeed = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nRadarBlipColor = RGB(255, 0, 0);
 	
 
 	
@@ -435,6 +445,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].sAlertSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nNormalSpeed = 50;
 	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nAlertSpeed = 75;
+	EnemyTemplates[ENEMY_TEMPLATE_ROBOT].nRadarBlipColor = RGB(255, 0, 0);
 	
 
 
@@ -469,6 +480,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].sAlertSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nNormalSpeed = 50;
 	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nAlertSpeed = 75;
+	EnemyTemplates[ENEMY_TEMPLATE_SLEEP].nRadarBlipColor = RGB(255, 0, 0);
 	
 
 	
@@ -504,6 +516,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TARGET].sAlertSound = "";
 	EnemyTemplates[ENEMY_TARGET].nNormalSpeed = 50;
 	EnemyTemplates[ENEMY_TARGET].nAlertSpeed = 75;
+	EnemyTemplates[ENEMY_TARGET].nRadarBlipColor = RGB(255, 0, 0);
 	
 	
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nHp = 100;
@@ -538,6 +551,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_MISSION3_BOSS].sAlertSound = "";
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nNormalSpeed = 75;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nAlertSpeed = 100;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nRadarBlipColor = RGB(255, 0, 0);
 	
 	EnemyTemplates[ENEMY_RAT].nHp = 10;
 	EnemyTemplates[ENEMY_RAT].nMaxHp = 10;
@@ -571,6 +585,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_RAT].sAlertSound = "";
 	EnemyTemplates[ENEMY_RAT].nNormalSpeed = 75;
 	EnemyTemplates[ENEMY_RAT].nAlertSpeed = 100;
+	EnemyTemplates[ENEMY_RAT].nRadarBlipColor = RGB(0, 0, 255);
 }
 
 void ClearEnemies()
@@ -667,6 +682,8 @@ int CreateEnemy(int x, int y, int face, int template, string movestring, string 
 
 	
 	Enemies[nNumEnemies].nLastHeardSound = 0;
+	
+	Enemies[nNumEnemies].nRadarBlipColor = EnemyTemplates[template].nRadarBlipColor;
 
 	Error("CreateEnemy called x: " + str(x) +" y: " + str(y) + " enemyindex: " + str(nNumEnemies) + " hp: " + str(Enemies[nNumEnemies].nMaxHp) + " weapon: " + Weapons[Enemies[nNumEnemies].nWeapon].sName);
 
