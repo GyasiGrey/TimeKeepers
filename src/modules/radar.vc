@@ -38,13 +38,8 @@ void DrawRadar()
 			radarx = radarx / 100;
 			radary = radary / 100;
 			
-			if(Enemies[i].nAIType == ENEMY_TEMPLATE_CIVILIAN)
-				color = RGB(0, 0, 255);
-			else //if (Enemies[i].nAIType == ENEMY_AI_TYPE_NORMAL || Enemies[i].nAIType == ENEMY_AI_TYPE_DUMMY)
-				color = RGB(255, 0, 0);
-				
 			//the -1, +1 is to more or less center the square around the enemy
-			RectFill(radarx-1, radary-1, radarx+1, radary+1, color, img);
+			RectFill(radarx-1, radary-1, radarx+1, radary+1, Enemies[i].nRadarBlipColor, img);
 			//printstring(radarx, radary, img, 0, str(i));
 			
 			//draw the FoV of this enemy
