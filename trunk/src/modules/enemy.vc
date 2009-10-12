@@ -570,7 +570,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_RAT].nDeadFrame = 8;
 	EnemyTemplates[ENEMY_RAT].bCanBeTranqd = 1;
 	EnemyTemplates[ENEMY_RAT].bCanSpeak = 0;
-	EnemyTemplates[ENEMY_RAT].bCanHear = 1;
+	EnemyTemplates[ENEMY_RAT].bCanHear = 0;
 	EnemyTemplates[ENEMY_RAT].nTargetPriority = 100;
 	EnemyTemplates[ENEMY_RAT].sAIFunc = "EnemyAIRat";
 	EnemyTemplates[ENEMY_RAT].nVisualBark = -1;
