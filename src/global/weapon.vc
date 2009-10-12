@@ -361,6 +361,20 @@ void FireWeaponHelp(int shooter, int LOSstop)
 	if(LOSstop >= 0 && LOSstop != nPlayerEnt)
 		targetindex = GetEnemyIndex(LOSstop);
 	
+	//give guards a chance to hear the shot
+	if(shooter == nPlayerEnt)
+	{
+		MakeSound(shooter, Weapons[nEquipedWeapon].nSoundRadius);
+		//start charging the weapon
+		nShotAt = timer;
+		enemyindex = shooter;
+	}
+	else
+	{
+		enemyindex = GetEnemyIndex(shooter);
+		MakeSound(shooter, Weapons[Enemies[enemyindex].nWeapon].nSoundRadius);
+	}
+	
 	Error("FireWeaponHelp() called shooter: " + str(shooter) + " LOSstop: " + str(LOSstop) + " enemyindex: " + str(enemyindex) + " targetindex: " + str(targetindex));
 
 	//we hit an ent
@@ -425,20 +439,6 @@ void FireWeaponHelp(int shooter, int LOSstop)
 		//put the explode anim where it hit
 		LoadAnimationEX("bullethit.png", 8, 8, LOSXstop, LOSYstop, "T1 F0 W15 F1 W15 F2 W15 F3 W15 D");
 	}	
-
-	//give guards a chance to hear the shot
-	if(shooter == nPlayerEnt)
-	{
-		MakeSound(shooter, Weapons[nEquipedWeapon].nSoundRadius);
-		//start charging the weapon
-		nShotAt = timer;
-		enemyindex = shooter;
-	}
-	else
-	{
-		enemyindex = GetEnemyIndex(shooter);
-		MakeSound(shooter, Weapons[Enemies[enemyindex].nWeapon].nSoundRadius);
-	}
 }
 
 void PlayerShootAnimation()
