@@ -9,12 +9,12 @@ void EnemyAICautiousCivilian()
 	else if(Enemies[nCurrentEnemy].nMode == MODE_WARN)
 	{
 		//if it's time to make the warn sound and the camera can still see the player
-		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nSoundStart + CIVILIAN_WARN_SOUND_DELAY && CanSeePlayer(nCurrentEnemy))
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nWarnTime + CIVILIAN_WARN_SOUND_DELAY && CanSeePlayer(nCurrentEnemy))
 		{
 			//make warning sound
 			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nVisualBark, Enemies[nCurrentEnemy].sVisualSound);
 
-			Enemies[nCurrentEnemy].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+			Enemies[nCurrentEnemy].nWarnTime = vcTimer[TIMER_ENEMY_LOGIC].nTick;
 		}
 
 		//if camera is done warning, and can see the player, go into full alert

@@ -23,6 +23,7 @@ struct Enemy
 	int nTranqTime;			//timer when they should wake
 
 /**/	int nSoundStart;		//timer when they heard a noise
+	int nWarnTime;			//timer when this enemy last made a warning noise. only used on enemies that make warning noises
 
 	int nSoundX;			//position of the sound the enemy is investigating
 	int nSoundY;
@@ -668,6 +669,7 @@ int CreateEnemy(int x, int y, int face, int template, string movestring, string 
 	Enemies[nNumEnemies].nBottomTextStart = 0;
 	Enemies[nNumEnemies].nAnimationWakeup = 0;
 	Enemies[nNumEnemies].nAStarStart = 0;
+	Enemies[nNumEnemies].nWarnTime = 0;
 	
 	Enemies[nNumEnemies].nVisualBark = EnemyTemplates[template].nVisualBark;
 	Enemies[nNumEnemies].nHearBark = EnemyTemplates[template].nHearBark;
@@ -716,24 +718,13 @@ void MakeAlert(int ene)
 	entity.speed[Enemies[ene].nEntity] = Enemies[ene].nAlertSpeed;
 	Enemies[ene].nMode = MODE_ALERT;
 	Enemies[ene].nAlertStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
-	
-	//crazy timer stuff for civilians - so ugly....
-	//TODO: clean up this timer code
-	if(Enemies[ene].nAIType == ENEMY_AI_TYPE_CIVILIAN)
-	{
-		Enemies[ene].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
-	}
-	else if(Enemies[ene].nAIType == ENEMY_AI_TYPE_CAMERA)
-	{
-		Enemies[ene].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick - CAMERA_SOUND_DELAY;
-	}
 }
 
 void MakeWarn(int ene)
 {
 	Enemies[ene].nMode = MODE_WARN;
 	Enemies[ene].nWarnStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
-	Enemies[ene].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick - CAMERA_WARN_SOUND_DELAY;
+	Enemies[ene].nWarnTime = vcTimer[TIMER_ENEMY_LOGIC].nTick - CAMERA_WARN_SOUND_DELAY;
 }
 
 //gets the enemy that is attached to the entity passed
