@@ -330,6 +330,7 @@ void SaveEnemy(int hndl, int i)
 	FileWriteWord(hndl, Enemies[i].nTargetPriority);
 	FileWriteByte(hndl, entity.face[Enemies[i].nEntity]);
 	FileWriteByte(hndl, Enemies[i].nPassive);
+	FileWriteQuad(hndl, Enemies[i].nWarnTime);
 }
 
 //load enemy data into a temp array. Will be put into real array after the call to map();
@@ -358,6 +359,7 @@ void LoadEnemy(int hndl, int i)
 	LoadedEnemies[i].nTargetPriority = FileReadWord(hndl);
 	LoadedEnemies[i].nSaveFace = FileReadByte(hndl);
 	LoadedEnemies[i].nPassive = FileReadByte(hndl);
+	LoadedEnemies[i].nWarnTime = FileReadQuad(hndl);
 
 	nNumLoadedEnemies++;
 }
@@ -400,6 +402,7 @@ void MoveLoadedData()
 			Enemies[e].nSearchStart = LoadedEnemies[i].nSearchStart;
 			Enemies[e].nTranqEnd = LoadedEnemies[i].nTranqEnd;
 			Enemies[e].nSoundStart = LoadedEnemies[i].nSoundStart;
+			Enemies[e].nWarnTime = LoadedEnemies[i].nWarnTime;
 
 			//set the entity facing
 			entity.face[Enemies[e].nEntity] = LoadedEnemies[i].nSaveFace;

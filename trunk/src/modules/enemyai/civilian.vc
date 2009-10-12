@@ -10,11 +10,11 @@ void EnemyAICivilian()
 			EntitySetWanderRect(Enemies[nCurrentEnemy].nEntity, (entity.x[Enemies[nCurrentEnemy].nEntity]/16)-10, (entity.y[Enemies[nCurrentEnemy].nEntity]/16)-10, (entity.x[Enemies[nCurrentEnemy].nEntity]/16)+10, (entity.y[Enemies[nCurrentEnemy].nEntity]/16)+10);
 		}
 
-		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nSoundStart+CIVILIAN_SOUND_TIME)
+		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nWarnTime+CIVILIAN_SOUND_TIME)
 		{
 			BottomText(nCurrentEnemy, Enemies[nCurrentEnemy].nAlertBark, Enemies[nCurrentEnemy].sAlertSound);
 
-			Enemies[nCurrentEnemy].nSoundStart = vcTimer[TIMER_ENEMY_LOGIC].nTick;
+			Enemies[nCurrentEnemy].nWarnTime = vcTimer[TIMER_ENEMY_LOGIC].nTick;
 		}
 
 		//enough of that
