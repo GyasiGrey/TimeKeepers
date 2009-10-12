@@ -8,7 +8,7 @@ void EnemyAIRat()
 			EntitySetWanderRect(Enemies[nCurrentEnemy].nEntity, (entity.x[Enemies[nCurrentEnemy].nEntity]/16)-10, (entity.y[Enemies[nCurrentEnemy].nEntity]/16)-10, (entity.x[Enemies[nCurrentEnemy].nEntity]/16)+10, (entity.y[Enemies[nCurrentEnemy].nEntity]/16)+10);
 		}
 	}
-	else
+	else if (Enemies[nCurrentEnemy].nMode != MODE_TRANQ)
 	{
 		//stay in normal mode
 		Enemies[nCurrentEnemy].nMode = MODE_NORMAL;
