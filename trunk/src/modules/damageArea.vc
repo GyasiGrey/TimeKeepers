@@ -32,6 +32,8 @@ int CreateDamageArea(int x, int y, int radius, int minDamage, int maxDamage, str
 			DamageAreas[i].sCollisionFunction = sColisionFunction;
 			
 			DamageAreas[i].nActive = 1;
+			
+			Error("Creating damage area " + str(i));
 			return i;
 		}
 	}
@@ -69,7 +71,7 @@ void ProcessesDamageArea()
 					}
 				}
 			}
-			
+
 			//if timer > this area's dieTimer, kill it
 			if(timer > DamageAreas[i].nDieTime)
 				KillDamageArea(i);
@@ -80,6 +82,7 @@ void ProcessesDamageArea()
 
 void KillDamageArea(int i)
 {
+	error("Killing damage area " + str(i));
 	DamageAreas[i].nActive = 0;
 	DictFree(DamageAreas[i].dEntitiesHit);
 }
