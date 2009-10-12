@@ -24,6 +24,10 @@ void EnemyAICivilian()
 			ReturnToPosition(nCurrentEnemy);
 		}
 	}
+	else if(Enemies[nCurrentEnemy].nMode == MODE_SOUND)
+	{
+		MakeAlert(nCurrentEnemy);
+	}
 	else if(Enemies[nCurrentEnemy].nMode == MODE_RETURN)
 	{
 		//enemies entity is done moving

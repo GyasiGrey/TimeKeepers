@@ -1056,12 +1056,7 @@ void MakeSoundHelp(int i, int sourceX, int sourceY)
 	
 	if(Enemies[i].bCanHear)
 	{
-		if(Enemies[i].nAIType == ENEMY_AI_TYPE_CIVILIAN)
-		{
-			//civilians go into alert mode when they hear something
-			MakeAlert(i);
-		}
-		else if(Enemies[i].nMode != MODE_ALERT && Enemies[i].nMode != MODE_TRANQ)
+		if(Enemies[i].nMode != MODE_ALERT && Enemies[i].nMode != MODE_TRANQ)
 		{
 			if(Enemies[i].nMode != MODE_SOUND)
 				BottomText(i, Enemies[i].nHearBark, Enemies[i].sHearSound);
