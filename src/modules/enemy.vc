@@ -565,7 +565,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_RAT].sShootLeftAnim = "";
 	EnemyTemplates[ENEMY_RAT].sShootDownAnim = "";
 	EnemyTemplates[ENEMY_RAT].sShootRightAnim = "";
-	EnemyTemplates[ENEMY_RAT].sDeathAnim = "";
+	EnemyTemplates[ENEMY_RAT].sDeathAnim = "Z8";
 	EnemyTemplates[ENEMY_RAT].sDeathSound = "sounds\cameradeath.wav";
 	EnemyTemplates[ENEMY_RAT].nDeadFrame = 8;
 	EnemyTemplates[ENEMY_RAT].bCanBeTranqd = 1;
@@ -1083,7 +1083,8 @@ void WakeUp(int ent)
 //	Enemies[ent].nActive = 1;
 	Enemies[ent].nTranqHit = 0;
 	//do enemy death anim in reverse!
-	AnimateEnemy(ent, "Z24 W15 Z23 W15 Z22 W15 Z21 W15 Z20 W15");
+//TODO: Reverse the death animation string before sending it to AnimateEnemy
+	AnimateEnemy(ent, Enemies[ent].sDeathAnim);
 	//WaitForEntity(Enemies[ent].nEntity);
 	Search(ent); //start searching
 }
@@ -1103,7 +1104,7 @@ void Knockout(int ent, int nSleepTime)
 		StopEnemy(ent);
 		entity.obstruct[Enemies[ent].nEntity] = 0; //now i can walk through you
 		//do enemy death anim
-		AnimateEnemy(ent, "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24");
+		AnimateEnemy(ent, Enemies[ent].sDeathAnim);
 		//knockout sound
 		SoundKnockOut();
 		//track the tranq
