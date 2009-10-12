@@ -356,7 +356,7 @@ void FireWeapon(int shooter, int targetX, int targetY, int targetW, int targetH)
 //shooter and target are ENTITY indexes
 void FireWeaponHelp(int shooter, int LOSstop)
 {
-	int enemyindex, targetindex;
+	int enemyindex, targetindex, soundradius;
 
 	if(LOSstop >= 0 && LOSstop != nPlayerEnt)
 		targetindex = GetEnemyIndex(LOSstop);
@@ -364,7 +364,7 @@ void FireWeaponHelp(int shooter, int LOSstop)
 	//give guards a chance to hear the shot
 	if(shooter == nPlayerEnt)
 	{
-		MakeSound(shooter, Weapons[nEquipedWeapon].nSoundRadius);
+		soundradius = Weapons[nEquipedWeapon].nSoundRadius;
 		//start charging the weapon
 		nShotAt = timer;
 		enemyindex = shooter;
@@ -372,7 +372,8 @@ void FireWeaponHelp(int shooter, int LOSstop)
 	else
 	{
 		enemyindex = GetEnemyIndex(shooter);
-		MakeSound(shooter, Weapons[Enemies[enemyindex].nWeapon].nSoundRadius);
+		soundradius = Weapons[Enemies[enemyindex].nWeapon].nSoundRadius;
+
 	}
 	
 	Error("FireWeaponHelp() called shooter: " + str(shooter) + " LOSstop: " + str(LOSstop) + " enemyindex: " + str(enemyindex) + " targetindex: " + str(targetindex));
@@ -432,7 +433,8 @@ void FireWeaponHelp(int shooter, int LOSstop)
 		}
 	}
 
-			
+	MakeSound(shooter, soundradius);
+	
 	//if it runs into an obs, stop the shot
 	if(LOSstop == 0-1)
 	{
