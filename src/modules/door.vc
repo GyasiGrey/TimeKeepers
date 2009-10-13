@@ -322,3 +322,17 @@ int TryDoor()
 
 	return DoorAt(targetx, targety);
 }
+
+//Returns the first door associated with the key flag passed.
+int FindDoorByKeyFlag(int nKeyFlag)
+{
+	int i;
+	
+	for(i=0;i<MAX_DOORS;i++)
+	{
+		if(Doors[i].nKeyFlag == nKeyFlag)
+		{
+			return i;
+		}
+	}
+}
