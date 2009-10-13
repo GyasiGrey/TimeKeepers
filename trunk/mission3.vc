@@ -153,6 +153,10 @@ void InitLoot()
 	CreateLoot(80*16, 129*16, "", 0, "", "ArmoryComputer", 1);
 	
 	CreateLoot((65*16)+8, (291*16)-8, "", 0, "", "SewerEmergencyComputer", 1);
+	
+	CreateLoot(70*16, 291*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
+	
+	CreateLoot(83*16, (300*16)-8, "", 0, "", "SewerEgressButton", 1);
 }
 
 //ALWAYS flush
@@ -824,4 +828,11 @@ void CheckSewerTarget()
 		
 		bCanSave = 1;
 	}
+}
+
+void SewerEgressButton()
+{
+	Loots[nCurrentLoot].nStolen = 0;
+	
+	OpenMessageMenu("Emergency gas purge system currently out of order. A maintence ticket has been entered. Scheduled completion time: 2 weeks.");
 }
