@@ -75,8 +75,8 @@ void InitDoors()
 	
 	CreateDoorEX(99, 113, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
 	CreateDoor(88, 155, IS_LoadImage("gfx\misc\locker_door.png"), -2);
-	CreateDoorEX(73, 155, IS_LoadImage("gfx\misc\locker_door.png"), -2, 1, 2, FLAG_MISSION3_KEYCARD_1);
-	CreateDoor(73, 141, IS_LoadImage("gfx\misc\locker_door.png"), -2);
+	CreateDoorEX(73, 155, IS_LoadImage("gfx\misc\locker_door.png"), -2, 1, 1, FLAG_MISSION3_KEYCARD_1);
+	CreateDoorEX(73, 141, IS_LoadImage("gfx\misc\locker_door.png"), -2, 1, 1, FLAG_MISSION3_ARMORY_SHOTGUN);
 	
 	CreateDoor(150, 113, IS_LoadImage("gfx\misc\locker_door.png"), -1);
 	
@@ -129,6 +129,7 @@ void InitLoot()
 	
 	
 	CreateLoot(85*16, 136*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
+	CreateLoot(75*16, 136*16, "Shotgun", 0, "shotgun.png", "GetShotgun", 0);
 	
 	CreateLoot(165*16, 112*16, "", 0, "", "TrapDoor", 0);
 	
@@ -769,6 +770,13 @@ void Mission3ArmoryComputerGranted()
 void Mission3ArmoryUnlockPistol()
 {
 	nFlags[FLAG_MISSION3_ARMORY_PISTOL] = 1;
+	ComputerLogOut();
+}
+
+void Mission3ArmoryUnlockShotgun()
+{
+	nFlags[FLAG_MISSION3_ARMORY_SHOTGUN] = 1;
+	ComputerLogOut();
 }
 
 void SewerEmergencyComputer()

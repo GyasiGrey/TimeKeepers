@@ -46,10 +46,10 @@ void InitComputerPages()
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_PISTOL].sPageCommandDisplayNames[0] = "Logout";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_PISTOL].sPageCommandFunctions[0] = "ComputerLogOut";
 	
-	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageText = "Shotguns are available to operatives of Rank 2 and above.";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageText = "Shotguns are available to operatives of Rank 1 and above.";
 
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageCommandDisplayNames[1] = "Unlock Weapon Locker";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageCommandFunctions[1] = "";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageCommandFunctions[1] = "Mission3ArmoryUnlockShotgun";
 	
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageCommandDisplayNames[0] = "Logout";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_SHOTGUN].sPageCommandFunctions[0] = "ComputerLogOut";
