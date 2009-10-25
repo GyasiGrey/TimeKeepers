@@ -520,8 +520,8 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TARGET].nRadarBlipColor = RGB(255, 0, 0);
 	
 	
-	EnemyTemplates[ENEMY_MISSION3_BOSS].nHp = 100;
-	EnemyTemplates[ENEMY_MISSION3_BOSS].nMaxHp = 100;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nHp = 50;
+	EnemyTemplates[ENEMY_MISSION3_BOSS].nMaxHp = 50;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nWeapon = WEAPON_SHOTGUN;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightRange = 200;
 	EnemyTemplates[ENEMY_MISSION3_BOSS].nSightAngle = 35;
