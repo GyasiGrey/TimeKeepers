@@ -536,7 +536,7 @@ void SewerToComputerRoom()
 
 void ArmoryToSewer()
 {
-	Warp(74, 312);
+	Warp(62, 312);
 	Loots[nCurrentLoot].nStolen = 0;
 }
 
