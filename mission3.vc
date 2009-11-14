@@ -12,6 +12,9 @@ void start()
 	
 	MusicSwitch("VersaLife.mp3", 15);
 	SetupAlertMusic("VersaLife.mp3", "VersaLife_Alert.mp3");
+	
+	//every minute span ammo/medits as necessary from the dispensers
+	CreateDelayedCallback(6000, "CheckDispensers");
 
 	if(!nFlags[FLAG_MISSION3_TECH_GHOST_START])
 	{
@@ -134,7 +137,7 @@ void InitLoot()
 	CreateLoot(165*16, 112*16, "", 0, "", "TrapDoor", 0);
 	
 	CreateLoot(87*16, 98*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
-	CreateLoot(88*16, 98*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
+	nFlags[FLAG_MISSION3_MEDKIT_DISPENSER] = CreateLoot(88*16, 98*16, "Medkit", 0, "medkit.png", "GetMedkitLoot", 0);
 	
 	CreateLoot(70*16, 150*16, "", 0, "", "ArmoryToSewer", 0);
 	
@@ -843,4 +846,16 @@ void SewerEgressButton()
 	Loots[nCurrentLoot].nStolen = 0;
 	
 	OpenMessageMenu("Emergency gas purge system currently out of order. A maintence ticket has been entered. Scheduled completion time: 2 weeks.");
+}
+
+void CheckDispensers()
+{
+	//TODO: clean up this function. Maintence could become difficult.
+	if(Loots[nFlags[FLAG_MISSION3_MEDKIT_DISPENSER]].nStolen == 1 && nNumMedkits < 2)
+	{
+		SoundSpawn();
+		Loots[nFlags[FLAG_MISSION3_MEDKIT_DISPENSER]].nStolen = 0;
+	}
+	
+	CreateDelayedCallback(6000, "CheckDispensers");
 }
