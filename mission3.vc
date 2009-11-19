@@ -161,6 +161,8 @@ void InitLoot()
 	CreateLoot(70*16, 291*16, "Pistol", 0, "pistol.png", "GetPistol", 0);
 	
 	CreateLoot(83*16, (300*16)-8, "", 0, "", "SewerEgressButton", 1);
+	
+	CreateLoot(88*16, 97*16, "", 0, "", "MedicalComputer", 1);
 }
 
 //ALWAYS flush
@@ -858,4 +860,9 @@ void CheckDispensers()
 	}
 	
 	CreateDelayedCallback(6000, "CheckDispensers");
+}
+
+void MedicalComputer()
+{
+	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_MEDICAL_1);
 }
