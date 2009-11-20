@@ -97,9 +97,15 @@ void InitComputerPages()
 	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY_PAGE_2].sPageCommandDisplayNames[0] = "Logout";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY_PAGE_2].sPageCommandFunctions[0] = "ComputerLogOut";
 	
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageText = "Chief Medical Officers Terminal." + chr('\n') + chr('\n') + chr('\n') + "Welcome Doctor." + chr('\n') + chr('\n') + "Always remember to log out your user when leaving your terminal. Remember, you are responsible for all actions taken under your account.";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[0] = "Personal Log: 12/16/2013";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[1] = "Personal Log: 12/9/2013";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageText = "Chief Medical Officers Terminal. Welcome Doctor." + chr('\n') + chr('\n') + chr('\n') + "Always remember to log out your user when leaving your terminal. Remember, you are responsible for all actions taken under your account.";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[4] = "Personal Log: 12/16/2013";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[4] = "ComputerLogOut";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[3] = "Personal Log: 12/9/2013";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[3] = "ComputerLogOut";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[2] = "Personal Log: 12/5/2013";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[3] = "Personal Log: 11/24/2013";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[2] = "ComputerLogOut";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[1] = "Personal Log: 11/24/2013";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[1] = "ComputerLogOut";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[0] = "Logout";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[0] = "ComputerLogOut";
 }
