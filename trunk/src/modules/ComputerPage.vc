@@ -101,7 +101,7 @@ void InitComputerPages()
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[4] = "Personal Log: 11/24";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[4] = "Mission3Page2";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[3] = "Personal Log: 12/5";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[3] = "ComputerLogOut";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[3] = "Mission3Page3";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[2] = "Personal Log: 12/9";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[2] = "ComputerLogOut";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[1] = "Personal Log: 12/16";
@@ -114,4 +114,10 @@ void InitComputerPages()
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].sPageCommandFunctions[0] = "ComputerLogOut";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].spageCommandDisplaynames[1] = "Back";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].sPageCommandFunctions[1] = "MedicalComputer";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_3].sPageText = "CMO Personal Log, 12/5: Got a private in today showing signs of dementia. The troopers that brought him in said he hit his head playing holoball in the recroom, but I didn't find any signs of blunt tramua. Infact I couldn't find any physical harm whatsoever. He's currently stable and under sedation..we shall have to see where this goes.";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_3].spageCommandDisplaynames[0] = "Logout";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_3].sPageCommandFunctions[0] = "ComputerLogOut";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_3].spageCommandDisplaynames[1] = "Back";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_3].sPageCommandFunctions[1] = "MedicalComputer";
 }
