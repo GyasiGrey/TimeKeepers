@@ -864,5 +864,11 @@ void CheckDispensers()
 
 void MedicalComputer()
 {
+	Loots[nCurrentLoot].nStolen = 0;
 	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_MEDICAL_1);
+}
+
+void Mission3Page2()
+{
+	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_MEDICAL_2);
 }

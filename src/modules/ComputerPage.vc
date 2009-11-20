@@ -98,14 +98,20 @@ void InitComputerPages()
 	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY_PAGE_2].sPageCommandFunctions[0] = "ComputerLogOut";
 	
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageText = "Chief Medical Officers Terminal. Welcome Doctor." + chr('\n') + chr('\n') + chr('\n') + "Always remember to log out your user when leaving your terminal. Remember, you are responsible for all actions taken under your account.";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[4] = "Personal Log: 12/16/2013";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[4] = "ComputerLogOut";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[3] = "Personal Log: 12/9/2013";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[4] = "Personal Log: 11/24";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[4] = "Mission3Page2";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[3] = "Personal Log: 12/5";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[3] = "ComputerLogOut";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[2] = "Personal Log: 12/5/2013";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[2] = "Personal Log: 12/9";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[2] = "ComputerLogOut";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[1] = "Personal Log: 11/24/2013";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[1] = "Personal Log: 12/16";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[1] = "ComputerLogOut";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[0] = "Logout";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[0] = "ComputerLogOut";
+	
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].sPageText = "CMO Personal Log, 11/24: The new medkit dispensor was delivered today. It's fairly impressive piece of kit, the thing spits out new medkits every couple of minutes. It should be able to keep up with the daily minor injuries that wander in here...just as long as it doesn't take my job.";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].spageCommandDisplaynames[0] = "Logout";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].sPageCommandFunctions[0] = "ComputerLogOut";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].spageCommandDisplaynames[1] = "Back";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].sPageCommandFunctions[1] = "MedicalComputer";
 }
