@@ -877,3 +877,8 @@ void Mission3Page3()
 {
 	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_MEDICAL_3);
 }
+
+void Mission3Page4()
+{
+	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_MEDICAL_4);
+}
