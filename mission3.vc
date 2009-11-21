@@ -868,17 +868,22 @@ void MedicalComputer()
 	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_MEDICAL_1);
 }
 
+void Mission3Page1()
+{
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_MEDICAL_1);
+}
+
 void Mission3Page2()
 {
-	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_MEDICAL_2);
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_MEDICAL_2);
 }
 
 void Mission3Page3()
 {
-	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_MEDICAL_3);
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_MEDICAL_3);
 }
 
 void Mission3Page4()
 {
-	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_MEDICAL_4);
+	SetComputerPage(COMPUTER_PAGE_MISSION_3_MEDICAL_4);
 }
