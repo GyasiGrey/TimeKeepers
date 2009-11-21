@@ -113,17 +113,17 @@ void InitComputerPages()
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].spageCommandDisplaynames[0] = "Logout";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].sPageCommandFunctions[0] = "ComputerLogOut";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].spageCommandDisplaynames[1] = "Back";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].sPageCommandFunctions[1] = "MedicalComputer";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_2].sPageCommandFunctions[1] = "Mission3Page1";
 	
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_3].sPageText = "CMO Personal Log, 12/5: Got a private in today showing signs of dementia. The troopers that brought him in said he hit his head playing holoball in the recroom, but I didn't find any signs of blunt trauma. Infact I couldn't find any physical harm whatsoever. He's currently stable and under sedation..we shall have to see where this goes.";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_3].spageCommandDisplaynames[0] = "Logout";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_3].sPageCommandFunctions[0] = "ComputerLogOut";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_3].spageCommandDisplaynames[1] = "Back";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_3].sPageCommandFunctions[1] = "MedicalComputer";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_3].sPageCommandFunctions[1] = "Mission3Page1";
 
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_4].sPageText = "CMO Personal Log, 12/9: The private sliped into a coma today from which I doubt he will recover. I reviewed his activity logs and medical history and found nothing out of the ordinary. Awake at 0700 lights out at 2300, three square meals a day and never once missed his chrono shift training. His bio did state that he was a avid holoball player, so at least one thing seems to line up.";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_4].spageCommandDisplaynames[0] = "Logout";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_4].sPageCommandFunctions[0] = "ComputerLogOut";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_4].spageCommandDisplaynames[1] = "Back";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_4].sPageCommandFunctions[1] = "MedicalComputer";
+	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_4].sPageCommandFunctions[1] = "Mission3Page1";
 }
