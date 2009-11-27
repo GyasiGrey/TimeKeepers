@@ -408,8 +408,8 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sHurtSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sLostSound = "";
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].sAlertSound = "";
-	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nNormalSpeed = 0;
-	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nAlertSpeed = 0;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nNormalSpeed = 1;
+	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nAlertSpeed = 1;
 	EnemyTemplates[ENEMY_TEMPLATE_GUN_CAMERA].nRadarBlipColor = RGB(255, 0, 0);
 	
 

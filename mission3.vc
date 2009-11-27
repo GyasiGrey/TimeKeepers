@@ -119,7 +119,7 @@ void InitEnemies()
 	nFlags[FLAG_MISSION3_TARGET_3] = CreateEnemy(108, 387, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 	nFlags[FLAG_MISSION3_TARGET_4] = CreateEnemy(112, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 	
-	CreateEnemy(99, 135, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_GUN_CAMERA, "Y157W200Y135W200B", "camera.chr");
+	CreateEnemy(99, 135, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_GUN_CAMERA, "D0W300L0W300B", "camera.chr");
 }
 
 void InitLoot()
