@@ -15,6 +15,9 @@ void start()
 	
 	//every minute span ammo/medits as necessary from the dispensers
 	CreateDelayedCallback(6000, "CheckDispensers");
+	
+	//setup the elevator number
+	InitElevatorNumber(78*16, 13*16, FLAG_MISSION3_ELEVATOR_FLOOR);
 
 	if(!nFlags[FLAG_MISSION3_TECH_GHOST_START])
 	{

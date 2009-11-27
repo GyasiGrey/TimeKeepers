@@ -1,0 +1,36 @@
+int nElevatorNumberX;
+int nElevatorNumberY;
+int nElevatorFloorFlag;
+
+//Draws the number of the current elevator floor
+void DrawElevatorNumber()
+{
+	//create the image to hold the number
+	int imgNumber = NewImage(16, 16);
+	
+	//fill the BG with death magenta for transparency
+	RectFill(0, 0, 16, 16, COLOR_DEATH_MAGENTA, imgNumber);
+	
+	//print the floor number to the image
+	PrintString(0, 0, imgNumber, nDigitalFont, str(nFlags[nElevatorFloorFlag]));
+	
+	//blit the whole mess to the screen
+	TBlit(nElevatorNumberX-xwin, nElevatorNumberY-ywin, imgNumber, screen);
+
+	//cleanup
+	FreeImage(imgNumber);
+}
+
+//setup the vars for the elevator floor number. 
+//x is the x coord of the number
+//y is the y coord of the number
+//floorFlag is the index in nFlags where the current floor is held
+void InitElevatorNumber(int x, int y, int floorFlag)
+{
+	nElevatorNumberX = x;
+	nElevatorNumberY = y;
+	nElevatorFloorFlag = floorFlag;
+	
+	if(!IsHooked("PRE_DrawElevatorNumber"))
+		AddPreHook("DrawElevatorNumber", 515);
+}
