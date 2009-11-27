@@ -76,7 +76,7 @@ void InitDoors()
 	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_TO_OFFICE_DOOR_ID] = CreateDoor(115, 114, IS_LoadImage("gfx\misc\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_OFFICE_TO_MAIN_FLOOR_DOOR_ID] = CreateDoor(162, 375, IS_LoadImage("gfx\misc\elevator_door.png"), -2);
 	
-	nFlags[FLAG_MISSION3_DOOR_ARMORY_PISTOL] = CreateDoorEX(88, 141, IS_LoadImage("gfx\misc\locker_door.png"), -2, 1, 1, FLAG_MISSION3_ARMORY_PISTOL);
+	CreateDoorEX(88, 141, IS_LoadImage("gfx\misc\locker_door.png"), -2, 1, 1, FLAG_MISSION3_ARMORY_PISTOL);
 	nFlags[FLAG_MISSION3_DOOR_ARMORY_MAIN] = CreateDoorEX(96, 128, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
 	
 	CreateDoorEX(99, 113, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
@@ -123,6 +123,7 @@ void InitEnemies()
 	nFlags[FLAG_MISSION3_TARGET_4] = CreateEnemy(112, 389, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
 	
 	CreateEnemy(99, 135, ENTITY_FACE_LEFT, ENEMY_TEMPLATE_GUN_CAMERA, "D0W300L0W300B", "camera.chr");
+	CreateEnemy(64, 159, ENTITY_FACE_RIGHT, ENEMY_TEMPLATE_GUN_CAMERA, "U0W300R0W300B", "camera.chr");
 }
 
 void InitLoot()
