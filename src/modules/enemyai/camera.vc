@@ -42,6 +42,8 @@ void EnemyAICamera()
 		if(vcTimer[TIMER_ENEMY_LOGIC].nTick > Enemies[nCurrentEnemy].nAlertStart+Enemies[nCurrentEnemy].nAlertTime && !CanSeePlayer(nCurrentEnemy))
 		{
 			Enemies[nCurrentEnemy].nMode = MODE_NORMAL;
+			entity.face[Enemies[nCurrentEnemy].nEntity] = Enemies[nCurrentEnemy].nOriginalFace;
+			EntityMove(Enemies[nCurrentEnemy].nEntity, Enemies[nCurrentEnemy].sOriginalMoveString);
 		}
 
 		//if we have a gun, shoot at the player
