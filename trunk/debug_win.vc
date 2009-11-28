@@ -79,7 +79,7 @@ void dbgwin_AddWatch(string sName, string sType)
 //draws the debug window, hook to the retrace
 void dbgwin_Draw()
 {
-	int i, j;
+	int i, j, arrayStart, arrayEnd, arrayIndex;
 	string sWatchName, sWatchType, sWatchValue;	//Who watches the watchmen? The watcher watches the watchmen.
 	
 	RectFill(0, 0, dbgwin_WIDTH, dbgwin_HEIGHT, RGB(0, 0, 0), dbgwin_MainImage);
@@ -97,10 +97,26 @@ void dbgwin_Draw()
 		sWatchName = DictGetKey(dgbwin_dictWatches, i);
 		sWatchType = DictGetString(dgbwin_dictWatches, sWatchName);
 		
-		if(strcmp(sWatchType, "int") == 0)
-			sWatchValue = str(GetInt(sWatchName));
-		else
-			sWatchValue = GetString(sWatchName);
+		//look for the [ character signaling that the watch is an array
+		arrayStart = strpos("[", sWatchName, 0);
+		arrayEnd = strpos("]", sWatchName, 0);
+
+		if(arrayStart == -1)
+		{
+			if(strcmp(sWatchType, "int") == 0)
+				sWatchValue = str(GetInt(sWatchName));
+			else
+				sWatchValue = GetString(sWatchName);
+		}
+		else	//the watch is an array
+		{
+			arrayIndex = val(mid(sWatchName, arrayStart+1, arrayEnd - arrayStart));
+
+			if(strcmp(sWatchType, "int") == 0)
+				sWatchValue = str(GetIntArray(mid(sWatchName, 0, arrayStart), arrayIndex));
+			else
+				sWatchValue = GetStringArray(mid(sWatchName, 0, arrayStart), arrayIndex);
+		}
 		
 		PrintString(8, dbgwin_HEIGHT-25 + (i * fontheight(dbgwin_FONT)), dbgwin_MainImage, dbgwin_FONT, sWatchName + ": " + sWatchValue);
 	}
