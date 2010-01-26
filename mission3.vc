@@ -595,14 +595,14 @@ void OfficeLevelComputer()
 	Loots[nCurrentLoot].nStolen = 0;
 	
 
-	OpenHackingMenu("UnlockShootingRange");
+	UnlockShootingRange();
 }
 
 void ComputerRoomComputer()
 {
 	Loots[nCurrentLoot].nStolen = 0;
 
-	OpenHackingMenu("MainComputerTerminal");
+	MainComputerTerminal();
 }
 
 void UnlockShootingRange()
