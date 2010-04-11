@@ -1,0 +1,14 @@
+void EnemyAITech()
+{
+	if(Enemies[nCurrentEnemy].nMode == MODE_NORMAL)
+	{
+		EnemyAIDummy();
+	}
+	else
+	{
+		EnemyAINormal();
+	}
+
+	//regenerate your health
+	Enemies[nCurrentEnemy].nHp = Enemies[nCurrentEnemy].nMaxHp;
+}

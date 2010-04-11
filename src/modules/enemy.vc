@@ -607,7 +607,7 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TECH].bCanSpeak = 0;
 	EnemyTemplates[ENEMY_TECH].bCanHear = 0;
 	EnemyTemplates[ENEMY_TECH].nTargetPriority = 500;
-	EnemyTemplates[ENEMY_TECH].sAIFunc = "EnemyAIDummy";
+	EnemyTemplates[ENEMY_TECH].sAIFunc = "EnemyAITech";
 	EnemyTemplates[ENEMY_TECH].nVisualBark = -1;
 	EnemyTemplates[ENEMY_TECH].nHearBark = -1;
 	EnemyTemplates[ENEMY_TECH].nHurtBark = -1;
@@ -618,8 +618,8 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_TECH].sHurtSound = "";
 	EnemyTemplates[ENEMY_TECH].sLostSound = "";
 	EnemyTemplates[ENEMY_TECH].sAlertSound = "";
-	EnemyTemplates[ENEMY_TECH].nNormalSpeed = 0;
-	EnemyTemplates[ENEMY_TECH].nAlertSpeed = 0;
+	EnemyTemplates[ENEMY_TECH].nNormalSpeed = 75;
+	EnemyTemplates[ENEMY_TECH].nAlertSpeed = 100;
 	EnemyTemplates[ENEMY_TECH].nRadarBlipColor = RGB(0, 0, 255);
 }
 
