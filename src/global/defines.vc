@@ -50,6 +50,7 @@
 #define ENEMY_TARGET			10	//target that can be hit by gun fire. Effectively a dummy that can die.
 #define ENEMY_MISSION3_BOSS		11
 #define ENEMY_RAT			12
+#define ENEMY_TECH			13
 
 #define ENEMY_SOUND_IGNORE_TIME		50	//time after a enemy hears a sound untill they will hear another sound
 

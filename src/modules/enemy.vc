@@ -587,6 +587,40 @@ void CreateEnemyTemplates()
 	EnemyTemplates[ENEMY_RAT].nNormalSpeed = 75;
 	EnemyTemplates[ENEMY_RAT].nAlertSpeed = 100;
 	EnemyTemplates[ENEMY_RAT].nRadarBlipColor = RGB(0, 0, 255);
+	
+	EnemyTemplates[ENEMY_TECH].nHp = 10000;
+	EnemyTemplates[ENEMY_TECH].nMaxHp = 10000;
+	EnemyTemplates[ENEMY_TECH].nWeapon = 3;
+	EnemyTemplates[ENEMY_TECH].nSightRange = 200;
+	EnemyTemplates[ENEMY_TECH].nSightAngle = 35;
+	EnemyTemplates[ENEMY_TECH].nAlertTime = 500;
+	EnemyTemplates[ENEMY_TECH].nSearchTime = 600;
+	EnemyTemplates[ENEMY_TECH].nAIType = ENEMY_AI_TYPE_DUMMY;
+	EnemyTemplates[ENEMY_TECH].sShootUpAnim = "Z29 W10 Z30 W10";
+	EnemyTemplates[ENEMY_TECH].sShootLeftAnim = "Z27 W10 Z28 W10";
+	EnemyTemplates[ENEMY_TECH].sShootDownAnim = "Z25 W10 Z26 W10";
+	EnemyTemplates[ENEMY_TECH].sShootRightAnim = "Z31 W10 Z32 W10";
+	EnemyTemplates[ENEMY_TECH].sDeathAnim = "Z20 W15 Z21 W15 Z22 W15 Z23 W15 Z24";
+	EnemyTemplates[ENEMY_TECH].sDeathSound = "sounds\enemydeath.wav";		//shouldn't be able to kill a dummy, but for sanity sake	
+	EnemyTemplates[ENEMY_TECH].nDeadFrame = 24;
+	EnemyTemplates[ENEMY_TECH].bCanBeTranqd = 0;
+	EnemyTemplates[ENEMY_TECH].bCanSpeak = 0;
+	EnemyTemplates[ENEMY_TECH].bCanHear = 0;
+	EnemyTemplates[ENEMY_TECH].nTargetPriority = 500;
+	EnemyTemplates[ENEMY_TECH].sAIFunc = "EnemyAIDummy";
+	EnemyTemplates[ENEMY_TECH].nVisualBark = -1;
+	EnemyTemplates[ENEMY_TECH].nHearBark = -1;
+	EnemyTemplates[ENEMY_TECH].nHurtBark = -1;
+	EnemyTemplates[ENEMY_TECH].nLostBark = -1;
+	EnemyTemplates[ENEMY_TECH].nAlertBark = -1;
+	EnemyTemplates[ENEMY_TECH].sVisualSound = "";
+	EnemyTemplates[ENEMY_TECH].sHearSound = "";
+	EnemyTemplates[ENEMY_TECH].sHurtSound = "";
+	EnemyTemplates[ENEMY_TECH].sLostSound = "";
+	EnemyTemplates[ENEMY_TECH].sAlertSound = "";
+	EnemyTemplates[ENEMY_TECH].nNormalSpeed = 0;
+	EnemyTemplates[ENEMY_TECH].nAlertSpeed = 0;
+	EnemyTemplates[ENEMY_TECH].nRadarBlipColor = RGB(0, 0, 255);
 }
 
 void ClearEnemies()

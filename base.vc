@@ -184,7 +184,7 @@ void InitEnemies()
 	CreateEnemy(24, 53, ENTITY_FACE_UP, ENEMY_RAT, "", "rat.chr");
 	
 	//Tech - he's an enemy now so you can shoot him without crashing the game. But don't do that...it's not nice.
-	nFlags[FLAG_BASE_TECH] = CreateEnemy(32, 29, ENTITY_FACE_UP, ENEMY_TEMPLATE_DUMMY, "", "tech.chr");
+	nFlags[FLAG_BASE_TECH] = CreateEnemy(32, 29, ENTITY_FACE_UP, ENEMY_TECH, "", "tech.chr");
 }
 
 void InitAmbientSounds()
