@@ -24,10 +24,10 @@ void EditNodes(string sMap)
 	
 	sMapLoaded = sMap;
 
-	mouseimg = LoadImage("mouse.png");
-	nodeimg = LoadImage("node.png");
-	snodeimg = LoadImage("selectednode.png");
-	rnodeimg = LoadImage("selectednode2.png");
+	mouseimg = IS_LoadImage("gfx\icons\mouse.png");
+	nodeimg = IS_LoadImage("gfx\icons\node.png");
+	snodeimg = IS_LoadImage("gfx\icons\selectednode.png");
+	rnodeimg = IS_LoadImage("gfx\icons\selectednode2.png");
 	
 	linesshown = 1;
 	nodesshown = 1;
