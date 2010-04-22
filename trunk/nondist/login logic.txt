@@ -1,6 +1,0 @@
-On (New Game || Load Game) from main menu
-	Show dialog box that says "You want to login to upload scores and achivements?"
-		-Yes
-		-No
-		-No (Never ask again!)
-		-Regester Username
