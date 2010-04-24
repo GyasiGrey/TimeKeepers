@@ -1,6 +1,6 @@
 void EnemyAITech()
 {
-	if(Enemies[nCurrentEnemy].nMode == MODE_NORMAL)
+	if(Enemies[nCurrentEnemy].nMode == MODE_NORMAL || Enemies[nCurrentEnemy].nMode == MODE_RETURN)
 	{
 		EnemyAIDummy();
 	}
