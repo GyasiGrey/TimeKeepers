@@ -28,7 +28,15 @@ void StartSong(string filename)
 void MusicSwitch(string filename, int speed)
 {
 	string fullFilename = "music/"+filename;
+
+	Error("Music switching to " + fullFilename);
 	
+	if(FileExists(fullFilename) == 0)
+	{
+		Error("Unable to load music file " + fullFilename +". File not found.");
+		return;
+	}
+		
 	if(strcmp(filename, sCurrentMusicFilename) == 0)
 		return;
 
@@ -53,8 +61,6 @@ void MusicSwitch(string filename, int speed)
 	}
 	else
 	{
-		Error("Music switching to " + filename);
-		
 		nNextMusic = LoadSong(fullFilename);
 		Error("nNextMusic: " + str(nNextMusic));
 		SetSongVolume(nNextMusic, 0);
