@@ -560,7 +560,7 @@ string ScanToKeyName(int i)
 	else if(i == SCAN_LSHIFT)
 		return "LShift";
 	else if(i == SCAN_BSLASH)
-		return "\";
+		return "\\";
 	else if(i == SCAN_Z)
 		return "Z";
 	else if(i == SCAN_X)
