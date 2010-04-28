@@ -75,13 +75,13 @@ void MusicSwitch(string filename, int speed)
 
 		nMusicSwitchSpeed = speed;
 
-		nNextMusicSwitch = timer + 10;
+		nNextMusicSwitch = systemtime + 10;
 	}
 }
 
 void MusicSwitchHook()
 {
-	if(timer >= nNextMusicSwitch)
+	if(systemtime >= nNextMusicSwitch)
 	{
 		nCurrentMusicVol-=nMusicSwitchSpeed;
 		nNextMusicVol+=nMusicSwitchSpeed;
@@ -89,7 +89,7 @@ void MusicSwitchHook()
 		SetSongVolume(nCurrentMusic, nCurrentMusicVol);
 		SetSongVolume(nNextMusic, nNextMusicVol);
 		
-		nNextMusicSwitch = timer + 10;
+		nNextMusicSwitch = systemtime + 10;
 		
 		if(nNextMusicVol >= 100 || nCurrentMusicVol <= 0)
 		{
