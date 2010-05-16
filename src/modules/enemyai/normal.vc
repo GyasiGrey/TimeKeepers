@@ -101,21 +101,25 @@ void EnemyAINormal()
 		if(vcTimer[TIMER_ENEMY_LOGIC].nTick - Enemies[nCurrentEnemy].nSearchStart < Enemies[nCurrentEnemy].nSearchTime/4)
 		{
 			//face left
+			StopEnemy(nCurrentEnemy);
 			entity.face[Enemies[nCurrentEnemy].nEntity] = 3;
 		}
 		else if(vcTimer[TIMER_ENEMY_LOGIC].nTick - Enemies[nCurrentEnemy].nSearchStart < Enemies[nCurrentEnemy].nSearchTime/2)
 		{
 			//face right
+			StopEnemy(nCurrentEnemy);
 			entity.face[Enemies[nCurrentEnemy].nEntity] = 4;
 		}
 		else if(vcTimer[TIMER_ENEMY_LOGIC].nTick - Enemies[nCurrentEnemy].nSearchStart < (3*Enemies[nCurrentEnemy].nSearchTime)/4)
 		{
 			//face up
+			StopEnemy(nCurrentEnemy);
 			entity.face[Enemies[nCurrentEnemy].nEntity] = 1;
 		}
 		else if(vcTimer[TIMER_ENEMY_LOGIC].nTick - Enemies[nCurrentEnemy].nSearchStart < Enemies[nCurrentEnemy].nSearchTime)
 		{
 			//face down
+			StopEnemy(nCurrentEnemy);
 			entity.face[Enemies[nCurrentEnemy].nEntity] = 2;
 		}
 		else
