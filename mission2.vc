@@ -58,41 +58,41 @@ void start()
 void InitDoors()
 {
 	//casino floor
-	CreateDoor(37, 23, IS_LoadImage("gfx\misc\door.png"), 0-1);	//mens bathroom
-	CreateDoor(43, 23, IS_LoadImage("gfx\misc\door.png"), 0-1);	//womens bathroom
-	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_CASINO_TO_VALUT] = CreateDoor(72, 37, IS_LoadImage("gfx\misc\door.png"), -2);		//vault elevator
-	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_CASINO] = CreateDoor(54, 23, IS_LoadImage("gfx\misc\door.png"), -2);		//elevator door
+	CreateDoor(37, 23, IS_LoadImage("gfx\\misc\\door.png"), 0-1);	//mens bathroom
+	CreateDoor(43, 23, IS_LoadImage("gfx\\misc\\door.png"), 0-1);	//womens bathroom
+	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_CASINO_TO_VALUT] = CreateDoor(72, 37, IS_LoadImage("gfx\\misc\\door.png"), -2);		//vault elevator
+	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_CASINO] = CreateDoor(54, 23, IS_LoadImage("gfx\\misc\\door.png"), -2);		//elevator door
 	
 	//2nd floor
 
-	CreateDoor(119, 23, IS_LoadImage("gfx\misc\door.png"), 300);	//guest room
-	CreateDoor(129, 23, IS_LoadImage("gfx\misc\door.png"), 300);	//guest room
-	CreateDoor(151, 23, IS_LoadImage("gfx\misc\door.png"), 200);	//door to the mantience room
-	nFlags[FLAG_MISSION2_LOCKED_HOTEL_DOOR_1] = CreateDoor(121, 61, IS_LoadImage("gfx\misc\door.png"), -2);	//guest room
-	CreateDoor(149, 61, IS_LoadImage("gfx\misc\door.png"), 300);	//guest room
-	CreateDoor(122, 29, IS_LoadImage("gfx\misc\door.png"), 300);	//guest room
-	nFlags[FLAG_MISSION2_LOCKED_HOTEL_DOOR_2] = CreateDoor(149, 29, IS_LoadImage("gfx\misc\door.png"), -2);	//guest room
-	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_FLOOR1] = CreateDoor(144, 23, IS_LoadImage("gfx\misc\door.png"), -2);	//elevator door
+	CreateDoor(119, 23, IS_LoadImage("gfx\\misc\\door.png"), 300);	//guest room
+	CreateDoor(129, 23, IS_LoadImage("gfx\\misc\\door.png"), 300);	//guest room
+	CreateDoor(151, 23, IS_LoadImage("gfx\\misc\\door.png"), 200);	//door to the mantience room
+	nFlags[FLAG_MISSION2_LOCKED_HOTEL_DOOR_1] = CreateDoor(121, 61, IS_LoadImage("gfx\\misc\\door.png"), -2);	//guest room
+	CreateDoor(149, 61, IS_LoadImage("gfx\\misc\\door.png"), 300);	//guest room
+	CreateDoor(122, 29, IS_LoadImage("gfx\\misc\\door.png"), 300);	//guest room
+	nFlags[FLAG_MISSION2_LOCKED_HOTEL_DOOR_2] = CreateDoor(149, 29, IS_LoadImage("gfx\\misc\\door.png"), -2);	//guest room
+	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_FLOOR1] = CreateDoor(144, 23, IS_LoadImage("gfx\\misc\\door.png"), -2);	//elevator door
 	
 	//3rd floor
-	CreateDoor(210, 23, IS_LoadImage("gfx\misc\door.png"), 300);
-	nFlags[FLAG_MISSION2_LOCKED_HOTEL_DOOR_3] = CreateDoor(220, 23, IS_LoadImage("gfx\misc\door.png"), -2);
-	CreateDoor(212, 61, IS_LoadImage("gfx\misc\door.png"), 300);
-	CreateDoor(240, 61, IS_LoadImage("gfx\misc\door.png"), 300);
-	nFlags[FLAG_MISSION2_LOCKED_HOTEL_DOOR_4] = CreateDoor(213, 29, IS_LoadImage("gfx\misc\door.png"), -2);
-	CreateDoor(240, 29, IS_LoadImage("gfx\misc\door.png"), 300);
-	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_FLOOR2] = CreateDoor(235, 23, IS_LoadImage("gfx\misc\door.png"), -2);	//elevator door
+	CreateDoor(210, 23, IS_LoadImage("gfx\\misc\\door.png"), 300);
+	nFlags[FLAG_MISSION2_LOCKED_HOTEL_DOOR_3] = CreateDoor(220, 23, IS_LoadImage("gfx\\misc\\door.png"), -2);
+	CreateDoor(212, 61, IS_LoadImage("gfx\\misc\\door.png"), 300);
+	CreateDoor(240, 61, IS_LoadImage("gfx\\misc\\door.png"), 300);
+	nFlags[FLAG_MISSION2_LOCKED_HOTEL_DOOR_4] = CreateDoor(213, 29, IS_LoadImage("gfx\\misc\\door.png"), -2);
+	CreateDoor(240, 29, IS_LoadImage("gfx\\misc\\door.png"), 300);
+	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_FLOOR2] = CreateDoor(235, 23, IS_LoadImage("gfx\\misc\\door.png"), -2);	//elevator door
 	
 	//security floor
-	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_SECURITY] = CreateDoor(388, 40, IS_LoadImage("gfx\misc\door.png"), -2);	//elevator door
-	CreateDoor(368, 52, IS_LoadImage("gfx\misc\door.png"), -1);
-	CreateDoor(380, 52, IS_LoadImage("gfx\misc\door.png"), -1); //door to open all the hotel level doors
+	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_SECURITY] = CreateDoor(388, 40, IS_LoadImage("gfx\\misc\\door.png"), -2);	//elevator door
+	CreateDoor(368, 52, IS_LoadImage("gfx\\misc\\door.png"), -1);
+	CreateDoor(380, 52, IS_LoadImage("gfx\\misc\\door.png"), -1); //door to open all the hotel level doors
 	
 	//main elevator door
-	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_MAIN] = CreateDoor(438, 47, IS_LoadImage("gfx\misc\door.png"), -2);
+	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_MAIN] = CreateDoor(438, 47, IS_LoadImage("gfx\\misc\\door.png"), -2);
 	
 	//vault
-	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_VAULT_TO_CASINO] = CreateDoor(292, 47, IS_LoadImage("gfx\misc\door.png"), -2);
+	nFlags[FLAG_MISSION2_ELEVATOR_DOOR_VAULT_TO_CASINO] = CreateDoor(292, 47, IS_LoadImage("gfx\\misc\\door.png"), -2);
 }
 
 void InitLoot()
@@ -501,21 +501,21 @@ void InitAutoSave()
 void InitAmbientSounds()
 {
 	//computers in security room
-	CreateAmbientSound(399*16, 35*16, "sounds\ambient\computer2.ogg", 1000, 300, 200);
-	CreateAmbientSound(406*16, 35*16, "sounds\ambient\computer2.ogg", 3000, 300, 200);
+	CreateAmbientSound(399*16, 35*16, "sounds\\ambient\\computer2.ogg", 1000, 300, 200);
+	CreateAmbientSound(406*16, 35*16, "sounds\\ambient\\computer2.ogg", 3000, 300, 200);
 	
-	CreateAmbientSound(377*16, 35*16, "sounds\ambient\computer2.ogg", 1000, 300, 200);
-	CreateAmbientSound(470*16, 35*16, "sounds\ambient\computer2.ogg", 3000, 300, 200);
+	CreateAmbientSound(377*16, 35*16, "sounds\\ambient\\computer2.ogg", 1000, 300, 200);
+	CreateAmbientSound(470*16, 35*16, "sounds\\ambient\\computer2.ogg", 3000, 300, 200);
 	
 	//slot machines
-	CreateAmbientSound(30*16, 83*16, "sounds\ambient\slotmachine.ogg", 1500, 400, 100);
-	CreateAmbientSound(39*16, 83*16, "sounds\ambient\slotmachine.ogg", 1300, 400, 100);
+	CreateAmbientSound(30*16, 83*16, "sounds\\ambient\\slotmachine.ogg", 1500, 400, 100);
+	CreateAmbientSound(39*16, 83*16, "sounds\\ambient\\slotmachine.ogg", 1300, 400, 100);
 	
-	CreateAmbientSound(36*16, 89*16, "sounds\ambient\slotmachine.ogg", 500, 400, 100);
-	CreateAmbientSound(42*16, 89*16, "sounds\ambient\slotmachine.ogg", 800, 400, 100);
+	CreateAmbientSound(36*16, 89*16, "sounds\\ambient\\slotmachine.ogg", 500, 400, 100);
+	CreateAmbientSound(42*16, 89*16, "sounds\\ambient\\slotmachine.ogg", 800, 400, 100);
 
-	CreateAmbientSound(33*16, 86*16, "sounds\ambient\slotmachine.ogg", 1600, 400, 100);
-	CreateAmbientSound(30*16, 89*16, "sounds\ambient\slotmachine.ogg", 1400, 400, 100);
+	CreateAmbientSound(33*16, 86*16, "sounds\\ambient\\slotmachine.ogg", 1600, 400, 100);
+	CreateAmbientSound(30*16, 89*16, "sounds\\ambient\\slotmachine.ogg", 1400, 400, 100);
 }
 
 //Functions to do the rstring changing. Above the railing, below the railing voodoo

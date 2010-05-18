@@ -152,12 +152,12 @@ string sLootInRange;	//same as above except for loot
 
 int bHasTargetList;
 
-int nFont = LoadFont("gfx\fonts\default_mod.png");//LoadFont("font0.png");
-int nDialogBoxFont = LoadFont("gfx\fonts\font1.png");	//lifted from Parallel 7
-int nTerminalFont = LoadFont("gfx\fonts\terminal_menu.png");
-int nTinyFont = LoadFont("gfx\fonts\tiny.png");
-int nDigitalFont = LoadFont("gfx\fonts\digital.png");
-int nHealthIcn = IS_LoadImage("gfx\icons\health.png");
+int nFont = LoadFont("gfx\\fonts\\default_mod.png");//LoadFont("font0.png");
+int nDialogBoxFont = LoadFont("gfx\\fonts\\font1.png");	//lifted from Parallel 7
+int nTerminalFont = LoadFont("gfx\\fonts\\terminal_menu.png");
+int nTinyFont = LoadFont("gfx\\fonts\\tiny.png");
+int nDigitalFont = LoadFont("gfx\\fonts\\digital.png");
+int nHealthIcn = IS_LoadImage("gfx\\icons\\health.png");
 
 int nShotAt;		//the timer value when the player shot his weapon. for recharging weapons
 

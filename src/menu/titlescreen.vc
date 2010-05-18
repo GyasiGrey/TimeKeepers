@@ -8,7 +8,7 @@ void TitleScreen()
 void TitleBkgRender()
 {
 	int nTitleImg;
-	nTitleImg = IS_LoadImage("gfx\ui\title.png");
+	nTitleImg = IS_LoadImage("gfx\\ui\\title.png");
 	Blit(0, 0, nTitleImg, screen);
 	DrawAnimation(nTitlecursorone);
 }

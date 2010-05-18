@@ -30,7 +30,7 @@ void tkSplash()
 	//setup the vars for static
 	nStaticImage = NewImage(ImageWidth(screen), ImageHeight(screen));
 
-	ntkSplashLogo = IS_LoadImage("gfx\ui\logo.png");
+	ntkSplashLogo = IS_LoadImage("gfx\\ui\\logo.png");
 	
 	//start static
 	ntkSplashStaticOn = 1;

@@ -190,46 +190,46 @@ void InitEnemies()
 void InitAmbientSounds()
 {
 	//make the machine ambient sound (chrono tube)
-	CreateAmbientSound(456, 24*16, "sounds\ambient\fan.ogg", 10, 0-1, 200);
+	CreateAmbientSound(456, 24*16, "sounds\\ambient\\fan.ogg", 10, 0-1, 200);
 	//chrono room computer
 
-	CreateAmbientSound(520, 27*16, "sounds\ambient\computer.ogg", 10, 0-1, 50);
+	CreateAmbientSound(520, 27*16, "sounds\\ambient\\computer.ogg", 10, 0-1, 50);
 
 	//ghost's room computer
-	CreateAmbientSound(427, 47*16, "sounds\ambient\computer.ogg", 10, 0-1, 50);
+	CreateAmbientSound(427, 47*16, "sounds\\ambient\\computer.ogg", 10, 0-1, 50);
 	
 	//drips in the tutorial area
 
-	CreateAmbientSound(61*16, 62*16, "sounds\ambient\drip.ogg", 400, 80, 150);
-	CreateAmbientSound(83*16, 59*16, "sounds\ambient\drip.ogg", 700, 80, 150);
-	CreateAmbientSound(75*16, 59*16, "sounds\ambient\drip.ogg", 200, 80, 150);
-	CreateAmbientSound(63*16, 70*16, "sounds\ambient\drip.ogg", 300, 80, 150);
+	CreateAmbientSound(61*16, 62*16, "sounds\\ambient\\drip.ogg", 400, 80, 150);
+	CreateAmbientSound(83*16, 59*16, "sounds\\ambient\\drip.ogg", 700, 80, 150);
+	CreateAmbientSound(75*16, 59*16, "sounds\\ambient\\drip.ogg", 200, 80, 150);
+	CreateAmbientSound(63*16, 70*16, "sounds\\ambient\\drip.ogg", 300, 80, 150);
 }
 
 void InitEmitters()
 {
 	//make the particle emitter for the smoke on the chrono tube
-	CreateEmitter(456, 24*16, "gfx\misc\smoke.png", 0-1, 5, 2, 180, 90, 2, 90, 60, 80);
+	CreateEmitter(456, 24*16, "gfx\\misc\\smoke.png", 0-1, 5, 2, 180, 90, 2, 90, 60, 80);
 	//x=(161*16)-8
 }
 
 void InitDoors()
 {
 	//door to ghosts room
-	CreateDoor(33, 50, IS_LoadImage("gfx\misc\door.png"), 0-1);
+	CreateDoor(33, 50, IS_LoadImage("gfx\\misc\\door.png"), 0-1);
 	
 	//door to tech's room
-	CreateDoor(49, 43, IS_LoadImage("gfx\misc\door.png"), 0-1);
+	CreateDoor(49, 43, IS_LoadImage("gfx\\misc\\door.png"), 0-1);
 	
 	//door at the end of tutorial area
-	CreateDoor(98, 73, IS_LoadImage("gfx\misc\door.png"), 200);
+	CreateDoor(98, 73, IS_LoadImage("gfx\\misc\\door.png"), 200);
 	
 	//locker doors in tutorial area
-	CreateDoor(58, 63, IS_LoadImage("gfx\misc\locker_door.png"), -1);
-	CreateDoor(60, 63, IS_LoadImage("gfx\misc\locker_door.png"), -1);
-	CreateDoor(62, 63, IS_LoadImage("gfx\misc\locker_door.png"), -1);
-	CreateDoor(64, 63, IS_LoadImage("gfx\misc\locker_door.png"), -1);
-	CreateDoor(66, 63, IS_LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(58, 63, IS_LoadImage("gfx\\misc\\locker_door.png"), -1);
+	CreateDoor(60, 63, IS_LoadImage("gfx\\misc\\locker_door.png"), -1);
+	CreateDoor(62, 63, IS_LoadImage("gfx\\misc\\locker_door.png"), -1);
+	CreateDoor(64, 63, IS_LoadImage("gfx\\misc\\locker_door.png"), -1);
+	CreateDoor(66, 63, IS_LoadImage("gfx\\misc\\locker_door.png"), -1);
 }
 
 void InitLoot()

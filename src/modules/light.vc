@@ -16,8 +16,8 @@ Light Lights[MAX_LIGHTS];
 
 int nLights;			//the current number of lights
 int nGlobalLight;		//the global ambient light, 0 is full light - 255 is full dark
-int lightimg = IS_LoadImage("gfx\misc\light.png");
-int windowlightimg = IS_LoadImage("gfx\misc\windowlight.png");
+int lightimg = IS_LoadImage("gfx\\misc\\light.png");
+int windowlightimg = IS_LoadImage("gfx\\misc\\windowlight.png");
 int bLightsEnabled;
 
 void ClearLights()

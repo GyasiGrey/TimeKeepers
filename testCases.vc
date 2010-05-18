@@ -143,7 +143,7 @@ void test_CalculateRatio()
 void test_ScrollingTextBlockHeight()
 {
 	//init - load a font put some text into the array
-	int nTempFont = LoadFont("gfx\fonts\terminal_menu.png");
+	int nTempFont = LoadFont("gfx\\fonts\\terminal_menu.png");
 	EnableVariableWidth(nTempFont);
 	sTextLines[0] = "Tech: I still have some things to finish up before the mission. Why don't you go to the training area to the right untill I'm ready?";
 
@@ -175,7 +175,7 @@ void test_ScrollingTextBlockHeight()
 void test_CalculateScrollingTextHeight()
 {
 	//init - load a font put some text into the array
-	int nTempFont = LoadFont("gfx\fonts\terminal_menu.png");
+	int nTempFont = LoadFont("gfx\\fonts\\terminal_menu.png");
 	EnableVariableWidth(nTempFont);
 	sTextLines[0] = "Tech: I still have some things to finish up before the mission. Why don't you go to the training area to the right untill I'm ready?";
 	sTextLines[1] = "";
