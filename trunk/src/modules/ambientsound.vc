@@ -6,18 +6,17 @@ struct AmbientSound
 {
 	int nX;
 	int nY;
-	int nSound;
+	string sFilename;
 	int nDelay;
 	int nLastSoundAt;
 	int nRange;
-	int nLength;
 	int nActive;
 }
 
 AmbientSound ASounds[MAX_AMBIENTSOUNDS];
 int bAmbientSoundEnabled;
 
-int CreateAmbientSound(int x, int y, string sound, int delay, int length, int range)
+int CreateAmbientSound(int x, int y, string sound, int delay, int range)
 {
 	int i;
 	
@@ -27,10 +26,9 @@ int CreateAmbientSound(int x, int y, string sound, int delay, int length, int ra
 		{
 			ASounds[i].nX = x;
 			ASounds[i].nY = y;
-			ASounds[i].nSound = LoadSong(sound);
+			ASounds[i].sFilename = sound;
 			ASounds[i].nDelay = delay;
 			ASounds[i].nRange = range;
-			ASounds[i].nLength = length;
 			ASounds[i].nActive = 1;
 			return i;
 		}
@@ -53,35 +51,16 @@ void ProcessAmbientSounds()
 		if(ASounds[i].nActive && dist <= ASounds[i].nRange && timer-ASounds[i].nLastSoundAt > ASounds[i].nDelay)
 		{
 			//play the sound
-			PlaySong(ASounds[i].nSound);
+			PlaySoundStackDistance(ASounds[i].sFilename, ASounds[i].nX, ASounds[i].nY, ASounds[i].nRange);
+			
 			ASounds[i].nLastSoundAt = timer;
 		}
-		else if(ASounds[i].nActive)
-		{
-			//set the volume
-			//volume = 100-((distance/range)*100) so it gets louder as you get closer
-			SetSongVolume(ASounds[i].nSound, 100-((dist*100)/ASounds[i].nRange));
-			
-			//keep the sound from repeating by stoping it when length has passed
-			//since the last time it played
-			if(ASounds[i].nLength != 0-1 && timer - ASounds[i].nLastSoundAt >= ASounds[i].nLength)
-			{
-				StopSong(ASounds[i].nSound);
-			}
-		}
-		
-		//Debugging code
-		/*if(ASounds[i].nActive)
-		{
-			PrintString(ASounds[i].nX-xwin, ASounds[i].nY-ywin, screen, nTinyFont, str(timer - (ASounds[i].nLastSoundAt+ASounds[i].nLength)));
-		}*/
 	}
 }
 
 void FreeAmbientSound(int i)
 {
 	ASounds[i].nActive = 0;
-	FreeSong(ASounds[i].nSound);
 }
 
 void ClearAmbientSounds()
@@ -93,7 +72,6 @@ void ClearAmbientSounds()
 	{
 		if(ASounds[i].nActive)
 		{
-			FreeSong(ASounds[i].nSound);
 			ASounds[i].nActive = 0;
 		}
 	}
