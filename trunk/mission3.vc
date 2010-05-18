@@ -52,56 +52,56 @@ void start()
 
 void InitEmitters()
 {
-	CreateEmitter(137*16, 74*16, "gfx\misc\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
-	CreateEmitter(143*16, 74*16, "gfx\misc\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
-	CreateEmitter(153*16, 74*16, "gfx\misc\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
-	CreateEmitter(161*16, 74*16, "gfx\misc\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
+	CreateEmitter(137*16, 74*16, "gfx\\misc\\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
+	CreateEmitter(143*16, 74*16, "gfx\\misc\\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
+	CreateEmitter(153*16, 74*16, "gfx\\misc\\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
+	CreateEmitter(161*16, 74*16, "gfx\\misc\\smoke.png", -1, 25, 5, 45, 135, 5, 50, 75, 100);
 }
 
 void InitDoors()
 {
 	//jail doors
-	nFlags[FLAG_MISSION3_JAIL_DOOR_ID] = CreateDoorEX(33, 22, IS_LoadImage("gfx\misc\wide_jail_door.png"), -2, 3, 1, -1);
-	CreateDoorEX(21, 22, IS_LoadImage("gfx\misc\wide_jail_door.png"), -2, 3, 1, -1);
+	nFlags[FLAG_MISSION3_JAIL_DOOR_ID] = CreateDoorEX(33, 22, IS_LoadImage("gfx\\misc\\wide_jail_door.png"), -2, 3, 1, -1);
+	CreateDoorEX(21, 22, IS_LoadImage("gfx\\misc\\wide_jail_door.png"), -2, 3, 1, -1);
 	
-	CreateDoor(22, 29, IS_LoadImage("gfx\misc\jail_door.png"), -2);
-	CreateDoor(34, 29, IS_LoadImage("gfx\misc\jail_door.png"), -2);
+	CreateDoor(22, 29, IS_LoadImage("gfx\\misc\\jail_door.png"), -2);
+	CreateDoor(34, 29, IS_LoadImage("gfx\\misc\\jail_door.png"), -2);
 	
-	CreateDoor(39, 18, IS_LoadImage("gfx\misc\locker_door.png"), -1);
-	CreateDoor(46, 18, IS_LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(39, 18, IS_LoadImage("gfx\\misc\\locker_door.png"), -1);
+	CreateDoor(46, 18, IS_LoadImage("gfx\\misc\\locker_door.png"), -1);
 	
-	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID] = CreateDoor(43, 17, IS_LoadImage("gfx\misc\elevator_door.png"), -2);
-	nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID] = CreateDoor(110, 114, IS_LoadImage("gfx\misc\elevator_door.png"), -2);
-	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID] = CreateDoor(78, 15, IS_LoadImage("gfx\misc\elevator_door.png"), -2);
-	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_TO_OFFICE_DOOR_ID] = CreateDoor(115, 114, IS_LoadImage("gfx\misc\elevator_door.png"), -2);
-	nFlags[FLAG_MISSION3_OFFICE_TO_MAIN_FLOOR_DOOR_ID] = CreateDoor(162, 375, IS_LoadImage("gfx\misc\elevator_door.png"), -2);
+	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID] = CreateDoor(43, 17, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
+	nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID] = CreateDoor(110, 114, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
+	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID] = CreateDoor(78, 15, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
+	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_TO_OFFICE_DOOR_ID] = CreateDoor(115, 114, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
+	nFlags[FLAG_MISSION3_OFFICE_TO_MAIN_FLOOR_DOOR_ID] = CreateDoor(162, 375, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
 	
-	CreateDoorEX(88, 141, IS_LoadImage("gfx\misc\locker_door.png"), -2, 1, 1, FLAG_MISSION3_ARMORY_PISTOL);
-	nFlags[FLAG_MISSION3_DOOR_ARMORY_MAIN] = CreateDoorEX(96, 128, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
+	CreateDoorEX(88, 141, IS_LoadImage("gfx\\misc\\locker_door.png"), -2, 1, 1, FLAG_MISSION3_ARMORY_PISTOL);
+	nFlags[FLAG_MISSION3_DOOR_ARMORY_MAIN] = CreateDoorEX(96, 128, IS_LoadImage("gfx\\misc\\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
 	
-	CreateDoorEX(99, 113, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
-	CreateDoor(88, 155, IS_LoadImage("gfx\misc\locker_door.png"), -2);
-	CreateDoorEX(73, 155, IS_LoadImage("gfx\misc\locker_door.png"), -2, 1, 1, FLAG_MISSION3_KEYCARD_1);
-	CreateDoorEX(73, 141, IS_LoadImage("gfx\misc\locker_door.png"), -2, 1, 1, FLAG_MISSION3_ARMORY_SHOTGUN);
+	CreateDoorEX(99, 113, IS_LoadImage("gfx\\misc\\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_1);
+	CreateDoor(88, 155, IS_LoadImage("gfx\\misc\\locker_door.png"), -2);
+	CreateDoorEX(73, 155, IS_LoadImage("gfx\\misc\\locker_door.png"), -2, 1, 1, FLAG_MISSION3_KEYCARD_1);
+	CreateDoorEX(73, 141, IS_LoadImage("gfx\\misc\\locker_door.png"), -2, 1, 1, FLAG_MISSION3_ARMORY_SHOTGUN);
 	
-	CreateDoor(150, 113, IS_LoadImage("gfx\misc\locker_door.png"), -1);
+	CreateDoor(150, 113, IS_LoadImage("gfx\\misc\\locker_door.png"), -1);
 	
-	CreateDoorEX(68, 163, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_2);
+	CreateDoorEX(68, 163, IS_LoadImage("gfx\\misc\\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_2);
 	
-	CreateDoor(97, 171, IS_LoadImage("gfx\misc\locker_door.png"), -2);
+	CreateDoor(97, 171, IS_LoadImage("gfx\\misc\\locker_door.png"), -2);
 	
 	//door to the trap room
-	nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP] = CreateDoor(90, 297, IS_LoadImage("gfx\misc\locker_door.png"), -2);
+	nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP] = CreateDoor(90, 297, IS_LoadImage("gfx\\misc\\locker_door.png"), -2);
 	ManualOpenDoor(nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP]);
 	
-	CreateDoorEX(73, 304, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SEWER_DOOR_1);
-	CreateDoorEX(86, 310, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SEWER_DOOR_2);
+	CreateDoorEX(73, 304, IS_LoadImage("gfx\\misc\\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SEWER_DOOR_1);
+	CreateDoorEX(86, 310, IS_LoadImage("gfx\\misc\\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SEWER_DOOR_2);
 	
-	nFlags[FLAG_MISSION3_DOOR_SHOOTING_RANGE] = CreateDoorEX(104, 408, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY);
+	nFlags[FLAG_MISSION3_DOOR_SHOOTING_RANGE] = CreateDoorEX(104, 408, IS_LoadImage("gfx\\misc\\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY);
 	
-	CreateDoorEX(110, 124, IS_LoadImage("gfx\misc\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_2);
+	CreateDoorEX(110, 124, IS_LoadImage("gfx\\misc\\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_2);
 	
-	CreateDoor(66, 297, IS_LoadImage("gfx\misc\locker_door.png"), 350);
+	CreateDoor(66, 297, IS_LoadImage("gfx\\misc\\locker_door.png"), 350);
 }
 
 void InitEnemies()

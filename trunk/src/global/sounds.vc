@@ -140,172 +140,172 @@ void DumpSoundStack()
 
 void SoundKlaxon(int x, int y, int range)
 {
-	PlaySoundStackDistance("sounds\klaxon.wav", x, y, range);
+	PlaySoundStackDistance("sounds\\klaxon.wav", x, y, range);
 }
 
 void SoundWarn(int x, int y, int range)
 {
-	PlaySoundStackDistance("sounds\warn.wav", x, y, range);
+	PlaySoundStackDistance("sounds\\warn.wav", x, y, range);
 }
 
 void SoundPlayerDeath()
 {
-	PlaySoundStack("sounds\playerdeath.wav");
+	PlaySoundStack("sounds\\playerdeath.wav");
 }
 
 void SoundLoot()
 {
-	PlaySoundStack("sounds\loot.wav");
+	PlaySoundStack("sounds\\loot.wav");
 }
 
 void SoundNoAmmo()
 {
-	PlaySoundStack("sounds\noammo.wav");
+	PlaySoundStack("sounds\\noammo.wav");
 }
 
 void SoundKnockOut()
 {
-	PlaySoundStack("sounds\knockout.wav");
+	PlaySoundStack("sounds\\knockout.wav");
 }
 
 void SoundLowHealth()
 {
-	PlaySoundStack("sounds\lowhealth.wav");
+	PlaySoundStack("sounds\\lowhealth.wav");
 }
 
 void SoundDoorOpen()
 {
-	PlaySoundStack("sounds\dooropen.wav");
+	PlaySoundStack("sounds\\dooropen.wav");
 }
 
 void SoundDoorClose()
 {
-	PlaySoundStack("sounds\doorclose.wav");
+	PlaySoundStack("sounds\\doorclose.wav");
 }
 
 void SoundPickLock()
 {
-	PlaySoundStack("sounds\picklock.wav");
+	PlaySoundStack("sounds\\picklock.wav");
 }
 
 void SoundLocked()
 {
-	PlaySoundStack("sounds\locked.wav");
+	PlaySoundStack("sounds\\locked.wav");
 }
 
 void SoundError()
 {
-	PlaySoundStack("sounds\error.wav");
+	PlaySoundStack("sounds\\error.wav");
 }
 
 void SoundTeleport()
 {
-	PlaySoundStack("sounds\teleport.wav");
+	PlaySoundStack("sounds\\teleport.wav");
 }
 
 void SoundMedkitUse()
 {
-	PlaySoundStack("sounds\medkit.wav");
+	PlaySoundStack("sounds\\medkit.wav");
 }
 
 void SoundElevatorCall()
 {
-	PlaySoundStack("sounds\elevatorcall.wav");
+	PlaySoundStack("sounds\\elevatorcall.wav");
 }
 
 void SoundElevatorHere()
 {
-	PlaySoundStack("sounds\elevatorhere.wav");
+	PlaySoundStack("sounds\\elevatorhere.wav");
 }
 
 void SoundGrenade()
 {
-	PlaySoundStack("sounds\grenade.wav");
+	PlaySoundStack("sounds\\grenade.wav");
 }
 
 void StaticIn()
 {
-	PlaySoundStack("sounds\static_in.wav");
+	PlaySoundStack("sounds\\static_in.wav");
 }
 
 void StaticOut()
 {
-	PlaySoundStack("sounds\static_out.wav");
+	PlaySoundStack("sounds\\static_out.wav");
 }
 
 void SoundAchivement()
 {
-	PlaySoundStack("sounds\achivement.wav");
+	PlaySoundStack("sounds\\achivement.wav");
 }
 
 void SoundBigMetalDoor()
 {
-	PlaySoundStack("sounds\bigmetaldoor.wav");
+	PlaySoundStack("sounds\\bigmetaldoor.wav");
 }
 
 //weeee I used GetInt()!
 void SoundDial(int i)
 {
-	PlaySoundStack("sounds\Dial" + str(i) + ".wav");
+	PlaySoundStack("sounds\\Dial" + str(i) + ".wav");
 }
 
 //plays a random keyboard sound. Uses GetInt() again!
 void SoundKeyboardRand()
 {
 	int i = random(1, 8);
-	PlaySoundStack("sounds\keyboard" + str(i) + ".wav");
+	PlaySoundStack("sounds\\keyboard" + str(i) + ".wav");
 }
 
 void SoundWhaRand()
 {
 	int i = random(1, 2);
-	PlaySoundStack("sounds\wha" + str(i) + ".wav");
+	PlaySoundStack("sounds\\wha" + str(i) + ".wav");
 }
 
 void SoundUghRand()
 {
 	int i = random(1, 2);
-	PlaySoundStack("sounds\ugh" + str(i) + ".wav");
+	PlaySoundStack("sounds\\ugh" + str(i) + ".wav");
 }
 
 void SoundTKSplashOut()
 {
-	PlaySoundStack("sounds\tkSplashStaticOut.wav");
+	PlaySoundStack("sounds\\tkSplashStaticOut.wav");
 }
 
 void SoundTKSplashIn()
 {
-	PlaySoundStack("sounds\tkSplashStaticIn.wav");
+	PlaySoundStack("sounds\\tkSplashStaticIn.wav");
 }
 
 void SoundSpawn()
 {
-	PlaySoundStack("sounds\spawn.wav");
+	PlaySoundStack("sounds\\spawn.wav");
 }
 
 void SoundStatic250ms()
 {
-	PlaySoundStack("sounds\250ms.wav");
+	PlaySoundStack("sounds\\250ms.wav");
 }
 
 void SoundStatic500ms()
 {
-	PlaySoundStack("sounds\500ms.wav");
+	PlaySoundStack("sounds\\500ms.wav");
 }
 
 void SoundStatic750ms()
 {
-	PlaySoundStack("sounds\750ms.wav");
+	PlaySoundStack("sounds\\750ms.wav");
 }
 
 void SoundFlush()
 {
 	int i = random(1, 2);
-	PlaySoundStack("sounds\flush" + str(i) + ".wav");
+	PlaySoundStack("sounds\\flush" + str(i) + ".wav");
 }
 
 void SoundMetalStep()
 {
 	int i = random(1, 2);
-	PlaySoundStack("sounds\MetalStep" + str(i) + ".wav");
+	PlaySoundStack("sounds\\MetalStep" + str(i) + ".wav");
 }

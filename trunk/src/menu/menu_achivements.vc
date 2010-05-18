@@ -251,5 +251,5 @@ int GetAchivementIcon(int i)
 	if(ImageValid(retval))
 		return retval;
 	else
-		return IS_LoadImage("gfx\misc\achivementNoIcon.png");
+		return IS_LoadImage("gfx\\misc\\achivementNoIcon.png");
 }

@@ -38,7 +38,7 @@ int CreateLoot(int x, int y, string name, int amt, string icn, string func, int 
 	Loots[nNumLoot].sFunc = func;
 	Loots[nNumLoot].nStolen = 0;
 	if(strcmp(icn, ""))
-		Loots[nNumLoot].nImage = IS_LoadImage("gfx\loot\" + icn);
+		Loots[nNumLoot].nImage = IS_LoadImage("gfx\\loot\\" + icn);
 	else
 		Loots[nNumLoot].nImage = 0-1;
 	

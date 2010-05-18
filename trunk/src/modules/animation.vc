@@ -80,7 +80,7 @@ int LoadAnimationImg(int img, int sizex, int sizey, int _x, int _y, string _anim
 
 int LoadAnimationEX(string filename, int sizex, int sizey, int _x, int _y, string _animstr)
 {
-	return LoadAnimationImg(LoadImage0("gfx\animations\" + filename), sizex, sizey, _x, _y, _animstr);
+	return LoadAnimationImg(LoadImage0("gfx\\animations\\" + filename), sizex, sizey, _x, _y, _animstr);
 }
 
 void FreeAllAnimations()

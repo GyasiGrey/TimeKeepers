@@ -39,8 +39,8 @@ void InitWeapons()
 {
 	Weapons[0].nRange = 20;
 	Weapons[0].sName = "Knife";
-	Weapons[0].sSound = "sounds\knife.wav";
-	Weapons[0].nIcon = IS_LoadImage("gfx\icons\punchicn.png");
+	Weapons[0].sSound = "sounds\\knife.wav";
+	Weapons[0].nIcon = IS_LoadImage("gfx\\icons\\punchicn.png");
 	Weapons[0].nMaxAmmo = 0-1;
 	Weapons[0].nDamageMin = 50;
 	Weapons[0].nDamageMax = 50;
@@ -54,8 +54,8 @@ void InitWeapons()
 
 	Weapons[1].nRange = 100;
 	Weapons[1].sName = "Pistol";
-	Weapons[1].sSound = "sounds\gun.wav";
-	Weapons[1].nIcon = IS_LoadImage("gfx\icons\pistolicn.png");
+	Weapons[1].sSound = "sounds\\gun.wav";
+	Weapons[1].nIcon = IS_LoadImage("gfx\\icons\\pistolicn.png");
 	Weapons[1].nMaxAmmo = 25;
 	Weapons[1].nDamageMin = 5;
 	Weapons[1].nDamageMax = 15;
@@ -71,8 +71,8 @@ void InitWeapons()
 	
 	Weapons[2].nRange = 75;
 	Weapons[2].sName = "Shotgun";
-	Weapons[2].sSound = "Sounds\shotgun.wav";
-	Weapons[2].nIcon = IS_LoadImage("gfx\icons\shotgunicn.png");
+	Weapons[2].sSound = "Sounds\\shotgun.wav";
+	Weapons[2].nIcon = IS_LoadImage("gfx\\icons\\shotgunicn.png");
 	Weapons[2].nMaxAmmo = 20;
 	Weapons[2].nDamageMin = 10;
 	Weapons[2].nDamageMax = 15;
@@ -89,8 +89,8 @@ void InitWeapons()
 
 	Weapons[3].nRange = 100;
 	Weapons[3].sName = "M4";
-	Weapons[3].sSound = "sounds\mgun.wav";
-	Weapons[3].nIcon = IS_LoadImage("gfx\icons\mgunicn.png");
+	Weapons[3].sSound = "sounds\\mgun.wav";
+	Weapons[3].nIcon = IS_LoadImage("gfx\\icons\\mgunicn.png");
 	Weapons[3].nMaxAmmo = 45;
 	Weapons[3].nDamageMin = 5;
 	Weapons[3].nDamageMax = 10;
@@ -107,8 +107,8 @@ void InitWeapons()
 	
 	Weapons[4].nRange = 125;
 	Weapons[4].sName = "Tranq Gun";
-	Weapons[4].sSound = "sounds\tranq.wav";
-	Weapons[4].nIcon = IS_LoadImage("gfx\icons\tranqicn.png");
+	Weapons[4].sSound = "sounds\\tranq.wav";
+	Weapons[4].nIcon = IS_LoadImage("gfx\\icons\\tranqicn.png");
 	Weapons[4].nMaxAmmo = 30;
 	Weapons[4].nDamageMin = 50;
 	Weapons[4].nDamageMax = 100;
@@ -126,8 +126,8 @@ void InitWeapons()
 
 	Weapons[5].nRange = 100;
 	Weapons[5].sName = "Grenades";
-	Weapons[5].sSound = "sounds\grenadeDrop.wav";
-	Weapons[5].nIcon = IS_LoadImage("gfx\icons\grenade.png");
+	Weapons[5].sSound = "sounds\\grenadeDrop.wav";
+	Weapons[5].nIcon = IS_LoadImage("gfx\\icons\\grenade.png");
 	Weapons[5].nMaxAmmo = 10;
 	Weapons[5].nDamageMin = 10;
 	Weapons[5].nDamageMax = 20;
@@ -150,7 +150,7 @@ void InitWeapons()
 	Weapons[6].nRange = 0;
 	Weapons[6].sName = "Empty";
 	Weapons[6].sSound = "";
-	Weapons[6].nIcon = IS_LoadImage("gfx\icons\nogun.png");
+	Weapons[6].nIcon = IS_LoadImage("gfx\\icons\\nogun.png");
 	Weapons[6].nMaxAmmo = -1;
 	Weapons[6].nDamageMin = 0;
 	Weapons[6].nDamageMax = 0;
@@ -165,8 +165,8 @@ void InitWeapons()
 
 	Weapons[7].nRange = 75;
 	Weapons[7].sName = "Auto Shotgun";
-	Weapons[7].sSound = "sounds\shotgun.wav";
-	Weapons[7].nIcon = IS_LoadImage("gfx\icons\shotgunicn.png");
+	Weapons[7].sSound = "sounds\\shotgun.wav";
+	Weapons[7].nIcon = IS_LoadImage("gfx\\icons\\shotgunicn.png");
 	Weapons[7].nMaxAmmo = 20;
 	Weapons[7].nDamageMin = 10;
 	Weapons[7].nDamageMax = 15;
@@ -182,8 +182,8 @@ void InitWeapons()
 
 	Weapons[8].nRange = 100;
 	Weapons[8].sName = "Rocket Launcher";
-	Weapons[8].sSound = "sounds\grenadeDrop.wav";
-	Weapons[8].nIcon = IS_LoadImage("gfx\icons\grenade.png");
+	Weapons[8].sSound = "sounds\\grenadeDrop.wav";
+	Weapons[8].nIcon = IS_LoadImage("gfx\\icons\\grenade.png");
 	Weapons[8].nMaxAmmo = 10;
 	Weapons[8].nDamageMin = 10;
 	Weapons[8].nDamageMax = 20;
@@ -202,8 +202,8 @@ void InitWeapons()
 	
 	Weapons[9].nRange = 100;
 	Weapons[9].sName = "Flash Bang";
-	Weapons[9].sSound = "sounds\grenadeDrop.wav";
-	Weapons[9].nIcon = IS_LoadImage("gfx\icons\flashbang.png");
+	Weapons[9].sSound = "sounds\\grenadeDrop.wav";
+	Weapons[9].nIcon = IS_LoadImage("gfx\\icons\\flashbang.png");
 	Weapons[9].nMaxAmmo = 10;
 	Weapons[9].nDamageMin = 10;
 	Weapons[9].nDamageMax = 20;
@@ -224,8 +224,8 @@ void InitWeapons()
 	
 	Weapons[10].nRange = 500;
 	Weapons[10].sName = "Sniper";
-	Weapons[10].sSound = "sounds\sniper.wav";
-	Weapons[10].nIcon = IS_LoadImage("gfx\icons\snipericn.png");
+	Weapons[10].sSound = "sounds\\sniper.wav";
+	Weapons[10].nIcon = IS_LoadImage("gfx\\icons\\snipericn.png");
 	Weapons[10].nMaxAmmo = 25;
 	Weapons[10].nDamageMin = 30;
 	Weapons[10].nDamageMax = 35;
@@ -242,8 +242,8 @@ void InitWeapons()
 
 	Weapons[11].nRange = 0;
 	Weapons[11].sName = "C4";
-	Weapons[11].sSound = "sounds\sniper.wav";
-	Weapons[11].nIcon = IS_LoadImage("gfx\icons\c4icn.png");
+	Weapons[11].sSound = "sounds\\sniper.wav";
+	Weapons[11].nIcon = IS_LoadImage("gfx\\icons\\c4icn.png");
 	Weapons[11].nMaxAmmo = 5;
 	Weapons[11].nDamageMin = 40;
 	Weapons[11].nDamageMax = 45;
@@ -265,8 +265,8 @@ void InitWeapons()
 
 	Weapons[12].nRange = 0;
 	Weapons[12].sName = "Det Box";
-	Weapons[12].sSound = "sounds\sniper.wav";
-	Weapons[12].nIcon = IS_LoadImage("gfx\icons\detboxicn.png");
+	Weapons[12].sSound = "sounds\\sniper.wav";
+	Weapons[12].nIcon = IS_LoadImage("gfx\\icons\\detboxicn.png");
 	Weapons[12].nMaxAmmo = -1;
 	Weapons[12].nDamageMin = 0;
 	Weapons[12].nDamageMax = 0;
@@ -281,8 +281,8 @@ void InitWeapons()
 	
 	Weapons[WEAPON_AI_M4].nRange = 100;
 	Weapons[WEAPON_AI_M4].sName = "M4";
-	Weapons[WEAPON_AI_M4].sSound = "sounds\mgun.wav";
-	Weapons[WEAPON_AI_M4].nIcon = IS_LoadImage("gfx\icons\mgunicn.png");
+	Weapons[WEAPON_AI_M4].sSound = "sounds\\mgun.wav";
+	Weapons[WEAPON_AI_M4].nIcon = IS_LoadImage("gfx\\icons\\mgunicn.png");
 	Weapons[WEAPON_AI_M4].nMaxAmmo = -1;
 	Weapons[WEAPON_AI_M4].nDamageMin = 5;
 	Weapons[WEAPON_AI_M4].nDamageMax = 10;

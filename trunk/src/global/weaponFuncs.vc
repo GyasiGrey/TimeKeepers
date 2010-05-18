@@ -327,7 +327,7 @@ void GrenadeExplode()
 	MakeSoundXY(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), 100);
 	StartShake(2, 25);
 	LoadAnimationEX("explode.png", 64, 64, oF_Fixed2Int(ThrownItems[nCurrentThrown].nX)-16, oF_Fixed2Int(ThrownItems[nCurrentThrown].nY)-16, "T1 F0 L25 W20 F1 L50 W20 F2 L75 W20 F3 W20");
-	CreateEmitter(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), "gfx\misc\smoke.png", 5, 5, 5, 0, 360, 5, 50, 50, 75);
+	CreateEmitter(oF_Fixed2Int(ThrownItems[nCurrentThrown].nX), oF_Fixed2Int(ThrownItems[nCurrentThrown].nY), "gfx\\misc\\smoke.png", 5, 5, 5, 0, 360, 5, 50, 50, 75);
 }
 
 void FlashBangExplode()
