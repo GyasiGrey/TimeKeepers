@@ -501,21 +501,21 @@ void InitAutoSave()
 void InitAmbientSounds()
 {
 	//computers in security room
-	CreateAmbientSound(399*16, 35*16, "sounds\\ambient\\computer2.ogg", 1000, 300, 200);
-	CreateAmbientSound(406*16, 35*16, "sounds\\ambient\\computer2.ogg", 3000, 300, 200);
+	CreateAmbientSound(399*16, 35*16, "sounds\\ambient\\computer2.wav", 1000, 200);
+	CreateAmbientSound(406*16, 35*16, "sounds\\ambient\\computer2.wav", 3000, 200);
 	
-	CreateAmbientSound(377*16, 35*16, "sounds\\ambient\\computer2.ogg", 1000, 300, 200);
-	CreateAmbientSound(470*16, 35*16, "sounds\\ambient\\computer2.ogg", 3000, 300, 200);
+	CreateAmbientSound(377*16, 35*16, "sounds\\ambient\\computer2.wav", 1000, 200);
+	CreateAmbientSound(470*16, 35*16, "sounds\\ambient\\computer2.wav", 3000, 200);
 	
 	//slot machines
-	CreateAmbientSound(30*16, 83*16, "sounds\\ambient\\slotmachine.ogg", 1500, 400, 100);
-	CreateAmbientSound(39*16, 83*16, "sounds\\ambient\\slotmachine.ogg", 1300, 400, 100);
+	CreateAmbientSound(30*16, 83*16, "sounds\\ambient\\slotmachine.wav", 1500, 100);
+	CreateAmbientSound(39*16, 83*16, "sounds\\ambient\\slotmachine.wav", 1300, 100);
 	
-	CreateAmbientSound(36*16, 89*16, "sounds\\ambient\\slotmachine.ogg", 500, 400, 100);
-	CreateAmbientSound(42*16, 89*16, "sounds\\ambient\\slotmachine.ogg", 800, 400, 100);
+	CreateAmbientSound(36*16, 89*16, "sounds\\ambient\\slotmachine.wav", 500, 100);
+	CreateAmbientSound(42*16, 89*16, "sounds\\ambient\\slotmachine.wav", 800, 100);
 
-	CreateAmbientSound(33*16, 86*16, "sounds\\ambient\\slotmachine.ogg", 1600, 400, 100);
-	CreateAmbientSound(30*16, 89*16, "sounds\\ambient\\slotmachine.ogg", 1400, 400, 100);
+	CreateAmbientSound(33*16, 86*16, "sounds\\ambient\\slotmachine.wav", 1600, 100);
+	CreateAmbientSound(30*16, 89*16, "sounds\\ambient\\slotmachine.wav", 1400, 100);
 }
 
 //Functions to do the rstring changing. Above the railing, below the railing voodoo

@@ -271,9 +271,9 @@ void InitLights()
 void InitAmbientSounds()
 {
 	//fridge ambient sound
-	CreateAmbientSound(360, 119*16, "sounds\\ambient\\fan.ogg", 10, 0-1, 100);
+	CreateAmbientSound(360, 119*16, "sounds\\ambient\\fan.wav", 10, 100);
 	//tv static
-	CreateAmbientSound(35*16, 129*16, "sounds\\ambient\\static.ogg", 1000, 0-1, 150);
+	CreateAmbientSound(35*16, 129*16, "sounds\\ambient\\static.wav", 100, 150);
 }
 
 void InitAutoSave()

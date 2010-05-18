@@ -190,20 +190,20 @@ void InitEnemies()
 void InitAmbientSounds()
 {
 	//make the machine ambient sound (chrono tube)
-	CreateAmbientSound(456, 24*16, "sounds\\ambient\\fan.ogg", 10, 0-1, 200);
+	CreateAmbientSound(456, 24*16, "sounds\\ambient\\fan.wav", 10, 200);
 	//chrono room computer
 
-	CreateAmbientSound(520, 27*16, "sounds\\ambient\\computer.ogg", 10, 0-1, 50);
+	CreateAmbientSound(520, 27*16, "sounds\\ambient\\computer.wav", 10, 50);
 
 	//ghost's room computer
-	CreateAmbientSound(427, 47*16, "sounds\\ambient\\computer.ogg", 10, 0-1, 50);
+	CreateAmbientSound(427, 47*16, "sounds\\ambient\\computer.wav", 10, 50);
 	
 	//drips in the tutorial area
 
-	CreateAmbientSound(61*16, 62*16, "sounds\\ambient\\drip.ogg", 400, 80, 150);
-	CreateAmbientSound(83*16, 59*16, "sounds\\ambient\\drip.ogg", 700, 80, 150);
-	CreateAmbientSound(75*16, 59*16, "sounds\\ambient\\drip.ogg", 200, 80, 150);
-	CreateAmbientSound(63*16, 70*16, "sounds\\ambient\\drip.ogg", 300, 80, 150);
+	CreateAmbientSound(61*16, 62*16, "sounds\\ambient\\drip.wav", 400, 150);
+	CreateAmbientSound(83*16, 59*16, "sounds\\ambient\\drip.wav", 700, 150);
+	CreateAmbientSound(75*16, 59*16, "sounds\\ambient\\drip.wav", 200, 150);
+	CreateAmbientSound(63*16, 70*16, "sounds\\ambient\\drip.wav", 300, 150);
 }
 
 void InitEmitters()
