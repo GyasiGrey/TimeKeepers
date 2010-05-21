@@ -12,6 +12,22 @@ void startup()
 	RemoveHook("ProcessInput");
 	
 	nRadarOn = 0;
+	
+	AddHook("DrawIntro", 2500);
+	
+	CreateDelayedCallback(500, "CloseIntro");
+}
+
+void DrawIntro()
+{
+	int nImage = IS_LoadImage("gfx\\misc\\tk_intro.png");
+	
+	blit(0, 0, nImage, screen);
+}
+
+void CloseIntro()
+{
+	RemoveHook("DrawIntro");
 
 	StartSong("title.mod");
 	//hook the bkg - before anims
