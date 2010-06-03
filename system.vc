@@ -7,7 +7,7 @@ int MoreMagic = IS_InitImageStack();	//Init the Image Stack. Called on declarati
 #include "vctest.vc"
 #include "testCases.vc"
 
-#include "splash.vc"		//Splash screen fufujuju
+//#include "splash.vc"		//Splash screen fufujuju
 
 //must be included first because of includes
 #include "src\modules\vcTimer.vc"
@@ -180,7 +180,7 @@ void autoexec()
 	HookKey(SCAN_F8, "QuickLoad");
 	
 	//from dos_splash.vpk
-	splash();
+	//splash();
 	
 	//start the HookRetrace queue
 	HookSetup();

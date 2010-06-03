@@ -5,4 +5,4 @@ editcode 1
 windowmode 1
 automax 1
 releasemode 0
-mount1 dos_splash.vpk
+#mount1 dos_splash.vpk
