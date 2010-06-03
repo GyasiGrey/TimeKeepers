@@ -12,7 +12,7 @@ void startup()
 	RemoveHook("ProcessInput");
 	
 	nRadarOn = 0;
-	
+
 	StartSong("title.mod");
 	//hook the bkg - before anims
 	AddHook("TitleBkgRender", 2500);
