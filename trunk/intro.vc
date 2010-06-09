@@ -34,3 +34,12 @@ void titleMenu()
 	OpenMainKeys();
 	OpenMainMenu();
 }
+
+//Draws the background of the main menu. Hooked to the retrace.
+void TitleBkgRender()
+{
+	int nTitleImg;
+	nTitleImg = IS_LoadImage("gfx\\ui\\title.png");
+	Blit(0, 0, nTitleImg, screen);
+	DrawAnimation(nTitlecursorone);
+}
