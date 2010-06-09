@@ -103,7 +103,6 @@ int MoreMagic = IS_InitImageStack();	//Init the Image Stack. Called on declarati
 #include "src\menu\menu_choose.vc"
 #include "src\menu\menu_load.vc"
 #include "src\menu\menu_save.vc"
-#include "src\menu\titlescreen.vc"
 #include "src\menu\menu_gameover.vc"
 #include "src\menu\menu_digit_pad.vc"
 #include "src\menu\menu_message.vc"
@@ -194,9 +193,14 @@ void autoexec()
 	//tk title screen effect thing
 	tkSplash();
 
-	//start the title screen
-	//note this will take us to intro.map 
-	TitleScreen();
+	//goto intro.map and let it handle the logic from here
+	map("intro.map");
+}
+
+//short cut to go to intro.map and display the main menu
+void TitleScreen()
+{
+	map("intro.map");
 }
 
 void AddDefaultHooks()
