@@ -2,6 +2,19 @@
 //do nothing!
 void startup()
 {
+	titleMenu();
+}
+
+void intro()
+{
+}
+
+void pushStartScreen()
+{
+}
+
+void titleMenu()
+{
 	//clean up after the last map
 	InitMap(-1);
 
