@@ -249,9 +249,6 @@ void EscapeCell()
 {
 	if(!nFlags[FLAG_MISSION3_ESCAPE_FLOOD])
 	{
-		//flag the elevator button so the player can't leave the jail
-		Loots[nFlags[FLAG_MISSION3_JAIL_ELEVATOR_BUTTON]].nStolen = 1;
-		
 		//called from map zone when the player escapes the jail cell by flooding it
 
 		//cripple the player
@@ -288,32 +285,7 @@ void EscapeCell()
 		bCanSave = 1;
 		
 		nFlags[FLAG_MISSION3_ESCAPE_FLOOD] = 1;
-		
-		//make the now jailed guard call for backup
-		CreateDelayedCallback(250, "JailGuardCallBackup");
-
 	}
-}
-
-void JailGuardCallBackup()
-{
-	CommText("Guard: Central, I need backup in the cell block!");
-	CommText("Central: Understood. Backup is en route.");
-	CreateDelayedCallback(1000, "SpawnJailSquad");	
-}
-
-//spawn first guard
-void SpawnJailSquad()
-{
-	int spawnedGuard1;
-	
-	SoundElevatorHere();
-	ManualOpenDoor(nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID]);
-	spawnedGuard1 = CreateEnemy(43, 15, ENTITY_FACE_DOWN, ENEMY_TEMPLATE_PISTOL, "", "tk.chr");
-	
-	Goto(Enemies[spawnedGuard1].nEntity, 37*16, 24*16);
-	
-	Loots[nFlags[FLAG_MISSION3_JAIL_ELEVATOR_BUTTON]].nStolen = 0;
 }
 
 //the guard has the key and was able to open the cell door
