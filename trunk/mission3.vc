@@ -71,9 +71,9 @@ void InitDoors()
 	CreateDoor(46, 18, IS_LoadImage("gfx\\misc\\locker_door.png"), -1);
 	
 	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_DOOR_ID] = CreateDoor(43, 17, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
-	nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID] = CreateDoor(110, 114, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
+	nFlags[FLAG_MISSION3_LOBBY_ELEVATOR_DOOR_ID] = CreateDoor(110, 112, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_DOOR_ID] = CreateDoor(78, 15, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
-	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_TO_OFFICE_DOOR_ID] = CreateDoor(115, 114, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
+	nFlags[FLAG_MISSION3_MAIN_ELEVATOR_TO_OFFICE_DOOR_ID] = CreateDoor(115, 112, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
 	nFlags[FLAG_MISSION3_OFFICE_TO_MAIN_FLOOR_DOOR_ID] = CreateDoor(162, 375, IS_LoadImage("gfx\\misc\\elevator_door.png"), -2);
 	
 	CreateDoorEX(88, 141, IS_LoadImage("gfx\\misc\\locker_door.png"), -2, 1, 1, FLAG_MISSION3_ARMORY_PISTOL);
@@ -131,9 +131,9 @@ void InitLoot()
 	nFlags[FLAG_MISSION3_TOILET_ID] = CreateLoot(37*16, 18*16, "", 0, "", "Flush", 0);
 	
 	CreateLoot(77*16, (15*16)-8, "", 0, "", "MainElevatorButton", 1);
-	CreateLoot(109*16, (114*16)-8, "", 0, "", "LobbyElevatorButton", 1);
+	CreateLoot(109*16, (112*16)-8, "", 0, "", "LobbyElevatorButton", 1);
 	nFlags[FLAG_MISSION3_JAIL_ELEVATOR_BUTTON] = CreateLoot(42*16, (17*16)-8, "", 0, "", "JailElevatorButton", 1);
-	CreateLoot(114*16, (114*16)-8, "", 0, "", "LobbyToOfficeElevatorButton", 1);
+	CreateLoot(114*16, (112*16)-8, "", 0, "", "LobbyToOfficeElevatorButton", 1);
 	CreateLoot(161*16, (375*16)-8, "", 0, "", "OfficeToLobbyElevatorButton", 1);
 	
 	
@@ -456,9 +456,9 @@ void ExitElevator()
 			Warp(43, 18);
 		//if the player is at the main level
 		case 1:
-			Warp(110, 115);
+			Warp(110, 114);
 		case 2:
-			Warp(115, 115);
+			Warp(115, 114);
 		case 3:
 			Warp(161, 376);
 	}
