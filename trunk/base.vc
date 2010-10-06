@@ -35,7 +35,7 @@ void start()
 		
 		CommText("Ghost: That was .... eventfull.");
 		CommText("Tech: They definitely weren't from the casino...");
-		CommText("Ghost: Amazing deduction watson.");
+		CommText("Ghost: Amazing deduction Watson.");
 		
 		SetEntitiesPaused(1);
 		WaitForCommText();
