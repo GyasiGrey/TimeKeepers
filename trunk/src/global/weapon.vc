@@ -183,7 +183,7 @@ void InitWeapons()
 	Weapons[8].nRange = 0;
 	Weapons[8].sName = "";
 	Weapons[8].sSound = "";
-	Weapons[8].nIcon = IS_LoadImage("gfx\\icons\\grenade.png");
+	Weapons[8].nIcon = -1;
 	Weapons[8].nMaxAmmo = 0;
 	Weapons[8].nDamageMin = 0;
 	Weapons[8].nDamageMax = 0;
