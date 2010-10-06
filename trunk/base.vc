@@ -262,7 +262,6 @@ void EnterShootingRange()
 {
 	if(!nFlags[FLAG_COMM_TECH_GHOST_SHOOTINGRANGE])
 	{
-		CommText("Tech: Ghost, this is the shooting range. It's a quick run through of things you will need during a mission.");
 		nFlags[FLAG_COMM_TECH_GHOST_SHOOTINGRANGE] = 1;
 	}
 }
@@ -273,43 +272,33 @@ void EnterFirstTutorialRoom()
 	{
 		CreateToolTip("[" + ScanToKeyName(nKeyButton[0]) + "] Interact|[" + ScanToKeyName(nKeyButton[3]) + "] Target item|[" + ScanToKeyName(nKeyButton[3]) + "+" + ScanToKeyName(nKeyButton[0]) + "] Steal");
 		
-		CommText("Tech: Go over to those lockers, you should find some weapons inside.");
-		CommText("Tech: Hold the STEAL TARGET button to target what you want to pickup. Then press the WEAPON button to grab it.");
-		CommText("Tech: If you're really in need of a hiding spot you can go inside a locker and close the door.");
 		nFlags[FLAG_COMM_TECH_GHOST_FIRSTTUTROOM] = 1;
 	}
 }
 
 void GotPistol()
 {
-	CommText("Tech: That's a pistol. It has good range and rate of fire, but lacks in the 'killing stuff' department. Don't trust your life to it.");
 	GetWeaponLoot(WEAPON_PISTOL);
 }
 
 void GotShotgun()
 {
-	CommText("Tech: That's a shotgun. It's a very powerfull weapon at close range, but it's slow to reload and has a wide spread when used at range.");
-	CommText("Tech: It's also very loud, so if you use it expect company.");
 	GetWeaponLoot(WEAPON_SHOTGUN);
 }
 
 void GotM4()
 {
-	CommText("Tech: Ahh the M4. High rate of fire, good range. It's only real downfall is a limited ammo supply.");
 	GetWeaponLoot(WEAPON_M4);
 }
 
 void GotTranq()
 {
-	CommText("Tech: And the Tranq Gun. This gun is fitted with a silencer so your target won't hear it.");
-	CommText("Tech: It also has the added bonus of not killing said target, just giving them enough tranqualizers to be out for a while.");
 	GetWeaponLoot(WEAPON_TRANQ);
 }
 
 void GetMedkitBase()
 {
 	CreateToolTip("[" + ScanToKeyName(nKeyButton[1]) + "] Medkit");
-	CommText("Tech: That's a medkit. It keeps The Grim Reaper away. But you're good enough to not need them right?");
 	GetMedkitLoot();
 }
 
@@ -330,9 +319,6 @@ void EnterDummyRoom()
 	{
 		CreateToolTip("[" + ScanToKeyName(nKeyButton[2]) + "] Aim|[" + ScanToKeyName(nKeyButton[2]) + "+" + ScanToKeyName(nKeyButton[0]) + "] Shoot|" + "[" + ScanToKeyName(nKeyButton[4]) + "] Weapon Up|[" + ScanToKeyName(nKeyButton[5]) +"] Weapon Down");
 	
-		CommText("Tech: Now you get to shoot things. Exciting. Hold the AIM button while in range of the dummy, then press the WEAPON button to shoot.");
-		CommText("Tech: Press the WEAPON SWITCH UP and WEAPON SWITCH DOWN buttons to switch weapons.");
-		CommText("Tech: You can go to the next area when ever you feel like it.");
 		nFlags[FLAG_COMM_TECH_GHOST_DUMMYROOM] = 1;
 	}
 }
@@ -344,8 +330,6 @@ void EnterLastTutorialRoom()
 		createObjective("getloot", "Find the loot at the end of the training area.");
 		CreateToolTip("[" + ScanToKeyName(nKeyButton[7]) + "] Open PDA");
 		
-		CommText("Tech: All you have to do here is get around the guards, unlock the door at the end and get the stuff stashed inside.");
-		CommText("Tech: Oh and the guards might be robots, but they have real guns. Try not to get shot why don't you?");
 		nFlags[FLAG_COMM_TECH_GHOST_LASTTUTROOM] = 1;
 	}
 }
@@ -355,7 +339,6 @@ void GotGold()
 	if(!nFlags[FLAG_COMM_TECH_GHOST_CHRONO])
 	{
 		completeObjective("getloot");
-		CommText("Tech: I see you got to the end. I guess congratulations are in order. Then again this is your job.");
 	}
 }
 
