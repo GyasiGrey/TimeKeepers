@@ -525,40 +525,6 @@ void SewerToArmory()
 	Warp(71, 150);
 }
 
-
-void WindowLookout()
-{
-	CripplePlayer();
-	
-	FadeOutExclusive(100, RGB(0, 0, 0));
-	
-	//put the camera over the sewer grate in the armory 65.5*175.5
-	cameratracking = 0;
-	xwin = (57 * 16) + 8;
-	ywin = (151 * 16) + 8;
-	
-	FadeInExclusive(100, RGB(0, 0, 0));
-	
-	//camera scroll to the room with the key card
-	CameraScroll((64 * 16) + 8, (144 * 16) + 8, 400);
-	
-	WaitForCameraScroll();
-	
-	CreateDelayedCallback(200, "WindowLookoutOver");
-}
-
-void WindowLookoutOver()
-{
-	FadeOutExclusive(100, RGB(0, 0, 0));
-	
-	//put the camera back on the player
-	cameratracking = 1;
-	
-	FadeInExclusive(100, RGB(0, 0, 0));
-	
-	UnCripplePlayer();
-}
-
 void OfficeLevelComputer()
 {
 	Loots[nCurrentLoot].nStolen = 0;
