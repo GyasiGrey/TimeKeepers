@@ -670,13 +670,6 @@ void Mission3ArmoryUnlockShotgun()
 	ComputerLogOut();
 }
 
-void SewerEgressButton()
-{
-	Loots[nCurrentLoot].nStolen = 0;
-	
-	OpenMessageMenu("Emergency gas purge system currently out of order. A maintence ticket has been entered. Scheduled completion time: 2 weeks.");
-}
-
 void CheckDispensers()
 {
 	//TODO: clean up this function. Maintence could become difficult.
