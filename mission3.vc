@@ -589,25 +589,6 @@ void SpawnMiniBoss()
 	}
 }
 
-void AfterEscapeDialog()
-{
-	if(nFlags[FLAG_MISSION3_AFTER_ESCAPE_DIALOG] == 0)
-	{
-		nHoldCommText = 1;
-		
-		CommText("Tech: Very creative.");
-		CommText("Ghost: Why thank you. So...you have a plan?");
-		CommText("Tech: C4.");
-		CommText("Ghost: Wha?");
-		CommText("Tech: C4. It'll get me out of this cell, and it'll do damage to the operation here. Go see if you can find some.");
-		
-		WaitForCommText();
-		nHoldCommText = 0;
-
-		nFlags[FLAG_MISSION3_AFTER_ESCAPE_DIALOG] = 1;
-	}
-}
-
 void ArmoryComputer()
 {
 	Loots[nCurrentLoot].nStolen = 0;
