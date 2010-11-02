@@ -87,13 +87,6 @@ void InitDoors()
 	
 	CreateDoor(97, 171, IS_LoadImage("gfx\\misc\\locker_door.png"), -2);
 	
-	//door to the trap room
-	nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP] = CreateDoor(90, 297, IS_LoadImage("gfx\\misc\\locker_door.png"), -2);
-	ManualOpenDoor(nFlags[FLAG_MISSION3_DOOR_SEWER_TRAP]);
-	
-	CreateDoorEX(73, 304, IS_LoadImage("gfx\\misc\\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SEWER_DOOR_1);
-	CreateDoorEX(86, 310, IS_LoadImage("gfx\\misc\\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SEWER_DOOR_2);
-	
 	nFlags[FLAG_MISSION3_DOOR_SHOOTING_RANGE] = CreateDoorEX(104, 408, IS_LoadImage("gfx\\misc\\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_SHOOTING_RANGE_DOOR_KEY);
 	
 	CreateDoorEX(110, 124, IS_LoadImage("gfx\\misc\\blastdoor_closed.png"), -2, 4, 2, FLAG_MISSION3_KEYCARD_2);
