@@ -85,18 +85,6 @@ void InitComputerPages()
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_GRANTED].sPageCommandDisplayNames[0] = "Logout";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_ARMORY_MAIN_ACCESS_GRANTED].sPageCommandFunctions[0] = "ComputerLogOut";
 
-	//Computer in the little room next to the sewer trap. Added if only so I could use the word "egress" in the dialog somewhere
-	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY].sPageText = "WARNING: Cleansing cycle has started. Any personel inside the affected area must egress immediately.";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY].sPageCommandDisplayNames[1] = "Activate Emergency Egress System";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY].sPageCommandFunctions[1] = "Mission3SewerUnlockDoors";
-
-	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY].sPageCommandDisplayNames[0] = "Logout";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY].sPageCommandFunctions[0] = "ComputerLogOut";
-
-	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY_PAGE_2].sPageText = "Door 1 maglocks disengaged." + chr('\n') + chr('\n') + chr('\n') + "Door 2 maglocks disengaged." + chr('\n') + chr('\n') + chr('\n') + "Please contact site maintence at 1 (775) 903-5768 once egress is complete to reset the cleansing system.";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY_PAGE_2].sPageCommandDisplayNames[0] = "Logout";
-	ComputerPages[COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY_PAGE_2].sPageCommandFunctions[0] = "ComputerLogOut";
-	
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageText = "Chief Medical Officers Terminal. Welcome Doctor." + chr('\n') + chr('\n') + chr('\n') + "Always remember to log out your user when leaving your terminal. Remember, you are responsible for all actions taken under your account.";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].spageCommandDisplaynames[4] = "Personal Log: 11/24";
 	ComputerPages[COMPUTER_PAGE_MISSION_3_MEDICAL_1].sPageCommandFunctions[4] = "Mission3Page2";
