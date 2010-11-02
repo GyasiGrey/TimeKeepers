@@ -44,7 +44,6 @@ int MoreMagic = IS_InitImageStack();	//Init the Image Stack. Called on declarati
 #include "src\global\ofixed.vc"
 #include "src\global\weaponFuncs.vc"
 #include "src\global\deathEffect.vc"
-#include "src\global\elevatorNumber.vc"
 
 //Modules - all these hook to the renderer and can
 //basically work independently of the rest of the game
