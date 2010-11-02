@@ -100,7 +100,7 @@ int nFlags[NUM_FLAGS]; //dat theres a lota flags
 #define FLAG_MISSION3_TARGET_4				765
 #define FLAG_MISSION3_DOOR_SHOOTING_RANGE		770
 #define FLAG_MISSION3_DOOR_MINIBOSS_SPAWNED		775
-#define FLAG_MISSION3_AFTER_ESCAPE_DIALOG		805	
+//DEPRECATED						805	
 #define FLAG_MISSION3_GAS_DIRECTION			810	//when this == 0 the gas is increasing, decreasing for all other values
 #define FLAG_MISSION3_ARMORY_PISTOL			811
 //DEPRECATED						815
