@@ -670,65 +670,6 @@ void Mission3ArmoryUnlockShotgun()
 	ComputerLogOut();
 }
 
-void SewerEmergencyComputer()
-{
-	OpenComputerMenu(COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY);
-	Loots[nCurrentLoot].nStolen = 0;
-}
-
-void Mission3SewerUnlockDoors()
-{
-	nFlags[FLAG_MISSION3_SEWER_DOOR_1] = 1;
-	SetComputerPage(COMPUTER_PAGE_MISSION_3_SEWER_EMERGENCY_PAGE_2);
-}
-
-void SewerTrapLockedDoor()
-{
-	int nTopDoor;
-		
-	//lock both doors, trapping the playing inside the central area.
-	if(!nFlags[FLAG_MISSION3_RELOCK_SEWER_BLAST_DOORS])
-	{
-		bCanSave = 0;
-		
-		AddHook("CheckSewerTarget", 1);
-		
-		CommText("RAWR!! I'M A LOCKED DOOR!!!!");
-		CommText("Ghost: JEZUS! It's a locked door! GET IN THE CAR!!!");
-
-		nFlags[FLAG_MISSION3_SEWER_DOOR_1] = 0;
-		nTopDoor = FindDoorByKeyFlag(FLAG_MISSION3_SEWER_DOOR_1);
-
-		ManualCloseDoor(nTopDoor);
-		
-		nFlags[FLAG_MISSION3_RELOCK_SEWER_BLAST_DOORS] = 1;
-		
-		nFlags[FLAG_MISSION3_SEWER_TARGET] = CreateEnemy(83, 300, ENTITY_FACE_DOWN, ENEMY_TARGET, "", "target.chr");
-	}
-}
-
-//checks if the play show the switch to open the sewer trap
-void CheckSewerTarget()
-{
-	int nDoor1, nDoor2;
-	
-	if(!Enemies[nFlags[FLAG_MISSION3_SEWER_TARGET]].nActive)
-	{
-		nFlags[FLAG_MISSION3_SEWER_DOOR_1] = 1;
-		nFlags[FLAG_MISSION3_SEWER_DOOR_2] = 1;
-		
-		nDoor1 = FindDoorByKeyFlag(FLAG_MISSION3_SEWER_DOOR_1);
-		nDoor2 = FindDoorByKeyFlag(FLAG_MISSION3_SEWER_DOOR_2);
-		
-		ManualOpenDoor(nDoor1);
-		ManualOpenDoor(nDoor2);
-		
-		RemoveHook("CheckSewerTarget");
-		
-		bCanSave = 1;
-	}
-}
-
 void SewerEgressButton()
 {
 	Loots[nCurrentLoot].nStolen = 0;
