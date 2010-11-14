@@ -56,7 +56,7 @@ string Dijkstra(int startNode, int destNode)
 	int i, u, v, alt;
 	string retval;
 	
-	for(i=0;i<NUM_NODES;i++)
+	for(i=0;i<numGraphNodes;i++)
 	{
 		nDistances[i] = INFINITY;	//infinity
 		nPrevious[i] = -1;
