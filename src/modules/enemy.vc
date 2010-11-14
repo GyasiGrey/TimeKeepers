@@ -973,7 +973,7 @@ void MoveEnemy(int i)
 
 	if(strcmp(Enemies[i].sPath, "") != 0 && entity.movecode[Enemies[i].nEntity] == 0)
 	{
-		Error("Enemy " + str(i) + " folling A* path: " + Enemies[i].sPath);
+		Error("Enemy " + str(i) + " following A* path: " + Enemies[i].sPath);
 		
 		//Enemy has a path to move. Feed it to EntityMove.
 		EntityMove(Enemies[i].nEntity, Enemies[i].sPath);
