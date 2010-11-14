@@ -192,8 +192,19 @@ void Goto(int e, int x, int y)
 	{
 		//otherwise, find notes to the destination
 		Enemies[enemyIndex].sNodePath = Dijkstra(start, end);
-		Enemies[enemyIndex].sNodeIndex = 0;
-		Enemies[enemyIndex].sPath = "";
+		
+		if(strcmp(Enemies[enemyIndex].sNodePath, "") != 0)
+		{
+			//Dijkstra path found. Follow it.
+			Enemies[enemyIndex].sNodeIndex = 0;
+			Enemies[enemyIndex].sPath = "";
+		}
+		else
+		{
+			//No Dijkstra path found, therefore it is impossible to path to the destination. Stop trying to path.
+			Error("No path possible. Stopping pathing.");
+			Search(enemyIndex);
+		}
 	}
 }
 
